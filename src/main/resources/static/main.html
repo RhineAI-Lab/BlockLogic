@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>BlockLogic - AutoJsPro</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/btn.css">
 </head>
 <body>
     <div class="head-line">
@@ -18,26 +19,30 @@
     </div>
 
     <div class="tool-bar" id="toolbar">
-        <a class="tool-btn-left tool-btn" id="to-code" @click="toCode()">&lt同步代码</a>
-        <a class="tool-btn-left tool-btn" id="run-code" @click="runCode()">在线运行</a>
-        <a class="tool-btn-left tool-btn" id="to-block" @click="toBlock()">同步图形&gt</a>
-        <a class="tool-btn-right tool-btn" id="push" @click="push()">PUSH</a>
-        <a class="tool-btn-right tool-btn" id="pull" @click="pull()">PULL</a>
-        <input class="tool-input" placeholder="本地项目路径" v-model="ip" id="input-path" type="text">
-        <a class="tool-btn-right tool-btn" id="connect" @click="connect()">连接设备</a>
+        <button class="tool-btn btn-3" id="to-code" @click="toCode()"><span>&lt同步代码</span></button>
+        <button class="tool-btn btn-3" id="run-code" @click="runCode()"><span>在线运行</span></button>
+        <button class="tool-btn btn-3" id="to-block" @click="toBlock()"><span>同步图形&gt</span></button>
+        <a class="tool-space"></a>
+        <a class="tool-space"></a>
+        <button class="tool-check btn-9" id="show-draw"    @click="show($event)">图形</button>
+        <button class="tool-check btn-9" id="show-editor"  @click="show($event)">代码</button>
+        <button class="tool-check btn-9" id="show-console" @click="show($event)">控制台</button>
+        <a class="tool-middle"></a>
         <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
+        <button class="tool-btn btn-2" id="connect" @click="connect()">连接设备</button>
+        <a class="tool-space"></a>
+        <input class="tool-input" placeholder="本地项目路径" v-model="ip" id="input-path" type="text">
+        <button class="tool-btn btn-2" id="pull" @click="pull()">PULL</button>
+        <button class="tool-btn btn-2" id="push" @click="push()">PUSH</button>
     </div>
 
     <div class="work-space">
-        <div class="editor-bar">
-            <div class="editor" id="editor"></div>
-        </div>
         <aside id="side-bar" class="side-bar">
             <h1><a href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0">Auto.Js Pro</a></h1>
             <h2><a>BlockLogic</a></h2>
             <ul class="first-parent">
-                <li class="first-item" @click="showChildren(item)" v-for="item in list">
-                    <a class="first-title" :style="{'color':item.color,'border-right':item.right}">{{item.name}}</a>
+                <li class="first-item" v-for="item in list">
+                    <a class="first-title" @click="showChildren(item)" :style="{'color':item.color,'border-right':item.right}">{{item.name}}</a>
                     <ul class="second-parent" v-show="item.isShow">
                         <li class="second-item" @click="showBlocks(sub)" v-for="sub in item.sub">
                             <div class="icon" :style="{'border-color':sub.icon,'background-color':sub.bg}"></div>
@@ -48,11 +53,19 @@
             </ul>
         </aside>
         <div class="draw-space" id="draw-space">
+            <div class="draw" id="draw"></div>
+        </div>
+        <div class="split-line" id="split-line-1"></div>
+        <div class="editor-bar" id="editor-space">
+            <div class="editor" id="editor"></div>
+        </div>
+        <div class="split-line" id="split-line-2"></div>
+        <div class="console-space" id="console-space">
         </div>
     </div>
 
     <script src="js/vue.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
 
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
@@ -60,6 +73,7 @@
     <script src="blockly/msg/js/zh-hans.js"></script>
 
     <script src="ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
     <script type="text/javascript" src="js/main.js"></script>
 
     <xml id="toolbox" style="display: none">

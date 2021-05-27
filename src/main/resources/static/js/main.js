@@ -69,10 +69,32 @@ window.onload=function(){
                 var code = Blockly.JavaScript.workspaceToCode(workspace);
                 editor.setValue(code);
                 eval(code);
+            },
+            connect:function(){
+
+            },
+            show:function (v) {
+                var id = v.target.id;
+                if(id==="show-console"){
+                    changeShowMode("console-space",v.target);
+                    Blockly.svgResize(workspace)
+                }else if(id==="show-editor"){
+                    changeShowMode("editor-space",v.target);
+                    Blockly.svgResize(workspace)
+                }else if(id==="show-draw"){
+                    changeShowMode("draw-space",v.target);
+                    changeShowMode("side-bar",v.target);
+                }
             }
         }
     });
-
+    changeShowBtnState(document.getElementById("show-draw"),true);
+    changeShowBtnState(document.getElementById("show-editor"),true);
+    changeShowBtnState(document.getElementById("show-console"),false);
+    document.getElementById("side-bar").style.display = "block";
+    document.getElementById("editor-space").style.display = "block";
+    document.getElementById("draw-space").style.display = "block";
+    document.getElementById("console-space").style.display = "none";
 
     var sidebar = new Vue({
         el:'#side-bar',
@@ -81,10 +103,14 @@ window.onload=function(){
         },
         methods:{
             showChildren:function(v){
-                this.list.forEach(function(item){
-                    changeTitleStatus(item,false);
-                });
-                changeTitleStatus(v,true);
+                if(v.isShow){
+                    changeTitleStatus(v,false);
+                }else {
+                    this.list.forEach(function(item){
+                        changeTitleStatus(item,false);
+                    });
+                    changeTitleStatus(v,true);
+                }
             },
             showBlocks:function (v) {
                 i = allBlockList.indexOf(v.name);
@@ -107,6 +133,7 @@ window.onload=function(){
                         flyoutNow = i;
                         flyoutLast = v;
                     }
+                    console.log(v.bg);
                 }
             }
         }
@@ -124,14 +151,14 @@ window.onload=function(){
             }else {
                 name += " [开发中]"
             }
-            childList.push({name:name,icon:color})
+            childList.push({name:name,icon:color,bg:"#ffffff"})
         }
         list.push({name:item.name,isShow:false,color:normalColor,right:"0px",sub:childList})
     }
     changeTitleStatus(list[0],true);
     sidebar.list = list;
 
-    workspace = Blockly.inject('draw-space',{
+    workspace = Blockly.inject('draw',{
         toolbox: document.getElementById('toolbox'),
         grid: {
             spacing: 20,
@@ -150,13 +177,43 @@ window.onload=function(){
     },);
     workspace.addChangeListener(function(event) {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
-        editor.setValue(code)
+        editor.setValue(code);
+
+        if(event.type == Blockly.Events.VAR_CREATE || event.type == Blockly.Events.VAR_DELETE || event.type == Blockly.Events.VAR_RENAME){
+            if(flyoutNow==2){
+                workspace.getFlyout().hide();
+                toolbox.selectItemByPosition(2);
+                toolbox.selectItemByPosition(2);
+            }
+        }
     });
     toolbox = workspace.getToolbox();
 
     document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
     toolbox.selectItemByPosition(0);
 };
+
+function changeShowMode(id,btn) {
+    var v = document.getElementById(id);
+    //console.log(v.style.display);
+    if(v.style.display==="none"){
+        v.style.display = "block";
+        changeShowBtnState(btn,true)
+    }else {
+        v.style.display = "none";
+        changeShowBtnState(btn,false)
+    }
+}
+
+function changeShowBtnState(btn,flag) {
+    if(flag){
+        btn.style.background = "#444";
+        btn.style.color = "#fff";
+    }else {
+        btn.style.background = "transparent";
+        btn.style.color = "#222";
+    }
+}
 
 function changeTitleStatus(item,choose) {
     if(choose){
