@@ -907,8 +907,6 @@ Blockly.blockRendering.ConstantProvider.prototype.makeNotch = function() {
   }
   var pathLeft = makeMainPath(1);
   var pathRight = makeMainPath(-1);
-  console.log(pathLeft);
-  console.log(pathRight);
   return {
     type: this.SHAPES.NOTCH,
     width: width,

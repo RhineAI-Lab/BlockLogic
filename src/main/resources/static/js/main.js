@@ -7,6 +7,56 @@ Vue.config.ignoredElements.push('value');
 Vue.config.ignoredElements.push('statement');
 Vue.config.ignoredElements.push('mutation');
 
+//重构console以拦截
+console.oldLog = console.log;
+console.oldInfo = console.info;
+console.oldWarn = console.warn;
+console.oldError = console.error;
+console.logCallback = function(msg, level){
+    return true
+};
+console.verbose = function (msg) {
+    console.oldLog(msg);
+    console.logCallback(msg,'v');
+};
+console.log = function (msg) {
+    console.oldLog(msg);
+    console.logCallback(msg,'d');
+};
+console.info = function (msg) {
+    console.oldInfo(msg);
+    console.logCallback(msg,'i');
+};
+console.warn = function (msg) {
+    console.oldWarn(msg);
+    console.logCallback(msg,'w');
+};
+console.error = function (msg) {
+    console.oldError(msg);
+    console.logCallback(msg,'e');
+};
+//日期解析
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o){
+        if (new RegExp("(" + k + ")").test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        }
+    }
+    return fmt;
+}
+
+//列表结构数据定义
 var blockMenu = [
     {name:"基础-JavaScript",children:["常用","循环","变量","函数","逻辑","数学","文本","列表","颜色","自定义块"]},
     {name:"界面控制",children:["通用","事件","文本控件","按钮控件","输入框控件","复选框控件","相机控件","图片控件","单选框控件","进度条控件","拖动条控件","下拉菜单控件","滑动布局","卡片","列表布局","抽拖布局"]},
@@ -28,6 +78,7 @@ var allBlockColor = ["#AAAAAA","#5AA45A","#A45A7F","#985AA4","#5A7FA4","#5A66A4"
     "#5A66A4","#2195F1","#e5af00","#e6645c","#90b01f","#888888","#3264e1","#0eaf9e","#339999","#9abc86","#7476c6","#cb863a",
     "#b9993d","#d4285c"];
 
+//全局参数
 var normalColor = "#394C5A";
 var choosedColor = "#42B983";
 
@@ -35,11 +86,12 @@ var workspace = null;
 var toolbox = null;
 
 var editor = null;
-var code = "";
+var webConsole;
 var flyoutNow = 0;
 var flyoutLast = null;
 
 window.onload=function(){
+    //初始化代码编辑器
     editor = ace.edit("editor");//设置编辑器样式，对应theme-*.js文件
     editor.setTheme("ace/theme/solarized_light");
     editor.session.setMode("ace/mode/javascript");//设置代码语言，对应mode-*.js文件
@@ -47,12 +99,10 @@ window.onload=function(){
     editor.setReadOnly(false);//设置是否只读
     ace.require("ace/ext/language_tools");
     editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true,
         fontSize: "16px"
     });
 
+    //初始化工具栏
     var toolbar = new Vue({
         el: '#toolbar',
         data: {
@@ -61,16 +111,14 @@ window.onload=function(){
         },
         methods:{
             toCode:function () {
-                var code = Blockly.JavaScript.workspaceToCode(workspace);
-                editor.setValue(code);
+                editor.setValue(Blockly.JavaScript.workspaceToCode(workspace));
             },
             runCode:function () {
-                var code = Blockly.JavaScript.workspaceToCode(workspace);
-                editor.setValue(code);
-                eval(code);
+                console.verbose("开始运行[Code on web page]");
+                eval(editor.getSession().getValue());
+                console.verbose("运行结束[Code on web page]");
             },
             connect:function(){
-
             },
             show:function (v) {
                 var id = v.target.id;
@@ -95,6 +143,7 @@ window.onload=function(){
     document.getElementById("draw-space").style.display = "block";
     document.getElementById("console-space").style.display = "none";
 
+    //初始化侧栏
     var sidebar = new Vue({
         el:'#side-bar',
         data:{
@@ -132,12 +181,11 @@ window.onload=function(){
                         flyoutNow = i;
                         flyoutLast = v;
                     }
-                    console.log(v.bg);
                 }
             }
         }
     });
-    var list = [];
+    var sidebarList = [];
     for(var j in blockMenu){
         var item = blockMenu[j];
         var childList = [];
@@ -152,11 +200,12 @@ window.onload=function(){
             }
             childList.push({name:name,icon:color,bg:"#ffffff"})
         }
-        list.push({name:item.name,isShow:false,color:normalColor,right:"0px",sub:childList})
+        sidebarList.push({name:item.name,isShow:false,color:normalColor,right:"0px",sub:childList})
     }
-    changeTitleStatus(list[0],true);
-    sidebar.list = list;
+    changeTitleStatus(sidebarList[0],true);
+    sidebar.list = sidebarList;
 
+    //初始化绘制区
     workspace = Blockly.inject('draw',{
         toolbox: document.getElementById('toolbox'),
         grid: {
@@ -190,6 +239,26 @@ window.onload=function(){
 
     document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
     toolbox.selectItemByPosition(0);
+
+    //初始化控制台
+    console.logCallback = function(msg,level){
+        webConsole.log(msg,"Web/"+level);
+        return true
+    };
+    webConsole = new Vue({
+        el:'#console-box',
+        data:{
+            list:[]
+        }
+    });
+    webConsole.log = function (msg,source,time) {
+        source = source+": " || 'Unknown/v: ';
+        time = time || new Date().Format("MM-dd hh:mm:ss.S");
+        time = time.length>0?time+' ':'';
+        msg = time + source + msg;
+        this.list.push(msg)
+    };
+    console.verbose("控制台初始化完成");
 };
 
 function changeShowMode(id,btn) {

@@ -61,6 +61,12 @@
         </div>
         <div class="split-line" id="split-line-2"></div>
         <div class="console-space" id="console-space">
+            <ul class="console-box" id="console-box">
+                <li class="console-item" v-for="item in list">
+                    <a>{{item}}</a>
+                    <div class="console-split"></div>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -77,7 +83,7 @@
     <script type="text/javascript" src="js/main.js"></script>
 
     <xml id="toolbox" style="display: none">
-        <category name="Usual" categorystyle="usual_category">
+        <category name="Usual">
             <block type="controls_if"></block>
             <block type="controls_for">
                 <value name="FROM">
@@ -94,6 +100,11 @@
                     <shadow type="math_number">
                         <field name="NUM">1</field>
                     </shadow>
+                </value>
+            </block>
+            <block type="console_output">
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
                 </value>
             </block>
             <block type="var_function"></block>
@@ -434,7 +445,7 @@
                 </value>
             </block>
         </category>
-        <category name="Coordinate" categorystyle="colour_category">
+        <category name="Coordinate">
             <block type="coordinate_set_screen">
                 <value name="W">
                     <shadow type="math_number">
@@ -555,7 +566,7 @@
                 </value>
             </block>
         </category>
-        <category name="Widget" categorystyle="widget_category">
+        <category name="Widget">
             <block type="widget_algorithm"></block>
             <block type="puzzle_left_to_up_down"></block>
             <block type="widget_attr_selector">
@@ -598,7 +609,7 @@
             <block type="widget_parent"></block>
             <block type="widget_children"></block>
         </category>
-        <category name="Auto" categorystyle="auto_category">
+        <category name="Auto">
             <block type="auto_wait_for"></block>
             <block type="auto_set_mode"></block>
             <block type="auto_set_flags"></block>
@@ -608,7 +619,7 @@
             <block type="auto_root_in_active_window"></block>
             <block type="auto_set_window_filter"></block>
         </category>
-        <category name="Automator" categorystyle="automator_category">
+        <category name="Automator">
             <block type="automator_new"></block>
             <block type="automator_tap">
                 <value name="F">
@@ -740,7 +751,7 @@
                 </value>
             </block>
         </category>
-        <category name="Simple" categorystyle="simple_category">
+        <category name="Simple">
             <block type="puzzle_left_to_up_down"></block>
             <block type="simple_click">
                 <value name="I">
@@ -803,7 +814,7 @@
                 </value>
             </block>
         </category>
-        <category name="Puzzle" categorystyle="puzzle_category">
+        <category name="Puzzle">
             <block type="puzzle_left_to_up_down"></block>
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
@@ -814,7 +825,7 @@
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
         </category>
-        <category name="Device" categorystyle="puzzle_category">
+        <category name="Device">
             <block type="device_width"></block>
             <block type="device_height"></block>
             <block type="device_build_id"></block>
@@ -910,7 +921,7 @@
             </block>
             <block type="cancel_vibration"></block>
         </category>
-        <category name="Console" categorystyle="console_category">
+        <category name="Console">
             <block type="console_show"></block>
             <block type="console_clear"></block>
             <block type="console_output">
@@ -977,7 +988,7 @@
                 </value>
             </block>
         </category>
-        <category name="Http" categorystyle="http_category">
+        <category name="Http">
             <block type="http_get">
                 <value name="URL">
                     <shadow type="text"></shadow>
@@ -1014,7 +1025,7 @@
             </block>
             <block type="http_option_body"></block>
         </category>
-        <category name="Dialogs" categorystyle="dialogs_categoty">
+        <category name="Dialogs">
             <block type="dialogs_alert">
                 <value name="TITLE">
                     <shadow type="text"></shadow>
@@ -1058,7 +1069,7 @@
                 </value>
             </block>
         </category>
-        <category name="Globals" categorystyle="globals_categoty">
+        <category name="Globals">
             <block type="globals_sleep">
                 <value name="VALUE">
                     <shadow type="math_number">
@@ -1122,7 +1133,7 @@
                 </value>
             </block>
         </category>
-        <category name="Storages" categorystyle="storages_categoty">
+        <category name="Storages">
             <block type="storages_create">
                 <value name="VALUE">
                     <shadow type="text">
@@ -1181,7 +1192,7 @@
                 </value>
             </block>
         </category>
-        <category name="Files" categorystyle="files_categoty">
+        <category name="Files">
             <block type="files_is_file">
                 <value name="PATH">
                     <shadow type="text"></shadow>
@@ -1329,7 +1340,7 @@
                 </value>
             </block>
         </category>
-        <category name="Media" categorystyle="media_category">
+        <category name="Media">
             <block type="media_scan_file">
                 <value name="PATH">
                     <shadow type="text"></shadow>

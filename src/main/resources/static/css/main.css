@@ -153,6 +153,17 @@ html,body{
     overflow-y:scroll;
     flex-grow:1;
 }
+.console-item{
+    height: auto;
+    width: auto;
+    padding: 4px 12px;
+    line-height: 1em;
+    font-size: 14px;
+    color: #444;
+}
+.console-item:hover{
+    background: #ffffc2;
+}
 
 .editor{
     height: 100%;
