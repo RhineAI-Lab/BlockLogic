@@ -24,6 +24,7 @@ goog.require('Blockly.utils.string');
  */
 Blockly.JavaScript = new Blockly.Generator('JavaScript');
 
+
 /**
  * List of illegal variable names.
  * This is not intended to be a security feature.  Blockly is 100% client-side,
@@ -42,6 +43,30 @@ Blockly.JavaScript.addReservedWords(
     'arguments,' +
     // Everything in the current environment (835 items in Chrome, 104 in Node).
     Object.getOwnPropertyNames(Blockly.utils.global).join(','));
+
+
+//用于顺序连接多个输入值，检测有代码则返回拼接后的参数。
+Blockly.JavaScript.connectNecessaryArgs = function (args, needBefore) {
+  needBefore = needBefore || true;
+  var code = "";
+  for (var i = args.length-1; i >= 0 ; i--) {
+    var arg = args[i];
+    if(arg!=null&&arg.length>0){
+      if(code.length > 0) {
+        code = arg + ", " + code
+      }else {
+        code = arg
+      }
+    }else if (code.length > 0) {
+      return ''
+    }
+  }
+  if(needBefore&&code.length>0){
+    code = ','+code
+  }
+  return code;
+};
+
 
 /**
  * Order of operation ENUMs.

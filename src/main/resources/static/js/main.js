@@ -1,4 +1,3 @@
-
 Vue.config.ignoredElements.push('xml');
 Vue.config.ignoredElements.push('block');
 Vue.config.ignoredElements.push('field');

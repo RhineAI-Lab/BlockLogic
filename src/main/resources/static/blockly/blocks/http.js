@@ -10,14 +10,13 @@ goog.require('Blockly.FieldLabel');
 goog.require('Blockly.Mutator');
 
 var colour = "#339999";
-var colour1 = "#336699";
 
 var baseHelpUrl = "https://pro.autojs.org/docs/#/zh-cn/http?id=";
 
 Blockly.defineBlocksWithJsonArray([
     {
         "type": "http_get",
-        "message0": "HTTP GET请求 地址: %1 选项: %2 回调: %3",
+        "message0": "HTTP GET请求 地址: %1 选项(可选): %2 回调(可选): %3",
         "args0": [
             { "type": "input_value", "name": "URL", "check": "String" },
             { "type": "input_value", "name": "OPTIONS", "align": "RIGHT", "check": "HttpOptions"},
@@ -30,7 +29,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl + "httpgeturl-options-callback"
     }, {
         "type": "http_post",
-        "message0": "HTTP POST请求 地址: %1  数据: %2  选项: %3   回调: %4",
+        "message0": "HTTP POST请求 地址: %1 数据: %2 选项(可选): %3 回调(可选): %4",
         "args0": [
             { "type": "input_value", "name": "URL", "check": "String" },
             { "type": "input_value", "name": "DATA", "align": "RIGHT", "check": ["String", "Object"] },
@@ -43,7 +42,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl + "httpposturl-data-options-callback"
     }, {
         "type": "http_post_json",
-        "message0": "HTTP POSTJSON请求 地址: %1  数据: %2  选项: %3   回调: %4",
+        "message0": "HTTP POSTJSON请求 地址: %1 数据: %2 选项(可选): %3 回调(可选): %4",
         "args0": [
             { "type": "input_value", "name": "URL", "check": "String" },
             { "type": "input_value", "name": "DATA", "align": "RIGHT", "check": "Object" },
@@ -56,7 +55,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl + "httppostjsonurl-data-options-callback"
     }, {
         "type": "http_post_multipart",
-        "message0": "HTTP POSTMULTIPART请求 地址: %1  数据: %2  选项: %3   回调: %4",
+        "message0": "HTTP POSTMULTIPART请求 地址: %1 数据: %2 选项(可选): %3 回调(可选): %4",
         "args0": [
             { "type": "input_value", "name": "URL", "check": "String" },
             { "type": "input_value", "name": "DATA", "align": "RIGHT", "check": "Object" },
@@ -69,7 +68,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl + "httppostmultiparturl-files-options-callback"
     }, {
         "type": "http_request",
-        "message0": "HTTP REQUEST请求 地址: %1  选项: %2   回调: %3",
+        "message0": "HTTP REQUEST请求 地址: %1 选项(可选): %2 回调(可选): %3",
         "args0": [
             { "type": "input_value", "name": "URL", "check": "String" },
             { "type": "input_value", "name": "DATA", "align": "RIGHT", "check": "HttpOptions" },
@@ -79,6 +78,65 @@ Blockly.defineBlocksWithJsonArray([
         "output": "String",
         "colour": colour,
         "tooltip": "对url发起一次HTTP请求。如果没有回调函数，则在请求完成或失败时返回此次请求的响应",
+        "helpUrl": baseHelpUrl + "httprequesturl-options-callback"
+    }, {
+        "type": "http_options_container",
+        "message0": "HTTP选项",
+        "message1": " %1",
+        "args1": [{
+            "type": "input_statement",
+            "check":"HttpOption",
+            "name": "OPTIONS",
+        }],
+        "colour": colour,
+        "output": "HttpOptions",
+        "tooltip": "配置请求选项",
+        "helpUrl": baseHelpUrl + "httprequesturl-options-callback"
+    }, {
+        "type": "http_option_headers",
+        "message0": "选项-请求头部 %1",
+        "args0": [{ "type": "input_value", "name": "VALUE", "check": "HttpHeaders"}],
+        "colour": colour,
+        "previousStatement": "HttpOption",
+        "nextStatement": "HttpOption",
+        "tooltip": "HTTP请求的头部信息",
+        "helpUrl": "www.runoob.com/http/http-header-fields.html"
+    },{
+        "type": "http_option_method",
+        "message0": "选项-请求方式 %1",
+        "args0": [{
+            "type": "field_dropdown",
+            "name": "VALUE",
+            "options": [
+                ["GET"   ,"GET"   ],
+                ["POST"  ,"POST"  ],
+                ["PUT"   ,"PUT"   ],
+                ["DELETE","DELETE"],
+                ["PATCH" ,"PATCH" ],
+            ]
+        }],
+        "colour": colour,
+        "previousStatement": "HttpOption",
+        "nextStatement": "HttpOption",
+        "tooltip": "HTTP请求方式",
+        "helpUrl": baseHelpUrl + "httprequesturl-options-callback"
+    },{
+        "type": "http_option_content_type",
+        "message0": "选项-请求类型 %1",
+        "args0": [{ "type": "input_value", "name": "VALUE", "check": "String"}],
+        "colour": colour,
+        "previousStatement": "HttpOption",
+        "nextStatement": "HttpOption",
+        "tooltip": "HTTP头部信息中的\"Content-Type\", 表示HTTP请求的内容类型。例如\"text/plain\", \"application/json\"。",
+        "helpUrl": "www.runoob.com/http/http-content-type.html"
+    },{
+        "type": "http_option_body",
+        "message0": "选项-请求内容 %1",
+        "args0": [{ "type": "input_value", "name": "VALUE", "check": null}],
+        "colour": colour,
+        "previousStatement": "HttpOption",
+        "nextStatement": "HttpOption",
+        "tooltip": " HTTP请求的内容。可以是一个字符串，也可以是一个字节数组；或者是一个以BufferedSink为参数的函数。",
         "helpUrl": baseHelpUrl + "httprequesturl-options-callback"
     }, {
         "type": "http_response",
@@ -106,7 +164,7 @@ Blockly.defineBlocksWithJsonArray([
         // "nextStatement": null,
         "inputsInline": false,
         "output": "String",
-        "colour": colour1,
+        "colour": colour,
         "tooltip": "获取HTTP请求的响应信息",
         "helpUrl": baseHelpUrl + "response",
     }

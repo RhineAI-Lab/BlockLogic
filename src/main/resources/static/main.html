@@ -978,12 +978,41 @@
             </block>
         </category>
         <category name="Http" categorystyle="http_category">
-            <block type="http_get"></block>
-            <block type="http_post"></block>
-            <block type="http_post_json"></block>
-            <block type="http_post_multipart"></block>
-            <block type="http_request"></block>
+            <block type="http_get">
+                <value name="URL">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="http_post">
+                <value name="URL">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="http_post_json">
+                <value name="URL">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="http_post_multipart">
+                <value name="URL">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="http_request">
+                <value name="URL">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
             <block type="http_response"></block>
+            <block type="http_options_container"></block>
+            <block type="http_option_headers"></block>
+            <block type="http_option_method"></block>
+            <block type="http_option_content_type">
+                <value name="VALUE">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="http_option_body"></block>
         </category>
         <category name="Dialogs" categorystyle="dialogs_categoty">
             <block type="dialogs_alert">

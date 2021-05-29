@@ -110,8 +110,8 @@ Blockly.defineBlocksWithJsonArray([
             "name": "DO",
         }],
         "colour": colour,
-        "previousStatement": "ConsoleConfig",
-        "nextStatement": "ConsoleConfig",
+        "previousStatement": null,
+        "nextStatement": null,
         "tooltip": "设置日志保存的路径和配置",
         "helpUrl": baseHelpUrl + "consolesetgloballogconfigconfig"
     }, {
