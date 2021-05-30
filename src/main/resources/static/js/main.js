@@ -1,3 +1,4 @@
+//配置vue与blockly兼容
 Vue.config.ignoredElements.push('xml');
 Vue.config.ignoredElements.push('block');
 Vue.config.ignoredElements.push('field');
@@ -54,7 +55,7 @@ Date.prototype.Format = function (fmt) {
         }
     }
     return fmt;
-}
+};
 
 //列表结构数据定义
 var blockMenu = [
@@ -84,24 +85,14 @@ var choosedColor = "#42B983";
 
 var workspace = null;
 var toolbox = null;
+var inited = false;
 
 var editor = null;
-var webConsole;
+var webConsole = null;
 var flyoutNow = 0;
 var flyoutLast = null;
 
 window.onload=function(){
-    //初始化代码编辑器
-    editor = ace.edit("editor");//设置编辑器样式，对应theme-*.js文件
-    editor.setTheme("ace/theme/solarized_light");
-    editor.session.setMode("ace/mode/javascript");//设置代码语言，对应mode-*.js文件
-    editor.setShowPrintMargin(false);//设置打印线是否显示
-    editor.setReadOnly(false);//设置是否只读
-    ace.require("ace/ext/language_tools");
-    editor.setOptions({
-        fontSize: "16px"
-    });
-
     //初始化工具栏
     var toolbar = new Vue({
         el: '#toolbar',
@@ -118,7 +109,16 @@ window.onload=function(){
                 eval(editor.getSession().getValue());
                 console.verbose("运行结束[Code on web page]");
             },
+            toBlock:function(){
+                alert("反向生成功能开发中...敬请期待。")
+            },
             connect:function(){
+                var ip = document.getElementById("input-ip").value;
+                if(checkIP(ip)){
+                    initWebSocket("ws://"+ip+":9315/")
+                }else {
+                    alert("请输入正确的IP地址")
+                }
             },
             show:function (v) {
                 var id = v.target.id;
@@ -161,6 +161,9 @@ window.onload=function(){
                 }
             },
             showBlocks:function (v) {
+                if(!inited){
+                    return
+                }
                 i = allBlockList.indexOf(v.name);
                 if(i>=0){
                     if(flyoutNow===i){
@@ -205,6 +208,17 @@ window.onload=function(){
     changeTitleStatus(sidebarList[0],true);
     sidebar.list = sidebarList;
 
+    //初始化代码编辑器
+    editor = ace.edit("editor");//设置编辑器样式，对应theme-*.js文件
+    editor.setTheme("ace/theme/solarized_light");
+    editor.session.setMode("ace/mode/javascript");//设置代码语言，对应mode-*.js文件
+    editor.setShowPrintMargin(false);//设置打印线是否显示
+    editor.setReadOnly(false);//设置是否只读
+    ace.require("ace/ext/language_tools");
+    editor.setOptions({
+        fontSize: "16px"
+    });
+
     //初始化绘制区
     workspace = Blockly.inject('draw',{
         toolbox: document.getElementById('toolbox'),
@@ -239,6 +253,7 @@ window.onload=function(){
 
     document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
     toolbox.selectItemByPosition(0);
+    inited = true;
 
     //初始化控制台
     console.logCallback = function(msg,level){
@@ -259,6 +274,7 @@ window.onload=function(){
         this.list.push(msg)
     };
     console.verbose("控制台初始化完成");
+
 };
 
 function changeShowMode(id,btn) {
@@ -295,4 +311,8 @@ function changeTitleStatus(item,choose) {
     }
 }
 
-
+function checkIP(value){
+    var exp=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+    var reg = value.match(exp);
+    return reg!=null
+}
