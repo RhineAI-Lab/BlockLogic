@@ -99,7 +99,7 @@ var DebugPlugin = {
             var str = String.fromCharCode.apply(null, new Uint8Array(data,8));
             return [type,JSON.parse(str)]
         }else {
-            return [type,new DataView(data,8)]
+            return [type,data]
         }
     },
     sendJson: function (data) {
