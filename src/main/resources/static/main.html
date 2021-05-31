@@ -24,16 +24,19 @@
         <button class="tool-btn btn-3" id="to-block" @click="toBlock()"><span>同步图形&gt</span></button>
         <a class="tool-space"></a>
         <a class="tool-space"></a>
-        <button class="tool-check btn-9" id="show-draw"    @click="show($event)">图形</button>
-        <button class="tool-check btn-9" id="show-editor"  @click="show($event)">代码</button>
-        <button class="tool-check btn-9" id="show-console" @click="show($event)">控制台</button>
+        <button class="tool-check btn-9" id="show-draw"    @click="show($event.target)">图形</button>
+        <button class="tool-check btn-9" id="show-editor"  @click="show($event.target)">代码</button>
+        <button class="tool-check btn-9" id="show-console" @click="show($event.target)">控制台</button>
         <a class="tool-middle"></a>
         <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
         <button class="tool-btn btn-2" id="connect" @click="connect()">连接设备</button>
+        <button class="tool-btn btn-2" id="run" @click="originRun()">运行</button>
         <a class="tool-space"></a>
-        <input class="tool-input" placeholder="本地项目路径" v-model="ip" id="input-path" type="text">
-        <button class="tool-btn btn-2" id="pull" @click="pull()">PULL</button>
-        <button class="tool-btn btn-2" id="push" @click="push()">PUSH</button>
+        <input class="tool-input" placeholder="设备中文件名" v-model="ip" id="input-path" type="text">
+        <button class="tool-btn btn-2" id="pull" @click="pull()">导入</button>
+        <button class="tool-btn btn-2" id="push" @click="push()">保存</button>
+        <a class="tool-space"></a>
+        <button class="tool-btn btn-2" id="ask" @click="ask()">连接教程</button>
     </div>
 
     <div class="work-space">
@@ -78,8 +81,10 @@
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/msg/js/zh-hans.js"></script>
 
-    <script type="text/javascript" src="ace/ace.js" charset="utf-8"></script>
+    <script src="ace/ace.js"></script>
 
+    <script type="text/javascript" src="js/console_remake.js"></script>
+    <script type="text/javascript" src="js/debug_plugin.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
     <xml id="toolbox" style="display: none">

@@ -8,34 +8,6 @@ Vue.config.ignoredElements.push('value');
 Vue.config.ignoredElements.push('statement');
 Vue.config.ignoredElements.push('mutation');
 
-//重构console以拦截
-console.oldLog = console.log;
-console.oldInfo = console.info;
-console.oldWarn = console.warn;
-console.oldError = console.error;
-console.logCallback = function(msg, level){
-    return true
-};
-console.verbose = function (msg) {
-    console.oldLog(msg);
-    console.logCallback(msg,'v');
-};
-console.log = function (msg) {
-    console.oldLog(msg);
-    console.logCallback(msg,'d');
-};
-console.info = function (msg) {
-    console.oldInfo(msg);
-    console.logCallback(msg,'i');
-};
-console.warn = function (msg) {
-    console.oldWarn(msg);
-    console.logCallback(msg,'w');
-};
-console.error = function (msg) {
-    console.oldError(msg);
-    console.logCallback(msg,'e');
-};
 //日期解析
 Date.prototype.Format = function (fmt) {
     var o = {
@@ -58,7 +30,7 @@ Date.prototype.Format = function (fmt) {
 };
 
 //列表结构数据定义
-var blockMenu = [
+const blockMenu = [
     {name:"基础-JavaScript",children:["常用","循环","变量","函数","逻辑","数学","文本","列表","颜色","自定义块"]},
     {name:"界面控制",children:["通用","事件","文本控件","按钮控件","输入框控件","复选框控件","相机控件","图片控件","单选框控件","进度条控件","拖动条控件","下拉菜单控件","滑动布局","卡片","列表布局","抽拖布局"]},
     {name:"一般功能",children:["常用功能","应用","设置","设备"]},
@@ -72,19 +44,20 @@ var blockMenu = [
     {name:"网络/通信",children:["HTTP","蓝牙","红外"]},
     {name:"脚本操作",children:["无障碍服务","基于坐标操作","触摸模拟对象","基于控件操作","快捷控件操作","Shell语句","意图","应用"]},
 ];
-var allBlockList = ["常用","循环","变量","函数","逻辑","数学","文本","列表","颜色","基于坐标操作","基于控件操作",
+const allBlockList = ["常用","循环","变量","函数","逻辑","数学","文本","列表","颜色","基于坐标操作","基于控件操作",
     "无障碍服务","触摸模拟对象","快捷控件操作","自定义块","设备","控制台","HTTP","对话框","常用功能","本地储存",
     "文件系统","多媒体"];
-var allBlockColor = ["#AAAAAA","#5AA45A","#A45A7F","#985AA4","#5A7FA4","#5A66A4","#5AA48B","#735AA4","#A4735A",
+const allBlockColor = ["#AAAAAA","#5AA45A","#A45A7F","#985AA4","#5A7FA4","#5A66A4","#5AA48B","#735AA4","#A4735A",
     "#5A66A4","#2195F1","#e5af00","#e6645c","#90b01f","#888888","#3264e1","#0eaf9e","#339999","#9abc86","#7476c6","#cb863a",
     "#b9993d","#d4285c"];
 
 //全局参数
-var normalColor = "#394C5A";
-var choosedColor = "#42B983";
+const normalColor = "#394C5A";
+const choosedColor = "#42B983";
 
 var workspace = null;
 var toolbox = null;
+var sidebar = null;
 var inited = false;
 
 var editor = null;
@@ -94,7 +67,7 @@ var flyoutLast = null;
 
 window.onload=function(){
     //初始化工具栏
-    var toolbar = new Vue({
+    toolbar = new Vue({
         el: '#toolbar',
         data: {
             ip: '',
@@ -105,9 +78,10 @@ window.onload=function(){
                 editor.setValue(Blockly.JavaScript.workspaceToCode(workspace));
             },
             runCode:function () {
-                console.verbose("开始运行[Code on web page]");
-                eval(editor.getSession().getValue());
-                console.verbose("运行结束[Code on web page]");
+                document.getElementById("console-space").style.display = "block";
+                changeShowBtnState(document.getElementById("show-console"),true);
+                Blockly.svgResize(workspace)
+                eval(getCode());
             },
             toBlock:function(){
                 alert("反向生成功能开发中...敬请期待。")
@@ -115,22 +89,38 @@ window.onload=function(){
             connect:function(){
                 var ip = document.getElementById("input-ip").value;
                 if(checkIP(ip)){
-                    initWebSocket("ws://"+ip+":9315/")
+                    DebugPlugin.connect("ws://"+ip+":9315/")
                 }else {
                     alert("请输入正确的IP地址")
                 }
             },
-            show:function (v) {
-                var id = v.target.id;
+            originRun:function(){
+                if(DebugPlugin.connected){
+                    DebugPlugin.runFile("BlockLogic-Online",getCode())
+                }else {
+                    webConsole.log("请连接设备后再运行。",DebugPlugin.SOURCE_TAG)
+                }
+            },
+            pull:function(){
+
+            },
+            push:function(){
+
+            },
+            ask:function(){
+                alert("文档正在编辑中，请稍后。")
+            },
+            show:function (target) {
+                var id = target.id;
                 if(id==="show-console"){
-                    changeShowMode("console-space",v.target);
+                    changeShowMode("console-space",target);
                     Blockly.svgResize(workspace)
                 }else if(id==="show-editor"){
-                    changeShowMode("editor-space",v.target);
+                    changeShowMode("editor-space",target);
                     Blockly.svgResize(workspace)
                 }else if(id==="show-draw"){
-                    changeShowMode("draw-space",v.target);
-                    changeShowMode("side-bar",v.target);
+                    changeShowMode("draw-space",target);
+                    changeShowMode("side-bar",target);
                 }
             }
         }
@@ -144,7 +134,7 @@ window.onload=function(){
     document.getElementById("console-space").style.display = "none";
 
     //初始化侧栏
-    var sidebar = new Vue({
+    sidebar = new Vue({
         el:'#side-bar',
         data:{
             list:[]
@@ -216,6 +206,9 @@ window.onload=function(){
     editor.setReadOnly(false);//设置是否只读
     ace.require("ace/ext/language_tools");
     editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
         fontSize: "16px"
     });
 
@@ -273,9 +266,35 @@ window.onload=function(){
         msg = time + source + msg;
         this.list.push(msg)
     };
+    webConsole.directLog = function(msg){
+        this.list.push(msg)
+    };
     console.verbose("控制台初始化完成");
 
+    //插件配置
+    DebugPlugin.onConnect = function(){
+        webConsole.log("连接成功 设备:"+DebugPlugin.device,DebugPlugin.SOURCE_TAG+"/i");
+        DebugPlugin.requestToken();
+    };
+    DebugPlugin.onClose = function(){
+        webConsole.log("连接断开",DebugPlugin.SOURCE_TAG+"/w");
+    };
+    DebugPlugin.onMsg = function(type,data){
+        if(type===1){
+            if(data.type==="log"){
+                let msg = data.data.log;
+                webConsole.directLog(msg)
+            }
+        }
+    };
+    DebugPlugin.onError = function (evt) {
+        webConsole.log("连接错误: "+evt.target.url,DebugPlugin.SOURCE_TAG+"/e");
+    }
 };
+
+function getCode() {
+    return editor.getSession().getValue()
+}
 
 function changeShowMode(id,btn) {
     var v = document.getElementById(id);
