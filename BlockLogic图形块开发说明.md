@@ -63,7 +63,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 打开 blockly/tests/playground.html 文件。
 添加制作好的两个js文件的依赖，大致在71行后。如：(App换成自己的模块名)
 
-```javascript
+```html
 <script src="../generators/javascript/app.js"></script>
 <script src="../blocks/app.js"></script>
 ```
@@ -72,7 +72,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 
 找到xml标签，其id="toolbox-categories"。
 在其中末尾新增category标签，name为模块名。如：(App换成自己的模块名)
-```javascript
+```xml
 <xml id="toolbox-categories">
     ...
     <category name="App">  
@@ -83,7 +83,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 ### 12.添加block。
 
 添加block标签到category中。如: (type属性对应blocks文件中的属性)
-```javascript
+```xml
 <category name="App">  
     <block type="app_version_code"></block>
 </category>
@@ -102,7 +102,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 ### 1.图形块分为两种
 
 第一种为有输出块，左侧可以连接其他块，上下不可以。具有属性： <br/>
-```javascript
+```json
 "output":"xxx", 
 ```
 表示该模块的输出数据类型。<br/>
@@ -111,7 +111,7 @@ output属性有多个时用数组表示，如: "output":["xxxa","xxxb"]<br/>
 当前已确认类型：字符串-String，数字-Number，布尔值(对错)-Boolean，列表数组-Array
 
 第二种为无输出块，上下可以连接其他块，左侧不可以。具有属性： <br/>
-```javascript
+```json
 "previousStatement": null,
 "nextStatement": null,
 ```
@@ -126,21 +126,17 @@ output属性有多个时用数组表示，如: "output":["xxxa","xxxb"]<br/>
 <br/>
 
 ### 3. message0属性: 模块文本。
-<br/>
 
 ### 4. colour属性: 固定值为变量colour
-<br/>
 
 ### 5. tooltip属性: 鼠标悬停时的图形块提示文本。
-<br/>
 
 ### 6. helpUrl属性: 右键-帮助，后的跳转链接。一般由baseHelpUrl+函数名构成。
-<br/>
 
 ### 7. args0属性: 输入参数，必须为数组。
 
 在message中的%1，%2，%3等位置除，显示出对应args0数组第123个输入。如: 
-```javascript
+```json
 "message0": "输入 %3 文本 控件: %1 文本: %2",
 "args0": [
     {"type": "input_value", "name": "WIDGET", "check": "UiObject"},
