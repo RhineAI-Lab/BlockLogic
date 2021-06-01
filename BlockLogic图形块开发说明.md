@@ -164,7 +164,6 @@ check属性: 校验输入数据类型。仅当type=input_value时有效。<br/>
 options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
 是一个二维数组。子数组第一个值为显示给用户的选项文本，第二个值为生成代码时获取到的文本。一个子数组为一个选项。
 
-<br/>
 
 ### 8. inputsInLine属性: 输入值是否显示在同一行。
 
@@ -264,7 +263,6 @@ Blockly.JavaScript['app_version_code'] = function(block) {
     return xx;
 };
 ```
-<br/>
 
 ### 2.生成函数返回值
 
@@ -282,7 +280,6 @@ return code;
 var code = "app.versionCode";
 return [code, Blockly.JavaScript.ORDER_ATOMIC];
 ```
-<br/>
 
 ### 3.获取当前输入值
 
