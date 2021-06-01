@@ -68,7 +68,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 <script src="../blocks/app.js"></script>
 ```
 
-### 11.添加categorie。
+### 11.添加category。
 
 找到xml标签，其id="toolbox-categories"。
 在其中末尾新增category标签，name为模块名。如：(App换成自己的模块名)
@@ -287,7 +287,7 @@ type=input_value 图形块输入型
 
 ```javascript
 var xxx_value = Blockly.JavaScript.valueToCode(block, 'XXX', Blockly.JavaScript.ORDER_ATOMIC, true);
-```
+``` 
 
 type=input_statement 图形块输入型
 
@@ -302,3 +302,68 @@ var xxx_checked = block.getFieldValue('XXX');
 ```
 
 上文传入值'XXX'对应args中输入口的name属性的值。
+
+<br/>
+
+## 五、图形块开发-列表默认值
+
+### 1.给block添加input_value型输入的默认值
+
+通过value标签，其name值对应args0中元素的name值。如:
+
+```xml
+<block type="math_arithmetic">
+    <value name="A">
+        ...
+    </value>
+    <value name="B">
+        ...
+    </value>
+</block>
+```
+value内部可以填写输入的其他图形块。如:
+```xml
+<block type="math_arithmetic">
+    <value name="A">
+        <block type="math_number"></block>
+    </value>
+</block>
+```
+当需要用户可以把默认的图形块进行覆盖时，可用shadow标签替换block标签。如:
+```xml
+<block type="math_arithmetic">
+    <value name="A">
+        <shadow type="math_number"></shadow>
+    </value>
+</block>
+```
+
+### 3.常见输入块
+
+数字输入:
+```xml
+<block type="xx_xxxx">
+    <value name="XXX">
+        <shadow type="math_number">
+            <field name="NUM">123</field>
+        </shadow>
+    </value>
+</block>
+```
+block的type为math_number<br/>
+field的name为NUM<br/>
+可在field标签中间填默认数值。
+
+文本输入:
+```xml
+<block type="xx_xxxx">
+    <value name="XXX">
+        <shadow type="text">
+            <field name="TEXT">abc</field>
+        </shadow>
+    </value>
+</block>
+```
+block的type为text<br/>
+field的name为TEXT<br/>
+可在field标签中间填默认文本。
