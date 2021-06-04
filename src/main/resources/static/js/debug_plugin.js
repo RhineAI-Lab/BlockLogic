@@ -1,3 +1,6 @@
+var te = new TextEncoder();
+var td = new TextDecoder();
+
 var DebugPlugin = {
     SOURCE_TAG:"DebugService",
     ws:null,
@@ -96,7 +99,7 @@ var DebugPlugin = {
         const len = view.getInt32(0,false);
         const type = view.getInt32(4,false);
         if(type==1){
-            var str = String.fromCharCode.apply(null, new Uint8Array(data,8));
+            var str = td.decode(new Uint8Array(data,8));
             return [type,JSON.parse(str)]
         }else {
             return [type,data]
@@ -106,16 +109,17 @@ var DebugPlugin = {
         if(this.ws==null){
             return false
         }
+        console.oldLog("Send: ",data);
         const json = JSON.stringify(data);
-        const buffer = new ArrayBuffer(json.length + 8);
-        const view = new DataView(buffer,0,8);
-        view.setInt32(0,json.length);
+        const jsonUints = te.encode(json);
+
+        const buffer = new ArrayBuffer(jsonUints.length + 8);
+        const view = new DataView(buffer,0,jsonUints.length + 8);
+        view.setInt32(0,jsonUints.length);
         view.setInt32(4,1);
-        const buf8View = new Uint8Array(buffer,8);
-        for (var i=0, strLen=json.length; i<strLen; i++) {
-            buf8View[i] = json.charCodeAt(i);
+        for (var i = 0; i < jsonUints.length; i++) {
+            view.setUint8(i+8,jsonUints[i])
         }
-        console.oldLog("Send: ",json);
         this.ws.send(buffer);
         this.sendId++;
     }

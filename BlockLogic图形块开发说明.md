@@ -350,8 +350,8 @@ value内部可以填写输入的其他图形块。如:
     </value>
 </block>
 ```
-block的type为math_number<br/>
-field的name为NUM<br/>
+block的type为math_number，<br/>
+field的name为NUM，<br/>
 可在field标签中间填默认数值。
 
 文本输入:
@@ -364,6 +364,6 @@ field的name为NUM<br/>
     </value>
 </block>
 ```
-block的type为text<br/>
-field的name为TEXT<br/>
+block的type为text，<br/>
+field的name为TEXT，<br/>
 可在field标签中间填默认文本。

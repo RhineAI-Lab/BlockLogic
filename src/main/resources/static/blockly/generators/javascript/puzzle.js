@@ -3,7 +3,7 @@
 goog.provide('Blockly.JavaScript.puzzle');
 goog.require('Blockly.JavaScript');
 
-Blockly.JavaScript['puzzle_left_to_up_down'] = function(block) {
+Blockly.JavaScript['puzzle'] = function(block) {
     var value_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC,true);
     var code = value_value+';\n';
     return code;

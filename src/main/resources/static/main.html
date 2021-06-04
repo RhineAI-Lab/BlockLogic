@@ -1376,6 +1376,27 @@
             <block type="media_get_music_duration"></block>
             <block type="media_get_music_current_position"></block>
         </category>
+        <category name="App">
+            <block type="app_version_code"></block>
+            <block type="app_version_name"></block>
+            <block type="app_autojs"></block>
+            <block type="app_launch">
+                <value name="PACKAGE_NAME">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_launch_app"></block>
+            <block type="app_get_package_name"></block>
+            <block type="app_get_app_name"></block>
+            <block type="app_open_app_setting"></block>
+            <block type="app_view_file"></block>
+            <block type="app_edit_file"></block>
+
+            <block type="app_open_url"></block>
+            <block type="app_send_email"></block>
+        </category>
     </xml>
 </body>
 </html>
