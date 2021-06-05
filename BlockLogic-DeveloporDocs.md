@@ -289,13 +289,13 @@ type=input_value 图形块输入型
 var xxx_value = Blockly.JavaScript.valueToCode(block, 'XXX', Blockly.JavaScript.ORDER_ATOMIC, true);
 ``` 
 
-type=input_statement 图形块输入型
+type=input_statement 语句块输入型
 
 ```javascript
 var xxx_statements = Blockly.JavaScript.statementToCode(block, 'XXX');
 ```
 
-type=field_dropdown 图形块输入型
+type=field_dropdown 下拉菜单输入型
 
 ```javascript
 var xxx_checked = block.getFieldValue('XXX');
