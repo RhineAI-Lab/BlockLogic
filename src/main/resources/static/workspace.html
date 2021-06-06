@@ -74,7 +74,7 @@
     </div>
 
     <script src="js/vue.js"></script>
-    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
 
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
@@ -83,7 +83,7 @@
 
     <script src="ace/ace.js"></script>
     <script type="text/javascript" src="js/debug_plugin.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/workspace.js"></script>
 
     <xml id="toolbox" style="display: none">
         <category name="Usual">
@@ -1387,15 +1387,113 @@
                     </shadow>
                 </value>
             </block>
-            <block type="app_launch_app"></block>
-            <block type="app_get_package_name"></block>
-            <block type="app_get_app_name"></block>
-            <block type="app_open_app_setting"></block>
-            <block type="app_view_file"></block>
-            <block type="app_edit_file"></block>
+            <block type="app_launch_app">
+                <value name="APP_NAME">
+                    <shadow type="text">
+                        <field name="TEXT">Auto.js</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_get_package_name">
+                <value name="PACKAGE">
+                    <shadow type="text">
+                        <field name="TEXT">QQ</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_get_app_name">
+                <value name="GET">
+                    <shadow type="text">
+                        <field name="TEXT">com.tencent.mobileqq</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_open_app_setting">
 
-            <block type="app_open_url"></block>
+            </block>
+            <block type="app_viewfile">
+                <value name="VIEWFILE">
+                    <shadow type="text">
+                        <field name="TEXT">/sdcard/1.txt</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_editfile">
+                <value name="EDITFILE">
+                    <shadow type="text">
+                        <field name="TEXT">/sdcard/1.txt</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_uninstall">
+                <value name="UNINSTALL">
+                    <shadow type="text">
+                        <field name="TEXT">com.tencent.mobileqq</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_openurl">
+                <value name="URL">
+                    <shadow type="text">
+                        <field name="TEXT">http://</field>
+                    </shadow>
+                </value>
+            </block>
             <block type="app_send_email"></block>
+            <block type="app_start_activitya">
+                <value name="ACTIVITY">
+                    <shadow type="text">
+                        <field name="TEXT">console</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_intent"></block>
+            <block type="app_start_activity"></block>
+            <block type="app_send_broadcast"></block>
+            <block type="app_start_service"></block>
+            <block type="app_send_broadcasta"></block>
+            <block type="app_intent_to_shell">
+            </block>
+            <block type="app_parse_uri">
+                <value name="URI">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_get_uri_for_file">
+                <value name="FORFILE">
+                    <shadow type="text">
+                        <field name="TEXT">/sdcard/1.txt</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="app_get_installed_apps"></block>
+        </category>
+        <category name="Debug">
+            <block type="$debug_dump_hprof">
+                <value name="HPROF">
+                    <shadow type="text">
+                        <field name="TEXT">./dump.hprof</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="$debug_dump_and_send_hprof"></block>
+            <block type="$debug_get_stack_trace">
+                <value name="TRACE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="$debug_set_memory_leak_detection_enabled">
+                <value name="ENABLED">
+                    <shadow type="text">
+                        <field name="TEXT">true</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="$debug_gc"></block>
         </category>
     </xml>
 </body>

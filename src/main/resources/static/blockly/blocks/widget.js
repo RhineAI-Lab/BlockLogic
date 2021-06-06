@@ -168,7 +168,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl+"uiobjectsettexttext"
     },{
         "type": "widget_algorithm",
-        "message0": "%1 %2",lin
+        "message0": "%1 %2",
         "args0": [
             {"type": "field_dropdown", "name": "WAY", "options": [["深度搜索", "DFS"], ["广度搜索", "BFS"]]},
             {"type": "input_value", "name": "SELECTOR", "check": "UiSelector"}
