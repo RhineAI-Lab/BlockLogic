@@ -10,7 +10,7 @@ goog.require('Blockly.FieldLabel');
 goog.require('Blockly.Mutator');
 
 var colour = "#cc9999";
-var baseHelpUrl = "https://pro.autojs.org/docs/#/zh-cn/app?id=";
+var baseHelpUrl = "https://pro.autojs.org/docs/#/zh-cn/debug?id=";
 
 Blockly.defineBlocksWithJsonArray([
     {

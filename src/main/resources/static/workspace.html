@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>BlockLogic - AutoJsPro</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/workspace.css">
     <link rel="stylesheet" href="css/btn.css">
+    <link rel="stylesheet" href="css/metroStyle/metroStyle.css">
 </head>
 <body>
     <div class="head-line">
@@ -19,14 +20,19 @@
     </div>
 
     <div class="tool-bar" id="toolbar">
-        <button class="tool-btn btn-3" id="to-code" @click="toCode()"><span>&lt同步代码</span></button>
+        <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)">保留栏目</button>
+        <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)">同步代码</button>
+        <a class="tool-space"></a>
+        <a class="tool-space"></a>
+        <button class="tool-btn btn-3" id="to-code"  @click="toBlock()"><span>&lt同步图形</span></button>
         <button class="tool-btn btn-3" id="run-code" @click="runCode()"><span>在线运行</span></button>
-        <button class="tool-btn btn-3" id="to-block" @click="toBlock()"><span>同步图形&gt</span></button>
+        <button class="tool-btn btn-3" id="to-block" @click="toCode()"><span>同步代码&gt</span></button>
         <a class="tool-space"></a>
         <a class="tool-space"></a>
-        <button class="tool-check btn-9" id="show-draw"    @click="show($event.target)">图形</button>
-        <button class="tool-check btn-9" id="show-editor"  @click="show($event.target)">代码</button>
-        <button class="tool-check btn-9" id="show-console" @click="show($event.target)">控制台</button>
+        <button class="tool-check btn-9" id="show-directory" @click="show($event.target)">目录</button>
+        <button class="tool-check btn-9" id="show-draw"      @click="show($event.target)">图形</button>
+        <button class="tool-check btn-9" id="show-editor"    @click="show($event.target)">代码</button>
+        <button class="tool-check btn-9" id="show-console"   @click="show($event.target)">控制台</button>
         <a class="tool-middle"></a>
         <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
         <button class="tool-btn btn-2" id="connect" @click="connect()">连接设备</button>
@@ -40,6 +46,10 @@
     </div>
 
     <div class="work-space">
+        <div id="directory-space" class="directory-space">
+            <ul id="directory-tree" class="ztree"></ul>
+        </div>
+        <div class="split-line" id="split-line-3"></div>
         <aside id="side-bar" class="side-bar">
             <h1><a href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0">Auto.Js Pro</a></h1>
             <h2><a>BlockLogic</a></h2>
@@ -74,7 +84,7 @@
     </div>
 
     <script src="js/vue.js"></script>
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script src="js/jquery.min.js"></script>
 
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
@@ -82,8 +92,9 @@
     <script src="blockly/msg/js/zh-hans.js"></script>
 
     <script src="ace/ace.js"></script>
-    <script type="text/javascript" src="js/debug_plugin.js"></script>
-    <script type="text/javascript" src="js/workspace.js"></script>
+    <script src="js/jquery.ztree.all.min.js"></script>
+    <script src="js/debug_plugin.js"></script>
+    <script src="js/workspace.js"></script>
 
     <xml id="toolbox" style="display: none">
         <category name="Usual">
@@ -1383,7 +1394,7 @@
             <block type="app_launch">
                 <value name="PACKAGE_NAME">
                     <shadow type="text">
-                        <field name="TEXT">abc</field>
+                        <field name="TEXT"></field>
                     </shadow>
                 </value>
             </block>
@@ -1408,9 +1419,7 @@
                     </shadow>
                 </value>
             </block>
-            <block type="app_open_app_setting">
-
-            </block>
+            <block type="app_open_app_setting"></block>
             <block type="app_viewfile">
                 <value name="VIEWFILE">
                     <shadow type="text">
@@ -1440,35 +1449,13 @@
                 </value>
             </block>
             <block type="app_send_email"></block>
-            <block type="app_start_activitya">
+            <block type="app_start_activity">
                 <value name="ACTIVITY">
                     <shadow type="text">
                         <field name="TEXT">console</field>
                     </shadow>
                 </value>
             </block>
-            <block type="app_intent"></block>
-            <block type="app_start_activity"></block>
-            <block type="app_send_broadcast"></block>
-            <block type="app_start_service"></block>
-            <block type="app_send_broadcasta"></block>
-            <block type="app_intent_to_shell">
-            </block>
-            <block type="app_parse_uri">
-                <value name="URI">
-                    <shadow type="text">
-                        <field name="TEXT"></field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="app_get_uri_for_file">
-                <value name="FORFILE">
-                    <shadow type="text">
-                        <field name="TEXT">/sdcard/1.txt</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="app_get_installed_apps"></block>
         </category>
         <category name="Debug">
             <block type="$debug_dump_hprof">
@@ -1494,6 +1481,30 @@
                 </value>
             </block>
             <block type="$debug_gc"></block>
+        </category>
+        <category name="Intent">
+            <block type="intent_intent"></block>
+            <block type="intent_start_activity"></block>
+            <block type="intent_send_broadcast"></block>
+            <block type="intent_start_service"></block>
+            <block type="intent_send_broadcast_by_name"></block>
+            <block type="intent_intent_to_shell">
+            </block>
+            <block type="intent_parse_uri">
+                <value name="URI">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="intent_get_uri_for_file">
+                <value name="FORFILE">
+                    <shadow type="text">
+                        <field name="TEXT">/sdcard/1.txt</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="intent_get_installed_apps"></block>
         </category>
     </xml>
 </body>

@@ -20,16 +20,14 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip": "当前软件版本号，整数值。例如160, 256等。\n如果在Auto.js中运行则为Auto.js的版本号；在打包的软件中则为打包软件的版本号。",
         "helpUrl": baseHelpUrl+"appversionCode"
-    },
-    {
+    }, {
         "type": "app_version_name",
         "message0": "获取当前软件的版本名称",
         "output":"String",
         "colour": colour,
         "tooltip": "当前软件的版本名称，例如'3.0.0 Beta'\n如果在Auto.js中运行则为Auto.js的版本名称；在打包的软件中则为打包软件的版本名称。",
         "helpUrl": baseHelpUrl+"appversionName"
-    },
-    {
+    }, {
         "type": "app_autojs",
         "message0": "获取当前autojs的 %1 ",
         "args0":[
@@ -41,8 +39,7 @@ Blockly.defineBlocksWithJsonArray([
          "tooltip":"",
          "helpUrl": baseHelpUrl+"appautojsversioncode"
 
-    },
-    {
+    }, {
         "type": "app_launch",
         "message0": "通过应用包名启动应用 %1 ",
         "previousStatement": null,
@@ -53,8 +50,7 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip": "如果该名称对应的应用不存在，则返回false; 否则返回true。如果该名称对应多个应用，则只启动其中某一个。",
         "helpUrl": baseHelpUrl+"applaunchpackagename"
-    },
-    {
+    }, {
         "type": "app_launch_app",
         "message0": "通过应用名称启动应用 %1 ",
         "previousStatement": null,
@@ -76,8 +72,7 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip":"如果该找不到该应用，返回null；如果该名称对应多个应用，则只返回其中某一个的包名。。",
         "helpUrl": baseHelpUrl+"appgetpackagenameappname"
-    },
-    {
+    }, {
         "type": "app_get_app_name",
         "message0": "获取包名对应的应用名 %1",
         "previousStatement": null,
@@ -88,8 +83,7 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip":"如果该找不到该应用，返回null。",
         "helpUrl": baseHelpUrl+"appgetappnamepackagename"
-    },
-    {
+    }, {
         "type": "app_open_app_setting",
         "message0": "打开应用的详情页",
         "output":"String",
@@ -162,107 +156,5 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip": "该函数在Auto.js内运行则会打开Auto.js内的界面，在打包应用中运行则会打开打包应用的相应界面。",
         "helpUrl": baseHelpUrl+"appstartactivityname"
-    },{
-        "type": "app_intent",
-        "message0": "构造意图对象 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"INTENT","check":"Object"},
-        ],
-        "colour": colour,
-        "tooltip": "除非应用专门暴露Activity出来，否则在没有root权限的情况下使用intent是无法跳转到特定Activity、应用的特定界面的",
-        "helpUrl": baseHelpUrl+"appintentoptions"
-    },{
-        "type": "app_start_activitya",
-        "message0": "启动Activity %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"START","check":"Object"},
-        ],         
-        "colour": colour,
-        "tooltip": "根据选项构造一个Intent，并启动该Activity。",
-        "helpUrl": baseHelpUrl+"appstartactivityoptions"
-    },{
-        "type": "app_send_broadcast",
-        "message0": "发送广播 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"SEND","check":"Object"},
-        ],         
-        "colour": colour,
-        "tooltip": "根据选项构造一个Intent，并发送该广播。",
-        "helpUrl": baseHelpUrl+"appsendbroadcastoptions"
-    },{
-        "type": "app_start_service",
-        "message0": "启动服务 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"SERVICE","check":"Object"},
-        ],         
-        "colour": colour,
-        "tooltip": "根据选项构造一个Intent，并启动该服务。",
-        "helpUrl": baseHelpUrl+"appstartserviceoptions"
-    },{ 
-        "type": "app_send_broadcasta",
-        "message0": "特定广播名称: %1 ",
-        "args0":[
-            {"type":"field_dropdown","name":"CAST","options":[["布局层次分析","inspect_layout_hierarchy"],["布局范围","inspect_layout_bounds"]]}
-        ],
-         "previousStatement": null,
-         "nextStatement": null,
-         "colour": colour,
-         "tooltip":"",
-         "helpUrl": baseHelpUrl+"appsendbroadcastname"
-    },
-    {
-        "type": "app_intent_to_shell",
-        "message0": "转换为对应的shell的intent命令的参数 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"SHELL","check":"Object"},
-        ],         
-        "colour": colour,
-        "tooltip": "根据选项构造一个Intent，转换为对应的shell的intent命令的参数。",
-        "helpUrl": baseHelpUrl+"appintenttoshelloptions"
-    },{
-        "type": "app_parse_uri",
-        "message0": "解析uri字符串并返回相应的Uri对象 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"URI","check":"String"},
-        ],        
-        "colour": colour,
-        "tooltip": "即使Uri格式错误，该函数也会返回一个Uri对象，但之后如果访问该对象的scheme, path等值可能因解析失败而返回null。",
-        "helpUrl": baseHelpUrl+"appparseuriuri"
-    },
-    {
-        "type": "app_get_uri_for_file",
-        "message0": "创建一个uri对象 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"FORFILE","check":"String"},
-        ],        
-        "colour": colour,
-        "tooltip": "在高版本Android上，由于系统限制直接在Uri暴露文件的绝对路径，因此返回的Uri会是诸如content://...的形式。",
-        "helpUrl": baseHelpUrl+"appgeturiforfilepath"
-    },
-    {
-        "type": "app_get_installed_apps",
-        "message0": "返回当前用户安装的所有应用程序包 %1 ",
-        "previousStatement": null,
-        "nextStatement": null, 
-        "args0":[
-            {"type":"input_value","name":"INSTALL","check":"Object"},
-        ],        
-        "colour": colour,
-        "tooltip": "如果设置了match选项 uninstalled_packages，则包括被删除但保留了数据的应用程序。获取安装的应用列表。返回值是ApplicationInfo对象的数组。 如果没有安装任何应用，则返回一个空数组。",
-        "helpUrl": baseHelpUrl+"appgetinstalledappsoptions"
-    },
-])
+    }
+]);

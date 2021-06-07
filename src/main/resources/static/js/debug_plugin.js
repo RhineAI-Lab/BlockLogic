@@ -83,6 +83,19 @@ var DebugPlugin = {
             }
         })
     },
+    saveFile:function(id, code, name){
+        name = name || id;
+        this.sendJson({
+            id: this.sendId,
+            type: 'command',
+            data: {
+                id:id,
+                name:name,
+                script:code,
+                command:"save"
+            }
+        })
+    },
     requestToken:function(){
         this.requestTokenId = this.sendId;
         this.sendJson({

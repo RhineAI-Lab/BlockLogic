@@ -60,13 +60,13 @@ Date.prototype.Format = function (fmt) {
 
 //列表结构数据定义
 const blockMenu = [
-    {name:"基础-JavaScript",children:["常用","循环","变量","函数","逻辑","数学","文本","列表","颜色","自定义块"]},
+    {name:"基础-JavaScript",children:["常用","循环","变量","函数","逻辑","数学","文本","列表","自定义块"]},
     {name:"界面控制",children:["通用","事件","文本控件","按钮控件","输入框控件","复选框控件","相机控件","图片控件","单选框控件","进度条控件","拖动条控件","下拉菜单控件","滑动布局","卡片","列表布局","抽拖布局"]},
     {name:"一般功能",children:["常用功能","应用","设置","设备"]},
     {name:"运行交互",children:["控制台","对话框","调试工具"]},
     {name:"通用功能",children:["文件系统","文件对象读写","多媒体","传感器","悬浮窗","本地储存","压缩解压"]},
     {name:"信息处理",children:["加密解密","Base64","MD5"]},
-    {name:"图色处理",children:["找图找色","图像编辑","画板绘制"]},
+    {name:"图色处理",children:["颜色","找图找色","图像编辑","画板绘制"]},
     {name:"人工智能",children:["Pytorch对接","OCR图像文字识别"]},
     {name:"项目",children:["插件","模块","脚本引擎"]},
     {name:"运行结构",children:["多线程","定时器"]},
@@ -84,6 +84,8 @@ const allBlockColor = ["#AAAAAA","#5AA45A","#A45A7F","#985AA4","#5A7FA4","#5A66A
 const normalColor = "#394C5A";
 const choosedColor = "#42B983";
 
+const normalLogTag = "WebLog";
+
 var workspace = null;
 var toolbox = null;
 var sidebar = null;
@@ -94,6 +96,9 @@ var webConsole = null;
 var flyoutNow = 0;
 var flyoutLast = null;
 
+var autoClose = true;
+var autoCode = true;
+
 window.onload=function(){
     //初始化工具栏
     toolbar = new Vue({
@@ -103,13 +108,20 @@ window.onload=function(){
             path: '',
         },
         methods:{
+            changeAutoClose:function(v){
+                autoClose = !autoClose;
+                changeShowBtnState(v,!autoClose)
+            },
+            changeAutoCode:function(v){
+                autoCode = !autoCode;
+                changeShowBtnState(v,autoCode)
+            },
             toCode:function () {
                 editor.setValue(Blockly.JavaScript.workspaceToCode(workspace));
+                webConsole.log("代码同步成功。",normalLogTag)
             },
             runCode:function () {
-                document.getElementById("console-space").style.display = "block";
-                changeShowBtnState(document.getElementById("show-console"),true);
-                Blockly.svgResize(workspace)
+                showConsole();
                 eval(getCode());
             },
             toBlock:function(){
@@ -118,23 +130,40 @@ window.onload=function(){
             connect:function(){
                 var ip = document.getElementById("input-ip").value;
                 if(checkIP(ip)){
+                    showConsole();
                     DebugPlugin.connect("ws://"+ip+":9315/")
                 }else {
                     alert("请输入正确的IP地址")
                 }
             },
             originRun:function(){
-                if(DebugPlugin.connected){
-                    DebugPlugin.runFile("BlockLogic-Online",getCode())
-                }else {
-                    webConsole.log("请连接设备后再运行。",DebugPlugin.SOURCE_TAG)
+                if(!DebugPlugin.connected){
+                    alert("请先连接设备。");
+                    webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
+                    return
                 }
+                DebugPlugin.runFile("BlockLogic-Online",getCode())
             },
             pull:function(){
-
+                if(!DebugPlugin.connected){
+                    alert("请先连接设备。");
+                    webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
+                    return
+                }
             },
             push:function(){
-
+                if(!DebugPlugin.connected){
+                    alert("请先连接设备。");
+                    webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
+                    return
+                }
+                var name = document.getElementById("input-path").value;
+                if(name!=null&&name.length>0){
+                    DebugPlugin.saveFile("BlockLogic-Online\\"+name,getCode())
+                }else{
+                    alert("请输入保存用的文件名");
+                    webConsole.log("请输入保存用的文件名。",DebugPlugin.SOURCE_TAG)
+                }
             },
             ask:function(){
                 alert("文档正在编辑中，请稍后。")
@@ -147,6 +176,9 @@ window.onload=function(){
                 }else if(id==="show-editor"){
                     changeShowMode("editor-space",target);
                     Blockly.svgResize(workspace)
+                }else if(id==="show-directory"){
+                    changeShowMode("directory-space",target);
+                    Blockly.svgResize(workspace)
                 }else if(id==="show-draw"){
                     changeShowMode("draw-space",target);
                     changeShowMode("side-bar",target);
@@ -154,9 +186,12 @@ window.onload=function(){
             }
         }
     });
+    changeShowBtnState(document.getElementById("use-auto-code"),true);
+    changeShowBtnState(document.getElementById("show-directory"),false);
     changeShowBtnState(document.getElementById("show-draw"),true);
     changeShowBtnState(document.getElementById("show-editor"),true);
     changeShowBtnState(document.getElementById("show-console"),false);
+    document.getElementById("directory-space").style.display = "none";
     document.getElementById("side-bar").style.display = "block";
     document.getElementById("editor-space").style.display = "block";
     document.getElementById("draw-space").style.display = "block";
@@ -199,7 +234,7 @@ window.onload=function(){
                             flyoutLast.bg = "#ffffff";
                         }
                         v.color = "#000000";
-                        v.bg = v.icon;
+                        v.bg = colourBlend(v.icon,"#ffffff",0.6);
                         flyoutNow = i;
                         flyoutLast = v;
                     }
@@ -260,14 +295,26 @@ window.onload=function(){
         }
     },);
     workspace.addChangeListener(function(event) {
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        editor.setValue(code);
+        if(autoCode){
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            editor.setValue(code);
+        }
 
         if(event.type == Blockly.Events.VAR_CREATE || event.type == Blockly.Events.VAR_DELETE || event.type == Blockly.Events.VAR_RENAME){
             if(flyoutNow==2){
                 workspace.getFlyout().hide();
                 toolbox.selectItemByPosition(2);
                 toolbox.selectItemByPosition(2);
+            }
+        }else if(event.type == Blockly.Events.BLOCK_CREATE){
+            if(autoClose){
+                workspace.getFlyout().hide();
+                flyoutNow = -1;
+                if(flyoutLast!=null){
+                    flyoutLast.color = "#324a5b";
+                    flyoutLast.bg = "#ffffff";
+                }
+                flyoutLast = null;
             }
         }
     });
@@ -276,6 +323,21 @@ window.onload=function(){
     document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
     toolbox.selectItemByPosition(0);
     inited = true;
+
+    //加载树状目录
+    var treeSetting={
+        check: {
+            enable: false,
+            chkStyle: "checkbox"
+        }
+    };
+    var initNodes=[
+        {"name":"单文件项目","open":true,children:[
+            {"name":"untitled.js"}
+        ]}
+    ];
+    var direct = $.fn.zTree.init($("#directory-tree"), treeSetting, initNodes);
+    console.log(direct);
 
     //初始化控制台
     console.logCallback = function(msg,level){
@@ -321,6 +383,12 @@ window.onload=function(){
     }
 };
 
+function showConsole() {
+    document.getElementById("console-space").style.display = "block";
+    changeShowBtnState(document.getElementById("show-console"),true);
+    Blockly.svgResize(workspace);
+}
+
 function getCode() {
     return editor.getSession().getValue()
 }
@@ -363,4 +431,21 @@ function checkIP(value){
     var exp=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
     var reg = value.match(exp);
     return reg!=null
+}
+
+function colourBlend(c1, c2, ratio) {
+    ratio = Math.max(Math.min(Number(ratio), 1), 0);
+    var r1 = parseInt(c1.substring(1, 3), 16);
+    var g1 = parseInt(c1.substring(3, 5), 16);
+    var b1 = parseInt(c1.substring(5, 7), 16);
+    var r2 = parseInt(c2.substring(1, 3), 16);
+    var g2 = parseInt(c2.substring(3, 5), 16);
+    var b2 = parseInt(c2.substring(5, 7), 16);
+    var r = Math.round(r1 * (1 - ratio) + r2 * ratio);
+    var g = Math.round(g1 * (1 - ratio) + g2 * ratio);
+    var b = Math.round(b1 * (1 - ratio) + b2 * ratio);
+    r = ('0' + (r || 0).toString(16)).slice(-2);
+    g = ('0' + (g || 0).toString(16)).slice(-2);
+    b = ('0' + (b || 0).toString(16)).slice(-2);
+    return '#' + r + g + b;
 }

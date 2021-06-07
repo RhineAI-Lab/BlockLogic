@@ -13,6 +13,10 @@ html,body{
     text-overflow: ellipsis;
 }
 
+body{
+    min-width: 1400px;
+}
+
 .head-line{
     background-color: #232930;
     height: 54px;
@@ -126,6 +130,10 @@ html,body{
     cursor: ew-resize;
 }
 
+.directory-space{
+    width: 200px;
+    overflow: auto;
+}
 .editor-bar{
     width: 400px;
     resize: horizontal;
@@ -137,7 +145,7 @@ html,body{
     font-size: 14px;
     line-height: 2em;
     resize: horizontal;
-    overflow-y:scroll;
+    overflow:auto;
 }
 .draw-space{
     width: 600px;
@@ -150,7 +158,7 @@ html,body{
 .console-space{
     width: 400px;
     font-size: 14px;
-    overflow-y:scroll;
+    overflow-y:auto;
     flex-grow:1;
 }
 .console-item{
@@ -162,7 +170,7 @@ html,body{
     color: #444;
 }
 .console-item:hover{
-    background: #ffffc2;
+    background: #FFF9E7;
 }
 
 .editor{
@@ -220,7 +228,7 @@ html,body{
     width: 7.4px;
     height: 7.4px;
     border-style:solid;
-    border-width:2.8px;
+    border-width:2px;
     border-color: #00aadd;
 
     transition-duration: 0.3s;
