@@ -333,7 +333,7 @@ window.onload=function(){
     };
     var initNodes=[
         {"name":"单文件项目","open":true,children:[
-            {"name":"untitled.js"}
+            {"name":"Untitled.js"}
         ]}
     ];
     var direct = $.fn.zTree.init($("#directory-tree"), treeSetting, initNodes);
