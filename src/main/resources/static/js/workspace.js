@@ -80,11 +80,25 @@ const allBlockColor = ["#AAAAAA","#5AA45A","#A45A7F","#985AA4","#5A7FA4","#5A66A
     "#5A66A4","#2195F1","#e5af00","#e6645c","#90b01f","#888888","#3264e1","#0eaf9e","#339999","#9abc86","#7476c6","#cb863a",
     "#b9993d","#d4285c","#d56331","#cc9999"];
 
-//全局参数
+//选项常量
+const MODE_SINGLE_FILE = 0;
+const MODE_NORMAL_PRODUCT = 1;
+const MODE_HARMONY_PRODUCT = 2;
+
+const FILE_TYPE_AUTO = 0;
+const FILE_TYPE_UI = 0;
+const FILE_TYPE_PRODUCT = 0;
+const FILE_TYPE_HARMONY = 0;
+
+//配置常量
 const normalColor = "#394C5A";
 const choosedColor = "#42B983";
 
 const normalLogTag = "WebLog";
+
+//全局参数
+var productMode = MODE_SINGLE_FILE;
+var fileType = FILE_TYPE_AUTO;
 
 var workspace = null;
 var toolbox = null;
@@ -93,7 +107,7 @@ var inited = false;
 
 var editor = null;
 var webConsole = null;
-var flyoutNow = 0;
+var flyoutId = 0;
 var flyoutLast = null;
 
 var autoClose = true;
@@ -143,13 +157,6 @@ window.onload=function(){
                     return
                 }
                 DebugPlugin.runFile("BlockLogic-Online",getCode())
-            },
-            pull:function(){
-                if(!DebugPlugin.connected){
-                    alert("请先连接设备。");
-                    webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
-                    return
-                }
             },
             push:function(){
                 if(!DebugPlugin.connected){
@@ -220,9 +227,9 @@ window.onload=function(){
                 }
                 i = allBlockList.indexOf(v.name);
                 if(i>=0){
-                    if(flyoutNow===i){
+                    if(flyoutId===i){
                         workspace.getFlyout().hide();
-                        flyoutNow = -1;
+                        flyoutId = -1;
                         flyoutLast = null;
                         v.color = "#324a5b";
                         v.bg = "#ffffff";
@@ -235,7 +242,7 @@ window.onload=function(){
                         }
                         v.color = "#000000";
                         v.bg = colourBlend(v.icon,"#ffffff",0.6);
-                        flyoutNow = i;
+                        flyoutId = i;
                         flyoutLast = v;
                     }
                 }
@@ -301,7 +308,7 @@ window.onload=function(){
         }
 
         if(event.type == Blockly.Events.VAR_CREATE || event.type == Blockly.Events.VAR_DELETE || event.type == Blockly.Events.VAR_RENAME){
-            if(flyoutNow==2){
+            if(flyoutId==2){
                 workspace.getFlyout().hide();
                 toolbox.selectItemByPosition(2);
                 toolbox.selectItemByPosition(2);
@@ -309,7 +316,7 @@ window.onload=function(){
         }else if(event.type == Blockly.Events.BLOCK_CREATE){
             if(autoClose){
                 workspace.getFlyout().hide();
-                flyoutNow = -1;
+                flyoutId = -1;
                 if(flyoutLast!=null){
                     flyoutLast.color = "#324a5b";
                     flyoutLast.bg = "#ffffff";
