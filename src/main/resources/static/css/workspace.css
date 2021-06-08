@@ -16,28 +16,32 @@ html,body{
 body{
     min-width: 1400px;
 }
+a{
+    text-decoration:none
+}
 
 .head-line{
-    background-color: #232930;
+    background-color: #212529;
     height: 54px;
 }
 .head-line div{
     height: 100%;
-    max-width: 1080px;
+    max-width: 1180px;
     margin:0 auto
 }
 .head-btn{
     float: right;
-    padding: 16px 13px;
+    padding: 18px 13px;
     font-size: 15px;
-    color: #cdcdcd;
-    transition-duration: 0.7s;
+    line-height: 18px;
+    color: #ddd;
+    transition-duration: 0.4s;
     transition-timing-function: ease;
     transition-delay: 0s;
     transition-property: all
 }
 .head-btn:hover{
-    color: #9bffaf;
+    background: #00A86B;
     cursor:pointer;
 }
 .title{

@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>BlockLogic - AutoJsPro</title>
-    <link rel="stylesheet" href="css/index.css">
+    <!-- Basic Page Needs
+        ================================================== -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#00A86B">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML5, Template, Design, agency, blog, business, clean, creative, marketing, modern, multipurpose, portfolio, seo, startup, studio, trending" />
+    <title>BlockLogic</title>
+
+    <!-- Stylesheet  -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/jade.css" />
 </head>
-<body>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="70">
 
 <!-- Main Wrapper -->
 <div id="main-wrapper">
@@ -13,19 +29,25 @@
     <header id="header" class="sticky-top-slide">
         <!-- Navbar -->
         <nav class="primary-menu navbar navbar-expand-lg navbar-text-light bg-transparent border-bottom-0">
-            <div class="container-fluid position-relative">
+            <div class="container-fluid position-relative max-width-line">
+                <div class="col-auto col-lg-3">
+                    <!-- Logo -->
+                    <a class="logo" href="index.html" title="Logo Light"><h3>BlockLogic</h3></a>
+                    <!-- Logo End -->
+                </div>
                 <div class="col col-lg-9 navbar-accordion px-0">
                     <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
                     <div id="header-nav" class="collapse navbar-collapse justify-content-center">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link smooth-scroll active" href="#home">Home</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">About</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#services">Services</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#resume">Resume</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#portfolio">Portfolio</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#testimonial">Testimonial</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#blog-post">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll active" href="#home">&nbsp;&nbsp;&nbsp;主页&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#">&nbsp;&nbsp;&nbsp;简介&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#start">&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#">&nbsp;&nbsp;&nbsp;教程&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#learn">&nbsp;&nbsp;&nbsp;学习&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#">&nbsp;&nbsp;&nbsp;社区&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#">我的项目</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">交流群</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#contact">联系我们</a></li>
                         </ul>
                     </div>
                 </div>
@@ -41,21 +63,22 @@
         <section id="home">
             <div class="utf-hero-wrap">
                 <div class="utf-hero-mask opacity-8 bg-dark"></div>
+                <div class="utf-hero-bg parallax" style="background-image:url('images/hireme_dark.jpg');"></div>
                 <div class="utf-hero-content section d-flex fullscreen">
                     <div class="container my-auto">
                         <div class="row">
                             <div class="col-12 text-center">
                                 <div class="typed-strings">
-                                    <p>Freelancer.</p>
-                                    <p>Web Developer.</p>
-                                    <p>iOS Application.</p>
-                                    <p>Photographer.</p>
+                                    <p>学习编程。</p>
+                                    <p>制作自己的APP。</p>
+                                    <p>设计UI。</p>
+                                    <p>制作脚本。</p>
                                 </div>
-                                <p class="text-6 font-weight-400 text-white mb-2 mb-md-3">Looking for a Designer!</p>
-                                <h2 class="text-16 font-weight-800 text-white mb-2 mb-md-3">Hello I'm <span class="typed"></span></h2>
-                                <p class="text-4 text-light mb-4">I'm a Freelance UI/UX Designer and Developer based in, England. I strives<br> immersive and beautiful web applications through carefully crafted code and user-centric design.</p>
-                                <a href="#" class="btn btn-primary rounded shadow-none smooth-scroll mt-2 mr-2">Download CV</a>
-                                <a href="#contact" class="btn btn-outline-primary rounded shadow-none smooth-scroll mt-2">Hire Me</a>
+                                <p class="text-6 font-weight-400 text-white mb-2 mb-md-3">快速制作一个属于自己的APP吧!</p>
+                                <h2 class="text-16 font-weight-800 text-white mb-2 mb-md-3">你好，我想..<span class="typed"></span></h2>
+                                <p class="text-4 text-light mb-4">只需通过拼接图形块就可快捷做出属于自己的App！双向实时同步图形和代码。<br> 丰富全面的功能！ 详细的API及文档！ 便捷的快速调试方式！ 自上而下的全面支持！ </p>
+                                <a href="#start" class="btn btn-primary rounded shadow-none smooth-scroll mt-2 mr-2">快速开始</a>
+                                <a href="https://pro.autojs.org/docs/#/zh-cn/" target="view_window" class="btn btn-outline-primary rounded shadow-none mt-2">下载客户端</a>
                             </div>
                         </div>
                     </div>
@@ -68,81 +91,273 @@
                 </svg>
             </div>
         </section>
-        <!-- Intro end -->
 
-        <!-- About -->
-        <section id="about" class="section">
+        <section id="start" class="section">
             <div class="container">
                 <!-- Heading -->
                 <div class="position-relative d-flex text-center mb-5">
-                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">My Info</h2>
-                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">About Me<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
+                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">START</h2>
+                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">启航<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
                 </div>
                 <!-- Heading end-->
 
                 <div class="row">
-                    <div class="col-lg-5 mt-lg-0">
-                    </div>
-                    <div class="col-lg-7 text-lg-left">
-                        <h2 class="text-6 font-weight-600 mb-3">I Am <span class="text-primary">Dynamic</span> Creative Designer Photographer.</h2>
-                        <p>I Am John Willims. Impossible considered invitation him men instrument saw celebrated unpleasant. Put rest and must set kind next many near nay. He exquisite continued explained middleton am. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet diam nonummy.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="about_short_contact_wrap">
-                            <ul class="list-style-light">
-                                <li><span class="font-weight-500 mr-2">Name:</span>John Williams</li>
-                                <li><span class="font-weight-500 mr-2">Email:</span><a href="mailto:info@example.com">info@example.com</a></li>
-                                <li><span class="font-weight-500 mr-2">Birthday:</span>12 March, 1991</li>
-                                <li><span class="font-weight-500 mr-2">Study:</span>Chicago University</li>
-                                <li><span class="font-weight-500 mr-2">Phone:</span>(+12) 3467-890-123</li>
-                                <li><span class="font-weight-500 mr-2">From:</span>Univercity of Chicago</li>
-                                <li><span class="font-weight-500 mr-2">Residence:</span>Chicago</li>
-                                <li><span class="font-weight-500 mr-2">Freelance:</span>Available</a></li>
-                                <li><span class="font-weight-500 mr-2">Website:</span><a href="#">www.mywebsite.com</a></li>
-                                <li><span class="font-weight-500 mr-2">Skype:</span>@myusername</li>
-                            </ul>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="mt-2">
-                            <a href="#" class="btn btn-primary rounded shadow-none smooth-scroll">View Portfolio</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="utf-separator-border-aera mt-5">
-                    <div class="row">
-                        <div class="col-6 col-md-3">
-                            <div class="utf-service-featured-box text-center">
-                                <i class="text-10 mb-3 fas fa-clock"></i>
-                                <h4 class="text-12 text-dark mb-0"><span class="counter" data-from="0" data-to="4250">4250</span>+</h4>
-                                <p class="mb-0">Working Hours</p>
+                    <div class="col-lg-12 mx-auto">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable" onclick="window.open('workspace.html')">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-file-code-o"></i> </div>
+                                    <h3>单文件-脚本程序</h3>
+                                    <p class="text-dark mb-0">新建一个基础的脚本文件。可做手机端脚本，甚至模拟真人对屏幕进行点击等控制操作。</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="utf-service-featured-box text-center">
-                                <i class="text-10 mb-3 fas fa-user"></i>
-                                <h4 class="text-12 text-dark mb-0"><span class="counter" data-from="0" data-to="899">899</span>+</h4>
-                                <p class="mb-0">Happy Clients</p>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-android"></i></div>
+                                    <h3>项目-APP模板</h3>
+                                    <p class="text-dark mb-0">新建一个通用APP项目。用于制作一个安卓应用，具有基本的目录，以及UI模板。</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="utf-service-featured-box text-center">
-                                <i class="text-10 mb-3 fas fa-trophy"></i>
-                                <h4 class="text-12 text-dark mb-0"><span class="counter" data-from="0" data-to="222">222</span>+</h4>
-                                <p class="mb-0">Winning Awards</p>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-circle-o"></i> </div>
+                                    <h3>鸿蒙项目-APP模板</h3>
+                                    <p class="text-dark mb-0">新建一个鸿蒙APP项目。可用于制作一个鸿蒙应用，具有基本的目录，以及UI模板。</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="utf-service-featured-box text-center">
-                                <i class="text-10 mb-3 fas fa-folder"></i>
-                                <h4 class="text-12 text-dark mb-0"><span class="counter" data-from="0" data-to="2050">2050</span></h4>
-                                <p class="mb-0">Projects a Year</p>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-file-image-o"></i> </div>
+                                    <h3>单文件-页面UI显示</h3>
+                                    <p class="text-dark mb-0">新建一个含有页面的文件。可用于快速制作单一页面的简单应用，或作为脚本的配置页。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-list-alt"></i> </div>
+                                    <h3>项目-待办事项</h3>
+                                    <p class="text-dark mb-0">新建一个含待办事项示例的项目。有列表信息的显示与交互修改等功能。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-sitemap"></i> </div>
+                                    <h3>鸿蒙项目-互联通信</h3>
+                                    <p class="text-dark mb-0">新建一个含万物互联功能示例的鸿蒙项目。可与其他鸿蒙设备进行互联通信。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-mortar-board"></i> </div>
+                                    <h3>单文件-Pytorch模型Yolov5s迁移</h3>
+                                    <p class="text-dark mb-0">新建一个含Pytorch目标检测功能的程序。可将训练好的Pytorch模型迁移至手机端运行。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-gamepad"></i> </div>
+                                    <h3>项目-贪吃蛇游戏</h3>
+                                    <p class="text-dark mb-0">新建一个含贪吃蛇小游戏的项目。可用于参考与改编做自己的小游戏。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-search"></i> </div>
+                                    <h3>鸿蒙项目-系统OCR调用</h3>
+                                    <p class="text-dark mb-0">新建一个含调用鸿蒙系统OCR功能的项目。可用于参考和改编制作系统Ai功能调用。</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- About end -->
+
+
+        <!-- Resume -->
+        <section id="learn" class="section bg-light">
+            <div class="container">
+                <!-- Heading -->
+                <div class="position-relative d-flex text-center mb-5">
+                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">Learn</h2>
+                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">学习<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
+                </div>
+                <!-- Heading end-->
+
+                <div class="row">
+                    <!-- My Education -->
+                    <div class="col-md-6">
+                        <h2 class="text-6 font-weight-600 mb-4">在游戏中学习图形编程</h2>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://www.blockly.games/maze?lang=zh-hans')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-sliders"></i></div>
+                            <h3 class="text-5">机器人走迷宫</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Blockly Games</p>
+                            <p class="mb-0">通过编写动作程序，操纵机器人走出迷宫。</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://www.blockly.games/turtle?lang=zh-hans')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-paint-brush"></i></div>
+                            <h3 class="text-5">可控画笔</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Blockly Games</p>
+                            <p class="mb-0">编写画笔的控制程序，画出对应的图形。</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://www.blockly.games/pond-tutor?lang=zh-hans')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-gamepad"></i></div>
+                            <h3 class="text-5">荷塘对战-教学</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Blockly Games</p>
+                            <p class="mb-0">编写人物的控制程序及其逻辑，让他能够战胜其他人！</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://www.blockly.games/pond-duck?lang=zh-hans')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-gamepad"></i></div>
+                            <h3 class="text-5">荷塘对战</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Blockly Games</p>
+                            <p class="mb-0">编写人物的控制程序及其逻辑，让他能够战胜其他人！</p>
+                        </div>
+                    </div>
+
+                    <!-- My Experience -->
+                    <div class="col-md-6">
+                        <h2 class="text-6 font-weight-600 mb-4">程序技术学习</h2>
+                        <div class="bg-white border rounded p-4 mb-4 clickable">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-file-code-o"></i></div>
+                            <h3 class="text-5">JavaScript基础[制作中]</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Blocks Learn Online</p>
+                            <p class="mb-0">通过图形块，同时学习Javascript编程语言的基础。</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://pro.autojs.org/docs/#/zh-cn/?id=%E7%BB%BC%E8%BF%B0')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-id-card"></i></div>
+                            <h3 class="text-5">AutoJs模块使用</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">AutoJs Docs</p>
+                            <p class="mb-0">AutoJs文档教程。丰富全面的Api接口使用教程及示例。</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable" onclick="window.open('https://www.bilibili.com/video/BV1nf4y1x783')">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-file-image-o"></i></div>
+                            <h3 class="text-5">UI页面制作</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">Bilibili Videos</p>
+                            <p class="mb-0">B站UI页面制作的视频教程。</p>
+                        </div>
+                        <div class="bg-white border rounded p-4 mb-4 clickable">
+                            <div class="utf-education-box-icon-light text-primary rounded-pill"> <i class="fa fa-circle-o"></i></div>
+                            <h3 class="text-5">鸿蒙项目开发教程[制作中]</h3>
+                            <p class="badge sub-item-text text-2 font-weight-400">BlockLogic Docs</p>
+                            <p class="mb-0">鸿蒙项目开发教程。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section">
+            <div class="container">
+                <!-- Heading -->
+                <div class="position-relative d-flex text-center mb-5">
+                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">Continue</h2>
+                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">继续<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
+                </div>
+                <!-- Heading end-->
+
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable" onclick="window.open('workspace.html')">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-file-code-o"></i> </div>
+                                    <h3>进入编辑器</h3>
+                                    <p class="text-dark mb-0">需编辑手机中的项目，可直先进入编辑器，连接手机后导入。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-folder-o"></i></div>
+                                    <h3>打开本地项目</h3>
+                                    <p class="text-dark mb-0">打开本地电脑中的项目，项目需要上传压缩包。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-lg-6 col-xl-4 clickable">
+                                <div class="utf-service-featured-box border-footer style-3">
+                                    <div class="utf-service-featured-box-icon text-primary bg-white shadow-sm rounded-pill"> <i class="fa fa-user-o"></i> </div>
+                                    <h3>我的项目</h3>
+                                    <p class="text-dark mb-0">查看修改自己本地曾今编辑过的项目。当前保存在浏览器缓存中。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact Me -->
+        <section id="contact" class="section bg-light">
+            <div class="container">
+                <!-- Heading -->
+                <div class="position-relative d-flex text-center mb-5">
+                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">Contact</h2>
+                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">联系我们<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
+                </div>
+                <!-- Heading end-->
+                <div class="row">
+                    <div class="col-md-5 col-xl-4 order-1 order-md-0 text-md-left mt-5 mt-md-0">
+                        <h3 class="mb-5 text-5">信息</h3>
+                        <p class="text-3 mb-4">有任何问题欢迎优先加入Q群讨论，解决问题更迅速。有任何建议也欢迎来提出，正在积极采纳各方面建议中！</p>
+                        <p class="text-3 mb-2"><span class="text-dark address-info-tit-light text-3 font-weight-500 mr-2">BlockLogic用户Q群:</span> 753835092</p>
+                        <p class="text-3 mb-2"><span class="text-dark address-info-tit-light text-3 font-weight-500 mr-2">Autojs答疑群:</span> 564718187</p>
+                        <p class="text-3 mb-4"><span class="text-dark address-info-tit-light text-3 font-weight-500 mr-2">网站:</span> 本站域名申请中</p>
+                        <p class="text-3 mb-2"><span class="text-dark address-info-tit-light text-3 font-weight-500 mr-2">BlockLogic网络开发者群:</span> 1046342915</p>
+                    </div>
+                    <div class="col-md-7 col-xl-8 order-0 order-md-1">
+                        <h3 class="mb-5 text-5 text-md-left">反馈问题</h3>
+                        <form id="contact-form" method="post">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <input name="name" type="text" class="form-control" required placeholder="姓名">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <input name="email" type="email" class="form-control" required placeholder="邮箱">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="form-message" class="form-control" rows="5" required placeholder="内容..."></textarea>
+                            </div>
+                            <p class="text-left mt-4 mb-0">
+                                <button class="btn btn-primary rounded d-inline-flex" onclick="alert('反馈通道开发中，请稍后。')">发送</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Me end -->
     </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center text-lg-center">
+                    <p class="mb-0 mb-lg-0">Copyright © 2021 All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer end -->
 </div>
+<!-- Main Wrapper End -->
+
+<!-- Back to Top -->
+<a id="back-to-top" class="rounded" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/jquery.easing.min.js"></script>
+<script src="js/jquery.appear.min.js"></script>
+<script src="js/parallaxie.min.js"></script>
+<script src="js/typed.min.js"></script>
+<script src="js/switcher.min.js"></script>
+<script src="js/custom-jquery.js"></script>
 </body>
 </html>

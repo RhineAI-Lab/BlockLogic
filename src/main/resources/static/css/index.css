@@ -41,6 +41,31 @@ body {
     font-family: "Rubik", sans-serif;
 }
 /*-------- Animsition Preloader --------*/
+.animsition-preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #1e2328;
+    z-index: 999999;
+    left:0;
+    right:0;
+}
+.animsition-preloader > div {
+    width: 140px;
+    height: 140px;
+    flex: 0 0 25%;
+    box-sizing: border-box;
+    margin: 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 .utf-spinner-one {
     width: 50px;
     height: 50px;
@@ -90,6 +115,9 @@ body {
     }
 }
 /*--- Preloader Magnific Popup ----*/
+.clickable:hover{
+    cursor: pointer;
+}
 .mfp-container .preloader {
     background: transparent;
 }
@@ -898,7 +926,7 @@ blockquote p{
     transition: all 0.5s ease;
 }
 #header .navbar {
-    padding: 0px;
+    padding: 0;
 }
 #header .logo {
     -webkit-box-align: center;
@@ -909,6 +937,12 @@ blockquote p{
     display: flex;
     -ms-flex-item-align: stretch;
     align-self: stretch;
+}
+#header .logo h3{
+    color: #ddd;
+}
+.max-width-line{
+    max-width: 1280px;
 }
 .pro-title-bg {
     font-weight: 500;
