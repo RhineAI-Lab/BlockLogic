@@ -29,7 +29,7 @@ a{
     max-width: 1180px;
     margin:0 auto
 }
-.head-btn{
+.head-line a{
     float: right;
     padding: 18px 13px;
     font-size: 15px;
@@ -40,16 +40,26 @@ a{
     transition-delay: 0s;
     transition-property: all
 }
-.head-btn:hover{
+.head-line a:hover{
     background: #00A86B;
     cursor:pointer;
 }
-.title{
+.head-line h1{
     color: #e5e5e5;
-    margin-left: 1em;
     margin-right: 1em;
+    margin-top: 8px;
     float: left;
-    transform: translateY(50%);
+}
+.head-line h1:hover{
+    cursor: pointer;
+}
+.head-line img{
+    width: 32px;
+    height: 32px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 1em;
+    margin-right: 6px;
 }
 .tool-bar{
     display: flex;

@@ -938,8 +938,16 @@ blockquote p{
     -ms-flex-item-align: stretch;
     align-self: stretch;
 }
-#header .logo h3{
+#header .logo h1 {
     color: #ddd;
+    float: left;
+    margin-left: 8px;
+    margin-top: 8px;
+}
+#header .logo img{
+    float: left;
+    width: 36px;
+    height: 36px;
 }
 .max-width-line{
     max-width: 1280px;
