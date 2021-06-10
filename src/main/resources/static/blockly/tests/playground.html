@@ -207,9 +207,9 @@ function initToolbox(workspace) {
 function toXml() {
   var output = document.getElementById('importExport');
   var xml = Blockly.Xml.workspaceToDom(workspace);
-  output.value = Blockly.Xml.domToPrettyText(xml);
+  output.value = Blockly.Xml.domToPrext(xml);
   output.focus();
-  output.select();
+  output.select();ettyT
   taChange();
 }
 
@@ -458,7 +458,7 @@ var spaghettiXml = [
   </li>
   </ul>
 
-  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
+  <xml id="toolbox-categories" style="display: none">
     <category name="Logic" categorystyle="logic_category">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>

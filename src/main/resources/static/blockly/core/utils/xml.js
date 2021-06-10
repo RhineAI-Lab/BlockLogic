@@ -21,7 +21,7 @@ goog.provide('Blockly.utils.xml');
 /**
  * Namespace for Blockly's XML.
  */
-Blockly.utils.xml.NAME_SPACE = 'https://developers.google.com/blockly/xml';
+Blockly.utils.xml.NAME_SPACE = 'https://BLogic.AutoJs.org/xml';
 
 /**
  * Get the document object.  This method is overridden in the Node.js build of

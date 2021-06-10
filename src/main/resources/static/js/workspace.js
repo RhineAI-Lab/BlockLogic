@@ -97,8 +97,10 @@ const choosedColor = "#42B983";
 const normalLogTag = "WebLog";
 
 //全局参数
-var productMode = MODE_SINGLE_FILE;
+var projectMode = MODE_SINGLE_FILE;
 var fileType = FILE_TYPE_AUTO;
+var fileNode = null;
+var savedCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/";
 
 var workspace = null;
 var toolbox = null;
@@ -107,13 +109,17 @@ var inited = false;
 
 var editor = null;
 var webConsole = null;
+var projectNode = null;
+var tree = null;
 var flyoutId = 0;
 var flyoutLast = null;
 
 var autoClose = true;
 var autoCode = true;
+var unfoldXml = false;
 
 window.onload=function(){
+
     //初始化工具栏
     toolbar = new Vue({
         el: '#toolbar',
@@ -130,16 +136,24 @@ window.onload=function(){
                 autoCode = !autoCode;
                 changeShowBtnState(v,autoCode)
             },
+            changeXmlFoldMode:function(v){
+                unfoldXml = !unfoldXml;
+                changeShowBtnState(v,unfoldXml)
+            },
             toCode:function () {
-                editor.setValue(Blockly.JavaScript.workspaceToCode(workspace));
-                webConsole.log("代码同步成功。",normalLogTag)
+                toCode();
+            },
+            saveCode:function () {
+                save();
             },
             runCode:function () {
                 showConsole();
                 eval(getCode());
             },
             toBlock:function(){
-                alert("反向生成功能开发中...敬请期待。")
+                if (!toBlock()){
+                    alert("反向生成功能开发中...敬请期待。")
+                }
             },
             connect:function(){
                 var ip = document.getElementById("input-ip").value;
@@ -164,7 +178,7 @@ window.onload=function(){
                     webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
                     return
                 }
-                var name = document.getElementById("input-path").value;
+                var name = fileNode.name;
                 if(name!=null&&name.length>0){
                     DebugPlugin.saveFile("BlockLogic-Online\\"+name,getCode())
                 }else{
@@ -203,6 +217,31 @@ window.onload=function(){
     document.getElementById("editor-space").style.display = "block";
     document.getElementById("draw-space").style.display = "block";
     document.getElementById("console-space").style.display = "none";
+    var loadCallback = function(code){
+        savedCode = code;
+        editor.setValue(code);
+        toBlock();
+    };
+    document.getElementById("upload").addEventListener("change",function (e) {
+        var files = e.target.files;
+        if(files.length>0){
+            askForSave();
+
+            var file = files[0];
+            fileNode.name = file.name;
+            tree.updateNode(fileNode);
+
+            let reader = new FileReader();
+            reader.readAsText(file, 'UTF-8');
+            reader.onload = function (e) {
+                let fileContent = e.target.result;
+                if (loadCallback && (typeof loadCallback === 'function')) {
+                    loadCallback(fileContent)
+                }
+            }
+        }
+        event.target.value="";
+    });
 
     //初始化侧栏
     sidebar = new Vue({
@@ -303,10 +342,8 @@ window.onload=function(){
     },);
     workspace.addChangeListener(function(event) {
         if(autoCode){
-            var code = Blockly.JavaScript.workspaceToCode(workspace);
-            editor.setValue(code);
+            toCode();
         }
-
         if(event.type == Blockly.Events.VAR_CREATE || event.type == Blockly.Events.VAR_DELETE || event.type == Blockly.Events.VAR_RENAME){
             if(flyoutId==2){
                 workspace.getFlyout().hide();
@@ -336,15 +373,55 @@ window.onload=function(){
         check: {
             enable: false,
             chkStyle: "checkbox"
+        },
+        edit: {
+            enable: true,
+            editNameSelectAll:true,
+            removeTitle:'删除',
+            renameTitle:'重命名'
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback:{
+            beforeRemove:function(e,treeId,treeNode){
+                alert("单文件项目不可删除");
+                return false;
+            },
+            beforeRename:function(treeId,treeNode,newName,isCancel){
+                return true;
+            },
+            beforeEditName: function(treeId,treeNode){
+                if(treeNode===projectNode){
+                    alert("根目录名称不可修改");
+                    return false;
+                }
+                return true;
+            },
+            beforeDrag:function beforeDrag(treeId,treeNodes){
+                return false;
+            },
+            onClick:function clickNode(e,treeId,treeNode){
+            },
+            onDblClick:function(event, treeId, treeNode) {
+            },
+            onRemove:function(e,treeId,treeNode){
+            },
+            onRename:function(e,treeId,treeNode,isCancel){
+            },
+            onDrag:function(event, treeId, treeNodes, targetNode, moveType) {
+            }
         }
     };
     var initNodes=[
-        {"name":"单文件项目","open":true,children:[
-            {"name":"Untitled.js"}
-        ]}
+        {"name":"单文件项目","open":true,children:[]}
     ];
-    var direct = $.fn.zTree.init($("#directory-tree"), treeSetting, initNodes);
-    console.log(direct);
+    tree = $.fn.zTree.init($("#directory-tree"), treeSetting, initNodes);
+    projectNode = tree.getNodes()[0];
+    fileNode = tree.addNodes(projectNode,{name:"Untitled.js"})[0];
+    console.log(fileNode);
 
     //初始化控制台
     console.logCallback = function(msg,level){
@@ -390,14 +467,74 @@ window.onload=function(){
     }
 };
 
+function askOnLeave(e){
+    var e = window.event||e;
+    e.returnValue=("请确保您的代码已经保存。是否确定离开？");
+}
+
 function showConsole() {
     document.getElementById("console-space").style.display = "block";
     changeShowBtnState(document.getElementById("show-console"),true);
     Blockly.svgResize(workspace);
 }
 
+function toCode() {
+    var code = Blockly.JavaScript.workspaceToCode(workspace);
+    var xml = Blockly.Xml.workspaceToDom(workspace,true);
+    if(unfoldXml){
+        xml = "\n"+Blockly.Xml.domToPrettyText(xml)+"\n";
+    }else {
+        xml = Blockly.Xml.domToText(xml)
+    }
+    editor.setValue(code+"\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*"+xml+"*/");
+}
+
+function toBlock() {
+    workspace.clear();
+    var xml = getXml(getCode());
+    if(xml==null){
+        return false;
+    }else {
+        try{
+            var xmlDom = Blockly.Xml.textToDom(xml);
+            Blockly.Xml.domToWorkspace(xmlDom, workspace);
+            return true;
+        }catch (e) {
+            alert("抱歉，图形块解析失败。");
+            return true;
+        }
+    }
+}
+
+function getXml(code) {
+    var startStr = "//------ 图形块结构记录 请勿随意修改 ------\n/*";
+    var i = code.indexOf(startStr);
+    if(i==-1){
+        return null
+    }else {
+        i += startStr.length;
+        var length = code.substring(i).indexOf("*/");
+        return code.substring(i,i+length)
+    }
+}
+
 function getCode() {
     return editor.getSession().getValue()
+}
+
+function save() {
+    savedCode = getCode()+"";
+    exportRaw(fileNode.name,savedCode)
+}
+
+function askForSave(){
+    if(getCode()!=savedCode){
+        if(confirm("代码还未保存，是否保存？")){
+            save();
+            return true;
+        }
+    }
+    return false;
 }
 
 function changeShowMode(id,btn) {
@@ -455,4 +592,19 @@ function colourBlend(c1, c2, ratio) {
     g = ('0' + (g || 0).toString(16)).slice(-2);
     b = ('0' + (b || 0).toString(16)).slice(-2);
     return '#' + r + g + b;
+}
+
+function fakeClick(obj) {
+    var ev = document.createEvent("MouseEvents");
+    ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    obj.dispatchEvent(ev);
+}
+
+function exportRaw(name, data) {
+    var urlObject = window.URL || window.webkitURL || window;
+    var export_blob = new Blob([data]);
+    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+    save_link.href = urlObject.createObjectURL(export_blob);
+    save_link.download = name;
+    fakeClick(save_link);
 }

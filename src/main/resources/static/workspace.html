@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/btn.css">
     <link rel="stylesheet" href="css/metroStyle/metroStyle.css">
 </head>
-<body>
+<body onbeforeunload="askOnLeave()">
     <div class="head-line">
         <div>
             <img src="images/logo.png"/>
@@ -25,13 +25,20 @@
     </div>
 
     <div class="tool-bar" id="toolbar">
-        <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)">保留栏目</button>
-        <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)">同步代码</button>
+        <button class="tool-check btn-9" id="use-unfold-xml"  @click="changeXmlFoldMode($event.target)" title="开启后，用于记录图形块状的XML内容会展开。">展开XML</button>
+        <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)" title="开启后，选择创造新图形块后，不会自动关闭图形块栏目。">保留栏目</button>
+        <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)" title="开启后每当修改图形后会自动同步生成代码。">同步代码</button>
         <a class="tool-space"></a>
         <a class="tool-space"></a>
-        <button class="tool-btn btn-3" id="to-code"  @click="toBlock()"><span>&lt同步图形</span></button>
-        <button class="tool-btn btn-3" id="run-code" @click="runCode()"><span>在线运行</span></button>
-        <button class="tool-btn btn-3" id="to-block" @click="toCode()"><span>同步代码&gt</span></button>
+        <button class="tool-btn btn-3" id="to-code"  @click="toBlock()"><span>&lt生成图形</span></button>
+        <button  class="tool-btn btn-3">
+            <span>打开
+                <input type="file" class="upload-input" name="file" id="upload" accept="text/javascript"/>
+            </span>
+        </button>
+        <button class="tool-btn btn-3" id="run-code" @click="runCode()" title="在网页上运行JS程序，仅支持JS基础语法，不可用扩展函数功能。"><span>运行</span></button>
+        <button class="tool-btn btn-3" id="save-code" @click="saveCode()" title="保存文件至本地。文件内容以代码编辑器为准。"><span>保存</span></button>
+        <button class="tool-btn btn-3" id="to-block" @click="toCode()"><span>生成代码&gt</span></button>
         <a class="tool-space"></a>
         <a class="tool-space"></a>
         <button class="tool-check btn-9" id="show-directory" @click="show($event.target)">目录</button>
@@ -40,11 +47,9 @@
         <button class="tool-check btn-9" id="show-console"   @click="show($event.target)">控制台</button>
         <a class="tool-middle"></a>
         <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
-        <button class="tool-btn btn-2" id="connect" @click="connect()">连接设备</button>
-        <button class="tool-btn btn-2" id="run" @click="originRun()">运行</button>
-        <a class="tool-space"></a>
-        <input class="tool-input" placeholder="文件名" v-model="ip" id="input-path" type="text">
-        <button class="tool-btn btn-2" id="push" @click="push()">保存</button>
+        <button class="tool-btn btn-2" id="connect" @click="connect()" title="连接调试设备。">连接</button>
+        <button class="tool-btn btn-2" id="run" @click="originRun()" title="在远程连接的设备上运行程序。">运行</button>
+        <button class="tool-btn btn-2" id="push" @click="push()" title="将文件保存到已连接的设备中。默认路径为:/SD卡/脚本/。">保存</button>
         <a class="tool-space"></a>
         <button class="tool-btn btn-2" id="ask" @click="ask()">连接教程</button>
     </div>
@@ -586,7 +591,7 @@
         </category>
         <category name="Widget">
             <block type="widget_algorithm"></block>
-            <block type="puzzle_left_to_up_down"></block>
+            <block type="puzzle"></block>
             <block type="widget_attr_selector">
                 <value name="VALUE">
                     <shadow type="text"></shadow>
@@ -601,7 +606,7 @@
             <block type="widget_exists"></block>
             <block type="widget_wait"></block>
             <block type="widget_operate"></block>
-            <block type="puzzle_left_to_up_down">
+            <block type="puzzle">
                 <value name="VALUE">
                     <block type="widget_operate">
                         <value name="WIDGET">
@@ -770,7 +775,7 @@
             </block>
         </category>
         <category name="Simple">
-            <block type="puzzle_left_to_up_down"></block>
+            <block type="puzzle"></block>
             <block type="simple_click">
                 <value name="I">
                     <shadow type="math_number">
@@ -833,7 +838,7 @@
             </block>
         </category>
         <category name="Puzzle">
-            <block type="puzzle_left_to_up_down"></block>
+            <block type="puzzle"></block>
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
             <block type="puzzle_block_attr"></block>

@@ -13,7 +13,7 @@ var colour = "#999999";
 
 Blockly.defineBlocksWithJsonArray([
     {
-        "type": "puzzle_left_to_up_down",
+        "type": "puzzle",
         "message0": "%1",
         "args0": [{"type": "input_value", "name": "VALUE"}],
         "previousStatement": null,
