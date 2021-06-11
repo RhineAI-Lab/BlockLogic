@@ -11,4 +11,12 @@ public class MainController {
     public String index(Model model){
         return "index";
     }
+    @RequestMapping(value = {"","/workspace"})
+    public String workspace(Model model){
+        return "workspace";
+    }
+    @RequestMapping(value = {"","/docs"})
+    public String docs(Model model){
+        return "docs";
+    }
 }
