@@ -14,10 +14,8 @@ public class BlocklogicApplication implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/static/");
-
     }
 
 }

@@ -15,7 +15,7 @@
 
 - 模块使用
   - [页面 [编写中]](modules/UI.md)
-  - [控制台 [编写中]](modules/Console.md)
+  - [控制台](modules/Console.md)
   - [应用 [编写中]](modules/App.md)
   - [对话框 [编写中]](modules/Dialog.md)
   - [调试工具 [编写中]](modules/Debug.md)

@@ -1515,6 +1515,31 @@
             </block>
             <block type="intent_get_installed_apps"></block>
         </category>
+        <category name="Plugins">
+            <block type="$plugins_load">
+                <value name="LOAD">
+                    <shadow type="text">
+                        <field name="TEXT">org.autojs.plugin.ocr</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
+        <category name="Setting">
+            <block type="$settings_set_enabled"></block>
+            <block type="$settings_is_enabled">
+                <value name="SETTING">
+                    <shadow type="text">
+                        <field name="TEXT">stable_mode</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
+        <category name="Powermanager">
+            <block type="$power_manager_request_ignore_battery_optimizations2"></block>
+            <block type="$power_manager_request_ignore_battery_optimizations"></block>
+            <block type="$power_manager_is_ignoring_battery_optimizations"></block>
+            <block type="$power_manager_is_ignoring_battery_optimizations2"></block>
+        </category>
     </xml>
 </body>
 </html>
