@@ -452,6 +452,11 @@ Blockly.Generator.prototype.provideFunction_ = function(desiredName, code) {
   return this.functionNames_[desiredName];
 };
 
+Blockly.Generator.prototype.setRunMode_ = function(mode) {
+  var modeText = "\""+mode+"\";";
+  this.definitions_["RunMode"] = modeText;
+};
+
 /**
  * Hook for code to run before code generation starts.
  * Subclasses may override this, e.g. to initialise the database of variable

@@ -18,3 +18,9 @@ Blockly.JavaScript['var_function'] = function(block) {
     var code = "function("+elements.join(',')+"){\n"+stat+"}";
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+Blockly.JavaScript['var_function_return'] = function(block) {
+    var name_value =Blockly.JavaScript.valueToCode(block,'VALUE',Blockly.JavaScript.ORDER_ATOMIC,true);
+    var code = "return "+name_value+";\n";
+    return code;
+};

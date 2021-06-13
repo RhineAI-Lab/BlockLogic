@@ -196,8 +196,13 @@ Blockly.JavaScript.init = function(workspace) {
 Blockly.JavaScript.finish = function(code) {
   // Convert the definitions dictionary into a list.
   var definitions = [];
+  if(Blockly.JavaScript.definitions_["RunMode"]!=null){
+    definitions.push(Blockly.JavaScript.definitions_["RunMode"])
+  }
   for (var name in Blockly.JavaScript.definitions_) {
-    definitions.push(Blockly.JavaScript.definitions_[name]);
+    if(name!="RunMode"){
+      definitions.push(Blockly.JavaScript.definitions_[name]);
+    }
   }
   // Clean up temporary data.
   delete Blockly.JavaScript.definitions_;

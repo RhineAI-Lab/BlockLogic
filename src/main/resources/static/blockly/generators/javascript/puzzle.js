@@ -10,15 +10,12 @@ Blockly.JavaScript['puzzle'] = function(block) {
 };
 
 Blockly.JavaScript['puzzle_block_attr'] = function(block) {
-    var value_value = Blockly.JavaScript.quote_(block.getFieldValue('TEXT'));
-    value_value = value_value.substring(1,value_value.length-1);
-    var code = value_value;
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    var value = block.getFieldValue('TEXT');
+    return [value, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
 Blockly.JavaScript['puzzle_block'] = function(block) {
-    var value_value = Blockly.JavaScript.quote_(block.getFieldValue('TEXT'));
-    value_value = value_value.substring(1,value_value.length-1);
-    var code = value_value+'\n';
+    var value = block.getFieldValue('TEXT');
+    var code = value+'\n';
     return code;
 };

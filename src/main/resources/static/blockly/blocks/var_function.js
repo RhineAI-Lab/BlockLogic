@@ -43,14 +43,23 @@ Blockly.defineBlocksWithJsonArray([
             "name": "STACK"
         }],
         "colour": colour,
-        "tooltip": "输入变量",
+        "tooltip": "输入变量。",
     }, {
         "type": "inputs_join_item",
         "message0": "变量",
         "previousStatement": null,
         "nextStatement": null,
         "colour": colour,
-        "tooltip": "变量",
+        "tooltip": "变量。",
+    }, {
+        "type": "var_function_return",
+        "message0": "返回 %1 ",
+        "previousStatement": null,
+        "args0":[
+            {"type":"input_value","name":"VALUE","check":null},
+        ],
+        "colour": colour,
+        "tooltip": "函数返回。",
     }
 ]);
 

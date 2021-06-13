@@ -1,7 +1,6 @@
 'use strict';
 
 goog.provide('Blockly.JavaScript.dialogs');
-
 goog.require('Blockly.JavaScript');
 
 

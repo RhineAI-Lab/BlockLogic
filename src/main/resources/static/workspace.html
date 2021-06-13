@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Workspace - BLogic</title>
-    <link rel="icon" href="images/logo.ico" type="image/x-icon" />
+    <link rel="icon" href="media/logo.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/workspace.css">
     <link rel="stylesheet" href="css/btn.css">
     <link rel="stylesheet" href="css/metroStyle/metroStyle.css">
@@ -11,7 +11,7 @@
 <body onbeforeunload="askOnLeave()">
     <div class="head-line">
         <div>
-            <img src="images/logo.png"/>
+            <img src="media/logo.png"/>
             <h1 onclick="window.open('index')">B-Logic</h1>
             <a>加入我们</a>
             <a>交流群</a>
@@ -92,8 +92,12 @@
         </div>
     </div>
 
-    <script src="js/vue.js"></script>
-    <script src="js/jquery.main.min.js"></script>
+    <script src="js/plugins/vue.js"></script>
+    <script src="js/plugins/jquery.main.min.js"></script>
+    <script src="js/plugins/jquery.ztree.all.min.js"></script>
+
+    <script src="js/utils/string_utils.js"></script>
+    <script src="js/utils/code_utils.js"></script>
 
     <script src="blockly/blockly_compressed.js"></script>
     <script src="blockly/blocks_compressed.js"></script>
@@ -101,12 +105,15 @@
     <script src="blockly/msg/js/zh-hans.js"></script>
 
     <script src="ace/ace.js"></script>
-    <script src="js/jquery.ztree.all.min.js"></script>
-    <script src="js/debug_plugin.js"></script>
-    <script src="js/workspace.js"></script>
+
+    <script src="js/workspace/debug_plugin.js"></script>
+    <script src="js/workspace/draw_view.js"></script>
+    <script src="js/workspace/files_view.js"></script>
+    <script src="js/workspace/run_online_functions.js"></script>
+    <script src="js/workspace/workspace.js"></script>
 
     <xml id="toolbox" style="display: none">
-        <category name="Usual">
+        <category name="Base">
             <block type="controls_if"></block>
             <block type="controls_for">
                 <value name="FROM">
@@ -130,8 +137,56 @@
                     <shadow type="text"></shadow>
                 </value>
             </block>
-            <block type="var_function"></block>
+            <block type="dialogs_alert">
+                <value name="TITLE">
+                    <shadow type="text"></shadow>
+                </value>
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="dialogs_input">
+                <value name="TITLE">
+                    <shadow type="text"></shadow>
+                </value>
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="math_number" gap="32">
+                <field name="NUM">123</field>
+            </block>
+            <block type="globals_random">
+                <value name="MIN">
+                    <shadow type="math_number"></shadow>
+                </value>
+                <value name="MAX">
+                    <shadow type="math_number"></shadow>
+                </value>
+            </block>
+            <block type="text"></block>
+            <block type="math_arithmetic">
+                <value name="A">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+                <value name="B">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="logic_compare"></block>
+            <block type="globals_sleep">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                    </shadow>
+                </value>
+            </block>
             <block type="var_function_wc"></block>
+            <block type="var_function_return"></block>
+            <block type="var_function"></block>
         </category>
         <category name="Loops" categorystyle="loop_category">
             <block type="controls_repeat_ext">
@@ -1526,19 +1581,86 @@
         </category>
         <category name="Setting">
             <block type="$settings_set_enabled"></block>
-            <block type="$settings_is_enabled">
-                <value name="SETTING">
-                    <shadow type="text">
-                        <field name="TEXT">stable_mode</field>
-                    </shadow>
-                </value>
-            </block>
+            <block type="$settings_is_enabled"></block>
         </category>
         <category name="Powermanager">
             <block type="$power_manager_request_ignore_battery_optimizations2"></block>
             <block type="$power_manager_request_ignore_battery_optimizations"></block>
             <block type="$power_manager_is_ignoring_battery_optimizations"></block>
             <block type="$power_manager_is_ignoring_battery_optimizations2"></block>
+        </category>
+        <category name="Ui">
+            <block type="ui_layout">
+                <value name="UI_XML">
+                    <shadow type="ui_xml"></shadow>
+                </value>
+            </block>
+            <block type="ui_layout_file">
+                <value name="FILE_PATH">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="ui_xml"></block>
+        </category>
+        <category name="Usual">
+            <block type="auto_wait_for"></block>
+            <block type="$settings_set_enabled"></block>
+                <value name="ENABLED">
+                    <shadow type="text">
+                        <field name="TEXT">true</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="globals_sleep">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                    </shadow>
+                </value>
+            </block>
+            <block type="console_output">
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="dialogs_alert">
+                <value name="TITLE">
+                    <shadow type="text"></shadow>
+                </value>
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="dialogs_input">
+                <value name="TITLE">
+                    <shadow type="text"></shadow>
+                </value>
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="$plugins_load">
+                <value name="LOAD">
+                    <shadow type="text">
+                        <field name="TEXT">org.autojs.plugin.ocr</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="$debug_set_memory_leak_detection_enabled"></block>
+            <block type="globals_request_permissions"></block>
+            <block type="globals_load_jar">
+                <value name="VALUE">
+                    <shadow type="text">
+                    </shadow>
+                </value>
+            </block>
+            <block type="globals_load_dex">
+                <value name="VALUE">
+                    <shadow type="text">
+                    </shadow>
+                </value>
+            </block>
         </category>
     </xml>
 </body>
