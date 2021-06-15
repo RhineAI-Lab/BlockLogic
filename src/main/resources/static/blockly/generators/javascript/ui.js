@@ -19,6 +19,19 @@ Blockly.JavaScript['ui_xml'] = function(block) {
     var value = block.getFieldValue('TEXT');
     return [value, Blockly.JavaScript.ORDER_ATOMIC];
 };
+Blockly.JavaScript['ui_get_attr'] = function(block) {
+    var id_value = block.getFieldValue('ID');
+    var name_value =Blockly.JavaScript.valueToCode(block,'NAME',Blockly.JavaScript.ORDER_ATOMIC,true);
+    var code = "ui."+id_value+".attr("+name_value+")";
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+Blockly.JavaScript['ui_set_attr'] = function(block) {
+    var id_value = block.getFieldValue('ID');
+    var name_value =Blockly.JavaScript.valueToCode(block,'NAME',Blockly.JavaScript.ORDER_ATOMIC,true);
+    var value_value =Blockly.JavaScript.valueToCode(block,'VALUE',Blockly.JavaScript.ORDER_ATOMIC,true);
+    var code = "ui."+id_value+".attr("+name_value+","+value_value+");\n";
+    return code;
+};
 Blockly.JavaScript['ui_inflate'] = function(block) {
     var xml_value =Blockly.JavaScript.valueToCode(block,'UI_XML',Blockly.JavaScript.ORDER_ATOMIC,true);
     var parent_value =Blockly.JavaScript.valueToCode(block,'UI_PARENT',Blockly.JavaScript.ORDER_ATOMIC,true);

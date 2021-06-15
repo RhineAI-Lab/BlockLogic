@@ -123,7 +123,7 @@ Blockly.Names.prototype.getName = function(name, type) {
   if (normalized in this.db_) {
     return prefix + this.db_[normalized];
   }
-  var safeName = this.getDistinctName(name, type);
+  var safeName = name;
   this.db_[normalized] = safeName.substr(prefix.length);
   return safeName;
 };

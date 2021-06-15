@@ -21,6 +21,24 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip": "用于将属性块封装成语句",
     },{
+        "type": "explain",
+        "message0": "注释 %1",
+        "args0": [
+            {"type": "field_input", "name": "TEXT", "text": ""}
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": colour,
+        "tooltip": "单行注释",
+    },{
+        "type": "explain_multi",
+        "message0": "多行注释 %1",
+        "args0": [{"type": "field_multilinetext", "name": "TEXT", "text": ""}],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": colour,
+        "tooltip": "多行注释",
+    },{
         "type": "puzzle_block_attr",
         "message0": "%1",
         "args0": [{"type": "field_multilinetext", "name": "TEXT", "text": ""}],

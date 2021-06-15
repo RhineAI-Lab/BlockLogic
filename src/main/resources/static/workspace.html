@@ -153,6 +153,7 @@
                     <shadow type="text"></shadow>
                 </value>
             </block>
+            <block type="explain"></block>
             <block type="math_number" gap="32">
                 <field name="NUM">123</field>
             </block>
@@ -894,6 +895,8 @@
         </category>
         <category name="Puzzle">
             <block type="puzzle"></block>
+            <block type="explain"></block>
+            <block type="explain_multi"></block>
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
             <block type="puzzle_block_attr"></block>
@@ -1603,6 +1606,25 @@
                 </value>
             </block>
             <block type="ui_xml"></block>
+            <block type="ui_get_attr">
+                <value name="NAME">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="ui_set_attr">
+                <value name="NAME">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
             <block type="ui_inflate"></block>
             <block type="ui_run"></block>
             <block type="ui_post">
@@ -1696,6 +1718,58 @@
                     </shadow>
                 </value>
             </block>
+        </category>
+        <category name="Crypto">
+            <block type="crypto_digest">
+                <value name="DATA">
+                    <shadow type="text">
+                        <field name="TEXT">abc</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="crypto_encrypt">
+                <value name="MESSAGE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="crypto_decrypt">
+                <value name="MESSAGE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="crypto_generate_key_pair">
+                <value name="LENGTH">
+                    <shadow type="math_number">
+                        <field name="NUM">256</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="new_crypto_key">
+                <value name="MESSAGE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="crypto_key_data"></block>
+            <block type="new_key_pair">
+                <value name="PUBLIC">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="PRIVATE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="crypto_keypair_public"></block>
+            <block type="crypto_keypair_private"></block>
         </category>
     </xml>
 </body>

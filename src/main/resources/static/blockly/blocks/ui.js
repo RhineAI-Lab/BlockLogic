@@ -45,6 +45,30 @@ Blockly.defineBlocksWithJsonArray([
         "colour": colour,
         "tooltip": "XML页面布局",
     },{
+        "type": "ui_set_attr",
+        "message0": "设置控件 %1 属性 %2 值 %3",
+        "args0": [
+            {"type":"field_input","name": "ID","text":"id"},
+            {"type":"input_value","name":"NAME","check":"String"},
+            {"type":"input_value","name":"VALUE","check":"String","align": "right"},
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": colour,
+        "tooltip": "设置控件属性",
+        "helpUrl": baseHelpUrl+"attrname-value"
+    },{
+        "type": "ui_get_attr",
+        "message0": "获取控件 %1 属性 %2",
+        "args0": [
+            {"type":"field_input","name": "ID","text":"id"},
+            {"type":"input_value","name":"NAME","check":"String"},
+        ],
+        "output": "String",
+        "colour": colour,
+        "tooltip": "获取控件的属性",
+        "helpUrl": baseHelpUrl+"attrname"
+    },{
         "type": "ui_inflate",
         "message0": "渲染布局 %1 父视图(可选) %2 是否加入父视图 %3",
         "args0":[
@@ -67,7 +91,7 @@ Blockly.defineBlocksWithJsonArray([
         "previousStatement": null,
         "nextStatement": null,
         "tooltip": "在UI线程运行内容。",
-        "helpUrl": "",
+        "helpUrl": baseHelpUrl+"uiruncallback",
     }, {
         "type": "ui_post",
         "message0": "%1 毫秒后 在UI线程运行 %2 %3",
@@ -80,7 +104,7 @@ Blockly.defineBlocksWithJsonArray([
         "previousStatement": null,
         "nextStatement": null,
         "tooltip": "在UI线程运行内容。",
-        "helpUrl": "",
+        "helpUrl": baseHelpUrl+"uipostcallback-delay-0",
     }, {
         "type": "ui_find_view",
         "message0": "根据Id查找View %1",

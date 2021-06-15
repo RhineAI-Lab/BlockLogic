@@ -9,6 +9,17 @@ Blockly.JavaScript['puzzle'] = function(block) {
     return code;
 };
 
+Blockly.JavaScript['explain'] = function(block) {
+    var code = "//" + block.getFieldValue('TEXT')+"\n";
+    return code;
+};
+
+Blockly.JavaScript['explain_multi'] = function(block) {
+    var value = block.getFieldValue('TEXT');
+    var code = "/*\n"+value+"\n*/\n";
+    return code;
+};
+
 Blockly.JavaScript['puzzle_block_attr'] = function(block) {
     var value = block.getFieldValue('TEXT');
     return [value, Blockly.JavaScript.ORDER_ATOMIC];
