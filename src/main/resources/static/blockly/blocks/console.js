@@ -104,11 +104,9 @@ Blockly.defineBlocksWithJsonArray([
         "type": "console_config",
         "message0": "设置控制台配置",
         "message1": " %1",
-        "args1": [{
-            "type": "input_statement",
-            "check":"ConsoleConfig",
-            "name": "DO",
-        }],
+        "args1": [
+            {"type": "input_statement", "check":"ConsoleConfig", "name": "DO"}
+        ],
         "colour": colour,
         "previousStatement": null,
         "nextStatement": null,

@@ -15,12 +15,10 @@ Blockly.defineBlocksWithJsonArray([
     {
         "type": "var_function_wc",
         "message0": "无参函数 %1 %2",
-        "args0": [{
-            "type": "input_dummy"
-        }, {
-            "type": "input_statement",
-            "name": "STAT"
-        }],
+        "args0": [
+            {"type": "input_dummy"},
+            {"type": "input_statement", "name": "STAT"}
+        ],
         "colour": colour,
         "output": "Function",
         "tooltip": "无参函数",

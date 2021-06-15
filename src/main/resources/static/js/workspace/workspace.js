@@ -14,7 +14,7 @@ console.error = function (msg) {console.oldError(msg);console.logCallback(msg,'e
 const normalLogTag = "WebLog";
 
 //全局参数
-var savedCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/";
+var savedCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/\n";
 
 var inited = false;
 
@@ -234,7 +234,7 @@ function showConsole() {
 function toCode() {
     var code = DrawSpace.spaceToCode();
     var xml = DrawSpace.spaceToXml(unfoldXml);
-    editor.setValue(code+"\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*"+xml+"*/");
+    editor.setValue(code+"\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*"+xml+"*/\n");
 }
 
 function toBlock() {

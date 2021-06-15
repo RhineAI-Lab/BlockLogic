@@ -1603,6 +1603,41 @@
                 </value>
             </block>
             <block type="ui_xml"></block>
+            <block type="ui_inflate"></block>
+            <block type="ui_run"></block>
+            <block type="ui_post">
+                <value name="TIME">
+                    <shadow type="math_number">
+                        <field name="NUM">1000</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="ui_is_ui_thread"></block>
+            <block type="ui_find_view">
+                <value name="ID">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="ui_finish"></block>
+            <block type="ui_use_android_resources"></block>
+            <block type="ui_set_content_view"></block>
+            <block type="ui_register_widget">
+                <value name="NAME">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="ui_status_bar_color">
+                <value name="COLOR">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+
         </category>
         <category name="Usual">
             <block type="auto_wait_for"></block>
