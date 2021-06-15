@@ -4,6 +4,7 @@
   - [第一个APP [编写中]](start/FirstApp.md)
   - [连接手机 [编写中]](start/Connect.md)
   - [生成安装包 [编写中]](start/Build.md)
+  - [AutoJs模块文档](start/AutoJsDocsLink.md)
   
 - 基础逻辑
   - [图形块 [编写中]](javascript/Blocks.md)

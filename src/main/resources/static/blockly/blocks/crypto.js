@@ -93,7 +93,7 @@ Blockly.defineBlocksWithJsonArray([
         "helpUrl": baseHelpUrl+"keydata"
     },{
         "type": "crypto_keypair_public",
-        "message0": "获取密钥 %1 的私钥",
+        "message0": "获取密钥对 %1 的私钥",
         "args0":[
             {"type":"input_value","name":"KEY","check":"KeyPair"},
         ],
