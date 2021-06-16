@@ -13,6 +13,17 @@ StringUtils.checkIP = function(value){
     return reg!=null
 };
 
+//获取文件名(含后缀)
+StringUtils.getFileName = function(path){
+    var pos1 = path.lastIndexOf('/');
+    var pos2 = path.lastIndexOf('\\');
+    var pos  = Math.max(pos1, pos2);
+    if( pos<0 )
+        return path;
+    else
+        return path.substring(pos+1);
+};
+
 //日期解析
 Date.prototype.Format = function (fmt) {
     var o = {

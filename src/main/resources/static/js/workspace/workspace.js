@@ -14,7 +14,8 @@ console.error = function (msg) {console.oldError(msg);console.logCallback(msg,'e
 const normalLogTag = "WebLog";
 
 //全局参数
-var savedCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/\n";
+var normalCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/\n";
+var savedCode = "";
 
 var inited = false;
 
@@ -45,7 +46,8 @@ window.onload=function(){
             },
             changeXmlFoldMode:function(v){
                 unfoldXml = !unfoldXml;
-                changeShowBtnState(v,unfoldXml)
+                changeShowBtnState(v,unfoldXml);
+                toCode();
             },
             toCode:function () {
                 toCode();
@@ -125,26 +127,18 @@ window.onload=function(){
     changeViewState("draw-space",true);
     changeViewState("console-space",false);
 
-    var loadCallback = function(code){
-        savedCode = code;
-        editor.setValue(code);
-        toBlock();
-    };
     document.getElementById("upload").addEventListener("change",function (e) {
         var files = e.target.files;
         if(files.length>0){
             askForSave();
 
-            let file = files[0];
-            FilesTree.updateFileName(file.name);
+            let name = files[0].name;
 
             let reader = new FileReader();
             reader.readAsText(file, 'UTF-8');
             reader.onload = function (e) {
                 let fileContent = e.target.result;
-                if (loadCallback && (typeof loadCallback === 'function')) {
-                    loadCallback(fileContent)
-                }
+                openFile(FilesTree.MODE_SINGLE_FILE,name,fileContent)
             }
         }
         event.target.value="";
@@ -171,7 +165,6 @@ window.onload=function(){
             toCode();
         }
     });
-    inited = true;
 
     //初始化列表
     FilesTree.init("directory-tree");
@@ -217,12 +210,56 @@ window.onload=function(){
     };
     DebugPlugin.onError = function (evt) {
         webConsole.log("连接错误: "+evt.target.url,DebugPlugin.SOURCE_TAG+"/e");
+    };
+
+    //打开资源
+    var source=getURLParameter("source");
+    if(source!=null&&source.length>0){
+        openSource(source);
+    }else {
+        newFile();
     }
+    inited = true;
 };
+
+function openSource(source) {
+    let name = StringUtils.getFileName(source);
+    let xmlhttp;
+    if (window.XMLHttpRequest) {
+        xmlhttp=new XMLHttpRequest();//code for IE7+, Firefox, Chrome, Opera, Safari
+    } else{
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");//code for IE6, IE5
+    }
+    xmlhttp.open("get",source,true);
+    xmlhttp.send();
+    xmlhttp.onreadystatechange=function(){
+        if(xmlhttp.readyState===4) {
+            if(xmlhttp.status===200){
+                openFile(FilesTree.MODE_SINGLE_FILE,name,xmlhttp.responseText);
+            } else{
+                alert("导入失败，服务端文件可能未开放。");
+                newFile();
+            }
+        }
+    };
+}
+
+function newFile() {
+    FilesTree.updateFileName(FilesTree.MODE_SINGLE_FILE,"Untitled.js");
+    savedCode = normalCode;
+    editor.setValue(normalCode);
+}
+
+function openFile(type,name,code) {
+    FilesTree.updateFileName(type,name);
+    savedCode = code;
+    editor.setValue(code);
+    toBlock();
+}
 
 function askOnLeave(e){
     var e = window.event||e;
-    e.returnValue=("请确保您的代码已经保存。是否确定离开？");
+    e.returnValue=("请确保您的代码可能未保存。是否确定离开？");
 }
 
 function showConsole() {
@@ -252,7 +289,7 @@ function save() {
 }
 
 function askForSave(){
-    if(getCode()!=savedCode){
+    if(inited&&getCode()!=savedCode){
         if(confirm("代码还未保存，是否保存？")){
             save();
             return true;
@@ -307,4 +344,8 @@ function exportRaw(name, data) {
     save_link.href = urlObject.createObjectURL(export_blob);
     save_link.download = name;
     fakeClick(save_link);
+}
+
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }

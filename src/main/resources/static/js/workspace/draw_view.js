@@ -172,10 +172,11 @@ DrawSpace.xmlToSpace = function (xml) {
         return false;
     }else {
         try{
-            var xmlDom = Blockly.Xml.textToDom(xml);
-            Blockly.Xml.domToWorkspace(xmlDom, workspace);
+            let xmlDom = Blockly.Xml.textToDom(xml);
+            Blockly.Xml.domToWorkspace(xmlDom, DrawSpace.workspace);
             return true;
         }catch (e) {
+            console.error(e);
             alert("抱歉，图形块解析失败。");
             return true;
         }
