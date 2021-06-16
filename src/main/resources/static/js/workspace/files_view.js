@@ -62,18 +62,18 @@ FilesTree.init = function (id) {
             },
             onClick:function clickNode(e,treeId,treeNode){
             },
-            onDblClick:function(event, treeId, treeNode) {
+            onDblClick:function(event, treeId, treeNode){
             },
             onRemove:function(e,treeId,treeNode){
             },
             onRename:function(e,treeId,treeNode,isCancel){
             },
-            onDrag:function(event, treeId, treeNodes, targetNode, moveType) {
+            onDrag:function(event, treeId, treeNodes, targetNode, moveType){
             }
         }
     };
     var initNodes=[
-        {"name":"项目","open":true,children:[]}
+        {"name":"项目","open":true,children:[]},
     ];
     FilesTree.tree = $.fn.zTree.init($("#"+FilesTree.viewId), treeSetting, initNodes);
     if(FilesTree.projectMode == FilesTree.MODE_SINGLE_FILE){
@@ -83,6 +83,7 @@ FilesTree.init = function (id) {
 };
 
 FilesTree.newProject = function(type,value){
+
 };
 
 FilesTree.newFile = function(name){

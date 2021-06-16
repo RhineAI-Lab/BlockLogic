@@ -88,6 +88,24 @@ Blockly.JavaScript['text_append'] = function(block) {
   return code;
 };
 
+Blockly.JavaScript['text_to_int'] = function(block) {
+  var str_value = Blockly.JavaScript.valueToCode(block, 'STR', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var code = "parseInt("+str_value+",10)";
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['text_to_float'] = function(block) {
+  var str_value = Blockly.JavaScript.valueToCode(block, 'STR', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var code = "parseFloat("+str_value+")";
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['number_to_text'] = function(block) {
+  var str_value = Blockly.JavaScript.valueToCode(block, 'NUM', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var code = "String("+str_value+")";
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.JavaScript['text_length'] = function(block) {
   // String or array length.
   var text = Blockly.JavaScript.valueToCode(block, 'VALUE',
