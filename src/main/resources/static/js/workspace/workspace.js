@@ -135,7 +135,7 @@ window.onload=function(){
             let name = files[0].name;
 
             let reader = new FileReader();
-            reader.readAsText(file, 'UTF-8');
+            reader.readAsText(files[0], 'UTF-8');
             reader.onload = function (e) {
                 let fileContent = e.target.result;
                 openFile(FilesTree.MODE_SINGLE_FILE,name,fileContent)
@@ -245,13 +245,13 @@ function openSource(source) {
 }
 
 function newFile() {
-    FilesTree.updateFileName(FilesTree.MODE_SINGLE_FILE,"Untitled.js");
+    FilesTree.updateFileName("Untitled.js");
     savedCode = normalCode;
     editor.setValue(normalCode);
 }
 
 function openFile(type,name,code) {
-    FilesTree.updateFileName(type,name);
+    FilesTree.updateFileName(name);
     savedCode = code;
     editor.setValue(code);
     toBlock();

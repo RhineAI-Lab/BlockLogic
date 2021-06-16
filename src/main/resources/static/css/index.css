@@ -565,7 +565,6 @@ hr {
 }
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     display: block;
-    position: relative;
 }
 @media (min-width: 1200px) {
     .container {

@@ -21,14 +21,6 @@ FilesTree.fileNode = null;
 
 FilesTree.init = function (id) {
     FilesTree.viewId = id;
-    var initNodes=[
-        {"name":"项目","open":true,children:[]}
-    ];
-    FilesTree.tree = $.fn.zTree.init($("#"+FilesTree.viewId), treeSetting, initNodes);
-    if(FilesTree.projectMode == FilesTree.MODE_SINGLE_FILE){
-        FilesTree.projectNode = FilesTree.tree.getNodes()[0];
-        FilesTree.fileNode = FilesTree.tree.addNodes(FilesTree.projectNode,{name:"Untiled.js"})[0];
-    }
     //加载树状目录
     var treeSetting={
         check: {
@@ -80,6 +72,14 @@ FilesTree.init = function (id) {
             }
         }
     };
+    var initNodes=[
+        {"name":"项目","open":true,children:[]}
+    ];
+    FilesTree.tree = $.fn.zTree.init($("#"+FilesTree.viewId), treeSetting, initNodes);
+    if(FilesTree.projectMode == FilesTree.MODE_SINGLE_FILE){
+        FilesTree.projectNode = FilesTree.tree.getNodes()[0];
+        FilesTree.fileNode = FilesTree.tree.addNodes(FilesTree.projectNode,{name:"Untiled.js"})[0];
+    }
 };
 
 FilesTree.newProject = function(type,value){
