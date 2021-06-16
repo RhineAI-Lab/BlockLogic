@@ -19,4 +19,8 @@ public class MainController {
     public String docs(Model model){
         return "docs";
     }
+    @RequestMapping(value = {"/examples"})
+    public String examples(Model model){
+        return "examples";
+    }
 }

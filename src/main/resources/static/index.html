@@ -17,6 +17,7 @@
     <!-- Stylesheet  -->
     <link rel="icon" href="media/logo.ico" type="image/x-icon" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css" />
     <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/jade.css" />
@@ -44,7 +45,7 @@
                     <div id="header-nav" class="collapse navbar-collapse justify-content-center">
                         <ul class="navbar-nav">
                             <li class="nav-item"><a class="nav-link smooth-scroll active" href="#home">&nbsp;&nbsp;&nbsp;主页&nbsp;&nbsp;&nbsp;</a></li>
-                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#">&nbsp;&nbsp;&nbsp;简介&nbsp;&nbsp;&nbsp;</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll" href="#about">&nbsp;&nbsp;&nbsp;简介&nbsp;&nbsp;&nbsp;</a></li>
                             <li class="nav-item"><a class="nav-link smooth-scroll" href="#start">&nbsp;&nbsp;&nbsp;开始&nbsp;&nbsp;&nbsp;</a></li>
                             <li class="nav-item"><a class="" href="docs">&nbsp;&nbsp;&nbsp;教程&nbsp;&nbsp;&nbsp;</a></li>
                             <li class="nav-item"><a class="nav-link smooth-scroll" href="#learn">&nbsp;&nbsp;&nbsp;学习&nbsp;&nbsp;&nbsp;</a></li>
@@ -63,6 +64,8 @@
 
     <!-- Content -->
     <div id="content" role="main">
+
+
         <section id="home">
             <div class="utf-hero-wrap">
                 <div class="utf-hero-mask opacity-8 bg-dark"></div>
@@ -81,6 +84,7 @@
                                 <h2 class="text-16 font-weight-800 text-white mb-2 mb-md-3">你好，我想..<span class="typed"></span></h2>
                                 <p class="text-4 text-light mb-4">只需通过拼接图形块就可快捷做出属于自己的App！双向实时同步图形和代码。<br> 丰富全面的功能！ 详细的API及文档！ 便捷的快速调试方式！ 自上而下的全面支持！ </p>
                                 <a href="#start" class="btn btn-primary rounded shadow-none smooth-scroll mt-2 mr-2">快速开始</a>
+                                <a href="./examples" class="btn btn-outline-primary rounded shadow-none mt-2 mr-2">全面案例</a>
                                 <a href="https://pro.autojs.org/docs/#/zh-cn/" target="view_window" class="btn btn-outline-primary rounded shadow-none mt-2">下载客户端</a>
                             </div>
                         </div>
@@ -92,6 +96,116 @@
                 <svg x="0px" y="0px" viewBox="0 186.5 1920 113.5">
                     <polygon points="-30,300 355.167,210.5 1432.5,290 1920,198.5 1920,300"></polygon>
                 </svg>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <div class="container">
+                <!-- Heading -->
+                <div class="position-relative d-flex text-center mb-5">
+                    <h2 class="text-24 text-light opacity-4 text-uppercase font-weight-800 w-100 mb-0">Introduce</h2>
+                    <p class="text-9 text-dark font-weight-600 position-absolute w-100 align-self-center line-height-4 mb-0">简介<span class="heading-separator-line border-bottom border-3 border-primary position-abolute d-block mx-auto"></span> </p>
+                </div>
+                <!-- Heading end-->
+
+                <div class="row">
+                    <div class="col-lg-4 mt-lg-0">
+                        <div class="about-hero">
+                            <img src="media/introduce.png" class="img-fluid mx-auto d-block about-tween position-relative fix-mt rounded-lg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-7 text-lg-left">
+                        <h2 class="text-6 font-weight-600 mb-3">快速开发一个<span class="text-primary">属于自己的App</span>吧！</h2>
+                        <p>B-Logic是一款以图形编程为主，在线快捷开发安卓/鸿蒙应用的网站。当前对标麻省理工大学的AppInventor项目，在各方面已有更出色的表现。</p>
+                        <p>学习和入门编程开发，双向图形代码对照，看到程序效果。丰富全面的API功能做出你想要的所有功能。便捷的远程调试，快速便捷看到运行效果或错误原因。</p>
+                        <p>对熟悉编程的同学或专业人士。本站更可提供强大的API功能，有更深入的学习。甚至支持深度学习等模型的移动端迁移，和多种语言的调用，可用作科研和工作。</p>
+                        <div class="clearfix"></div>
+                        <div class="mt-2">
+                            <a href="./examples" class="btn btn-primary rounded shadow-none mr-2">全面案例</a>
+                            <a href="#start" class="btn btn-outline-primary rounded shadow-none smooth-scroll">快速开始</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-carousel owl-theme mt-5" data-loop="true" data-nav="false" data-autoplay="false" data-margin="20" data-stagepadding="20" data-slideby="2" data-items-xs="2" data-items-sm="2" data-items-md="2" data-items-lg="4">
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-3.png" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">丰富的API接口与功能</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">有1k+的全面强大API接口。并且支持NodeJs，Java，Android等层调用，功能向下全兼容。</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-5.png" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">便捷清晰的远程调试服务</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">直接与手机端进行连接，一键看到运行情况。调试服务快速查找出内存泄漏等程序问题。</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-2.png" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">简单零基础快速上手</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">无需编程基础，通过图形块拼接，即可直观快速的做出属于自己的APP。</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-4.png" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">深度学习模型等技术对接</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">丰富的插件及扩展，与其他外部项目完美对接，如Pytorch深度学习模型的移动端迁移等功能。</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-7.jpg" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">脚本工作流开发</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">制作免Root操作型脚本，让程序帮助操作手机，帮助互联网工作者减少重复的工作量。</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="blog-post rounded shadow">
+                            <img src="media/int-6.jpg" class="img-fluid rounded-top intro-img-size" alt="">
+                            <div class="content pt-3 pb-3 p-3">
+                                <h5 class="mb-3 text-4 line-height-3"><a class="title text-dark">HarmonyOS应用生成</a></h5>
+                                <p class="text-3 text-dark font-weight-400 mt-3">作为国内首款图形编程APP开发站点，支持国产系统，可制作鸿蒙应用并生成安装包。[开发中]</p>
+                                <ul class="list-unstyled mb-0 pt-3 border-top d-flex justify-content-between">
+                                    <li class="text-2"><a href="./examples" class="text-dark">更多案例&gt;</a></li>
+                                    <li class="text-2"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -354,6 +468,7 @@
 <script src="js/plugins/bootstrap.bundle.min.js"></script>
 <script src="js/plugins/jquery.easing.min.js"></script>
 <script src="js/plugins/jquery.appear.min.js"></script>
+<script src="js/plugins/owl.carousel.min.js"></script>
 <script src="js/plugins/parallaxie.min.js"></script>
 <script src="js/plugins/typed.min.js"></script>
 <script src="js/plugins/switcher.min.js"></script>

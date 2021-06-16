@@ -520,7 +520,7 @@ hr {
     text-transform: uppercase;
 }
 .section .position-relative{
-    margin-top:10px;
+    margin-top:-20px;
 }
 .header-intro {
     padding: 65px 0;
@@ -2224,6 +2224,9 @@ img.profile-img-item{
 .about-hero-dark::before {
     border: 12px solid #32373c;
 }
+.intro-img-size{
+    height: 170px;
+}
 .blog-post .content .title {
     font-weight: 500;
     -webkit-transition: all 0.4s ease;
@@ -2234,7 +2237,7 @@ img.profile-img-item{
     transition: all 0.4s ease;
 }
 .blog-post img{
-    filter: grayscale(100%);
+    filter: grayscale(50%);
     display:block;
     width:100%;
     object-fit:cover;
