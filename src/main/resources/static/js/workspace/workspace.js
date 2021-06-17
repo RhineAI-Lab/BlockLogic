@@ -57,7 +57,11 @@ window.onload=function(){
             },
             runCode:function () {
                 showConsole();
+                console.verbose(FilesTree.fileNode.name+" 开始运行");
+                startTime = new Date().getTime();
                 eval(getCode());
+                useTime = new Date().getTime()-startTime;
+                console.verbose(FilesTree.fileNode.name+" 运行完成 用时:"+(useTime/1000).toFixed(5)+"s");
             },
             toBlock:function(){
                 if (!toBlock()){
