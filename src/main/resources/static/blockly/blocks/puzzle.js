@@ -28,7 +28,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         "previousStatement": null,
         "nextStatement": null,
-        "colour": colour,
+        "colour": "#555555",
         "tooltip": "单行注释",
     },{
         "type": "explain_multi",
@@ -36,7 +36,7 @@ Blockly.defineBlocksWithJsonArray([
         "args0": [{"type": "field_multilinetext", "name": "TEXT", "text": ""}],
         "previousStatement": null,
         "nextStatement": null,
-        "colour": colour,
+        "colour": "#555555",
         "tooltip": "多行注释",
     },{
         "type": "puzzle_block_attr",
