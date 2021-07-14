@@ -136,52 +136,119 @@ a{
 
 .work-space{
     width: 100%;
+    display: flex;
+    justify-content:space-between;
     position: absolute;
     top: 94px;
     bottom: 0;
     left: 0;
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
 }
+.ui-workspace{
+    width: 100%;
+    position: absolute;
+    top: 54px;
+    bottom: 0;
+    left: 0;
+}
+
 .split-line{
-    width: 2px;
+    position: absolute;
     background: #bbb;
+    z-index: 100;
 }
-.split-line:hover{
+.vertical-split-line{
+    display: inline-block;
+    width: 3px;
+    height: 100%;
+}
+.horizontal-split-line{
+    display: block;
+    width: 100%;
+    height: 2px;
+}
+.vertical-split-line:hover{
     cursor: ew-resize;
+}
+.horizontal-split-line:hover{
+    cursor: ns-resize;
+}
+.left-more::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: -5px;
+}
+.right-more::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -5px;
+    bottom: 0;
+    left: 0;
+}
+.horizontal-split-line::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: 0;
+    bottom: -4px;
+    left: 0;
+}
+
+.stack-right{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+.stack-left{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
 }
 
 .directory-space{
+    position: relative;
     width: 200px;
-    overflow: auto;
+    height: 100%;
+    overflow-y:auto;
 }
-.editor-bar{
+.work-space-core{
+    position: relative;
+    flex-grow: 1;
+    white-space: nowrap;
+}
+.editor-space{
+    height: 100%;
+    width: 500px;
+    float: right;
+}
+.console-space{
+    position: relative;
     width: 400px;
-    resize: horizontal;
-    flex-grow:1;
+    height: 100%;
+    font-size: 14px;
+    overflow-y:auto;
 }
 .side-bar{
     width: 240px;
+    height: 100%;
     color: #324a5b;
     font-size: 14px;
     line-height: 2em;
-    resize: horizontal;
     overflow:auto;
+    float: left;
 }
 .draw-space{
-    width: 600px;
-    flex-grow:3;
+    width: 100%;
+    height: 100%;
 }
 .draw{
     width: 100%;
     height: 100%;
-}
-.console-space{
-    width: 400px;
-    font-size: 14px;
-    overflow-y:auto;
-    flex-grow:1;
 }
 .console-item{
     height: auto;
@@ -196,8 +263,8 @@ a{
 }
 
 .editor{
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 
 .side-bar h1{

@@ -27,6 +27,9 @@ var autoCode = true;
 var unfoldXml = false;
 
 window.onload=function(){
+    ViewUtils.makeDrawer("directory-space","left");
+    ViewUtils.makeDrawer("console-space","right");
+    ViewUtils.makeDrawer("editor-space","right");
 
     //初始化工具栏
     toolbar = new Vue({
@@ -115,7 +118,6 @@ window.onload=function(){
                     DrawSpace.freshSize();
                 }else if(id==="show-draw"){
                     changeShowMode("draw-space",target);
-                    changeShowMode("side-bar",target);
                 }
             }
         }
@@ -126,7 +128,6 @@ window.onload=function(){
     changeShowBtnState("show-editor",true);
     changeShowBtnState("show-console",false);
     changeViewState("directory-space",false);
-    changeViewState("side-bar",true);
     changeViewState("editor-space",true);
     changeViewState("draw-space",true);
     changeViewState("console-space",false);
@@ -135,9 +136,7 @@ window.onload=function(){
         var files = e.target.files;
         if(files.length>0){
             askForSave();
-
             let name = files[0].name;
-
             let reader = new FileReader();
             reader.readAsText(files[0], 'UTF-8');
             reader.onload = function (e) {
@@ -306,7 +305,7 @@ function askForSave(){
 function changeShowMode(id,btn) {
     var v = document.getElementById(id);
     if(v.style.display==="none"){
-        v.style.display = "block";
+        v.style.display = "inline-block";
         changeShowBtnState(btn,true)
     }else {
         v.style.display = "none";
@@ -329,7 +328,7 @@ function changeShowBtnState(btn,flag) {
 
 function changeViewState(id,flag) {
     if(flag){
-        document.getElementById(id).style.display = "block";
+        document.getElementById(id).style.display = "inline-block";
     }else {
         document.getElementById(id).style.display = "none";
     }
