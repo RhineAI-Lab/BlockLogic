@@ -1,10 +1,13 @@
 
 const ViewUtils = {};
 
-ViewUtils.makeDrawer = function (element,direction) {
+ViewUtils.makeDrawer = function (element,direction,doAfter) {
     if(typeof(element) === "string"){
         element = document.getElementById(element)
     }
+    doAfter = doAfter || function () {
+        return 0
+    };
 
     var splitLine = document.createElement("div");
     splitLine.p = -1;
@@ -45,6 +48,7 @@ ViewUtils.makeDrawer = function (element,direction) {
 
             splitLine.style.left = moveLen;
             element.style.width = moveLen + "px";
+            doAfter()
         };
         document.onmouseup = function(evt){
             evt.stopPropagation();

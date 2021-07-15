@@ -28,6 +28,9 @@ DrawSpace.workspace = null;
 DrawSpace.toolbox = null;
 DrawSpace.sidebar = null;
 
+DrawSpace.blocklyArea = null;
+DrawSpace.blocklyDiv = null;
+
 DrawSpace.flyoutId = 0;
 DrawSpace.flyoutLast = null;
 
@@ -36,6 +39,7 @@ DrawSpace.normalColor = "#394C5A";
 DrawSpace.choosedColor = "#42B983";
 
 DrawSpace.init = function (blocklyId,toolboxId,sidebarId) {
+
     DrawSpace.workspace = Blockly.inject(blocklyId,{
         toolbox: document.getElementById(toolboxId),
         grid: {

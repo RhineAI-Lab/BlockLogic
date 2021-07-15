@@ -27,9 +27,14 @@ var autoCode = true;
 var unfoldXml = false;
 
 window.onload=function(){
-    ViewUtils.makeDrawer("directory-space","left");
-    ViewUtils.makeDrawer("console-space","right");
-    ViewUtils.makeDrawer("editor-space","right");
+    var doAfter = function(){
+        if(DrawSpace.workspace!=null){
+            DrawSpace.freshSize()
+        }
+    };
+    ViewUtils.makeDrawer("directory-space","left",doAfter);
+    ViewUtils.makeDrawer("console-space","right",doAfter);
+    ViewUtils.makeDrawer("editor-space","right",doAfter);
 
     //初始化工具栏
     toolbar = new Vue({
@@ -109,15 +114,20 @@ window.onload=function(){
                 var id = target.id;
                 if(id==="show-console"){
                     changeShowMode("console-space",target);
-                    DrawSpace.freshSize();
                 }else if(id==="show-editor"){
                     changeShowMode("editor-space",target);
-                    DrawSpace.freshSize();
                 }else if(id==="show-directory"){
                     changeShowMode("directory-space",target);
-                    DrawSpace.freshSize();
                 }else if(id==="show-draw"){
+                    if(document.getElementById("draw-space").style.display==="none"){
+                        document.getElementById("editor-space").style.removeProperty("flex-grow")
+                    }else {
+                        document.getElementById("editor-space").style.setProperty("flex-grow","1")
+                    }
                     changeShowMode("draw-space",target);
+                }
+                if(document.getElementById("draw-space").style.display==="inline-block"){
+                    DrawSpace.freshSize();
                 }
             }
         }
