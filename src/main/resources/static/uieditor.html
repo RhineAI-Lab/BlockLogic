@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>UI-Editor</title>
     <link rel="icon" href="media/logo.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/workspace.css">
-    <link rel="stylesheet" href="css/btn.css">
-    <link rel="stylesheet" href="css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" type="text/css" href="css/workspace.css">
+    <link rel="stylesheet" type="text/css" href="css/uieditor.css">
+    <link rel="stylesheet" type="text/css" href="css/btn.css">
+    <link rel="stylesheet" type="text/css" href="css/metroStyle/metroStyle.css">
 </head>
 <body>
 <div class="head-line">
@@ -24,9 +25,41 @@
         <a target="view_window" href="/index">主页</a>
     </div>
 </div>
+<div class="tool-bar" id="toolbar">
+    <span>&nbsp;&nbsp;功能显示:&nbsp;&nbsp;</span>
+    <button class="tool-check btn-9" id="show-new" @click="show($event.target)">新增</button>
+    <button class="tool-check btn-9" id="show-tree" @click="show($event.target)">控件树</button>
+    <button class="tool-check btn-9" id="show-structure" @click="show($event.target)">结构</button>
+    <button class="tool-check btn-9" id="show-code" @click="show($event.target)">代码</button>
+    <button class="tool-check btn-9" id="show-attr" @click="show($event.target)">属性</button>
+    <button class="tool-check btn-9" id="show-preview" @click="show($event.target)">预览</button>
+</div>
 <div class="ui-workspace">
+    <div id="new-space" class="drawer new-space">
+        <div class="temp-text">新增区<br/>开发中</div>
+    </div>
+    <div class="layer-inner">
+        <div id="tree-space" class="drawer tree-space">
+            <div class="temp-text">控件树区<br/>开发中</div>
+        </div>
+        <div class="layer-inner">
+            <div id="structure-space" class="structure-space">
+                <div class="temp-text">结构区<br/>开发中</div>
+            </div>
+            <div id="code-space" class="drawer code-space">
+                <div class="editor" id="editor"></div>
+            </div>
+        </div>
+        <div id="attr-space" class="drawer attr-space">
+            <div class="temp-text">属性区<br/>开发中</div>
+        </div>
+    </div>
+    <div id="preview-space" class="drawer preview-space">
+        <div class="temp-text">预览区<br/>开发中</div>
+    </div>
 </div>
 
+<script src="js/plugins/vue.js"></script>
 <script src="ace/ace.js"></script>
 
 <script src="js/utils/view_utils.js"></script>

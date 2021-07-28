@@ -46,15 +46,15 @@ window.onload=function(){
         methods:{
             changeAutoClose:function(v){
                 autoClose = !autoClose;
-                changeShowBtnState(v,!autoClose)
+                ViewUtils.changeShowBtnState(v,!autoClose)
             },
             changeAutoCode:function(v){
                 autoCode = !autoCode;
-                changeShowBtnState(v,autoCode)
+                ViewUtils.changeShowBtnState(v,autoCode)
             },
             changeXmlFoldMode:function(v){
                 unfoldXml = !unfoldXml;
-                changeShowBtnState(v,unfoldXml);
+                ViewUtils.changeShowBtnState(v,unfoldXml);
                 toCode();
             },
             toCode:function () {
@@ -113,18 +113,18 @@ window.onload=function(){
             show:function (target) {
                 var id = target.id;
                 if(id==="show-console"){
-                    changeShowMode("console-space",target);
+                    ViewUtils.changeShowMode("console-space",target);
                 }else if(id==="show-editor"){
-                    changeShowMode("editor-space",target);
+                    ViewUtils.changeShowMode("editor-space",target);
                 }else if(id==="show-directory"){
-                    changeShowMode("directory-space",target);
+                    ViewUtils.changeShowMode("directory-space",target);
                 }else if(id==="show-draw"){
                     if(document.getElementById("draw-space").style.display==="none"){
                         document.getElementById("editor-space").style.removeProperty("flex-grow")
                     }else {
                         document.getElementById("editor-space").style.setProperty("flex-grow","1")
                     }
-                    changeShowMode("draw-space",target);
+                    ViewUtils.changeShowMode("draw-space",target);
                 }
                 if(document.getElementById("draw-space").style.display==="inline-block"){
                     DrawSpace.freshSize();
@@ -132,15 +132,15 @@ window.onload=function(){
             }
         }
     });
-    changeShowBtnState("use-auto-code",true);
-    changeShowBtnState("show-directory",false);
-    changeShowBtnState("show-draw",true);
-    changeShowBtnState("show-editor",true);
-    changeShowBtnState("show-console",false);
-    changeViewState("directory-space",false);
-    changeViewState("editor-space",true);
-    changeViewState("draw-space",true);
-    changeViewState("console-space",false);
+    ViewUtils.changeShowBtnState("use-auto-code",true);
+    ViewUtils.changeShowBtnState("show-directory",false);
+    ViewUtils.changeShowBtnState("show-draw",true);
+    ViewUtils.changeShowBtnState("show-editor",true);
+    ViewUtils.changeShowBtnState("show-console",false);
+    ViewUtils.changeViewState("directory-space",false);
+    ViewUtils.changeViewState("editor-space",true);
+    ViewUtils.changeViewState("draw-space",true);
+    ViewUtils.changeViewState("console-space",false);
 
     document.getElementById("upload").addEventListener("change",function (e) {
         var files = e.target.files;
@@ -276,8 +276,8 @@ function askOnLeave(e){
 }
 
 function showConsole() {
-    changeViewState("console-space",true);
-    changeShowBtnState(document.getElementById("show-console"),true);
+    ViewUtils.changeViewState("console-space",true);
+    ViewUtils.changeShowBtnState(document.getElementById("show-console"),true);
     DrawSpace.freshSize();
 }
 
@@ -310,38 +310,6 @@ function askForSave(){
         return false;
     }
     return false;
-}
-
-function changeShowMode(id,btn) {
-    var v = document.getElementById(id);
-    if(v.style.display==="none"){
-        v.style.display = "inline-block";
-        changeShowBtnState(btn,true)
-    }else {
-        v.style.display = "none";
-        changeShowBtnState(btn,false)
-    }
-}
-
-function changeShowBtnState(btn,flag) {
-    if(typeof btn === "string"){
-        btn = document.getElementById(btn);
-    }
-    if(flag){
-        btn.style.background = "#444";
-        btn.style.color = "#fff";
-    }else {
-        btn.style.background = "transparent";
-        btn.style.color = "#222";
-    }
-}
-
-function changeViewState(id,flag) {
-    if(flag){
-        document.getElementById(id).style.display = "inline-block";
-    }else {
-        document.getElementById(id).style.display = "none";
-    }
 }
 
 function fakeClick(obj) {

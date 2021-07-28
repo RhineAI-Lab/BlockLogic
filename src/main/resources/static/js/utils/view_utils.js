@@ -1,6 +1,7 @@
 
 const ViewUtils = {};
 
+//监听边缘调控大小
 ViewUtils.makeDrawer = function (element,direction,doAfter) {
     if(typeof(element) === "string"){
         element = document.getElementById(element)
@@ -61,5 +62,39 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
     };
     element.appendChild(splitLine);
 };
+
+
+ViewUtils.changeShowMode = function(id,btn) {
+    var v = document.getElementById(id);
+    if(v.style.display==="none"){
+        v.style.display = "inline-block";
+        ViewUtils.changeShowBtnState(btn,true)
+    }else {
+        v.style.display = "none";
+        ViewUtils.changeShowBtnState(btn,false)
+    }
+};
+
+ViewUtils.changeShowBtnState = function(btn,flag) {
+    if(typeof btn === "string"){
+        btn = document.getElementById(btn);
+    }
+    if(flag){
+        btn.style.background = "#444";
+        btn.style.color = "#fff";
+    }else {
+        btn.style.background = "transparent";
+        btn.style.color = "#222";
+    }
+};
+
+ViewUtils.changeViewState = function(id,flag) {
+    if(flag){
+        document.getElementById(id).style.display = "inline-block";
+    }else {
+        document.getElementById(id).style.display = "none";
+    }
+};
+
 
 
