@@ -57,6 +57,33 @@
     color: #aaa;
 }
 
+.select-box{
+    height: 100%;
+}
+.select-input{
+    height: 100%;
+}
+
+.select-list{
+    margin-top: -2px;
+    margin-left: 2px;
+    margin-right: 50px;
+    border: 1px solid #aaa;
+}
+.select-item{
+    width: auto;
+    font-size: 14px;
+    padding: 4px;
+    z-index: 100;
+    position:relative;
+
+    background: #eeeeee;
+    color: #222222;
+}
+.select-item:hover{
+    background: #347d74;
+    color: #dddddd;
+}
 
 
 

@@ -24,6 +24,55 @@ StringUtils.getFileName = function(path){
         return path.substring(pos+1);
 };
 
+//检查是否为空白字符
+StringUtils.isSpaceChar = function(char){
+    return char===' '||char==='\n'||char==='\t'||char==='\r'
+};
+
+//获取字符所在所在行号(0开始)
+StringUtils.getLineNum = function(str,index){
+    var lineNum = 0;
+    for (let i = 0; i < index; i++) {
+        if(str.charAt(i)=='\n'){
+            lineNum++
+        }
+    }
+    return lineNum
+};
+
+//获取字符坐标所在行
+StringUtils.getLineContain = function(str,index){
+    var lineNum = 0;
+    var start = 0;
+    var end = str.length;
+    var flag = false;
+    for (let i = 0; i < str.length; i++) {
+        if(i==index){
+            flag = true;
+        }
+        if(str.charAt(i)=='\n'){
+            if(!flag){
+                start = i;
+            }else {
+                end = i;
+                break;
+            }
+            lineNum++
+        }
+    }
+    return str.substring(start+1,end)
+};
+
+//查找上一个非空字符坐标
+StringUtils.getLastNotSpaceIndex = function(str,index){
+    for(let i=index;i>=0;i--){
+        if(!StringUtils.isSpaceChar(str.charAt(i))){
+            return i
+        }
+    }
+    return -1;
+};
+
 //日期解析
 Date.prototype.Format = function (fmt) {
     var o = {

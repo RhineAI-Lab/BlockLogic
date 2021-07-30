@@ -81,9 +81,9 @@ a{
     color: #222;
     width: auto;
     height: 32px;
-    padding: 6px 8px;
+    padding: 1px 8px;
     border: 2px solid #555;
-    margin: 4px 2px;
+    margin: 0px 2px;
     white-space: nowrap;
     text-align: center;
     font-family: 'Lato', sans-serif;
@@ -107,7 +107,7 @@ a{
     color: #555;
     font-size: 14px;
     height: 28px;
-    margin: 4px 2px;
+    margin: 3px 2px;
     transition-duration: 0.7s;
     transition-timing-function: ease;
     transition-delay: 0s;

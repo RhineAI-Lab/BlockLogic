@@ -33,6 +33,13 @@
     <button class="tool-check btn-9" id="show-code" @click="show($event.target)">代码</button>
     <button class="tool-check btn-9" id="show-attr" @click="show($event.target)">属性</button>
     <button class="tool-check btn-9" id="show-preview" @click="show($event.target)">预览</button>
+    <span>&nbsp;&nbsp;调试栏:&nbsp;</span>
+    <button class="tool-btn btn-2" id="tool-ast" @click="ast()" title="输出词法解析器结果。">解析</button>
+    <button class="tool-btn btn-2" id="tool-ast-position" @click="astPosition()" title="输出词法解析器完整定位结果。">定位解析</button>
+    <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlList()" title="输出XML代码位置。">检索XML</button>
+    <a class="tool-middle"></a>
+    <custom-select btn="切换" :list="list"></custom-select>
+
 </div>
 <div class="ui-workspace">
     <div id="new-space" class="drawer new-space">
@@ -59,10 +66,12 @@
     </div>
 </div>
 
-<script src="js/plugins/vue.js"></script>
-<script src="ace/ace.js"></script>
+<script src="js/plugins/require.js"></script>
 
 <script src="js/utils/view_utils.js"></script>
+<script src="js/utils/ace_utils.js"></script>
+<script src="js/utils/code_utils.js"></script>
+<script src="js/utils/string_utils.js"></script>
 
 <script src="js/uieditor/uieditor.js"></script>
 </body>

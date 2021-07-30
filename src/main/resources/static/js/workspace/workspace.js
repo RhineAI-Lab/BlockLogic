@@ -10,7 +10,6 @@ console.info = function (msg) {console.oldInfo(msg);console.logCallback(msg,'i')
 console.warn = function (msg) {console.oldWarn(msg);console.logCallback(msg,'w');};
 console.error = function (msg) {console.oldError(msg);console.logCallback(msg,'e');};
 
-
 const normalLogTag = "WebLog";
 loadFinal = 2;
 
@@ -20,7 +19,6 @@ var savedCode = "";
 
 var inited = false;
 
-var editor = null;
 var webConsole = null;
 
 var autoClose = true;
@@ -28,10 +26,9 @@ var autoCode = true;
 var unfoldXml = false;
 
 window.onload=function(){
-
     //初始化代码编辑器
     require("ace/ace.js",function () {
-        editor = AceUtils.createEditor("editor");
+        AceUtils.createEditor("editor");
     });
 
     //初始化列表
@@ -83,7 +80,7 @@ window.onload=function(){
                 showConsole();
                 console.verbose(FilesTree.fileNode.name+" 开始运行");
                 startTime = new Date().getTime();
-                eval(getCode());
+                eval(AceUtils.getCode());
                 useTime = new Date().getTime()-startTime;
                 console.verbose(FilesTree.fileNode.name+" 运行完成 用时:"+(useTime/1000).toFixed(5)+"s");
             },
@@ -107,7 +104,7 @@ window.onload=function(){
                     webConsole.log("请先连接设备。",DebugPlugin.SOURCE_TAG);
                     return
                 }
-                DebugPlugin.runFile("BlockLogic-Online",getCode())
+                DebugPlugin.runFile("BlockLogic-Online",AceUtils.getCode())
             },
             push:function(){
                 if(!DebugPlugin.connected){
@@ -117,7 +114,7 @@ window.onload=function(){
                 }
                 var name = FilesTree.fileNode.name;
                 if(name!=null&&name.length>0){
-                    DebugPlugin.saveFile("BlockLogic-Online\\"+name,getCode())
+                    DebugPlugin.saveFile("BlockLogic-Online\\"+name,AceUtils.getCode())
                 }else{
                     alert("请输入保存用的文件名");
                     webConsole.log("请输入保存用的文件名。",DebugPlugin.SOURCE_TAG)
@@ -261,13 +258,13 @@ function openSource(source) {
 function newFile() {
     FilesTree.updateFileName("Untitled.js");
     savedCode = normalCode;
-    editor.setValue(normalCode);
+    AceUtils.setCode(normalCode);
 }
 
 function openFile(type,name,code) {
     FilesTree.updateFileName(name);
     savedCode = code;
-    editor.setValue(code);
+    AceUtils.setCode(code);
     toBlock();
 }
 
@@ -285,25 +282,21 @@ function showConsole() {
 function toCode() {
     var code = DrawSpace.spaceToCode();
     var xml = DrawSpace.spaceToXml(unfoldXml);
-    editor.setValue(code+"\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*"+xml+"*/\n");
+    AceUtils.setCode(code+"\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*"+xml+"*/\n");
 }
 
 function toBlock() {
-    var xml = CodeUtils.getXml(getCode());
+    var xml = CodeUtils.getXml(AceUtils.getCode());
     return DrawSpace.xmlToSpace(xml);
 }
 
-function getCode() {
-    return editor.getSession().getValue()
-}
-
 function save() {
-    savedCode = getCode()+"";
+    savedCode = AceUtils.getCode()+"";
     exportRaw(FilesTree.fileNode.name,savedCode)
 }
 
 function askForSave(){
-    if(inited&&getCode()!=savedCode){
+    if(inited&&AceUtils.getCode()!=savedCode){
         if(confirm("代码还未保存，是否保存？")){
             save();
             return true;
