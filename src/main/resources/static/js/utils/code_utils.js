@@ -12,3 +12,8 @@ CodeUtils.getXml = function(code) {
         return code.substring(i,i+length)
     }
 };
+
+CodeUtils.lexerCode = function () {
+
+};
+

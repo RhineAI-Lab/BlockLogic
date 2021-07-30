@@ -12,6 +12,7 @@ console.error = function (msg) {console.oldError(msg);console.logCallback(msg,'e
 
 
 const normalLogTag = "WebLog";
+loadFinal = 2;
 
 //全局参数
 var normalCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/\n";
@@ -27,6 +28,21 @@ var autoCode = true;
 var unfoldXml = false;
 
 window.onload=function(){
+
+    //初始化代码编辑器
+    require("ace/ace.js",function () {
+        editor = AceUtils.createEditor("editor");
+    });
+
+    //初始化列表
+    require("js/plugins/jquery.ztree.all.min.js",function () {
+        FilesTree.init("directory-tree");
+    });
+
+    //初始化侧栏
+    DrawSpace.initSidebar("side-bar");
+
+    //边框跟随检测
     var doAfter = function(){
         if(DrawSpace.workspace!=null){
             DrawSpace.freshSize()
@@ -141,7 +157,7 @@ window.onload=function(){
     ViewUtils.changeViewState("editor-space",true);
     ViewUtils.changeViewState("draw-space",true);
     ViewUtils.changeViewState("console-space",false);
-
+    DrawSpace.init("draw","toolbox");
     document.getElementById("upload").addEventListener("change",function (e) {
         var files = e.target.files;
         if(files.length>0){
@@ -156,31 +172,6 @@ window.onload=function(){
         }
         event.target.value="";
     });
-
-    //初始化代码编辑器
-    editor = ace.edit("editor");//设置编辑器样式，对应theme-*.js文件
-    editor.setTheme("ace/theme/solarized_light");
-    editor.session.setMode("ace/mode/javascript");//设置代码语言，对应mode-*.js文件
-    editor.setShowPrintMargin(false);//设置打印线是否显示
-    editor.setReadOnly(false);//设置是否只读
-    ace.require("ace/ext/language_tools");
-    editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true,
-        fontSize: "16px"
-    });
-
-    //初始化绘制区
-    DrawSpace.init("draw","toolbox","side-bar");
-    DrawSpace.addChangeListener(function (event) {
-        if(autoCode){
-            toCode();
-        }
-    });
-
-    //初始化列表
-    FilesTree.init("directory-tree");
 
     //初始化控制台
     console.logCallback = function(msg,level){
@@ -225,14 +216,24 @@ window.onload=function(){
         webConsole.log("连接错误: "+evt.target.url,DebugPlugin.SOURCE_TAG+"/e");
     };
 
-    //打开资源
-    var source=getURLParameter("source");
-    if(source!=null&&source.length>0){
-        openSource(source);
-    }else {
-        newFile();
-    }
-    inited = true;
+    //等待全部资源加载及回调完毕后
+    afterLoaded = function(){
+        inited = true;
+
+        //监听自动同步代码
+        DrawSpace.addChangeListener(function (event) {
+            if(autoCode){
+                toCode();
+            }
+        });
+        //打开资源
+        var source=getURLParameter("source");
+        if(source!=null&&source.length>0){
+            openSource(source);
+        }else {
+            newFile();
+        }
+    };
 };
 
 function openSource(source) {
@@ -311,6 +312,7 @@ function askForSave(){
     }
     return false;
 }
+
 
 function fakeClick(obj) {
     var ev = document.createEvent("MouseEvents");

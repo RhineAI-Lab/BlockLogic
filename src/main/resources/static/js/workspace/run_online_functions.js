@@ -1,7 +1,8 @@
 
 
 function sleep(delay) {
-    for(var t = Date.now(); Date.now() - t <= d;);
+    for(var t = Date.now(); Date.now() - t <= d;){
+    }
 }
 
 function log(msg) {

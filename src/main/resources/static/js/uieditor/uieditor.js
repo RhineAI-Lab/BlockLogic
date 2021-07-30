@@ -1,5 +1,5 @@
 
-const normalCode = "\"ui\";\n\nui.layout(\n    <frame>\n    <frame/>\n);\n";
+const normalCode = "\"ui\";\n\nui.layout(\n    <frame>\n    </frame>\n);\n";
 
 window.onload=function(){
     editor = ace.edit("editor");//设置编辑器样式，对应theme-*.js文件

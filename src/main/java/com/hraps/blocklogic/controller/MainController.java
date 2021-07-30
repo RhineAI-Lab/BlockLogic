@@ -23,6 +23,10 @@ public class MainController {
     public String docs(Model model){
         return "docs";
     }
+    @RequestMapping(value = {"/uieditor"})
+    public String uieditor(Model model){
+        return "uieditor";
+    }
     @RequestMapping(value = {"/examples"})
     public String examples(Model model){
         return "examples";

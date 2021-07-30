@@ -38,29 +38,7 @@ DrawSpace.flyoutLast = null;
 DrawSpace.normalColor = "#394C5A";
 DrawSpace.choosedColor = "#42B983";
 
-DrawSpace.init = function (blocklyId,toolboxId,sidebarId) {
-
-    DrawSpace.workspace = Blockly.inject(blocklyId,{
-        toolbox: document.getElementById(toolboxId),
-        grid: {
-            spacing: 20,
-            length: 6,
-            colour: '#ddd',
-            snap: true
-        },
-        zoom:{
-            controls: true,
-            wheel: true,
-            startScale: 1.0,
-            maxScale: 2,
-            minScale: 0.5,
-            scaleSpeed: 1.2
-        }
-    },);
-    DrawSpace.toolbox = DrawSpace.workspace.getToolbox();
-    document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
-    DrawSpace.toolbox.selectItemByPosition(0);
-
+DrawSpace.initSidebar = function(sidebarId){
     //初始化侧栏
     DrawSpace.sidebar = new Vue({
         el:'#'+sidebarId,
@@ -125,6 +103,30 @@ DrawSpace.init = function (blocklyId,toolboxId,sidebarId) {
     }
     changeTitleStatus(sidebarList[0],true);
     DrawSpace.sidebar.list = sidebarList;
+};
+
+DrawSpace.init = function (blocklyId,toolboxId) {
+
+    DrawSpace.workspace = Blockly.inject(blocklyId,{
+        toolbox: document.getElementById(toolboxId),
+        grid: {
+            spacing: 20,
+            length: 6,
+            colour: '#ddd',
+            snap: true
+        },
+        zoom:{
+            controls: true,
+            wheel: true,
+            startScale: 1.0,
+            maxScale: 2,
+            minScale: 0.5,
+            scaleSpeed: 1.2
+        }
+    },);
+    DrawSpace.toolbox = DrawSpace.workspace.getToolbox();
+    document.getElementsByClassName("blocklyToolboxDiv blocklyNonSelectable")[0].style.width = 0;
+    DrawSpace.toolbox.selectItemByPosition(0);
 
     //事件监听
     DrawSpace.workspace.addChangeListener(function(event) {
