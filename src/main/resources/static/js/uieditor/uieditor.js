@@ -198,18 +198,96 @@ window.onload=function(){
 };
 
 function freshStructure() {
-    console.log(target);
     if(target!=null){
-        function addStructureView(node,parentView,level) {
-            let box = document.createElement("div");
-            box.className = node.tagName;
-            parentView.appendChild(box);
-            let children = node.children;
-            for (let i = 0; i < children.length; i++) {
-                addStructureView(children[i],box,level+1)
+        let boxes = [];
+        function freshShow() {
+            if(boxes.length>0){
+                var show = null;
+                var maxLevel = -1;
+                for (let i = 0; i < boxes.length; i++) {
+                    let box = boxes[i];
+                    if(box.choosed&&box.level>maxLevel){
+                        show = box;
+                        maxLevel = box.level;
+                    }
+                    if(box.level%2==0){
+                        box.style.background = "#f1f1f1"
+                    }else {
+                        box.style.background = "#fefefe"
+                    }
+                }
+                if(show){
+                    show.style.background = "#66ff6660"
+                }
             }
         }
-        addStructureView(target.firstChild,document.getElementById("structure-show"),0)
+        function addStructureView(node,parentView,level,inline) {
+            let children = node.children;
+            let nextInline = false;
+
+            let box = document.createElement("div");
+            let title = document.createElement("div");
+            let msg = document.createElement("div");
+            box.className = "structure-box";
+            title.className = "structure-title";
+            msg.className = "structure-msg";
+            if(level%2==0){
+                box.style.background = "#f1f1f1"
+            }else {
+                box.style.background = "#fefefe"
+            }
+            if(inline){
+                box.style.flexGrow=1;
+            }
+            parentView.appendChild(box);
+            box.appendChild(title);
+            box.appendChild(msg);
+            title.innerText = node.tagName;
+            title.nowrap = true;
+            msg.nowrap = true;
+            let attrs = node.attributes;
+            let msgStr = "";
+            for (let i = 0; i < attrs.length; i++) {
+                let item = attrs.item(i);
+                msgStr += item.name+" = "+item.value+"\n"
+            }
+            msgStr = msgStr.substring(0,msgStr.length-1);
+            msg.innerText = msgStr;
+
+            box.level = level;
+            box.onmouseover = function(){
+                box.choosed = true;
+                freshShow();
+            };
+            box.onmouseout = function(){
+                box.choosed = false;
+                freshShow();
+            };
+            boxes.push(box);
+
+            if(children.length>0){
+                let split = document.createElement("div");
+                let holder = document.createElement("div");
+                split.className = "structure-split";
+                holder.className = "structure-holder";
+                if(node.tagName=="horizontal"){
+                    nextInline = true;
+                    holder.style.display="flex"
+                }
+                box.appendChild(split);
+                box.appendChild(holder);
+
+                for (let i = 0; i < children.length; i++) {
+                    let midlle = document.createElement("div");
+                    midlle.style.height = "0.1px";
+                    holder.appendChild(midlle);
+                    addStructureView(children[i],holder,level+1,nextInline);
+                }
+            }
+        }
+        var structurView = document.getElementById("structure-show");
+        structurView.innerHTML = "";
+        addStructureView(target.firstChild,structurView,0,false);
     }
 }
 

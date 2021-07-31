@@ -47,6 +47,7 @@
     height: 100%;
     flex-grow: 1;
     display: inline-block;
+    overflow-y: auto;
 }
 
 .temp-text{
@@ -85,10 +86,33 @@
     color: #fff;
 }
 
+.structure-show{
+}
 
-
-
-
+.structure-box{
+    margin: 5px;
+    padding: 5px;
+    min-width: 40px;
+    min-height: 40px;
+    border: 2px solid #555;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.structure-title{
+    font-size: 16px;
+    margin: 2px 1px;
+    color: #444;
+}
+.structure-msg{
+    font-size: 12px;
+    margin: 2px 1px;
+    color: #555;
+}
+.structure-split{
+    height: 1px;
+    margin: 4px -2px;
+    background: #999;
+}
 
 
 
