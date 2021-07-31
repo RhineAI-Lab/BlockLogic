@@ -1,5 +1,48 @@
 
-const normalCode = "\"ui\";\n\nui.layout(\n    <frame>\n    </frame>\n);\n";
+var normalCode = "\"ui\";\n\nui.layout(\n    <frame>\n    </frame>\n);\n";
+
+normalCode = '"ui";\n' +
+    '\n' +
+    'ui.layout(\n' +
+    '    <drawer id="drawer">\n' +
+    '        <vertical>\n' +
+    '            <appbar>\n' +
+    '                <toolbar id="toolbar" title="示例"/>\n' +
+    '                <tabs id="tabs"/>\n' +
+    '            </appbar>\n' +
+    '            <viewpager id="viewpager">\n' +
+    '                <frame>\n' +
+    '                    <text text="第一页内容" textColor="black" textSize="16sp"/>\n' +
+    '                </frame>\n' +
+    '                <frame>\n' +
+    '                    <text text="第二页内容" textColor="red" textSize="16sp"/>\n' +
+    '                </frame>\n' +
+    '            </viewpager>\n' +
+    '        </vertical>\n' +
+    '    </drawer>\n' +
+    ');\n' +
+    '\n' +
+    '\n' +
+    'var color = <text text="第三页"/>;\n' +
+    '\n' +
+    '//创建选项菜单(右上角)\n' +
+    'ui.emitter.on("create_options_menu", menu => {\n' +
+    '    menu.add("设置");\n' +
+    '    menu.add("关于");\n' +
+    '});\n' +
+    '//监听选项菜单点击\n' +
+    'ui.emitter.on("options_item_selected", (e, item) => {\n' +
+    '    switch (item.getTitle()) {\n' +
+    '        case "设置":\n' +
+    '            toast("还没有设置");\n' +
+    '            break;\n' +
+    '        case "关于":\n' +
+    '            alert("关于", "Auto.js界面模板 v1.0.0");\n' +
+    '            break;\n' +
+    '    }\n' +
+    '    e.consumed = true;\n' +
+    '});\n' +
+    'activity.setSupportActionBar(ui.toolbar);';
 
 require.config({
     paths : {
@@ -9,6 +52,7 @@ require.config({
     }
 });
 
+var targetPoint = null;
 var target = null;
 
 window.onload=function(){
@@ -59,7 +103,7 @@ window.onload=function(){
                     freshXmlList();
                 },
                 chooseItem: function (item) {
-                    target = item;
+                    changeTarget(item);
                     this.choosed = item;
                     this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
                 }
@@ -151,6 +195,11 @@ window.onload=function(){
 
 function freshXmlList() {
     toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
+}
+
+function changeTarget(t) {
+    targetPoint = t;
+    target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
 }
 
 

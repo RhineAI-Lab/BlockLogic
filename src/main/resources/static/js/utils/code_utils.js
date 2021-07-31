@@ -74,6 +74,41 @@ CodeUtils.getXmlCodeList = function (code) {
     return null;
 };
 
+CodeUtils.updateXmlCode = function (xmlString) {
+    var xmlDoc=null;
+    if(window.DOMParser && document.implementation && document.implementation.createDocument){
+        try{
+            domParser = new  DOMParser();
+            xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
+        }catch(e){
+        }
+    }else if(!window.DOMParser && window.ActiveXObject){   //window.DOMParser 判断是否是非ie浏览器
+        var xmlDomVersions = ['MSXML.2.DOMDocument.6.0','MSXML.2.DOMDocument.3.0','Microsoft.XMLDOM'];
+        for(var i=0;i<xmlDomVersions.length;i++){
+            try{
+                xmlDoc = new ActiveXObject(xmlDomVersions[i]);
+                xmlDoc.async = false;
+                xmlDoc.loadXML(xmlString); //loadXML方法载入xml字符串
+                break;
+            }catch(e){
+            }
+        }
+    } else{
+        return null;
+    }
+    return xmlDoc;
+};
+
+CodeUtils.getXmlCode = function (xmlObj) {
+    var code = "";
+    if(document.all){
+        code = xmlObj.xml;
+    }else{
+        code = (new XMLSerializer()).serializeToString(xmlObj);
+    }
+    return code;
+};
+
 function isObj(object){
     return object && typeof (object) == 'object' && Object.prototype.toString.call(object).toLowerCase() === "[object object]"
 }
