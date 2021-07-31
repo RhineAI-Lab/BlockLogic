@@ -40,20 +40,19 @@ CodeUtils.getXmlCodeList = function (code) {
                     if(obj.type==="JSXElement"){
                         if(obj.closingElement){
                             result.push({
-                                lineStart:obj.openingElement.loc.start.line,
-                                lineEnd:obj.closingElement.loc.end.line,
+                                line:[obj.openingElement.loc.start.line,obj.closingElement.loc.end.line],
                                 range:[obj.openingElement.range[0],obj.closingElement.range[1]]
                             });
                         }else{
                             result.push({
-                                lineStart:obj.openingElement.loc.start.line,
-                                lineEnd:obj.openingElement.loc.end.line,
+                                line:[obj.openingElement.loc.start.line,obj.openingElement.loc.end.line],
                                 range:obj.openingElement.range,
                             });
                         }
                         let res = result[result.length-1];
+                        res.indent = StringUtils.countLastN(code,res.range[0]-1);
                         res.tip = StringUtils.getLineContain(code,StringUtils.getLastNotSpaceIndex(code,res.range[0]-1));
-                        res.tip = res.tip.substring(StringUtils.countSpaceFront(res.tip));
+                        res.tip = res.tip.substring(StringUtils.countLikeSpaceFront(res.tip));
                         if(res.tip.length>10){
                             res.tip = res.tip.substring(0,10)+"..."
                         }else {
@@ -99,14 +98,43 @@ CodeUtils.updateXmlCode = function (xmlString) {
     return xmlDoc;
 };
 
-CodeUtils.getXmlCode = function (xmlObj) {
+CodeUtils.getXmlCode = function (xmlObj,indent) {
+    if(xmlObj==null){
+        return "";
+    }
+    indent = indent || 0;
     var code = "";
     if(document.all){
         code = xmlObj.xml;
     }else{
         code = (new XMLSerializer()).serializeToString(xmlObj);
     }
+    code = CodeUtils.formatXml(code,indent);
     return code;
+};
+
+CodeUtils.formatXml = function(blob, indentNum) {
+    indentNum = indentNum || 0;
+    blob = blob.replace(/<(\w+)([^<]*)\/>/g, '<$1$2></$1>');
+    blob = blob.replace(/\n/g,"");
+    var lines = blob.split('<');
+    var indent = '';
+    for (let i = 0; i < indentNum; i++) {
+        indent += ' ';
+    }
+    for (var i = 1; i < lines.length; i++) {
+        var line = lines[i];
+        if (line[0] == '/') {
+            indent = indent.substring(2);
+        }
+        lines[i] = indent + '<' + line;
+        if (line[0] != '/' && line.slice(-2) != '/>') {
+            indent += '  ';
+        }
+    }
+    var text = lines.join('\n');
+    text = text.replace(/(<(\w+)\b[^>]*>[^\n]*)\n *<\/\2>/g, '$1</$2>');
+    return text.replace(/^\n/, '');
 };
 
 function isObj(object){

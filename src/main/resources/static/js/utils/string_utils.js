@@ -24,14 +24,34 @@ StringUtils.getFileName = function(path){
         return path.substring(pos+1);
 };
 
-//数前方空字符数
-StringUtils.countSpaceFront = function(str){
+//数开头[空类字符]数
+StringUtils.countLikeSpaceFront = function(str){
     for (let i = 0; i < str.length; i++) {
         if(!StringUtils.isSpaceChar(str.charAt(i))){
             return i
         }
     }
     return str.length
+};
+
+//数结尾空格数
+StringUtils.countSpaceEnd = function(str){
+    for (let i = str.length-1; i >= 0; i--) {
+        if(str.charAt(i)!==' '){
+            return str.length-1-i
+        }
+    }
+    return str.length
+};
+
+//数上一个换行符距离
+StringUtils.countLastN = function(str,start){
+    for (let i = start; i >= 0; i--) {
+        if(str.charAt(i)==='\n'){
+            return start-i
+        }
+    }
+    return start;
 };
 
 //检查是否为空白字符

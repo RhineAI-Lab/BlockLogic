@@ -36,7 +36,8 @@
     <span>&nbsp;&nbsp;调试栏:&nbsp;</span>
     <button class="tool-btn btn-2" id="tool-ast" @click="ast()" title="输出词法解析器结果。">解析</button>
     <button class="tool-btn btn-2" id="tool-ast-position" @click="astPosition()" title="输出词法解析器完整定位结果。">定位解析</button>
-    <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlList()" title="输出XML代码位置。">检索XML</button>
+    <button class="tool-btn btn-2" id="tool-fresh-xml" @click="freshXmlList()" title="输出全部XML代码位置列表。">检索XML</button>
+    <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlCode()" title="输出目标XML代码。">输出XML</button>
     <a class="tool-middle"></a>
     <custom-select ref="selectTarget" :list="list"></custom-select>
 
@@ -51,7 +52,8 @@
         </div>
         <div class="layer-inner">
             <div id="structure-space" class="structure-space">
-                <div class="temp-text">结构区<br/>开发中</div>
+                <div id="structure-show" class="structure-show">
+                </div>
             </div>
             <div id="code-space" class="drawer code-space">
                 <div class="editor" id="editor"></div>

@@ -48,7 +48,8 @@ require.config({
     paths : {
         "ace" : "ace/ace",
         "vue" : "js/plugins/vue.min",
-        "esprima" : "js/plugins/esprima.min"
+        "esprima" : "js/plugins/esprima.min",
+        "blockly" : "blockly/blockly_compressed"
     }
 });
 
@@ -63,8 +64,8 @@ window.onload=function(){
     });
 
     //初始化解析器
-    require(["esprima"],function (parser) {
-        CodeUtils.init(parser)
+    require(["esprima"],function (esprima) {
+        CodeUtils.init(esprima)
     });
 
     //边缘拖拽绑定
@@ -105,7 +106,7 @@ window.onload=function(){
                 chooseItem: function (item) {
                     changeTarget(item);
                     this.choosed = item;
-                    this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
+                    this.val = item.tip+" [line:"+item.line[0]+"~"+item.line[1]+"]";
                 }
             }
         });
@@ -113,7 +114,7 @@ window.onload=function(){
             props:["list"],
             template:`
             <ul class="select-list">
-                <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]"}}</li>
+                <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item.tip+" [line:"+item.line[0]+"~"+item.line[1]+"]"}}</li>
             </ul>
         `,
             methods:{
@@ -166,14 +167,17 @@ window.onload=function(){
                         console.log(JSON.stringify(CodeUtils.Esprima.parse(AceUtils.getCode(true),{jsx: true ,loc: true, range: true}),null,4));
                     }
                 },
-                getXmlList: function () {
+                freshXmlList: function () {
                     console.log(JSON.stringify(CodeUtils.getXmlCodeList(AceUtils.getCode(true)),null,4));
+                },
+                getXmlCode: function () {
+                    console.log(CodeUtils.getXmlCode(target,targetPoint.indent));
                 }
             }
         });
 
         //初次解析
-        require(["esprima","ace","vue"],function (parser) {
+        require(["esprima","ace","vue"],function () {
             freshXmlList();
             if(toolbar.list.length>0){
                 toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
@@ -193,6 +197,22 @@ window.onload=function(){
 
 };
 
+function freshStructure() {
+    console.log(target);
+    if(target!=null){
+        function addStructureView(node,parentView,level) {
+            let box = document.createElement("div");
+            box.className = node.tagName;
+            parentView.appendChild(box);
+            let children = node.children;
+            for (let i = 0; i < children.length; i++) {
+                addStructureView(children[i],box,level+1)
+            }
+        }
+        addStructureView(target.firstChild,document.getElementById("structure-show"),0)
+    }
+}
+
 function freshXmlList() {
     toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
 }
@@ -200,7 +220,6 @@ function freshXmlList() {
 function changeTarget(t) {
     targetPoint = t;
     target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
+    freshStructure();
 }
-
-
 
