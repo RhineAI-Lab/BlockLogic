@@ -9,6 +9,8 @@ require.config({
     }
 });
 
+var target = null;
+
 window.onload=function(){
     //初始化代码编辑器
     require(["ace"],function () {
@@ -28,29 +30,47 @@ window.onload=function(){
     ViewUtils.makeDrawer("attr-space","right");
     ViewUtils.makeDrawer("preview-space","right");
 
-    require(["vue"],function (Vue) {
+    require(["vue","esprima","ace"],function (Vue) {
+        freshXmlList();
+        if(toolbar.list.length>0){
+            target = toolbar.list[0]
+        }
         Vue.component("custom-select",{
             data:function(){
                 return {
                     selectShow:false,
-                    val:""
+                    val:target.tip+" [line:"+target.lineStart+"~"+target.lineEnd+"]",
+                    choosed:target
                 }
             },
             props:["btn","list"],
             template:`
             <div class="select-box">
                 <div class="select-input">
-                    <input type="text" class="tool-input" :value="val" @click="selectShow=!selectShow" placeholder="选择编辑目标"/>
-                    <button class="tool-btn btn-2" id="change-target" @click="changeTarget()" title="切换编辑目标。">切换</button>
+                    <input type="text" id="select-target" class="tool-input" :value="val" @click="freshList();selectShow=!selectShow" placeholder="选择编辑目标"/>
+                    <button class="tool-btn btn-2" @click="freshList()" title="切换编辑目标。">刷新</button>
                     <span></span>
                 </div>
                 <custom-list class="select-show" v-show="selectShow" :list="list" v-on:value1="selectValueHandle"></custom-list>
             </div>
         `,
             methods:{
-                selectValueHandle(value){
-                    this.val = value;
-                    this.selectShow=false
+                selectValueHandle: function(item){
+                    this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
+                    this.choosed = item;
+                    this.selectShow = false;
+                    this.changeTarget();
+                },
+                changeTarget: function () {
+                    target = this.choosed;
+                },
+                freshList: function () {
+                    freshXmlList();
+                },
+                chooseItem: function (item) {
+                    this.choosed = item;
+                    target = item;
+                    this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
                 }
             }
         });
@@ -58,7 +78,7 @@ window.onload=function(){
             props:["list"],
             template:`
             <ul class="select-list">
-                <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item}}</li>
+                <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]"}}</li>
             </ul>
         `,
             methods:{
@@ -73,7 +93,8 @@ window.onload=function(){
             data: {
                 ip: '',
                 path: '',
-                list:["aaa","bbb","abc"]
+                list:[],
+                val:'',
             },
             methods: {
                 show: function (target) {
@@ -115,6 +136,7 @@ window.onload=function(){
                 }
             }
         });
+
     });
 
     //初始化分栏显示状态
@@ -128,6 +150,10 @@ window.onload=function(){
     ViewUtils.changeViewState("preview-space",false);
 
 };
+
+function freshXmlList() {
+    toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
+}
 
 
 

@@ -104,8 +104,8 @@ a{
 .tool-input{
     padding: 0 10px;
     border: 2px solid #555;
-    color: #555;
-    font-size: 14px;
+    color: #444;
+    font-size: 15px;
     height: 28px;
     margin: 3px 2px;
     transition-duration: 0.7s;

@@ -24,6 +24,16 @@ StringUtils.getFileName = function(path){
         return path.substring(pos+1);
 };
 
+//数前方空字符数
+StringUtils.countSpaceFront = function(str){
+    for (let i = 0; i < str.length; i++) {
+        if(!StringUtils.isSpaceChar(str.charAt(i))){
+            return i
+        }
+    }
+    return str.length
+};
+
 //检查是否为空白字符
 StringUtils.isSpaceChar = function(char){
     return char===' '||char==='\n'||char==='\t'||char==='\r'

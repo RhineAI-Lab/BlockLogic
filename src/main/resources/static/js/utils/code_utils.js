@@ -22,6 +22,13 @@ CodeUtils.getXml = function(code) {
 CodeUtils.getXmlCodeList = function (code) {
     if(CodeUtils.Esprima){
         let result = [];
+        let syntax = null;
+        try {
+            syntax = CodeUtils.Esprima.parse(code,{jsx: true ,loc: true, range: true});
+        }catch (e) {
+            console.warn("语法有误，解析失败");
+            return [];
+        }
         function search(obj) {
             if(isString(obj)){
             }else if(isArray(obj)){
@@ -46,6 +53,7 @@ CodeUtils.getXmlCodeList = function (code) {
                         }
                         let res = result[result.length-1];
                         res.tip = StringUtils.getLineContain(code,StringUtils.getLastNotSpaceIndex(code,res.range[0]-1));
+                        res.tip = res.tip.substring(StringUtils.countSpaceFront(res.tip));
                         if(res.tip.length>10){
                             res.tip = res.tip.substring(0,10)+"..."
                         }else {
@@ -60,7 +68,6 @@ CodeUtils.getXmlCodeList = function (code) {
                 }
             }
         }
-        const syntax = CodeUtils.Esprima.parse(code,{jsx: true ,loc: true, range: true});
         search(syntax.body);
         return result
     }

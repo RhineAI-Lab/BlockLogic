@@ -77,12 +77,12 @@
     z-index: 100;
     position:relative;
 
-    background: #eeeeee;
-    color: #222222;
+    background: #eee;
+    color: #111;
 }
 .select-item:hover{
     background: #347d74;
-    color: #dddddd;
+    color: #fff;
 }
 
 
