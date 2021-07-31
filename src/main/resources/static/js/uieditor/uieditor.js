@@ -30,17 +30,13 @@ window.onload=function(){
     ViewUtils.makeDrawer("attr-space","right");
     ViewUtils.makeDrawer("preview-space","right");
 
-    require(["vue","esprima","ace"],function (Vue) {
-        freshXmlList();
-        if(toolbar.list.length>0){
-            target = toolbar.list[0]
-        }
+    require(["vue"],function (Vue) {
         Vue.component("custom-select",{
             data:function(){
                 return {
                     selectShow:false,
-                    val:target.tip+" [line:"+target.lineStart+"~"+target.lineEnd+"]",
-                    choosed:target
+                    val:"",
+                    choosed:null
                 }
             },
             props:["btn","list"],
@@ -56,20 +52,15 @@ window.onload=function(){
         `,
             methods:{
                 selectValueHandle: function(item){
-                    this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
-                    this.choosed = item;
                     this.selectShow = false;
-                    this.changeTarget();
-                },
-                changeTarget: function () {
-                    target = this.choosed;
+                    this.chooseItem(item);
                 },
                 freshList: function () {
                     freshXmlList();
                 },
                 chooseItem: function (item) {
-                    this.choosed = item;
                     target = item;
+                    this.choosed = item;
                     this.val = item.tip+" [line:"+item.lineStart+"~"+item.lineEnd+"]";
                 }
             }
@@ -137,6 +128,13 @@ window.onload=function(){
             }
         });
 
+        //初次解析
+        require(["esprima","ace","vue"],function (parser) {
+            freshXmlList();
+            if(toolbar.list.length>0){
+                toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+            }
+        });
     });
 
     //初始化分栏显示状态

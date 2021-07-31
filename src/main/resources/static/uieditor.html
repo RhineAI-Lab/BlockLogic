@@ -38,7 +38,7 @@
     <button class="tool-btn btn-2" id="tool-ast-position" @click="astPosition()" title="输出词法解析器完整定位结果。">定位解析</button>
     <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlList()" title="输出XML代码位置。">检索XML</button>
     <a class="tool-middle"></a>
-    <custom-select id="select-target" :list="list"></custom-select>
+    <custom-select ref="selectTarget" :list="list"></custom-select>
 
 </div>
 <div class="ui-workspace">
