@@ -1,0 +1,513 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1628502846093') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bussiness-man:before {
+  content: "\e6ef";
+}
+
+.icon-component:before {
+  content: "\e6f2";
+}
+
+.icon-copy:before {
+  content: "\e6f3";
+}
+
+.icon-dollar:before {
+  content: "\e6f4";
+}
+
+.icon-editor:before {
+  content: "\e6f6";
+}
+
+.icon-data:before {
+  content: "\e6f9";
+}
+
+.icon-gift:before {
+  content: "\e6fa";
+}
+
+.icon-integral:before {
+  content: "\e6fb";
+}
+
+.icon-nav-list:before {
+  content: "\e6fd";
+}
+
+.icon-pic:before {
+  content: "\e6ff";
+}
+
+.icon-play:before {
+  content: "\e701";
+}
+
+.icon-QRcode:before {
+  content: "\e704";
+}
+
+.icon-rmb:before {
+  content: "\e703";
+}
+
+.icon-similar-product:before {
+  content: "\e707";
+}
+
+.icon-Exportservices:before {
+  content: "\e702";
+}
+
+.icon-column:before {
+  content: "\e741";
+}
+
+.icon-add:before {
+  content: "\e742";
+}
+
+.icon-add-cart:before {
+  content: "\e743";
+}
+
+.icon-arrow-right:before {
+  content: "\e744";
+}
+
+.icon-all:before {
+  content: "\e745";
+}
+
+.icon-attachent:before {
+  content: "\e746";
+}
+
+.icon-browse:before {
+  content: "\e747";
+}
+
+.icon-auto:before {
+  content: "\e748";
+}
+
+.icon-calendar:before {
+  content: "\e749";
+}
+
+.icon-cart-full:before {
+  content: "\e74a";
+}
+
+.icon-calculator:before {
+  content: "\e74b";
+}
+
+.icon-close:before {
+  content: "\e74c";
+}
+
+.icon-code:before {
+  content: "\e74d";
+}
+
+.icon-conditions:before {
+  content: "\e74e";
+}
+
+.icon-confirm:before {
+  content: "\e74f";
+}
+
+.icon-company:before {
+  content: "\e750";
+}
+
+.icon-ali-clould:before {
+  content: "\e751";
+}
+
+.icon-copy1:before {
+  content: "\e752";
+}
+
+.icon-clock:before {
+  content: "\e753";
+}
+
+.icon-cut:before {
+  content: "\e754";
+}
+
+.icon-data1:before {
+  content: "\e755";
+}
+
+.icon-Customermanagement:before {
+  content: "\e756";
+}
+
+.icon-discount:before {
+  content: "\e757";
+}
+
+.icon-download:before {
+  content: "\e758";
+}
+
+.icon-editor1:before {
+  content: "\e759";
+}
+
+.icon-electronics:before {
+  content: "\e75a";
+}
+
+.icon-etrical-equipm:before {
+  content: "\e75b";
+}
+
+.icon-email:before {
+  content: "\e75c";
+}
+
+.icon-history:before {
+  content: "\e75d";
+}
+
+.icon-good:before {
+  content: "\e75e";
+}
+
+.icon-form:before {
+  content: "\e75f";
+}
+
+.icon-integral1:before {
+  content: "\e760";
+}
+
+.icon-link:before {
+  content: "\e761";
+}
+
+.icon-libra:before {
+  content: "\e762";
+}
+
+.icon-loading:before {
+  content: "\e763";
+}
+
+.icon-mobile-phone:before {
+  content: "\e764";
+}
+
+.icon-move:before {
+  content: "\e765";
+}
+
+.icon-map:before {
+  content: "\e766";
+}
+
+.icon-office:before {
+  content: "\e767";
+}
+
+.icon-Notvisible:before {
+  content: "\e768";
+}
+
+.icon-operation:before {
+  content: "\e769";
+}
+
+.icon-phone:before {
+  content: "\e76a";
+}
+
+.icon-pic1:before {
+  content: "\e76b";
+}
+
+.icon-save:before {
+  content: "\e76c";
+}
+
+.icon-scanning:before {
+  content: "\e76d";
+}
+
+.icon-seleted:before {
+  content: "\e76e";
+}
+
+.icon-service:before {
+  content: "\e76f";
+}
+
+.icon-sorting:before {
+  content: "\e770";
+}
+
+.icon-sound-Mute:before {
+  content: "\e771";
+}
+
+.icon-Similarproducts:before {
+  content: "\e772";
+}
+
+.icon-sound-filling:before {
+  content: "\e773";
+}
+
+.icon-stop:before {
+  content: "\e774";
+}
+
+.icon-success:before {
+  content: "\e775";
+}
+
+.icon-switch:before {
+  content: "\e776";
+}
+
+.icon-template:before {
+  content: "\e777";
+}
+
+.icon-text:before {
+  content: "\e778";
+}
+
+.icon-suspended:before {
+  content: "\e779";
+}
+
+.icon-task-management:before {
+  content: "\e77a";
+}
+
+.icon-tool:before {
+  content: "\e77b";
+}
+
+.icon-Top:before {
+  content: "\e77c";
+}
+
+.icon-tradingvolume:before {
+  content: "\e77d";
+}
+
+.icon-viewgallery:before {
+  content: "\e77e";
+}
+
+.icon-warning:before {
+  content: "\e77f";
+}
+
+.icon-video:before {
+  content: "\e780";
+}
+
+.icon-viewlist:before {
+  content: "\e781";
+}
+
+.icon-set:before {
+  content: "\e782";
+}
+
+.icon-sport:before {
+  content: "\e783";
+}
+
+.icon-creditcard:before {
+  content: "\e784";
+}
+
+.icon-aviation:before {
+  content: "\e785";
+}
+
+.icon-Daytimemode:before {
+  content: "\e786";
+}
+
+.icon-nightmode:before {
+  content: "\e787";
+}
+
+.icon-usercenter:before {
+  content: "\e788";
+}
+
+.icon-unlock:before {
+  content: "\e789";
+}
+
+.icon-vip:before {
+  content: "\e78a";
+}
+
+.icon-wallet:before {
+  content: "\e78b";
+}
+
+.icon-exchangerate:before {
+  content: "\e78c";
+}
+
+.icon-ashbin-fill:before {
+  content: "\e78d";
+}
+
+.icon-writing:before {
+  content: "\e7a3";
+}
+
+.icon-docjpge-fill:before {
+  content: "\e7a4";
+}
+
+.icon-jpge-fill:before {
+  content: "\e7a5";
+}
+
+.icon-gifjpge-fill:before {
+  content: "\e7a6";
+}
+
+.icon-pngjpge-fill:before {
+  content: "\e7a7";
+}
+
+.icon-Hometextile:before {
+  content: "\e7a8";
+}
+
+.icon-add-select:before {
+  content: "\e7b0";
+}
+
+.icon-sami-select:before {
+  content: "\e7b1";
+}
+
+.icon-camera:before {
+  content: "\e7b2";
+}
+
+.icon-arrow-down:before {
+  content: "\e7b3";
+}
+
+.icon-account:before {
+  content: "\e7b4";
+}
+
+.icon-favorites:before {
+  content: "\e7b5";
+}
+
+.icon-order:before {
+  content: "\e7b6";
+}
+
+.icon-search:before {
+  content: "\e7b7";
+}
+
+.icon-tradingdata:before {
+  content: "\e7b8";
+}
+
+.icon-microphone:before {
+  content: "\e7bf";
+}
+
+.icon-addcell:before {
+  content: "\e7cc";
+}
+
+.icon-cascades:before {
+  content: "\e7cd";
+}
+
+.icon-flag:before {
+  content: "\e7ce";
+}
+
+.icon-language:before {
+  content: "\e7cf";
+}
+
+.icon-leftalignment:before {
+  content: "\e7d0";
+}
+
+.icon-rightalignment:before {
+  content: "\e7d1";
+}
+
+.icon-square:before {
+  content: "\e7d2";
+}
+
+.icon-superscript:before {
+  content: "\e7d3";
+}
+
+.icon-shouqi:before {
+  content: "\e7d4";
+}
+
+.icon-zhankai:before {
+  content: "\e7d5";
+}
+
+.icon-tongxunlu:before {
+  content: "\e7d6";
+}
+
+.icon-robot:before {
+  content: "\e7da";
+}
+
+.icon-inspection:before {
+  content: "\e7dc";
+}
+
+.icon-block:before {
+  content: "\e7de";
+}
+
+.icon-shouhuoicon:before {
+  content: "\e7df";
+}
+
+.icon-UIshejishi:before {
+  content: "\e61c";
+}
+

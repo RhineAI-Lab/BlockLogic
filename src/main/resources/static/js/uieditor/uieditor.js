@@ -44,7 +44,18 @@ normalCode = '"ui";\n' +
     '});\n' +
     'activity.setSupportActionBar(ui.toolbar);';
 
+const iconsMap = {
+    "normal":"integral",
+    "frame":"viewgallery",
+    "horizontal":"3column",
+    "SurfaceView":"video",
+    "input":"editor",
+    "image":"pic",
+    "text":"text",
+};
+
 require.config({
+    waitSeconds: 1000,
     paths : {
         "ace" : "ace/ace",
         "vue" : "js/plugins/vue.min",
@@ -172,6 +183,9 @@ window.onload=function(){
                 },
                 getXmlCode: function () {
                     console.log(CodeUtils.getXmlCode(target,targetPoint.indent));
+                },
+                freshXmlAnalysis: function () {
+                    freshAnalysis()
                 }
             }
         });
@@ -199,47 +213,28 @@ window.onload=function(){
 
 function freshStructure() {
     if(target!=null){
-        let boxes = [];
-        function freshShow() {
-            if(boxes.length>0){
-                var show = null;
-                var maxLevel = -1;
-                for (let i = 0; i < boxes.length; i++) {
-                    let box = boxes[i];
-                    if(box.choosed&&box.level>maxLevel){
-                        show = box;
-                        maxLevel = box.level;
-                    }
-                    if(box.level%2==0){
-                        box.style.background = "#f1f1f1"
-                    }else {
-                        box.style.background = "#fefefe"
-                    }
-                }
-                if(show){
-                    show.style.background = "#66ff6660"
-                }
-            }
-        }
+        let nodes = [];
         function addStructureView(node,parentView,level,inline) {
             let children = node.children;
             let nextInline = false;
 
             let box = document.createElement("div");
+            let icon = document.createElement("i");
             let title = document.createElement("div");
             let msg = document.createElement("div");
             box.className = "structure-box";
             title.className = "structure-title";
             msg.className = "structure-msg";
-            if(level%2==0){
-                box.style.background = "#f1f1f1"
+            if(iconsMap[node.tagName]){
+                icon.className = "iconfont icon-"+iconsMap[node.tagName]+" structure-icon";
             }else {
-                box.style.background = "#fefefe"
+                icon.className = "iconfont icon-"+iconsMap["normal"]+" structure-icon";
             }
             if(inline){
                 box.style.flexGrow=1;
             }
             parentView.appendChild(box);
+            box.appendChild(icon);
             box.appendChild(title);
             box.appendChild(msg);
             title.innerText = node.tagName;
@@ -255,15 +250,38 @@ function freshStructure() {
             msg.innerText = msgStr;
 
             box.level = level;
-            box.onmouseover = function(){
-                box.choosed = true;
-                freshShow();
+            box.onmouseover = function(event){
+                event.stopPropagation();
+                if(!node.choosed){
+                    box.style.background = "#e2e2e2"
+                }
             };
-            box.onmouseout = function(){
-                box.choosed = false;
-                freshShow();
+            box.onmouseout = function(event){
+                event.stopPropagation();
+                if(!node.choosed){
+                    box.resetBackground();
+                }
             };
-            boxes.push(box);
+            box.resetBackground = function(){
+                if(level%2===0){
+                    box.style.background = "#f1f1f1"
+                }else {
+                    box.style.background = "#fefefe"
+                }
+            };
+            box.resetBackground();
+            node.choosed = false;
+            box.onmousedown = function(event){
+                event.stopPropagation();
+                node.choosed = !node.choosed;
+                let flag = node.choosed;
+                clearNodesChoosed(nodes);
+                if(flag){
+                    chooseNode(node);
+                }
+            };
+            node.structureBox = box;
+            nodes.push(node);
 
             if(children.length>0){
                 let split = document.createElement("div");
@@ -291,6 +309,96 @@ function freshStructure() {
     }
 }
 
+function freshTree() {
+    if(target!=null){
+        let nodes = [];
+        function addTreeView(node,parentView,level) {
+            let children = node.children;
+
+            let box = document.createElement("div");
+            let swi = document.createElement("i");
+            let icon = document.createElement("i");
+            let title = document.createElement("div");
+            box.className = "tree-box";
+            title.className = "tree-title";
+            if(iconsMap[node.tagName]){
+                icon.className = "iconfont icon-"+iconsMap[node.tagName]+" tree-icon";
+            }else {
+                icon.className = "iconfont icon-"+iconsMap["normal"]+" tree-icon";
+            }
+            if(children.length>0){
+                swi.className = "iconfont icon-arrow-down tree-swi";
+                swi.style.marginLeft = level*16+4+"px";
+                node.fold = false;
+                swi.onmousedown = function (event) {
+                    event.stopPropagation();
+                    node.fold = !node.fold;
+                    if(node.fold){
+                        box.style.height = "26px";
+                        swi.className = "iconfont icon-arrow-right tree-swi";
+                    }else {
+                        box.style.height = "";
+                        swi.className = "iconfont icon-arrow-down tree-swi";
+                    }
+                };
+            }else{
+                swi.className = "";
+                swi.style.marginLeft = level*16+24+"px";
+            }
+            box.style.background = "#fff";
+            box.onmouseover = function(event){
+                event.stopPropagation();
+                if(!node.choosed){
+                    box.style.background = "#e2e2e2"
+                }
+            };
+            box.onmouseout = function(event){
+                event.stopPropagation();
+                if(!node.choosed){
+                    box.resetBackground();
+                }
+            };
+            box.resetBackground = function(){
+                box.style.background = "#fff";
+            };
+            node.choosed = false;
+            box.onmousedown = function(event){
+                event.stopPropagation();
+                node.choosed = !node.choosed;
+                let flag = node.choosed;
+                clearNodesChoosed(nodes);
+                if(flag){
+                    chooseNode(node);
+                }
+            };
+            parentView.appendChild(box);
+            box.appendChild(swi);
+            box.appendChild(icon);
+            box.appendChild(title);
+            title.innerText = node.tagName;
+            title.nowrap = true;
+            node.treeBox = box;
+            nodes.push(node);
+
+            if(children.length>0){
+                let holder = document.createElement("div");
+                holder.className = "tree-holder";
+                box.appendChild(holder);
+
+                for (let i = 0; i < children.length; i++) {
+                    let midlle = document.createElement("div");
+                    midlle.style.height = "0.1px";
+                    holder.appendChild(midlle);
+                    addTreeView(children[i],holder,level+1);
+                }
+            }
+        }
+        var treeView = document.getElementById("tree-show");
+        treeView.innerHTML = "";
+        addTreeView(target.firstChild,treeView,0);
+    }
+}
+
 function freshXmlList() {
     toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
 }
@@ -298,6 +406,35 @@ function freshXmlList() {
 function changeTarget(t) {
     targetPoint = t;
     target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
-    freshStructure();
+    freshAnalysis();
 }
+
+function freshAnalysis() {
+    freshStructure();
+    freshTree();
+}
+
+function clearNodesChoosed(nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+        let node = nodes[i];
+        node.choosed = false;
+        if(node.treeBox){
+            node.treeBox.resetBackground();
+        }
+        if(node.structureBox){
+            node.structureBox.resetBackground();
+        }
+    }
+}
+function chooseNode(node) {
+    node.choosed = true;
+    if(node.treeBox){
+        node.treeBox.style.background = "#66ff6660";
+    }
+    if(node.structureBox){
+        node.structureBox.style.background = "#66ff6660";
+    }
+}
+
+
 

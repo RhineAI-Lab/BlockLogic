@@ -26,7 +26,7 @@
     left: 0;
 }
 .tree-space{
-    width: 300px;
+    width: 240px;
     left: 0;
 }
 .code-space{
@@ -87,9 +87,12 @@
 }
 
 .structure-show{
+    max-width: 600px;
+    margin: 0 8px;
 }
 
 .structure-box{
+    user-select: none;
     margin: 5px;
     padding: 5px;
     min-width: 40px;
@@ -99,11 +102,14 @@
     overflow: hidden;
 }
 .structure-title{
+    display: inline-block;
+    user-select: none;
     font-size: 16px;
-    margin: 2px 1px;
+    margin: 3px;
     color: #444;
 }
 .structure-msg{
+    user-select: none;
     font-size: 12px;
     margin: 2px 1px;
     color: #555;
@@ -113,6 +119,31 @@
     margin: 4px -2px;
     background: #999;
 }
+.structure-icon{
+    display: inline-block;
+    font-size: 18px;
+    color: #666;
+}
 
-
-
+.tree-box{
+    user-select: none;
+    width: auto;
+    overflow: hidden;
+}
+.tree-title{
+    height: 20px;
+    display: inline-block;
+    user-select: none;
+    font-size: 14px;
+    margin: 3px 2px;
+    line-height: 20px;
+    vertical-align:middle;
+    color: #444;
+}
+.tree-icon{
+    color: #777;
+    margin: 3px 2px;
+}
+.tree-swi{
+    color: #444;
+}

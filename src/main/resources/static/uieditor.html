@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/workspace.css">
     <link rel="stylesheet" type="text/css" href="css/uieditor.css">
     <link rel="stylesheet" type="text/css" href="css/btn.css">
+    <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/metroStyle/metroStyle.css">
 </head>
 <body>
@@ -38,6 +39,7 @@
     <button class="tool-btn btn-2" id="tool-ast-position" @click="astPosition()" title="输出词法解析器完整定位结果。">定位解析</button>
     <button class="tool-btn btn-2" id="tool-fresh-xml" @click="freshXmlList()" title="输出全部XML代码位置列表。">检索XML</button>
     <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlCode()" title="输出目标XML代码。">输出XML</button>
+    <!--<button class="tool-btn btn-2" id="tool-fresh-analysis" @click="freshAnalysis()" title="重新解析XML代码。">刷新解析</button>-->
     <a class="tool-middle"></a>
     <custom-select ref="selectTarget" :list="list"></custom-select>
 
@@ -48,12 +50,11 @@
     </div>
     <div class="layer-inner">
         <div id="tree-space" class="drawer tree-space">
-            <div class="temp-text">控件树区<br/>开发中</div>
+            <div id="tree-show" class="tree-show"></div>
         </div>
         <div class="layer-inner">
             <div id="structure-space" class="structure-space">
-                <div id="structure-show" class="structure-show">
-                </div>
+                <div id="structure-show" class="structure-show"></div>
             </div>
             <div id="code-space" class="drawer code-space">
                 <div class="editor" id="editor"></div>
@@ -68,12 +69,12 @@
     </div>
 </div>
 
-<script src="js/plugins/require.js"></script>
-
 <script src="js/utils/view_utils.js"></script>
 <script src="js/utils/ace_utils.js"></script>
 <script src="js/utils/code_utils.js"></script>
 <script src="js/utils/string_utils.js"></script>
+
+<script src="js/plugins/require.js"></script>
 
 <script src="js/uieditor/uieditor.js"></script>
 </body>
