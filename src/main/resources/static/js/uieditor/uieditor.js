@@ -47,11 +47,20 @@ normalCode = '"ui";\n' +
 const iconsMap = {
     "normal":"integral",
     "frame":"viewgallery",
-    "horizontal":"3column",
+    "horizontal":"column-horizontal",
+    "vertical":"column-vertical",
     "SurfaceView":"video",
     "input":"editor",
-    "image":"pic",
+    "img":"pic",
     "text":"text",
+    "form":"form",
+    "grid":"form",
+    "list":"nav-list",
+    "checkbox":"confirm",
+    "switch":"switch",
+    "progressbar":"progress",
+    "seekbar":"progress",
+    "map":"map",
 };
 
 require.config({
@@ -189,14 +198,14 @@ window.onload=function(){
                 }
             }
         });
+    });
 
-        //初次解析
-        require(["esprima","ace","vue"],function () {
-            freshXmlList();
-            if(toolbar.list.length>0){
-                toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
-            }
-        });
+    //初次解析
+    require(["esprima","ace","vue"],function () {
+        freshXmlList();
+        if(toolbar.list.length>0){
+            toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+        }
     });
 
     //初始化分栏显示状态
@@ -206,10 +215,69 @@ window.onload=function(){
     ViewUtils.changeShowBtnState("show-preview",false);
     ViewUtils.changeShowBtnState("show-structure",true);
     ViewUtils.changeShowBtnState("show-tree",false);
-    ViewUtils.changeViewState("tree-space",false);
     ViewUtils.changeViewState("preview-space",false);
 
+    //初始化新增区
+    initAdd();
 };
+
+function initAdd() {
+    let parent = document.getElementById("new-show");
+    let groups = document.getElementsByTagName("WidgetGroup");
+    for (let i = 0; i < groups.length; i++) {
+        let box = document.createElement("div");
+        let titleBox = document.createElement("div");
+        let title = document.createElement("div");
+        let swi = document.createElement("i");
+        let holder = document.createElement("div");
+        box.className = "new-box";
+        title.className = "new-title";
+        titleBox.className = "new-title-box";
+        swi.className = "new-swi iconfont icon-arrow-down";
+        holder.className = "new-items-holder";
+        parent.appendChild(box);
+        box.appendChild(titleBox);
+        titleBox.appendChild(title);
+        titleBox.appendChild(swi);
+        box.appendChild(holder);
+        title.innerText = groups[i].getAttribute("name");
+        titleBox.onmousedown = function(e){
+            if(holder.style.height!=="0px"){
+                holder.style.height = "0px";
+                swi.className = "new-swi iconfont icon-arrow-right";
+            }else {
+                holder.style.height = "auto";
+                swi.className = "new-swi iconfont icon-arrow-down";
+            }
+        };
+        let widgets = groups[i].getElementsByTagName("Widget");
+        for (let j = 0; j < widgets.length; j++) {
+            let nameStr = widgets[j].getAttribute("name");
+            let itemBox = document.createElement("div");
+            let icon = document.createElement("i");
+            let itemTitle = document.createElement("div");
+            let itemExp = document.createElement("div");
+            let itemMsg = document.createElement("div");
+            itemBox.className = "new-item-box";
+            if(iconsMap[nameStr]){
+                icon.className = "iconfont icon-"+iconsMap[nameStr]+" new-item-icon";
+            }else {
+                icon.className = "iconfont icon-"+iconsMap["normal"]+" new-item-icon";
+            }
+            itemTitle.className = "new-item-title";
+            itemExp.className = "new-item-exp";
+            itemMsg.className = "new-item-msg";
+            itemTitle.innerText = nameStr;
+            itemExp.innerText = widgets[j].getAttribute("example");
+            itemMsg.innerText = widgets[j].getAttribute("summary");
+            holder.appendChild(itemBox);
+            itemBox.appendChild(icon);
+            itemBox.appendChild(itemTitle);
+            itemBox.appendChild(itemExp);
+            itemBox.appendChild(itemMsg);
+        }
+    }
+}
 
 function freshStructure() {
     if(target!=null){

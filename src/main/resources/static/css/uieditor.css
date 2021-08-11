@@ -147,3 +147,62 @@
 .tree-swi{
     color: #444;
 }
+
+.new-show{
+    height: 100%;
+    overflow-y: auto;
+}
+.new-box{
+    user-select: none;
+    border-bottom: 1px solid #aaa;
+}
+.new-title-box{
+    padding: 5px 7px;
+    background: #fff;
+    white-space: nowrap;
+}
+.new-title-box:hover{
+    background: #e2e2e2;
+}
+.new-title{
+    display: inline-block;
+    font-size: 16px;
+    color: #444;
+}
+.new-swi{
+    display: inline-block;
+    float: right;
+    font-size: 16px;
+    color: #555;
+}
+.new-items-holder{
+    overflow: hidden;
+}
+.new-item-box{
+    padding: 4px 2px 4px 20px;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+.new-item-box:hover{
+    background: #e2e2e2;
+}
+.new-item-icon{
+    font-size: 16px;
+    color: #555;
+}
+.new-item-title{
+    display: inline-block;
+    font-size: 16px;
+    color: #444;
+    margin-left: 2px;
+}
+.new-item-exp{
+    font-size: 10px;
+    color: #777;
+    margin-left: 5px;
+    white-space: nowrap;
+}
+.new-item-msg{
+    font-size: 12px;
+    color: #555;
+}

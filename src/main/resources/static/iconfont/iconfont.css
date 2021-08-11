@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1628502846093') format('truetype');
+  src: url('iconfont.ttf?t=1628664535139') format('truetype');
 }
 
 .iconfont {
@@ -13,6 +13,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Alignejustifyall:before {
+  content: "\e65d";
+}
+
+.icon-progress:before {
+  content: "\e607";
 }
 
 .icon-bussiness-man:before {
@@ -73,10 +81,6 @@
 
 .icon-Exportservices:before {
   content: "\e702";
-}
-
-.icon-column:before {
-  content: "\e741";
 }
 
 .icon-add:before {
@@ -455,6 +459,10 @@
   content: "\e7cd";
 }
 
+.icon-zijin:before {
+  content: "\e7cb";
+}
+
 .icon-flag:before {
   content: "\e7ce";
 }
@@ -503,8 +511,20 @@
   content: "\e7de";
 }
 
+.icon-column-vertical:before {
+  content: "\e669";
+}
+
+.icon-column-horizontal:before {
+  content: "\e668";
+}
+
 .icon-shouhuoicon:before {
   content: "\e7df";
+}
+
+.icon-switch1:before {
+  content: "\e608";
 }
 
 .icon-UIshejishi:before {

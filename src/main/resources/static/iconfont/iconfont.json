@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7212938",
+      "name": "Aligne justify all",
+      "font_class": "Alignejustifyall",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "9866699",
+      "name": "progress",
+      "font_class": "progress",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "11474220",
       "name": "bussiness-man",
       "font_class": "bussiness-man",
@@ -109,13 +123,6 @@
       "font_class": "Exportservices",
       "unicode": "e702",
       "unicode_decimal": 59138
-    },
-    {
-      "icon_id": "11487969",
-      "name": "3column",
-      "font_class": "column",
-      "unicode": "e741",
-      "unicode_decimal": 59201
     },
     {
       "icon_id": "11487973",
@@ -776,6 +783,13 @@
       "unicode_decimal": 59341
     },
     {
+      "icon_id": "13087862",
+      "name": "资金",
+      "font_class": "zijin",
+      "unicode": "e7cb",
+      "unicode_decimal": 59339
+    },
+    {
       "icon_id": "13087867",
       "name": "flag",
       "font_class": "flag",
@@ -860,11 +874,32 @@
       "unicode_decimal": 59358
     },
     {
+      "icon_id": "15838448",
+      "name": "column-vertical",
+      "font_class": "column-vertical",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "15838449",
+      "name": "column-horizontal",
+      "font_class": "column-horizontal",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
       "icon_id": "18696589",
       "name": "收货icon",
       "font_class": "shouhuoicon",
       "unicode": "e7df",
       "unicode_decimal": 59359
+    },
+    {
+      "icon_id": "18727238",
+      "name": "switch",
+      "font_class": "switch1",
+      "unicode": "e608",
+      "unicode_decimal": 58888
     },
     {
       "icon_id": "20784487",
