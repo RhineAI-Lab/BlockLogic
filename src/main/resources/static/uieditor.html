@@ -61,7 +61,8 @@
             </div>
         </div>
         <div id="attr-space" class="drawer attr-space">
-            <div class="temp-text">属性区<br/>开发中</div>
+            <div id="attr-show" class="attr-show">
+            </div>
         </div>
     </div>
     <div id="preview-space" class="drawer preview-space">
@@ -73,7 +74,27 @@
 <script src="js/utils/ace_utils.js"></script>
 <script src="js/utils/code_utils.js"></script>
 <script src="js/utils/string_utils.js"></script>
-
+<script type="text/x-template" id="dropdown">
+    <div class="dropdown" v-if="options">
+        <!-- Dropdown Input -->
+        <input  class="dropdown-input"
+                :type="type"
+                v-model="input_value"
+                @focus="showOptions()"
+                @blur="exit()"
+                @keyup="keyMonitor"
+                @input="input_value = inputRule(type)" />
+        <!-- Dropdown Menu -->
+        <div class="dropdown-content" v-show="optionsShown">
+            <div    class="dropdown-item"
+                    @mousedown="selectOption(option)"
+                    v-for="(option, index) in filteredOptions"
+                    :key="index">
+                {{ option || '-' }}
+            </div>
+        </div>
+    </div>
+</script>
 <script src="js/plugins/require.js"></script>
 
 <script src="js/uieditor/uieditor.js"></script>
@@ -156,6 +177,7 @@
     </Widgets>
     <Attrs>
         <Attr name="id" tip="控件id，不能重复使用">
+            <opt value="id"/>
         </Attr>
         <Attr name="w" tip="控件宽度">
             <opt value="*" key="尽可能填满父控件"/>

@@ -75,6 +75,7 @@ require.config({
 
 var targetPoint = null;
 var target = null;
+var Vue = null;
 
 window.onload=function(){
     //初始化代码编辑器
@@ -95,7 +96,8 @@ window.onload=function(){
     ViewUtils.makeDrawer("attr-space","right");
     ViewUtils.makeDrawer("preview-space","right");
 
-    require(["vue"],function (Vue) {
+    require(["vue"],function (VueIn) {
+        Vue = VueIn;
         Vue.component("custom-select",{
             data:function(){
                 return {
@@ -140,6 +142,99 @@ window.onload=function(){
             methods:{
                 searchValueHandle(item){
                     this.$emit("value1",item)
+                }
+            }
+        });
+        Vue.component('dropdown', {
+            template: '#dropdown',
+            props: {
+                type: String,
+                options: String,
+                disabled: Boolean,
+                value: String
+            },
+            data: function () {
+                return {
+                    selected: {},
+                    optionsShown: false,
+                    maxItem: 20, //the max number of option that shown on the list
+                    input_value: '',
+                }
+            },
+            created: function () {
+                this.input_value = this.value;
+                if(this.options.length===0){
+                    this.optionsArray = [];
+                }else {
+                    this.optionsArray = this.options.split("|");
+                }
+            },
+            computed: {
+                filteredOptions:function() {
+                    const filtered = [];
+                    const regOption = new RegExp(this.input_value, 'ig');
+                    for(var ii = 0; ii < this.optionsArray.length; ii++){
+                        if (this.input_value.length < 1 || this.optionsArray[ii].match(regOption)) {
+                            if (filtered.length < this.maxItem)
+                                filtered.push(this.optionsArray[ii]);
+                        }
+                    }
+                    return filtered;
+                },
+            },
+            methods: {
+                inputRule:function(type){
+                    var value;
+                    switch(type){
+                        case 'text':
+                            value = this.input_value.replace(/[^a-zA-Z0-9]/g,'');
+                            break;
+                        case 'number':
+                            value = this.input_value.replace(/^(?![+-]?\d+(\.\d+)?$)/g,'');
+                            break;
+                        case 'percentage':
+                            value = this.input_value.replace(/[^\d]/g,'');
+                            value = value > 100 ? '100' : value;
+                            value = value < 0 ? '0' : value;
+                            break;
+                        default:
+                            console.log("no limitation");
+                    }
+                    return value;
+                },
+                selectOption: function (option) {
+                    this.selected = option;
+                    this.optionsShown = false;
+                    this.input_value = this.selected;
+                },
+                showOptions: function () {
+                    if (!this.disabled) {
+                        this.optionsShown = true;
+                    }
+                },
+                exit: function () {
+                    this.optionsShown = false;
+                },
+                // Selecting when pressing Enter
+                keyMonitor: function (event) {
+                    if (event.key === "Enter") {
+                        if (this.filteredOptions[0])
+                            this.selectOption(this.filteredOptions[0]);
+                        else
+                            this.selectOption(this.input_value);
+                    }
+                },
+            },
+            watch: {
+                value:function() {
+                    this.input_value = this.value;
+                },
+                input_value:function() {
+                    if (this.filteredOptions.length === 0)
+                        this.selected = this.input_value;
+                    else
+                        this.selected = this.filteredOptions[0];
+                    this.$emit('on_change_input_value', this.input_value);
                 }
             }
         });
@@ -200,6 +295,7 @@ window.onload=function(){
         });
     });
 
+
     //初次解析
     require(["esprima","ace","vue"],function () {
         freshXmlList();
@@ -210,11 +306,11 @@ window.onload=function(){
 
     //初始化分栏显示状态
     ViewUtils.changeShowBtnState("show-new",true);
+    ViewUtils.changeShowBtnState("show-tree",true);
     ViewUtils.changeShowBtnState("show-code",true);
     ViewUtils.changeShowBtnState("show-attr",true);
     ViewUtils.changeShowBtnState("show-preview",false);
     ViewUtils.changeShowBtnState("show-structure",true);
-    ViewUtils.changeShowBtnState("show-tree",false);
     ViewUtils.changeViewState("preview-space",false);
 
     //初始化新增区
@@ -237,8 +333,8 @@ function initAdd() {
         holder.className = "new-items-holder";
         parent.appendChild(box);
         box.appendChild(titleBox);
-        titleBox.appendChild(title);
         titleBox.appendChild(swi);
+        titleBox.appendChild(title);
         box.appendChild(holder);
         title.innerText = groups[i].getAttribute("name");
         titleBox.onmousedown = function(e){
@@ -275,6 +371,75 @@ function initAdd() {
             itemBox.appendChild(itemTitle);
             itemBox.appendChild(itemExp);
             itemBox.appendChild(itemMsg);
+        }
+    }
+}
+
+function freshAttr(node) {
+    let attrs = getAllNormalAttrs();
+    for (let i = 0; i < node.attributes.length; i++) {
+        let item = node.attributes.item(i);
+        attrs[0].push(newAttr(item.name,item.value));
+    }
+    attrs[1] = getSpecialAttrs(node.tagName);
+    for (let i = 1; i < attrs.length; i++) {
+        for (let j = 0; j < attrs[i].length; j++) {
+            for (let k = 0; k < attrs[0].length; k++) {
+                if(attrs[0][k].name===attrs[i][j].name){
+                    attrs[i][j] = attrs[0][k];
+                }
+            }
+        }
+    }
+    let parent = document.getElementById("attr-show");
+    let attrsTitles = ["当前属性","独有属性","常用属性","位置属性","全部属性"];
+    for (let i = 1; i < attrs.length; i++) {
+        if(attrs[i].length===0){
+            continue;
+        }
+        let box = document.createElement("div");
+        let titleBox = document.createElement("div");
+        let title = document.createElement("div");
+        let swi = document.createElement("i");
+        let holder = document.createElement("div");
+        box.className = "new-box";
+        title.className = "new-title";
+        titleBox.className = "new-title-box";
+        swi.className = "new-swi iconfont icon-arrow-down";
+        holder.className = "new-items-holder";
+        parent.appendChild(box);
+        box.appendChild(titleBox);
+        titleBox.appendChild(swi);
+        titleBox.appendChild(title);
+        box.appendChild(holder);
+        title.innerText = attrsTitles[i];
+        titleBox.onmousedown = function(e){
+            if(holder.style.height!=="0px"){
+                holder.style.height = "0px";
+                swi.className = "new-swi iconfont icon-arrow-right";
+            }else {
+                holder.style.height = "auto";
+                swi.className = "new-swi iconfont icon-arrow-down";
+            }
+        };
+        for (let j = 0; j < attrs[i].length; j++) {
+            let line = document.createElement("div");
+            line.className = "attr-line";
+            let id = "dp-"+i+"-"+j;
+            let item = attrs[i][j];
+
+            line.innerHTML = "<p class='attr-name'>"+item.name+"</p>\n<dropdown classname='attr-value' value='' options='"+findOpt(item.name)+"' id='"+id+"' type='text' @on_change_input_value='onTextChange'></dropdown>"
+            holder.appendChild(line);
+
+            let dp = new Vue({
+                el:"#"+id,
+                methods:{
+                    onTextChange:function (value) {
+                        node.setAttribute(item.name,value);
+                        item.value = value;
+                    }
+                }
+            });
         }
     }
 }
@@ -480,6 +645,7 @@ function changeTarget(t) {
 function freshAnalysis() {
     freshStructure();
     freshTree();
+    freshAttr(target.firstChild);
 }
 
 function clearNodesChoosed(nodes) {
@@ -505,4 +671,283 @@ function chooseNode(node) {
 }
 
 
+function getAllNormalAttrs() {
+    let arrayList = [];
+    arrayList.push([]);
+    arrayList.push([]);
+    arrayList.push(getUsefulAttrs());
+    arrayList.push(getPositionAttrs());
+    arrayList.push(getAllAttrs());
+    return arrayList;
+}
+
+function getPositionAttrs() {
+    let attrs = [];
+    attrs.push(newAttr("w"));
+    attrs.push(newAttr("h"));
+    attrs.push(newAttr("gravity"));
+    attrs.push(newAttr("layout_gravity"));
+    attrs.push(newAttr("layout_weight"));
+    attrs.push(newAttr("margin"));
+    attrs.push(newAttr("padding"));
+    attrs.push(newAttr("minHeight"));
+    attrs.push(newAttr("minWidth"));
+    return attrs;
+}
+function getUsefulAttrs() {
+    let attrs = [];
+    attrs.push(newAttr("id"));
+    attrs.push(newAttr("bg"));
+    attrs.push(newAttr("style"));
+    attrs.push(newAttr("alpha"));
+    attrs.push(newAttr("foreground"));
+    attrs.push(newAttr("visibility"));
+    attrs.push(newAttr("rotation"));
+    return attrs;
+}
+function getAllAttrs() {
+    let attrs = [];
+    attrs.push(newAttr("accessibilityLiveRegion"));
+    attrs.push(newAttr("alpha"));
+    attrs.push(newAttr("autoLink"));
+    attrs.push(newAttr("autoSizeMaxTextSize"));
+    attrs.push(newAttr("autoSizeMinTextSize"));
+    attrs.push(newAttr("autoSizePresetSizes"));
+    attrs.push(newAttr("autoSizeStepGranularity"));
+    attrs.push(newAttr("autoSizeTextType"));
+    attrs.push(newAttr("autoText"));
+    attrs.push(newAttr("background"));
+    attrs.push(newAttr("backgroundTint"));
+    attrs.push(newAttr("backgroundTintMode"));
+    attrs.push(newAttr("bufferType"));
+    attrs.push(newAttr("capitalize"));
+    attrs.push(newAttr("clickable"));
+    attrs.push(newAttr("contentDescription"));
+    attrs.push(newAttr("cursorVisible"));
+    attrs.push(newAttr("digits"));
+    attrs.push(newAttr("drawableBottom"));
+    attrs.push(newAttr("drawableBottomCompat"));
+    attrs.push(newAttr("drawableEnd"));
+    attrs.push(newAttr("drawableEndCompat"));
+    attrs.push(newAttr("drawableLeft"));
+    attrs.push(newAttr("drawableLeftCompat"));
+    attrs.push(newAttr("drawablePadding"));
+    attrs.push(newAttr("drawableRight"));
+    attrs.push(newAttr("drawableRightCompat"));
+    attrs.push(newAttr("drawableStart"));
+    attrs.push(newAttr("drawableStartCompat"));
+    attrs.push(newAttr("drawableTint"));
+    attrs.push(newAttr("drawableTintMode"));
+    attrs.push(newAttr("drawableTop"));
+    attrs.push(newAttr("drawableTopCompat"));
+    attrs.push(newAttr("drawingCacheQuality"));
+    attrs.push(newAttr("duplicateParentState"));
+    attrs.push(newAttr("editable"));
+    attrs.push(newAttr("editorExtras"));
+    attrs.push(newAttr("elegantTextHeight"));
+    attrs.push(newAttr("elevation"));
+    attrs.push(newAttr("ellipsize"));
+    attrs.push(newAttr("ems"));
+    attrs.push(newAttr("enabled"));
+    attrs.push(newAttr("fadeScrollbars"));
+    attrs.push(newAttr("fadingEdge"));
+    attrs.push(newAttr("fadingEdgeLength"));
+    attrs.push(newAttr("filterTouchesWhenObscured"));
+    attrs.push(newAttr("fitsSystemWindows"));
+    attrs.push(newAttr("focusable"));
+    attrs.push(newAttr("focusableInTouchMode"));
+    attrs.push(newAttr("fontFamily"));
+    attrs.push(newAttr("fontFeatureSettings"));
+    attrs.push(newAttr("foreground"));
+    attrs.push(newAttr("foregroundGravity"));
+    attrs.push(newAttr("foregroundTint"));
+    attrs.push(newAttr("foregroundTintMode"));
+    attrs.push(newAttr("freezesText"));
+    attrs.push(newAttr("gravity"));
+    attrs.push(newAttr("hapticFeedbackEnabled"));
+    attrs.push(newAttr("height"));
+    attrs.push(newAttr("hint"));
+    attrs.push(newAttr("id"));
+    attrs.push(newAttr("imeActionId"));
+    attrs.push(newAttr("imeActionLabel"));
+    attrs.push(newAttr("imeOptions"));
+    attrs.push(newAttr("importantForAccessibility"));
+    attrs.push(newAttr("includeFontPadding"));
+    attrs.push(newAttr("inputMethod"));
+    attrs.push(newAttr("inputType"));
+    attrs.push(newAttr("isScrollContainer"));
+    attrs.push(newAttr("keepScreenOn"));
+    attrs.push(newAttr("labelFor"));
+    attrs.push(newAttr("layerType"));
+    attrs.push(newAttr("layoutDirection"));
+    attrs.push(newAttr("layout_gravity"));
+    attrs.push(newAttr("layout_height"));
+    attrs.push(newAttr("layout_margin"));
+    attrs.push(newAttr("layout_weight"));
+    attrs.push(newAttr("layout_width"));
+    attrs.push(newAttr("letterSpacing"));
+    attrs.push(newAttr("lineSpacingExtra"));
+    attrs.push(newAttr("lineSpacingMultiplier"));
+    attrs.push(newAttr("lines"));
+    attrs.push(newAttr("linksClickable"));
+    attrs.push(newAttr("longClickable"));
+    attrs.push(newAttr("marqueeRepeatLimit"));
+    attrs.push(newAttr("maxEms"));
+    attrs.push(newAttr("maxHeight"));
+    attrs.push(newAttr("maxLength"));
+    attrs.push(newAttr("maxLines"));
+    attrs.push(newAttr("maxWidth"));
+    attrs.push(newAttr("minEms"));
+    attrs.push(newAttr("minHeight"));
+    attrs.push(newAttr("minLines"));
+    attrs.push(newAttr("minWidth"));
+    attrs.push(newAttr("nestedScrollingEnabled"));
+    attrs.push(newAttr("nextFocusDown"));
+    attrs.push(newAttr("nextFocusForward"));
+    attrs.push(newAttr("nextFocusLeft"));
+    attrs.push(newAttr("nextFocusRight"));
+    attrs.push(newAttr("nextFocusUp"));
+    attrs.push(newAttr("numeric"));
+    attrs.push(newAttr("onClick"));
+    attrs.push(newAttr("outlineProvider"));
+    attrs.push(newAttr("overScrollMode"));
+    attrs.push(newAttr("padding"));
+    attrs.push(newAttr("password"));
+    attrs.push(newAttr("phoneNumber"));
+    attrs.push(newAttr("privateImeOptions"));
+    attrs.push(newAttr("requiresFadingEdge"));
+    attrs.push(newAttr("rotation"));
+    attrs.push(newAttr("rotationX"));
+    attrs.push(newAttr("rotationY"));
+    attrs.push(newAttr("saveEnabled"));
+    attrs.push(newAttr("scaleX"));
+    attrs.push(newAttr("scaleY"));
+    attrs.push(newAttr("scrollHorizontally"));
+    attrs.push(newAttr("scrollX"));
+    attrs.push(newAttr("scrollY"));
+    attrs.push(newAttr("scrollbarAlwaysDrawHorizontalTrack"));
+    attrs.push(newAttr("scrollbarAlwaysDrawVerticalTrack"));
+    attrs.push(newAttr("scrollbarDefaultDelayBeforeFade"));
+    attrs.push(newAttr("scrollbarFadeDuration"));
+    attrs.push(newAttr("scrollbarSize"));
+    attrs.push(newAttr("scrollbarStyle"));
+    attrs.push(newAttr("scrollbarThumbHorizontal"));
+    attrs.push(newAttr("scrollbarThumbVertical"));
+    attrs.push(newAttr("scrollbarTrackHorizontal"));
+    attrs.push(newAttr("scrollbarTrackVertical"));
+    attrs.push(newAttr("scrollbars"));
+    attrs.push(newAttr("selectAllOnFocus"));
+    attrs.push(newAttr("shadowColor"));
+    attrs.push(newAttr("shadowDx"));
+    attrs.push(newAttr("shadowDy"));
+    attrs.push(newAttr("shadowRadius"));
+    attrs.push(newAttr("singleLine"));
+    attrs.push(newAttr("soundEffectsEnabled"));
+    attrs.push(newAttr("stateListAnimator"));
+    attrs.push(newAttr("style"));
+    attrs.push(newAttr("tag"));
+    attrs.push(newAttr("targetApi"));
+    attrs.push(newAttr("text"));
+    attrs.push(newAttr("textAlignment"));
+    attrs.push(newAttr("textAllCaps"));
+    attrs.push(newAttr("textColor"));
+    attrs.push(newAttr("textColorHighlight"));
+    attrs.push(newAttr("textColorHint"));
+    attrs.push(newAttr("textColorLink"));
+    attrs.push(newAttr("textCursorDrawable"));
+    attrs.push(newAttr("textDirection"));
+    attrs.push(newAttr("textIsSelectable"));
+    attrs.push(newAttr("textScaleX"));
+    attrs.push(newAttr("textSize"));
+    attrs.push(newAttr("textStyle"));
+    attrs.push(newAttr("theme"));
+    attrs.push(newAttr("transformPivotX"));
+    attrs.push(newAttr("transformPivotY"));
+    attrs.push(newAttr("transitionName"));
+    attrs.push(newAttr("translationX"));
+    attrs.push(newAttr("translationY"));
+    attrs.push(newAttr("translationZ"));
+    attrs.push(newAttr("verticalScrollbarPosition"));
+    attrs.push(newAttr("visibility"));
+    return attrs;
+}
+
+function getSpecialAttrs(name) {
+    let attrs = [];
+    if (name === "text") {
+        attrs.push(newAttr("text"));
+        attrs.push(newAttr("textSize"));
+        attrs.push(newAttr("textColor"));
+        attrs.push(newAttr("textStyle"));
+        attrs.push(newAttr("lines"));
+        attrs.push(newAttr("maxLines"));
+        attrs.push(newAttr("typeface"));
+        attrs.push(newAttr("ellipsize"));
+        attrs.push(newAttr("ems"));
+        attrs.push(newAttr("autoLink"));
+    } else if (name === "input") {
+        attrs.push(newAttr("text"));
+        attrs.push(newAttr("textSize"));
+        attrs.push(newAttr("textColor"));
+        attrs.push(newAttr("hint"));
+        attrs.push(newAttr("textColorHint"));
+        attrs.push(newAttr("textSizeHint"));
+        attrs.push(newAttr("inputType"));
+        attrs.push(newAttr("password"));
+        attrs.push(newAttr("numeric"));
+        attrs.push(newAttr("phoneNumber"));
+        attrs.push(newAttr("digits"));
+        attrs.push(newAttr("singleLine"));
+    } else if (name === "button") {
+        attrs.push(newAttr("text"));
+        attrs.push(newAttr("textSize"));
+        attrs.push(newAttr("textColor"));
+    } else if (name === "img") {
+        attrs.push(newAttr("src"));
+        attrs.push(newAttr("tint"));
+        attrs.push(newAttr("scaleType"));
+        attrs.push(newAttr("radius"));
+        attrs.push(newAttr("radiusTopLeft"));
+        attrs.push(newAttr("radiusTopRight"));
+        attrs.push(newAttr("radiusBottomLeft"));
+        attrs.push(newAttr("radiusBottomRight"));
+        attrs.push(newAttr("borderWidth"));
+        attrs.push(newAttr("borderColor"));
+        attrs.push(newAttr("circle"));
+    } else if (name === "vertical") {
+        attrs.push(newAttr("layout_weight"));
+    } else if (name === "horizontal") {
+        attrs.push(newAttr("layout_weight"));
+    } else if (name === "spinner") {
+        attrs.push(newAttr("entries"));
+        attrs.push(newAttr("spinnerMode"));
+    } else if (name === "progressbar") {
+        attrs.push(newAttr("progress"));
+        attrs.push(newAttr("indeterminate"));
+    }
+    return attrs
+}
+
+function newAttr(name,value) {
+    value = value || "";
+    return {name:name,value:value}
+}
+
+function findOpt(name) {
+    let opts = document.getElementsByTagName("Attr");
+    for (let i = 0; i < opts.length; i++) {
+        if(opts[i].getAttribute("name")===name){
+            let res = "";
+            let dos = opts[i].getElementsByTagName("opt");
+            for (let j = 0; j < dos.length; j++) {
+                if (j!=0){
+                    res += "|";
+                }
+                res += dos[j].getAttribute("value");
+            }
+            return res;
+        }
+    }
+    return "";
+}
 
