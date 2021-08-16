@@ -213,26 +213,33 @@
     padding-left: 4px;
 }
 .attr-line{
-    padding: 4px 4px;
+    margin: 4px 4px;
+    white-space: nowrap;
 }
 .attr-name{
+    width: 36%;
+    height: 28px;
+    line-height: 28px;
+    vertical-align: middle;
+    overflow: hidden;
     display: inline-block;
-    width: 40px;
-}
-.attr-value{
-
 }
 
+.dropdown{
+    width: 60%;
+    height: 28px;
 
+    display: inline-block;
+}
 .dropdown-input {
-    height: 1.2rem;
+    width: 100%;
     font-size: 12px;
     border: solid #e0e3da 2px;
     margin: 1%;
     color: #566270;
 }
 .dropdown-content {
-    position: absolute;
+    position: relative;
     background-color: #fff;
     min-width: 12em;
     max-width: 15em;

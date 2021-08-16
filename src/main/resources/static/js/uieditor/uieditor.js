@@ -173,6 +173,9 @@ window.onload=function(){
                 filteredOptions:function() {
                     const filtered = [];
                     const regOption = new RegExp(this.input_value, 'ig');
+                    if(this.optionsArray.length===1&&this.optionsArray[0]==="null"){
+                        return filtered;
+                    }
                     for(var ii = 0; ii < this.optionsArray.length; ii++){
                         if (this.input_value.length < 1 || this.optionsArray[ii].match(regOption)) {
                             if (filtered.length < this.maxItem)
@@ -208,9 +211,7 @@ window.onload=function(){
                     this.input_value = this.selected;
                 },
                 showOptions: function () {
-                    if (!this.disabled) {
-                        this.optionsShown = true;
-                    }
+                    this.optionsShown = true;
                 },
                 exit: function () {
                     this.optionsShown = false;
@@ -428,7 +429,7 @@ function freshAttr(node) {
             let id = "dp-"+i+"-"+j;
             let item = attrs[i][j];
 
-            line.innerHTML = "<p class='attr-name'>"+item.name+"</p>\n<dropdown classname='attr-value' value='' options='"+findOpt(item.name)+"' id='"+id+"' type='text' @on_change_input_value='onTextChange'></dropdown>"
+            line.innerHTML = "<div class='attr-name'>"+item.name+"</div>\n<dropdown value='' options='"+findOpt(item.name)+"' id='"+id+"' type='text' @on_change_input_value='onTextChange'></dropdown>"
             holder.appendChild(line);
 
             let dp = new Vue({
@@ -948,6 +949,6 @@ function findOpt(name) {
             return res;
         }
     }
-    return "";
+    return "null";
 }
 
