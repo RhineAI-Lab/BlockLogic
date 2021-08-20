@@ -125,11 +125,11 @@ CodeUtils.formatXml = function(blob, indentNum) {
     for (var i = 1; i < lines.length; i++) {
         var line = lines[i];
         if (line[0] == '/') {
-            indent = indent.substring(2);
+            indent = indent.substring(4);
         }
         lines[i] = indent + '<' + line;
         if (line[0] != '/' && line.slice(-2) != '/>') {
-            indent += '  ';
+            indent += '    ';
         }
     }
     var text = lines.join('\n');

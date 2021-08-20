@@ -330,7 +330,6 @@ window.onload=function(){
 };
 
 function freshCode() {
-    console.log("fff");
     let start = targetPoint.range[0];
     let end = targetPoint.range[1];
     let code = AceUtils.getCode();
