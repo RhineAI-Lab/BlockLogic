@@ -147,17 +147,12 @@ window.onload=function(){
         });
         Vue.component('dropdown', {
             template: '#dropdown',
-            props: {
-                type: String,
-                options: String,
-                disabled: Boolean,
-                value: String
-            },
+            props: ["options","value","type"],
             data: function () {
                 return {
                     selected: {},
                     optionsShown: false,
-                    maxItem: 20, //the max number of option that shown on the list
+                    maxItem: 200, //the max number of option that shown on the list
                     input_value: '',
                 }
             },
@@ -172,15 +167,21 @@ window.onload=function(){
             computed: {
                 filteredOptions:function() {
                     const filtered = [];
-                    const regOption = new RegExp(this.input_value, 'ig');
                     if(this.optionsArray.length===1&&this.optionsArray[0]==="null"){
                         return filtered;
                     }
+                    let searchStr = this.input_value.replace('\*','\\*').replace('\\','\\\\');
+                    const regOption = new RegExp(searchStr, 'ig');
                     for(var ii = 0; ii < this.optionsArray.length; ii++){
                         if (this.input_value.length < 1 || this.optionsArray[ii].match(regOption)) {
                             if (filtered.length < this.maxItem)
                                 filtered.push(this.optionsArray[ii]);
                         }
+                    }
+                    if(filtered.length===0){
+                        this.optionsShown=false;
+                    }else if(this.onFocus){
+                        this.optionsShown=true;
                     }
                     return filtered;
                 },
@@ -189,6 +190,9 @@ window.onload=function(){
                 inputRule:function(type){
                     var value;
                     switch(type){
+                        case 'all':
+                            value = this.input_value;
+                            break;
                         case 'text':
                             value = this.input_value.replace(/[^a-zA-Z0-9]/g,'');
                             break;
@@ -212,9 +216,11 @@ window.onload=function(){
                 },
                 showOptions: function () {
                     this.optionsShown = true;
+                    this.onFocus = true;
                 },
                 exit: function () {
                     this.optionsShown = false;
+                    this.onFocus = false;
                 },
                 // Selecting when pressing Enter
                 keyMonitor: function (event) {
@@ -236,6 +242,11 @@ window.onload=function(){
                     else
                         this.selected = this.filteredOptions[0];
                     this.$emit('on_change_input_value', this.input_value);
+                },
+                optionsShown:function () {
+                    if(this.optionsShown&&this.filteredOptions.length===0){
+                        this.optionsShown = false;
+                    }
                 }
             }
         });
@@ -393,11 +404,9 @@ function freshAttr(node) {
         }
     }
     let parent = document.getElementById("attr-show");
+    parent.innerText = "";
     let attrsTitles = ["当前属性","独有属性","常用属性","位置属性","全部属性"];
-    for (let i = 1; i < attrs.length; i++) {
-        if(attrs[i].length===0){
-            continue;
-        }
+    for (let i = 0; i < attrs.length; i++) {
         let box = document.createElement("div");
         let titleBox = document.createElement("div");
         let title = document.createElement("div");
@@ -405,9 +414,9 @@ function freshAttr(node) {
         let holder = document.createElement("div");
         box.className = "new-box";
         title.className = "new-title";
-        titleBox.className = "new-title-box";
+        titleBox.className = "attr-title-box";
         swi.className = "new-swi iconfont icon-arrow-down";
-        holder.className = "new-items-holder";
+        holder.className = "attr-items-holder";
         parent.appendChild(box);
         box.appendChild(titleBox);
         titleBox.appendChild(swi);
@@ -417,9 +426,11 @@ function freshAttr(node) {
         titleBox.onmousedown = function(e){
             if(holder.style.height!=="0px"){
                 holder.style.height = "0px";
+                holder.style.overflow = "hidden";
                 swi.className = "new-swi iconfont icon-arrow-right";
             }else {
                 holder.style.height = "auto";
+                holder.style.overflow = "visible";
                 swi.className = "new-swi iconfont icon-arrow-down";
             }
         };
@@ -429,18 +440,26 @@ function freshAttr(node) {
             let id = "dp-"+i+"-"+j;
             let item = attrs[i][j];
 
-            line.innerHTML = "<div class='attr-name'>"+item.name+"</div>\n<dropdown value='' options='"+findOpt(item.name)+"' id='"+id+"' type='text' @on_change_input_value='onTextChange'></dropdown>"
+            line.innerHTML = "<div class='attr-name' title='"+item.name+"'>"+item.name+"</div>\n<dropdown v-bind:value='value' options='"+findOpt(item.name)+"' id='"+id+"' type='all' @on_change_input_value='onTextChange'></dropdown>"
             holder.appendChild(line);
 
             let dp = new Vue({
                 el:"#"+id,
+                data:{
+                    value:item.value,
+                },
                 methods:{
                     onTextChange:function (value) {
                         node.setAttribute(item.name,value);
                         item.value = value;
+                        for (let k = 0; k < item.inputs.length; k++) {
+                            item.inputs[k].value = value;
+                            console.log("change"+k)
+                        }
                     }
                 }
             });
+            item.inputs.push(dp);
         }
     }
 }
@@ -931,7 +950,7 @@ function getSpecialAttrs(name) {
 
 function newAttr(name,value) {
     value = value || "";
-    return {name:name,value:value}
+    return {name:name,value:value,inputs:[]}
 }
 
 function findOpt(name) {
