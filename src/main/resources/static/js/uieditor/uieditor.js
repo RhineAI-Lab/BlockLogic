@@ -329,6 +329,17 @@ window.onload=function(){
     initAdd();
 };
 
+function freshCode() {
+    console.log("fff");
+    let start = targetPoint.range[0];
+    let end = targetPoint.range[1];
+    let code = AceUtils.getCode();
+    let xmlCode = CodeUtils.getXmlCode(target,targetPoint.indent).substring(targetPoint.indent);
+    code = code.substring(0,start)+xmlCode+code.substring(end);
+    AceUtils.setCode(code);
+    targetPoint.range = [start,start+xmlCode.length]
+}
+
 function initAdd() {
     let parent = document.getElementById("new-show");
     let groups = document.getElementsByTagName("WidgetGroup");
@@ -406,6 +417,7 @@ function freshAttr(node) {
     let parent = document.getElementById("attr-show");
     parent.innerText = "";
     let attrsTitles = ["当前属性","独有属性","常用属性","位置属性","全部属性"];
+    let firstHolder = null;
     for (let i = 0; i < attrs.length; i++) {
         let box = document.createElement("div");
         let titleBox = document.createElement("div");
@@ -422,6 +434,9 @@ function freshAttr(node) {
         titleBox.appendChild(swi);
         titleBox.appendChild(title);
         box.appendChild(holder);
+        if(i===0){
+            firstHolder = holder;
+        }
         title.innerText = attrsTitles[i];
         titleBox.onmousedown = function(e){
             if(holder.style.height!=="0px"){
@@ -435,33 +450,56 @@ function freshAttr(node) {
             }
         };
         for (let j = 0; j < attrs[i].length; j++) {
-            let line = document.createElement("div");
-            line.className = "attr-line";
-            let id = "dp-"+i+"-"+j;
-            let item = attrs[i][j];
-
-            line.innerHTML = "<div class='attr-name' title='"+item.name+"'>"+item.name+"</div>\n<dropdown v-bind:value='value' options='"+findOpt(item.name)+"' id='"+id+"' type='all' @on_change_input_value='onTextChange'></dropdown>"
-            holder.appendChild(line);
-
-            let dp = new Vue({
-                el:"#"+id,
-                data:{
-                    value:item.value,
-                },
-                methods:{
-                    onTextChange:function (value) {
-                        node.setAttribute(item.name,value);
-                        item.value = value;
-                        for (let k = 0; k < item.inputs.length; k++) {
-                            item.inputs[k].value = value;
-                            console.log("change"+k)
-                        }
-                    }
-                }
-            });
-            item.inputs.push(dp);
+            addAttrInput(holder,i,attrs[i][j],node,attrs,firstHolder)
         }
     }
+}
+
+function addAttrInput(parent,parentId,item,node,allAttrs,firstHolder) {
+    let line = document.createElement("div");
+    line.className = "attr-line";
+    let id = "dp-"+parentId+"-"+parent.children.length;
+
+    line.innerHTML = "<div class='attr-name' title='"+item.name+"'>"+item.name+"</div>\n<dropdown v-bind:value='value' options='"+findOpt(item.name)+"' id='"+id+"' type='all' @on_change_input_value='onTextChange'></dropdown>"
+    parent.appendChild(line);
+
+    let dp = new Vue({
+        el:"#"+id,
+        data:{
+            value:item.value,
+        },
+        methods:{
+            onTextChange:function (value) {
+                if(item.value!==value){
+                    if(value.length===0){
+                        node.removeAttribute(item.name);
+                    }else{
+                        node.setAttribute(item.name,value);
+                    }
+                    item.value = value;
+                    freshCode();
+                    for (let k = 0; k < item.inputs.length; k++) {
+                        item.inputs[k].value = value;
+                    }
+                    if(allAttrs[0].indexOf(item)===-1){
+                        allAttrs[0].push(item);
+                        addAttrInput(firstHolder,0,item,node,allAttrs,firstHolder)
+                    }
+                    if(node.structureAttr){
+                        let attrs = node.attributes;
+                        let msgStr = "";
+                        for (let i = 0; i < attrs.length; i++) {
+                            let item = attrs.item(i);
+                            msgStr += item.name+" = "+item.value+"\n"
+                        }
+                        msgStr = msgStr.substring(0,msgStr.length-1);
+                        node.structureAttr.innerText = msgStr;
+                    }
+                }
+            }
+        }
+    });
+    item.inputs.push(dp);
 }
 
 function freshStructure() {
@@ -501,6 +539,7 @@ function freshStructure() {
             }
             msgStr = msgStr.substring(0,msgStr.length-1);
             msg.innerText = msgStr;
+            node.structureAttr = msg;
 
             box.level = level;
             box.onmouseover = function(event){
@@ -688,6 +727,7 @@ function chooseNode(node) {
     if(node.structureBox){
         node.structureBox.style.background = "#66ff6660";
     }
+    freshAttr(node);
 }
 
 
