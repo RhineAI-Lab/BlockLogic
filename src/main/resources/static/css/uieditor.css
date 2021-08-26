@@ -320,9 +320,12 @@
     position: absolute;
     visibility: hidden;
     z-index: 100;
+    pointer-events: none;
 
-    border-left: 1px dashed #11ae62;
-    border-bottom: 1px solid #11ae62;
+    border-color: #11ae62;
+    border-bottom-style: solid;
+    border-left-style: dashed;
+    border-width: 1px;
 }
 
 .temp{

@@ -610,11 +610,13 @@ function freshStructure() {
             };
             box.onmouseup = function(event){
                 event.stopPropagation();
-                if(node==tappedNode){
-                    if(getNodeEventDis(node,event)<9) {
+                if(tappedNode!=null){
+                    if(node==tappedNode){
+                        if(getNodeEventDis(node,event)<9) {
+                        }
+                    }else{
+                        moveNode(tappedNode,node,-1)
                     }
-                }else{
-
                 }
                 window.onmouseup(event);
             };
@@ -650,7 +652,7 @@ function freshStructure() {
 function freshTree() {
     if(target!=null){
         let nodes = [];
-        function addTreeView(node,parentView,level) {
+        function addTreeView(node,parentView,level,index) {
             let children = node.children;
 
             let box = document.createElement("div");
@@ -730,9 +732,11 @@ function freshTree() {
                 }
                 window.onmouseup(event);
             };
-            let parentNode = box.parentNode.parentNode.children[0];
+            let parentBox = box.parentNode.parentNode.children[0];
+            let parentRect = parentBox.getBoundingClientRect();
+            let thisRect = titleBox.getBoundingClientRect();
             if(level===0){
-                parentNode = null;
+                parentBox = null;
             }
             titleBox.onmousemove = function(event){
                 titleBox.onmousemu(event,false);
@@ -751,52 +755,78 @@ function freshTree() {
             };
             titleBox.onmousemu = function(event,up){
                 if(!node.choosed&&tappedNode!=null){
-                    if(parentNode==null){
+                    if(parentBox==null){
                         titleBox.showBorder(true);
-
-                    }else if(event.offsetY<=6&&event.offsetY>=0){
-                        parentNode.showBorder(true);
+                        MoveTipUtils.setPosition(level+1,thisRect.top,thisRect.left,thisRect.bottom+2,thisRect.right);
+                        if(up){moveNode(tappedNode,node,0)}
+                    }else if(event.offsetY<=7&&event.offsetY>=0){
+                        parentBox.showBorder(true);
                         titleBox.showBorder(false);
-
-                    }else if(event.offsetY<20&&event.offsetY>6){
-                        parentNode.showBorder(false);
-                        titleBox.showBorder(true);
-
-                    }else if(event.offsetY<=26&&event.offsetY>=20){
-                        if(children.length>0&&!node.fold){
-                            parentNode.showBorder(false);
-                            titleBox.showBorder(true);
-
+                        if(index===0){
+                            MoveTipUtils.setPosition(level,parentRect.top,thisRect.left,thisRect.top+2,thisRect.right);
                         }else {
-                            parentNode.showBorder(true);
+                            MoveTipUtils.setPosition(level,parentRect.top,thisRect.left,thisRect.top,thisRect.right);
+                        }
+                        if(up){moveNode(tappedNode,node.parentNode,index)}
+                    }else if(event.offsetY<19&&event.offsetY>7){
+                        parentBox.showBorder(false);
+                        titleBox.showBorder(true);
+                        MoveTipUtils.setPosition(level+1,thisRect.top,thisRect.left,thisRect.bottom+2,thisRect.right);
+                        if(up){moveNode(tappedNode,node,0)}
+                    }else if(event.offsetY<=26&&event.offsetY>=19){
+                        if(children.length>0&&!node.fold){
+                            parentBox.showBorder(false);
+                            titleBox.showBorder(true);
+                            MoveTipUtils.setPosition(level+1,thisRect.top,thisRect.left,thisRect.bottom+2,thisRect.right);
+                            if(up){moveNode(tappedNode,node,0)}
+                        }else {
+                            parentBox.showBorder(true);
                             titleBox.showBorder(false);
-                            let rect = parentNode.getBoundingClientRect();
-                            MoveTipUtils.setPosition(level,rect.top,rect.left,3);
+                            MoveTipUtils.setPosition(level,parentRect.top,thisRect.left,thisRect.bottom,thisRect.right);
+                            if(up){moveNode(tappedNode,node.parentNode,index+1)}
                         }
                     }
                 }
             };
             titleBox.onmouseout = function (event) {
-                if(parentNode){
-                    parentNode.showBorder(false);
+                if(parentBox){
+                    parentBox.showBorder(false);
                 }
                 titleBox.showBorder(false);
+                MoveTipUtils.show(false);
             };
 
-            if(children.length>0){
-                let holder = document.createElement("div");
-                holder.className = "tree-holder";
-                box.appendChild(holder);
+            let holder = document.createElement("div");
+            holder.className = "tree-holder";
+            box.appendChild(holder);
 
-                for (let i = 0; i < children.length; i++) {
-                    addTreeView(children[i],holder,level+1);
-                }
+            for (let i = 0; i < children.length; i++) {
+                addTreeView(children[i],holder,level+1,i);
             }
         }
-        var treeView = document.getElementById("tree-show");
+        let treeView = document.getElementById("tree-show");
         treeView.innerHTML = "";
-        addTreeView(target.firstChild,treeView,0);
+        addTreeView(target.firstChild,treeView,0,0);
     }
+}
+
+function moveNode(node,targetNode,index) {
+    let newNode = node.cloneNode(true);
+    if(node.parentNode.id!=="temp"){
+        node.parentNode.removeChild(node);
+    }
+    if(index===-1){
+        targetNode.appendChild(newNode)
+    }else {
+        let len = targetNode.children.length;
+        if(index>=len){
+            targetNode.appendChild(newNode)
+        }else{
+            targetNode.insertBefore(newNode,targetNode.children[index])
+        }
+    }
+    freshAnalysis();
+    freshCode();
 }
 
 function getNodeEventDis(node,event) {

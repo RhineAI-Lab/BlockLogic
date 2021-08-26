@@ -42,13 +42,13 @@ MoveTipUtils.show = function (flag) {
     }
 };
 
-MoveTipUtils.setPosition = function (level,top,left,heightNum) {
+MoveTipUtils.setPosition = function (level,top,left,bottom,right) {
     left += level*16-2;
     top += 13;
-    const height = heightNum*26+14;
     MoveTipUtils.box.style.left = left+"px";
     MoveTipUtils.box.style.top = top+"px";
-    MoveTipUtils.box.style.height = height+"px";
+    MoveTipUtils.box.style.height = bottom-top+"px";
+    MoveTipUtils.box.style.width = right-left-10+"px";
     MoveTipUtils.show(true);
 };
 
