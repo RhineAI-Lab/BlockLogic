@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="iconfont/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/metroStyle/metroStyle.css">
 </head>
-<body>
+<body onbeforeunload="askOnLeave()">
 <div class="head-line">
     <div>
         <img src="media/logo.png"/>
@@ -41,6 +41,12 @@
     <button class="tool-btn btn-2" id="tool-get-xml" @click="getXmlCode()" title="输出目标XML代码。">输出XML</button>
     <!--<button class="tool-btn btn-2" id="tool-fresh-analysis" @click="freshAnalysis()" title="重新解析XML代码。">刷新解析</button>-->
     <a class="tool-middle"></a>
+    <button  class="tool-btn btn-3">
+            <span>打开
+                <input type="file" class="upload-input" name="file" id="upload" accept="text/javascript"/>
+            </span>
+    </button>
+    <button class="tool-btn btn-3" id="save-code" @click="saveCode()" title="保存文件至本地。文件内容以代码编辑器为准。"><span>保存</span></button>
     <custom-select ref="selectTarget" :list="list"></custom-select>
 
 </div>

@@ -29,6 +29,7 @@
     width: 240px;
     padding-right: 3px;
     left: 0;
+    overflow: auto;
 }
 .code-space{
     width: 600px;
@@ -64,6 +65,7 @@
 }
 .select-input{
     height: 100%;
+    margin-left: 4px;
 }
 
 .select-list{
@@ -71,12 +73,13 @@
     margin-left: 2px;
     margin-right: 50px;
     border: 1px solid #aaa;
+    z-index: 200;
 }
 .select-item{
     width: auto;
     font-size: 14px;
     padding: 4px;
-    z-index: 100;
+    z-index: 200;
     position:relative;
 
     background: #eee;

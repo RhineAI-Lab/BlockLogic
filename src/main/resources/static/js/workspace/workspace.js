@@ -156,7 +156,7 @@ window.onload=function(){
     ViewUtils.changeViewState("console-space",false);
     DrawSpace.init("draw","toolbox");
     document.getElementById("upload").addEventListener("change",function (e) {
-        var files = e.target.files;
+        let files = e.target.files;
         if(files.length>0){
             askForSave();
             let name = files[0].name;

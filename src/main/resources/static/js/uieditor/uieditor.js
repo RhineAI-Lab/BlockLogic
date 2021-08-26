@@ -36,6 +36,7 @@ normalCode = '"ui";\n' +
     '        case "设置":\n' +
     '            toast("还没有设置");\n' +
     '            break;\n' +
+    '            break;\n' +
     '        case "关于":\n' +
     '            alert("关于", "Auto.js界面模板 v1.0.0");\n' +
     '            break;\n' +
@@ -43,6 +44,7 @@ normalCode = '"ui";\n' +
     '    e.consumed = true;\n' +
     '});\n' +
     'activity.setSupportActionBar(ui.toolbar);';
+let savedCode = normalCode;
 
 const iconsMap = {
     "normal":"integral",
@@ -79,6 +81,7 @@ var targetPoint = null;
 var target = null;
 var tappedNode = null;
 const tempView = document.getElementById("temp");
+var inited = false;
 
 window.onload=function(){
     //初始化代码编辑器
@@ -292,6 +295,9 @@ window.onload=function(){
                         DrawSpace.freshSize();
                     }
                 },
+                saveCode:function () {
+                    save();
+                },
                 ast: function () {
                     if(CodeUtils.Esprima!=null){
                         console.log(JSON.stringify(CodeUtils.Esprima.parse(AceUtils.getCode(true),{jsx: true }),null,4));
@@ -313,6 +319,20 @@ window.onload=function(){
                 }
             }
         });
+        document.getElementById("upload").addEventListener("change",function (e) {
+            var files = e.target.files;
+            if(files.length>0){
+                askForSave();
+                let name = files[0].name;
+                let reader = new FileReader();
+                reader.readAsText(files[0], 'UTF-8');
+                reader.onload = function (e) {
+                    let fileContent = e.target.result;
+                    openFile(fileContent)
+                }
+            }
+            event.target.value="";
+        });
     });
 
     //初始化区
@@ -328,12 +348,11 @@ window.onload=function(){
     ViewUtils.changeShowBtnState("show-structure",true);
     ViewUtils.changeViewState("preview-space",false);
 
+    inited = true;
+
     //初次解析
     require(["esprima","ace","vue"],function () {
         freshXmlList();
-        if(toolbar.list.length>0){
-            toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
-        }
     });
 };
 
@@ -838,12 +857,31 @@ function getNodeEventDis(node,event) {
 
 function freshXmlList() {
     toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
+    if(toolbar.list.length>0){
+        toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+    }
 }
 
 function changeTarget(t) {
     targetPoint = t;
     target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
     freshAnalysis();
+}
+
+function askOnLeave(e){
+    var e = window.event||e;
+    e.returnValue=("请确保您的代码可能未保存。是否确定离开？");
+}
+
+function askForSave(){
+    if(inited&&AceUtils.getCode()!==savedCode){
+        if(confirm("代码还未保存，是否保存？")){
+            save();
+            return true;
+        }
+        return false;
+    }
+    return false;
 }
 
 function freshAnalysis() {
@@ -875,6 +913,31 @@ function chooseNode(node) {
     freshAttr(node);
 }
 
+
+function openFile(code) {
+    AceUtils.setCode(code);
+    freshXmlList();
+}
+
+function save() {
+    savedCode = AceUtils.getCode()+"";
+    exportRaw("ui.js",savedCode)
+}
+
+function exportRaw(name, data) {
+    var urlObject = window.URL || window.webkitURL || window;
+    var export_blob = new Blob([data]);
+    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+    save_link.href = urlObject.createObjectURL(export_blob);
+    save_link.download = name;
+    fakeClick(save_link);
+}
+
+function fakeClick(obj) {
+    var ev = document.createEvent("MouseEvents");
+    ev.initMouseEvent("click", true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    obj.dispatchEvent(ev);
+}
 
 function getAllNormalAttrs() {
     let arrayList = [];
