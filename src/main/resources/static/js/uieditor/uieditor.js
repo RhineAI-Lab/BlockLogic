@@ -73,9 +73,12 @@ require.config({
     }
 });
 
+var Vue = null;
+
 var targetPoint = null;
 var target = null;
-var Vue = null;
+var tappedNode = null;
+const tempView = document.getElementById("temp");
 
 window.onload=function(){
     //初始化代码编辑器
@@ -98,6 +101,8 @@ window.onload=function(){
 
     require(["vue"],function (VueIn) {
         Vue = VueIn;
+
+        //注册xml选择框下拉菜单组件
         Vue.component("custom-select",{
             data:function(){
                 return {
@@ -145,6 +150,8 @@ window.onload=function(){
                 }
             }
         });
+
+        //注册属性下拉菜单组件
         Vue.component('dropdown', {
             template: '#dropdown',
             props: ["options","value","type"],
@@ -250,6 +257,7 @@ window.onload=function(){
                 }
             }
         });
+
         //初始化工具栏
         toolbar = new Vue({
             el: '#toolbar',
@@ -307,14 +315,9 @@ window.onload=function(){
         });
     });
 
-
-    //初次解析
-    require(["esprima","ace","vue"],function () {
-        freshXmlList();
-        if(toolbar.list.length>0){
-            toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
-        }
-    });
+    //初始化区
+    FollowUtils.init(document);
+    initAdd();
 
     //初始化分栏显示状态
     ViewUtils.changeShowBtnState("show-new",true);
@@ -325,9 +328,39 @@ window.onload=function(){
     ViewUtils.changeShowBtnState("show-structure",true);
     ViewUtils.changeViewState("preview-space",false);
 
-    //初始化新增区
-    initAdd();
+    //初次解析
+    require(["esprima","ace","vue"],function () {
+        freshXmlList();
+        if(toolbar.list.length>0){
+            toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+        }
+    });
 };
+
+window.onmouseup = function (event) {
+    if(tappedNode){
+        FollowUtils.show(false);
+        tappedNode.downX = null;
+        tappedNode.downY = null;
+        tappedNode = null;
+    }
+};
+
+window.onmousemove = function (event) {
+    if(tappedNode){
+        if(getNodeEventDis(tappedNode,event)>9) {
+            FollowUtils.setNode(tappedNode);
+            FollowUtils.show(true);
+            FollowUtils.setPosition(event.clientX+10,event.clientY+10);
+        }
+    }
+};
+
+function setTapped(node,event) {
+    node.downX = event.clientX;
+    node.downY = event.clientY;
+    tappedNode = node;
+}
 
 function freshCode() {
     let start = targetPoint.range[0];
@@ -388,6 +421,12 @@ function initAdd() {
             itemTitle.innerText = nameStr;
             itemExp.innerText = widgets[j].getAttribute("example");
             itemMsg.innerText = widgets[j].getAttribute("summary");
+            itemBox.onmousedown = function(event){
+                let node = document.createElementNS("add",nameStr);
+                tempView.appendChild(node);
+                setTapped(node,event);
+                event.stopPropagation();
+            };
             holder.appendChild(itemBox);
             itemBox.appendChild(icon);
             itemBox.appendChild(itemTitle);
@@ -564,12 +603,20 @@ function freshStructure() {
             node.choosed = false;
             box.onmousedown = function(event){
                 event.stopPropagation();
-                node.choosed = !node.choosed;
-                let flag = node.choosed;
+                setTapped(node,event);
+                node.choosed = true;
                 clearNodesChoosed(nodes);
-                if(flag){
-                    chooseNode(node);
+                chooseNode(node);
+            };
+            box.onmouseup = function(event){
+                event.stopPropagation();
+                if(node==tappedNode){
+                    if(getNodeEventDis(node,event)<9) {
+                    }
+                }else{
+
                 }
+                window.onmouseup(event);
             };
             node.structureBox = box;
             nodes.push(node);
@@ -607,10 +654,12 @@ function freshTree() {
             let children = node.children;
 
             let box = document.createElement("div");
+            let titleBox = document.createElement("div");
             let swi = document.createElement("i");
             let icon = document.createElement("i");
             let title = document.createElement("div");
             box.className = "tree-box";
+            titleBox.className = "tree-title-box";
             title.className = "tree-title";
             if(iconsMap[node.tagName]){
                 icon.className = "iconfont icon-"+iconsMap[node.tagName]+" tree-icon";
@@ -637,10 +686,21 @@ function freshTree() {
                 swi.style.marginLeft = level*16+24+"px";
             }
             box.style.background = "#fff";
+            title.innerText = node.tagName;
+            title.nowrap = true;
+            node.treeBox = box;
+            nodes.push(node);
+
+            parentView.appendChild(box);
+            box.appendChild(titleBox);
+            titleBox.appendChild(swi);
+            titleBox.appendChild(icon);
+            titleBox.appendChild(title);
+
             box.onmouseover = function(event){
                 event.stopPropagation();
                 if(!node.choosed){
-                    box.style.background = "#e2e2e2"
+                    box.style.background = "#e2e2e2";
                 }
             };
             box.onmouseout = function(event){
@@ -655,21 +715,73 @@ function freshTree() {
             node.choosed = false;
             box.onmousedown = function(event){
                 event.stopPropagation();
-                node.choosed = !node.choosed;
-                let flag = node.choosed;
+                setTapped(node,event);
+                node.choosed = true;
                 clearNodesChoosed(nodes);
-                if(flag){
-                    chooseNode(node);
+                chooseNode(node);
+            };
+            box.onmouseup = function(event){
+                event.stopPropagation();
+                if(node==tappedNode){
+                    if(getNodeEventDis(node,event)<9) {
+                    }
+                }else{
+
+                }
+                window.onmouseup(event);
+            };
+            let parentNode = box.parentNode.parentNode.children[0];
+            if(level===0){
+                parentNode = null;
+            }
+            titleBox.onmousemove = function(event){
+                titleBox.onmousemu(event,false);
+            };
+            titleBox.onmouseup = function(event){
+                titleBox.onmousemu(event,true);
+            };
+            titleBox.showBorder = function(flag){
+                if (flag){
+                    titleBox.style.borderWidth = "1px";
+                    titleBox.style.padding = "0";
+                } else {
+                    titleBox.style.borderWidth = "0";
+                    titleBox.style.padding = "1px";
                 }
             };
-            parentView.appendChild(box);
-            box.appendChild(swi);
-            box.appendChild(icon);
-            box.appendChild(title);
-            title.innerText = node.tagName;
-            title.nowrap = true;
-            node.treeBox = box;
-            nodes.push(node);
+            titleBox.onmousemu = function(event,up){
+                if(!node.choosed&&tappedNode!=null){
+                    if(parentNode==null){
+                        titleBox.showBorder(true);
+
+                    }else if(event.offsetY<=6&&event.offsetY>=0){
+                        parentNode.showBorder(true);
+                        titleBox.showBorder(false);
+
+                    }else if(event.offsetY<20&&event.offsetY>6){
+                        parentNode.showBorder(false);
+                        titleBox.showBorder(true);
+
+                    }else if(event.offsetY<=26&&event.offsetY>=20){
+                        if(children.length>0&&!node.fold){
+                            parentNode.showBorder(false);
+                            titleBox.showBorder(true);
+
+                        }else {
+                            parentNode.showBorder(true);
+                            titleBox.showBorder(false);
+                            let rect = parentNode.getBoundingClientRect();
+                            MoveTipUtils.setPosition(level,rect.top,rect.left,3);
+                        }
+                    }
+                }
+            };
+            titleBox.onmouseout = function (event) {
+                if(parentNode){
+                    parentNode.showBorder(false);
+                }
+                titleBox.showBorder(false);
+            };
 
             if(children.length>0){
                 let holder = document.createElement("div");
@@ -677,9 +789,6 @@ function freshTree() {
                 box.appendChild(holder);
 
                 for (let i = 0; i < children.length; i++) {
-                    let midlle = document.createElement("div");
-                    midlle.style.height = "0.1px";
-                    holder.appendChild(midlle);
                     addTreeView(children[i],holder,level+1);
                 }
             }
@@ -688,6 +797,13 @@ function freshTree() {
         treeView.innerHTML = "";
         addTreeView(target.firstChild,treeView,0);
     }
+}
+
+function getNodeEventDis(node,event) {
+    if(node==null||event==null){
+        return -1;
+    }
+    return Math.sqrt(Math.pow(node.downX-event.clientX,2)+Math.pow(node.downY-event.clientY,2))
 }
 
 function freshXmlList() {

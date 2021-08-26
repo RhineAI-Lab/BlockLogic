@@ -69,10 +69,18 @@
         <div class="temp-text">预览区<br/>开发中</div>
     </div>
 </div>
+<div id="follow-box" class="follow-box">
+    <div id="follow-title" class="follow-title"></div>
+    <div id="follow-split" class="follow-split"></div>
+    <div id="follow-msg" class="follow-msg"></div>
+</div>
+<div id="move-tip" class="move-tip"></div>
+<div id="temp" class="temp"></div>
 
 <script src="js/utils/view_utils.js"></script>
 <script src="js/utils/ace_utils.js"></script>
 <script src="js/utils/code_utils.js"></script>
+<script src="js/utils/follow_utils.js"></script>
 <script src="js/utils/string_utils.js"></script>
 <script type="text/x-template" id="dropdown">
     <div class="dropdown" v-if="options">
@@ -96,7 +104,6 @@
     </div>
 </script>
 <script src="js/plugins/require.js"></script>
-
 <script src="js/uieditor/uieditor.js"></script>
 
 <message>
