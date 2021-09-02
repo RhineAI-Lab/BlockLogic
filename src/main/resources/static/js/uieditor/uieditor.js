@@ -354,6 +354,22 @@ window.onload=function(){
     require(["esprima","ace","vue"],function () {
         freshXmlList();
     });
+
+    document.addEventListener('keydown', function(e){
+        console.log(e);
+        if(navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey){//ctrl
+            if (e.keyCode === 83){//s
+                e.preventDefault();
+
+            }else if(e.keyCode === 90 && e.shiftKey){//shift z
+                e.preventDefault();
+
+            }else if(e.keyCode === 90 && !e.shiftKey){//z
+                e.preventDefault();
+                AceUtils.undo();
+            }
+        }
+    });
 };
 
 window.onmouseup = function (event) {
@@ -773,7 +789,7 @@ function freshTree() {
                 }
             };
             titleBox.onmousemu = function(event,up){
-                if(!node.choosed&&tappedNode!=null){
+                if(tappedNode!=null&&tappedNode!==node){
                     if(parentBox==null){
                         titleBox.showBorder(true);
                         MoveTipUtils.setPosition(level+1,thisRect.top,thisRect.left,thisRect.bottom+2,thisRect.right);
