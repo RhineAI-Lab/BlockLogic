@@ -79,6 +79,8 @@ var Vue = null;
 
 var targetPoint = null;
 var target = null;
+var targetIndex = 0;
+
 var tappedNode = null;
 const tempView = document.getElementById("temp");
 var inited = false;
@@ -127,6 +129,7 @@ window.onload=function(){
         `,
             methods:{
                 selectValueHandle: function(item){
+                    console.log(item);
                     this.selectShow = false;
                     this.chooseItem(item);
                 },
@@ -315,7 +318,7 @@ window.onload=function(){
                     console.log(CodeUtils.getXmlCode(target,targetPoint.indent));
                 },
                 freshXmlAnalysis: function () {
-                    freshAnalysis()
+                    freshShow()
                 }
             }
         });
@@ -355,15 +358,14 @@ window.onload=function(){
         freshXmlList();
     });
 
-    document.addEventListener('keydown', function(e){
-        console.log(e);
+    window.addEventListener('keydown', function(e){
         if(navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey){//ctrl
             if (e.keyCode === 83){//s
                 e.preventDefault();
 
             }else if(e.keyCode === 90 && e.shiftKey){//shift z
                 e.preventDefault();
-
+                AceUtils.redo();
             }else if(e.keyCode === 90 && !e.shiftKey){//z
                 e.preventDefault();
                 AceUtils.undo();
@@ -860,7 +862,7 @@ function moveNode(node,targetNode,index) {
             targetNode.insertBefore(newNode,targetNode.children[index])
         }
     }
-    freshAnalysis();
+    freshShow();
     freshCode();
 }
 
@@ -874,14 +876,19 @@ function getNodeEventDis(node,event) {
 function freshXmlList() {
     toolbar.list = CodeUtils.getXmlCodeList(AceUtils.getCode(true));
     if(toolbar.list.length>0){
-        toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+        if(toolbar.list.length>targetIndex){
+            toolbar.$refs.selectTarget.chooseItem(toolbar.list[targetIndex])
+        }else {
+            targetIndex = 0;
+            toolbar.$refs.selectTarget.chooseItem(toolbar.list[0])
+        }
     }
 }
 
 function changeTarget(t) {
     targetPoint = t;
     target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
-    freshAnalysis();
+    freshShow();
 }
 
 function askOnLeave(e){
@@ -900,7 +907,7 @@ function askForSave(){
     return false;
 }
 
-function freshAnalysis() {
+function freshShow() {
     freshStructure();
     freshTree();
     freshAttr(target.firstChild);

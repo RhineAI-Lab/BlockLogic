@@ -1,7 +1,6 @@
 const AceUtils = {};
 
 AceUtils.editor = null;
-AceUtils.um = null;
 
 AceUtils.createEditor = function (id) {
     var editor = ace.edit(id);//设置编辑器样式，对应theme-*.js文件
@@ -17,7 +16,6 @@ AceUtils.createEditor = function (id) {
         fontSize: "16px"
     });
     AceUtils.editor = editor;
-    AceUtils.um = editor.session.getUndoManager();
 };
 
 AceUtils.getCode = function (withOutXml) {
@@ -38,7 +36,11 @@ AceUtils.setCode = function (code) {
 };
 
 AceUtils.undo = function () {
-    AceUtils.um.undo();
+    AceUtils.editor.undo();
+};
+
+AceUtils.redo = function () {
+    AceUtils.editor.redo();
 };
 
 
