@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YourSpace - BLogic</title>
+    <link rel="icon" href="media/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="css/space.css">
+    <link rel="stylesheet" type="text/css" href="css/drawer.css">
+    <link rel="stylesheet" type="text/css" href="css/btn.css">
+    <link rel="stylesheet" type="text/css" href="css/metroStyle/metroStyle.css">
+</head>
+<body onbeforeunload="askOnLeave()">
+<div class="root">
+
+<div class="head-line">
+    <div>
+        <img src="media/logo.png"/>
+        <h1 onclick="window.open('index')">B-Logic</h1>
+        <a target="view_window" href="/index#contact">联系我们</a>
+        <a target="view_window" href="/index#contact">交流群</a>
+        <a target="view_window" href="/index">我的项目</a>
+        <a target="view_window" href="/index">社区</a>
+        <a target="view_window" href="/examples">学习</a>
+        <a target="view_window" href="/index#learn">学习</a>
+        <a target="view_window" href="/docs">教程</a>
+        <a target="view_window" href="/index#about">简介</a>
+        <a target="view_window" href="/index">主页</a>
+    </div>
+</div>
+
+<div class="tool-bar" id="toolbar">
+    <button  class="tool-btn btn-3">
+            <span>打开
+                <input type="file" class="upload-input" name="file" id="upload" accept="text/javascript"/>
+            </span>
+    </button>
+    <button class="tool-btn btn-3" id="run-code" @click="runCode()" title="在网页上运行JS程序，仅支持JS基础语法，不可用扩展函数功能。"><span>运行</span></button>
+    <button class="tool-btn btn-3" id="save-code" @click="saveCode()" title="保存文件至本地。文件内容以代码编辑器为准。"><span>保存</span></button>
+    <a class="tool-space"></a>
+    <a class="tool-space"></a>
+    <button class="tool-check btn-9" id="use-unfold-xml"  @click="changeXmlFoldMode($event.target)" title="开启后，用于记录图形块状的XML内容会展开。">展开XML</button>
+    <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)" title="开启后，选择创造新图形块后，不会自动关闭图形块栏目。">保留栏目</button>
+    <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)" title="开启后每当修改图形后会自动同步生成代码。">同步代码</button>
+    <a class="tool-space"></a>
+    <a class="tool-space"></a>
+    <button class="tool-btn btn-3" id="to-code"  @click="toBlock()"><span>TO图形</span></button>
+    <button class="tool-btn btn-3" id="to-block" @click="toCode()"><span>TO代码</span></button>
+    <a class="tool-space"></a>
+    <a class="tool-space"></a>
+
+    <select class="tool-select" id="show-mode-select">
+        <option class="tool-option">图形&代码</option>
+        <option class="tool-option">仅显示图形</option>
+        <option class="tool-option">仅显示代码</option>
+    </select>
+    <a class="tool-middle"></a>
+    <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
+    <button class="tool-btn btn-2" id="connect" @click="connect()" title="连接调试设备。">连接</button>
+    <button class="tool-btn btn-2" id="run" @click="originRun()" title="在远程连接的设备上运行程序。">运行</button>
+    <button class="tool-btn btn-2" id="push" @click="push()" title="将文件保存到已连接的设备中。默认路径为:/SD卡/脚本/。">保存</button>
+    <a class="tool-space"></a>
+    <button class="tool-btn btn-2" id="ask" @click="ask()">连接教程</button>
+</div>
+
+<div class="main">
+    <div class="drawer-holder" id="drawer-holder">
+
+    </div>
+</div>
+
+<div class="status-bar" id="status-bar">
+
+</div>
+
+</div>
+
+<script src="js/utils/require.js"></script>
+<script src="js/plugins/vue.min.js"></script>
+<script src="js/plugins/jquery.main.min.js"></script>
+
+<script src="js/utils/string_utils.js"></script>
+<script src="js/utils/code_utils.js"></script>
+<script src="js/utils/view_utils.js"></script>
+<script src="js/utils/ace_utils.js"></script>
+<script src="js/workspace/drawer_controller.js"></script>
+
+<script src="blockly/blockly_compressed.js"></script>
+<script src="blockly/blocks_compressed.js"></script>
+<script src="blockly/javascript_compressed.js"></script>
+<script src="blockly/msg/js/zh-hans.js"></script>
+
+<script src="js/space/space.js"></script>
+
+</body>
+</html>

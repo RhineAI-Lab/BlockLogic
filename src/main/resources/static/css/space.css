@@ -14,13 +14,28 @@ html,body{
 }
 
 body{
-    min-width: 1400px;
+    min-width: 1080px;
 }
 a{
     text-decoration:none
 }
 
+.root{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.main{
+    position: absolute;
+    top: 93px;
+    bottom: 23px;
+    left: 0;
+    right: 0;
+}
+
 .head-line{
+    min-width: 1080px;
     background-color: #212529;
     height: 54px;
 }
@@ -35,10 +50,6 @@ a{
     font-size: 15px;
     line-height: 18px;
     color: #ddd;
-    transition-duration: 0.4s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-    transition-property: all
 }
 .head-line a:hover{
     background: #00A86B;
@@ -72,9 +83,9 @@ a{
 .tool-bar{
     display: flex;
     width: 100%;
+    min-width: 1080px;
     height: 38px;
-    border-bottom:1px solid #aaa;
-    border-top:1px solid #aaa;
+    border-bottom:1px solid #AAA;
     align-items:center;
 }
 .tool-btn{
@@ -132,6 +143,31 @@ a{
 }
 .tool-input:focus{
     border: 2px solid #333;
+}
+.tool-select{
+    height: 28px;
+    border: 2px solid #444;
+    border-radius: 3px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+}
+.tool-option{
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: #FFF;
+}
+.tool-option:hover{
+    background: #00A86B;
+}
+
+.status-bar{
+    display: block;
+    height: 22px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: solid 1px #AAA;
 }
 
 .work-space{

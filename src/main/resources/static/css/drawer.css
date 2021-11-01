@@ -1,0 +1,25 @@
+
+
+.drawer-holder{
+    display: block;
+}
+
+.vertical-line{
+    display: inline-block;
+    width: 1px;
+}
+
+.horizontal-line{
+    display: block;
+    height: 1px;
+}
+
+
+
+
+
+
+
+
+
+

@@ -14,20 +14,18 @@ const normalLogTag = "WebLog";
 loadFinal = 2;
 
 //全局参数
-var normalCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://BLogic.AutoJs.org/xml\"></xml>*/\n";
+var normalCode = "\n\n\n\n//------ 图形块结构记录 请勿随意修改 ------\n/*<xml xmlns=\"https://Logic.AutoJs.org/xml\"></xml>*/\n";
 var savedCode = "";
 
 var inited = false;
-
 var webConsole = null;
-
 var autoClose = true;
 var autoCode = true;
 var unfoldXml = false;
 
 window.onload=function(){
     //初始化代码编辑器
-    require("ace/ace.js",function () {
+    require("modules/ace/ace.js",function () {
         AceUtils.createEditor("editor");
     });
 

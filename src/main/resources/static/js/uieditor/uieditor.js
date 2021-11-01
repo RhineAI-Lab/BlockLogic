@@ -68,7 +68,7 @@ const iconsMap = {
 require.config({
     waitSeconds: 1000,
     paths : {
-        "ace" : "ace/ace",
+        "ace" : "modules/ace/ace",
         "vue" : "js/plugins/vue.min",
         "esprima" : "js/plugins/esprima.min",
         "blockly" : "blockly/blockly_compressed"
