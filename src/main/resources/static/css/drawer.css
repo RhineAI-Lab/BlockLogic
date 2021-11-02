@@ -28,13 +28,45 @@
 }
 
 .dc-btn{
-
+    position: relative;
+    width: 24px;
+    min-height: 80px;
+    background: #FFF;
+}
+.dc-btn:hover{
+    cursor: pointer;
 }
 .dc-btn-text{
-
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    max-lines: 1;
+    white-space: nowrap;
+    position: absolute;
+    font-size: 13px;
+    color: #111;
 }
 .dc-btn-icon{
-
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+}
+.dc-btn-text-left{
+    bottom: 40px;
+    transform:rotate(-90deg);
+    transform-origin: 12px 12px;
+}
+.dc-btn-icon-left{
+    bottom: 14px;
+}
+.dc-btn-text-right{
+    top: 40px;
+    transform:rotate(90deg);
+    transform-origin: 12px 12px;
+}
+.dc-btn-icon-right{
+    top: 14px;
 }
 
 
@@ -97,18 +129,29 @@
     margin-top: 1px;
     vertical-align: middle;
     font-size: 13px;
-    color: #333;
+    color: #111;
+}
+.drawer-hide-btn-holder{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    border-radius: 2px;
+}
+.drawer-hide-btn-holder:hover{
+    cursor: pointer;
 }
 .drawer-hide-btn{
     width: 20px;
     height: 20px;
     position: absolute;
-    right: 6px;
-    margin: 4px;
-    color: #555;
-    border-radius: 2px;
+    top: 2px;
+    left: 2px;
+    color: #333;
 }
-.drawer-hide-btn:hover{
+.drawer-hide-btn-holder:hover{
     background: #DDD;
 }
 .drawer-body{

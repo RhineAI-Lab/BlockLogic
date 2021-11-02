@@ -145,7 +145,7 @@ testSuite({
         'checkbox should be checked 2', getEntryInput(boolEntry2).checked);
     // Enusre custom labels are being used.
     let html = dom.getElementsByTagName(TagName.BUTTON)[0].innerHTML;
-    assertTrue('Button label is wrong', html.indexOf('&lt;btn&gt;') > -1);
+    assertTrue('Button label is wrong', html.indexOf('&lt;mainBtn&gt;') > -1);
     html = getEntryDiv(numEnumEntry).innerHTML;
     assertTrue('Enum2 label is wrong', html.indexOf('second&amp;') > -1);
   },

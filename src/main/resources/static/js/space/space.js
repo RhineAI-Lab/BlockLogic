@@ -36,14 +36,12 @@ window.onload=function(){
 
     //初始化抽屉管理
     const doAfter = function(){
-        if(DrawSpace.workspace!=null){
-            DrawSpace.freshSize()
-        }
+        if(DrawSpace.workspace!=null)DrawSpace.freshSize()
     };
     ViewUtils.bindBorder("editor-space","main-split-line","right",doAfter);
     DC.init("dc",doAfter);
-    DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",400);
-    DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",200);
+    DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",400,doAfter);
+    DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",200,doAfter);
 
 
     //初始化侧栏
@@ -205,6 +203,29 @@ window.onload=function(){
         }
     };
 };
+
+function onModeChange(i) {
+    let mainSplitLine = document.getElementById("main-split-line");
+    let editorSpace = document.getElementById("editor-space");
+    let drawSpace = document.getElementById("draw-space");
+    if(i===0){
+        mainSplitLine.style.display = "inline-block";
+        editorSpace.style.display = "inline-block";
+        drawSpace.style.display = "inline-block";
+        editorSpace.style.flexGrow = "0";
+    }else if(i===1){
+        mainSplitLine.style.display = "none";
+        drawSpace.style.display = "inline-block";
+        editorSpace.style.display = "none";
+        editorSpace.style.flexGrow = "0";
+    }else if(i===2){
+        mainSplitLine.style.display = "none";
+        editorSpace.style.display = "inline-block";
+        drawSpace.style.display = "none";
+        editorSpace.style.flexGrow = "1";
+    }
+    if(DrawSpace.workspace!=null)DrawSpace.freshSize()
+}
 
 function openSource(source) {
     let name = StringUtils.getFileName(source);

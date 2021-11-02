@@ -4,10 +4,10 @@ const ViewUtils = {};
 //监听边缘调控大小
 ViewUtils.makeDrawer = function (element,direction,doAfter) {
     if(typeof(element) === "string"){
-        element = document.getElementById(element)
+        element = document.getElementById(element);
     }
     doAfter = doAfter || function () {
-        return 0
+        return 0;
     };
 
     let splitLine = document.createElement("div");

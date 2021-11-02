@@ -96,7 +96,7 @@ function createRegistryEntries(queryParams) {
 
   buttonEntry =
       new goog.tweak.ButtonAction('Button', 'The Btn', goog.nullFunction);
-  buttonEntry.label = '<btn>';
+  buttonEntry.label = '<mainBtn>';
   registry.register(buttonEntry);
 
   var nsBoolGroup =

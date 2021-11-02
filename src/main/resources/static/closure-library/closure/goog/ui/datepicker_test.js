@@ -57,7 +57,7 @@ testSuite({
     const month = $$('button', 'goog-date-picker-month', head.firstChild)[0];
     assertSameElements(
         'Button element must have expected class names',
-        ['goog-date-picker-btn', 'goog-date-picker-month'],
+        ['goog-date-picker-mainBtn', 'goog-date-picker-month'],
         classlist.get(month));
   },
 
@@ -70,7 +70,7 @@ testSuite({
     const year = $$('button', 'goog-date-picker-year', head.firstChild)[0];
     assertSameElements(
         'Button element must have expected class names',
-        ['goog-date-picker-btn', 'goog-date-picker-year'], classlist.get(year));
+        ['goog-date-picker-mainBtn', 'goog-date-picker-year'], classlist.get(year));
   },
 
   testHidingOfTableFoot0() {

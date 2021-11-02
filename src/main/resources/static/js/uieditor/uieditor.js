@@ -116,7 +116,7 @@ window.onload=function(){
                     choosed:null
                 }
             },
-            props:["btn","list"],
+            props:["mainBtn","list"],
             template:`
             <div class="select-box">
                 <div class="select-input">

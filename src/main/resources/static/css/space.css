@@ -307,7 +307,7 @@ a{
     color: #444;
 }
 .console-item:hover{
-    background: #DFE;
+    background: #DFD;
 }
 
 .editor{
@@ -342,7 +342,7 @@ a{
     color: #324a5b;
 }
 .first-title:hover{
-    background-color: #DFE;
+    background-color: #DFD;
 }
 .second-item{
     padding-top: 0.2em;
@@ -351,7 +351,7 @@ a{
     padding-left: 26px;
 }
 .second-item:hover{
-    background-color: #DFE;
+    background-color: #DFD;
     color: black;
     cursor:pointer;
 }

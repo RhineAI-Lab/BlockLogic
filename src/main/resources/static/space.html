@@ -49,7 +49,7 @@
     <a class="tool-space"></a>
     <a class="tool-space"></a>
 
-    <select class="tool-select" id="show-mode-select">
+    <select class="tool-select" id="show-mode-select" onchange="onModeChange(this.selectedIndex)">
         <option class="tool-option">图形&代码</option>
         <option class="tool-option">仅显示图形</option>
         <option class="tool-option">仅显示代码</option>
@@ -66,7 +66,6 @@
 <div class="main">
     <div class="dc" id="dc">
         <div class="dc-list dc-list-left" id="dc-list-left">
-            <div class="dc-list-inner dc-list-inner-left" id="dc-list-inner-left"></div>
         </div>
         <div class="dc-flex" id="dc-flex">
             <div class="dc-drawers dc-drawers-left" id="dc-drawers-left">
@@ -103,7 +102,6 @@
             </div>
         </div>
         <div class="dc-list dc-list-right" id="dc-list-right">
-            <div class="dc-list-inner dc-list-inner-right" id="dc-list-inner-right"></div>
         </div>
     </div>
 </div>

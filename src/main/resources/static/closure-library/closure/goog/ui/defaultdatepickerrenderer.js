@@ -163,7 +163,7 @@ goog.ui.DefaultDatePickerRenderer.prototype.renderFooterRow = function(
   var MSG_DATEPICKER_TODAY_BUTTON_LABEL = goog.getMsg('Today');
   this.createButton_(
       cell, MSG_DATEPICKER_TODAY_BUTTON_LABEL,
-      goog.getCssName(this.getBaseCssClass(), 'today-btn'));
+      goog.getCssName(this.getBaseCssClass(), 'today-mainBtn'));
   row.appendChild(cell);
 
   cell = this.getDomHelper().createElement(goog.dom.TagName.TD);
@@ -178,7 +178,7 @@ goog.ui.DefaultDatePickerRenderer.prototype.renderFooterRow = function(
   var MSG_DATEPICKER_NONE = goog.getMsg('None');
   this.createButton_(
       cell, MSG_DATEPICKER_NONE,
-      goog.getCssName(this.getBaseCssClass(), 'none-btn'));
+      goog.getCssName(this.getBaseCssClass(), 'none-mainBtn'));
   row.appendChild(cell);
 };
 
@@ -189,14 +189,14 @@ goog.ui.DefaultDatePickerRenderer.prototype.renderFooterRow = function(
  * @param {Element} parentNode Container the button should be added to.
  * @param {string} label Button label.
  * @param {string=} opt_className Class name for button, which will be used
- *    in addition to "goog-date-picker-btn".
+ *    in addition to "goog-date-picker-mainBtn".
  * @private
  * @return {!Element} The created button element.
  */
 goog.ui.DefaultDatePickerRenderer.prototype.createButton_ = function(
     parentNode, label, opt_className) {
   'use strict';
-  var classes = [goog.getCssName(this.getBaseCssClass(), 'btn')];
+  var classes = [goog.getCssName(this.getBaseCssClass(), 'mainBtn')];
   if (opt_className) {
     classes.push(opt_className);
   }

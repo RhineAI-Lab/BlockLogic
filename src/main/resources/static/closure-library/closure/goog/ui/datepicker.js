@@ -995,16 +995,16 @@ goog.ui.DatePicker.prototype.updateFooterRow_ = function() {
   this.renderer_.renderFooterRow(row, this.showWeekNum_);
 
   this.addPreventDefaultClickHandler_(
-      row, goog.getCssName(this.getBaseCssClass(), 'today-btn'),
+      row, goog.getCssName(this.getBaseCssClass(), 'today-mainBtn'),
       this.selectToday);
   this.addPreventDefaultClickHandler_(
-      row, goog.getCssName(this.getBaseCssClass(), 'none-btn'),
+      row, goog.getCssName(this.getBaseCssClass(), 'none-mainBtn'),
       this.selectNone);
 
   this.elToday_ = goog.dom.getElementByClass(
-      goog.getCssName(this.getBaseCssClass(), 'today-btn'), row);
+      goog.getCssName(this.getBaseCssClass(), 'today-mainBtn'), row);
   this.elNone_ = goog.dom.getElementByClass(
-      goog.getCssName(this.getBaseCssClass(), 'none-btn'), row);
+      goog.getCssName(this.getBaseCssClass(), 'none-mainBtn'), row);
 
   this.updateTodayAndNone_();
 };
