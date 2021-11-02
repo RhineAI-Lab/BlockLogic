@@ -106,9 +106,16 @@ DrawSpace.initSidebar = function(sidebarId){
 };
 
 DrawSpace.init = function (blocklyId,toolboxId) {
+    let toolbox = null;
+    if (toolboxId.indexOf(".") === -1) {
+        toolbox = document.getElementById(toolboxId);
+    } else {
+        let ids = toolboxId.split(".");
+        toolbox = document.getElementById(ids[0]).contentDocument.getElementById(ids[1])
+    }
 
     DrawSpace.workspace = Blockly.inject(blocklyId,{
-        toolbox: document.getElementById(toolboxId),
+        toolbox: toolbox,
         grid: {
             spacing: 20,
             length: 6,

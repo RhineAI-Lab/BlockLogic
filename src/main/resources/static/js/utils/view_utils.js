@@ -10,7 +10,7 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
         return 0
     };
 
-    var splitLine = document.createElement("div");
+    let splitLine = document.createElement("div");
     splitLine.p = -1;
     splitLine.setAttribute("id",element.id+"-sl");
     if(direction==="bottom"){
@@ -23,8 +23,8 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
         splitLine.setAttribute("class","vertical-split-line split-line stack-right left-more");
     }
     splitLine.onmousedown = function(e){
-        var startX = e.clientX;
-        var startW = element.offsetWidth;
+        let startX = e.clientX;
+        let startW = element.offsetWidth;
         if(direction==="bottom"){
             splitLine.top = splitLine.offsetTop;
         }else if(direction==="right"){
@@ -34,8 +34,8 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
             splitLine.left = splitLine.offsetLeft;
         }
         document.onmousemove = function(e){
-            var endX = e.clientX;
-            var moveLen = 0;
+            let endX = e.clientX;
+            let moveLen = 0;
             if(direction==="bottom"){
                 splitLine.top = splitLine.offsetTop;
             }else if(direction==="right"){
@@ -63,9 +63,66 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
     element.appendChild(splitLine);
 };
 
+ViewUtils.bindBorder = function(view,line,direction,doAfter){
+    if(typeof(view) === "string"){
+        view = document.getElementById(view)
+    }
+    if(typeof(line) === "string"){
+        line = document.getElementById(line)
+    }
+    if(view==null||line==null){
+        return false
+    }
+    line.onmousedown = function(e){
+        let startX = e.clientX;
+        let startW = view.offsetWidth;
+        if(direction==="bottom"){
+            line.top = line.offsetTop;
+        }else if(direction==="right"){
+        }else if(direction==="top"){
+            line.top = line.offsetTop;
+        }else {
+            line.left = line.offsetLeft;
+        }
+        document.onmousemove = function(e){
+            let endX = e.clientX;
+            let moveLen = 0;
+            if(direction==="bottom"){
+                line.top = line.offsetTop;
+            }else if(direction==="right"){
+                moveLen = startW - endX + startX;
+            }else if(direction==="top"){
+                line.top = line.offsetTop;
+            }else {
+                moveLen = line.left + endX - startX;
+            }
+            if(moveLen<150) moveLen = 150;
+
+            line.style.left = moveLen;
+            view.style.width = moveLen + "px";
+            doAfter()
+        };
+        document.onmouseup = function(evt){
+            evt.stopPropagation();
+            document.onmousemove = null;
+            document.onmouseup = null;
+            line.releaseCapture && line.releaseCapture();
+        };
+        line.setCapture && line.setCapture();
+        return false;
+    };
+    return true;
+};
+
+ViewUtils.createView = function(tag,className,id){
+    let view = document.createElement(tag);
+    view.className = className;
+    view.id = id;
+    return view;
+};
 
 ViewUtils.changeShowMode = function(id,btn) {
-    var v = document.getElementById(id);
+    let v = document.getElementById(id);
     if(v.style.display==="none"){
         v.style.display = "inline-block";
         ViewUtils.changeShowBtnState(btn,true)

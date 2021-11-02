@@ -1,17 +1,134 @@
 
-
-.drawer-holder{
+.dc{
     display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.dc-list{
+    display: inline-block;
+    width: 24px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.dc-list-left{
+    left: 0;
+    border-right: solid 1px #BBB;
+}
+.dc-list-right{
+    right: 0;
+    border-left: solid 1px #BBB;
+}
+.dc-list-inner{
+
+}
+
+.dc-btn{
+
+}
+.dc-btn-text{
+
+}
+.dc-btn-icon{
+
+}
+
+
+.dc-flex{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 25px;
+    right: 25px;
+}
+
+.dc-drawers{
+    display: inline-block;
+}
+.dc-drawers-left{
+}
+.dc-drawers-right{
+}
+
+.dc-main{
+    display: inline-block;
+    flex-grow: 1;
+}
+
+.drawer-root{
+    display: inline-block;
+    height: 100%;
+    position: relative;
+}
+.drawer-main{
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.drawer-head{
+    display: block;
+    height: 28px;
+    border-bottom: solid 1px #CCC;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.drawer-icon{
+    width: 20px;
+    height: 20px;
+    margin: 4px 6px;
+    color: #555;
+}
+.drawer-title{
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    margin-top: 1px;
+    vertical-align: middle;
+    font-size: 13px;
+    color: #333;
+}
+.drawer-hide-btn{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 6px;
+    margin: 4px;
+    color: #555;
+    border-radius: 2px;
+}
+.drawer-hide-btn:hover{
+    background: #DDD;
+}
+.drawer-body{
+    display: block;
+    position: absolute;
+    top: 29px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .vertical-line{
     display: inline-block;
     width: 1px;
+    height: 100%;
 }
-
 .horizontal-line{
     display: block;
     height: 1px;
+    width: 100%;
 }
 
 
