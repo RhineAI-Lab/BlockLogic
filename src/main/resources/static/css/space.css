@@ -198,15 +198,18 @@ a{
 
 .vertical-split-line{
     display: inline-block;
-    width: 5px;
+    width: 1px;
+    background: #BBB;
     height: 100%;
 }
-.vertical-split-line div{
+.vertical-split-line:before{
     display: block;
-    background: #BBB;
-    width: 1px;
-    margin: 0 2px;
+    content: '';
+    position: relative;
+    z-index: 99999;
+    width: 7px;
     height: 100%;
+    margin: 0 -3px;
 }
 .vertical-split-line:hover{
     cursor: ew-resize;
@@ -288,7 +291,6 @@ a{
 .draw-space{
     flex-grow: 1;
     height: 100%;
-    margin-right: -2px;
 }
 .draw-holder{
     width: 100%;

@@ -164,6 +164,13 @@ DrawSpace.addChangeListener = function(callback){
 DrawSpace.freshSize = function (){
     Blockly.svgResize(DrawSpace.workspace);
 };
+DrawSpace.freshSizePlus = function(){
+    let svg = document.getElementsByClassName("blocklySvg")[0];
+    if(svg!=null){
+        svg.style.width = "100%";
+        svg.style.height = "100%";
+    }
+};
 
 DrawSpace.spaceToCode = function () {
     return Blockly.JavaScript.workspaceToCode(DrawSpace.workspace);

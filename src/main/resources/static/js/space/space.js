@@ -47,7 +47,6 @@ window.onload=function(){
     //初始化侧栏
     DrawSpace.initSidebar("side-bar");
 
-
     //初始化工具栏
     toolbar = new Vue({
         el: '#toolbar',
@@ -213,11 +212,13 @@ function onModeChange(i) {
         editorSpace.style.display = "inline-block";
         drawSpace.style.display = "inline-block";
         editorSpace.style.flexGrow = "0";
+        DrawSpace.freshSizePlus();
     }else if(i===1){
         mainSplitLine.style.display = "none";
         drawSpace.style.display = "inline-block";
         editorSpace.style.display = "none";
         editorSpace.style.flexGrow = "0";
+        DrawSpace.freshSizePlus();
     }else if(i===2){
         mainSplitLine.style.display = "none";
         editorSpace.style.display = "inline-block";

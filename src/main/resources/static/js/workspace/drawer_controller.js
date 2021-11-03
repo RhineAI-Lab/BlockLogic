@@ -79,14 +79,14 @@ DC.createDrawerView = function(name,icon,mode,viewId,normalWidth){
         drawerRootView.appendChild(drawerMain);
         drawerRootView.appendChild(splitLine);
         ViewUtils.bindBorder(drawerRootView,splitLine,"left",DC.doAfter);
-        splitLine.style.right = "-2px";
+        splitLine.style.right = "0px";
         drawerMain.style.right = "1px";
     }else {
         parentView = DC.drawersRightView;
         drawerRootView.appendChild(splitLine);
         drawerRootView.appendChild(drawerMain);
         ViewUtils.bindBorder(drawerRootView,splitLine,"right",DC.doAfter);
-        splitLine.style.left = "-2px";
+        splitLine.style.left = "0px";
         drawerMain.style.left = "1px";
     }
 
@@ -133,7 +133,6 @@ DC.addDrawerBtn = function (name,icon,mode,viewId) {
 };
 DC.createSplitLine = function (id) {
     let splitLine = ViewUtils.createView("div","vertical-split-line",id);
-    splitLine.appendChild(ViewUtils.createView("div","",""));
     splitLine.style.position = "absolute";
     return splitLine
 };
