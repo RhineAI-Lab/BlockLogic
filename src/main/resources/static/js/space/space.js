@@ -269,9 +269,7 @@ function askOnLeave(e){
 }
 
 function showConsole() {
-    ViewUtils.changeViewState("console-space",true);
-    ViewUtils.changeShowBtnState(document.getElementById("show-console"),true);
-    DrawSpace.freshSize();
+    DC.openDrawer("控制台");
 }
 
 function toCode() {
