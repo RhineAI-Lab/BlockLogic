@@ -199,17 +199,17 @@ a{
 .vertical-split-line{
     display: inline-block;
     width: 1px;
-    background: #BBB;
     height: 100%;
+    background: #BBB;
 }
 .vertical-split-line:before{
     display: block;
-    content: '';
-    position: relative;
-    z-index: 99999;
     width: 7px;
     height: 100%;
+    position: relative;
+    z-index: 99999;
     margin: 0 -3px;
+    content: '';
 }
 .vertical-split-line:hover{
     cursor: ew-resize;
