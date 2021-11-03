@@ -19,6 +19,13 @@ public class MainController {
         }
         return "workspace";
     }
+    @RequestMapping(value = {"/space"})
+    public String space(@RequestParam(name="source",defaultValue = "") String source, Model model){
+        if(source.length()>0){
+            model.addAttribute("source",source);
+        }
+        return "space";
+    }
     @RequestMapping(value = {"/docs"})
     public String docs(Model model){
         return "docs";
