@@ -6,7 +6,7 @@ StringUtils.getDateString = function(){
     return new Date().Format("MM-dd hh:mm:ss.S");
 };
 
-//检查ip
+//检查字符串符合IP地址格式
 StringUtils.checkIP = function(value){
     var exp=/^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
     var reg = value.match(exp);

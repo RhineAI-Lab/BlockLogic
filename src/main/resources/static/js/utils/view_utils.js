@@ -63,7 +63,8 @@ ViewUtils.makeDrawer = function (element,direction,doAfter) {
     element.appendChild(splitLine);
 };
 
-ViewUtils.bindBorder = function(view,line,direction,doAfter){
+ViewUtils.bindBorder = function(view,line,direction,doAfter,minWidth){
+    minWidth = minWidth || 150;
     if(typeof(view) === "string"){
         view = document.getElementById(view)
     }
@@ -96,7 +97,7 @@ ViewUtils.bindBorder = function(view,line,direction,doAfter){
             }else {
                 moveLen = line.left + endX - startX;
             }
-            if(moveLen<150) moveLen = 150;
+            if(moveLen<minWidth) moveLen = minWidth;
 
             line.style.left = moveLen;
             view.style.width = moveLen + "px";

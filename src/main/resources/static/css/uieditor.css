@@ -22,8 +22,7 @@
     flex-grow: 1;
 }
 .new-space{
-    width: 300px;
-    left: 0;
+    width: 100%;
 }
 .tree-space{
     width: 240px;
@@ -160,6 +159,7 @@
 
 .new-show{
     height: 100%;
+    width: 100%;
     overflow-y: auto;
 }
 .new-box{

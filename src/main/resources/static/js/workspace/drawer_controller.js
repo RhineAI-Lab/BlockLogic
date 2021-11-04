@@ -31,8 +31,9 @@ DC.init = function (rootViewId,doAfter) {
 };
 
 //首次添加进行布局复制，后期仅进行隐藏
-DC.addDrawer = function(name,icon,mode,viewId,normalWidth){
+DC.addDrawer = function(name,icon,mode,viewId,normalWidth,minWidth){
     normalWidth = normalWidth || 400;
+    minWidth = minWidth || 150;
     let drawer = {};
     if(DC.drawersMap[name]==null){
         drawer.name = name;
@@ -49,7 +50,7 @@ DC.addDrawer = function(name,icon,mode,viewId,normalWidth){
     return drawer
 };
 
-DC.createDrawerView = function(name,icon,mode,viewId,normalWidth){
+DC.createDrawerView = function(name,icon,mode,viewId,normalWidth,minWidth){
     //构造根布局 获取内部布局
     let drawerView = document.getElementById(viewId);
     if(drawerView==null){
@@ -78,14 +79,14 @@ DC.createDrawerView = function(name,icon,mode,viewId,normalWidth){
         parentView = DC.drawersLeftView;
         drawerRootView.appendChild(drawerMain);
         drawerRootView.appendChild(splitLine);
-        ViewUtils.bindBorder(drawerRootView,splitLine,"left",DC.doAfter);
+        ViewUtils.bindBorder(drawerRootView,splitLine,"left",DC.doAfter,minWidth);
         splitLine.style.right = "0px";
         drawerMain.style.right = "1px";
     }else {
         parentView = DC.drawersRightView;
         drawerRootView.appendChild(splitLine);
         drawerRootView.appendChild(drawerMain);
-        ViewUtils.bindBorder(drawerRootView,splitLine,"right",DC.doAfter);
+        ViewUtils.bindBorder(drawerRootView,splitLine,"right",DC.doAfter,minWidth);
         splitLine.style.left = "0px";
         drawerMain.style.left = "1px";
     }

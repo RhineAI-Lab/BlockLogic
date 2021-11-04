@@ -32,6 +32,7 @@
     width: 24px;
     min-height: 80px;
     background: #FFF;
+    margin-bottom: 1px;
 }
 .dc-btn:hover{
     cursor: pointer;
@@ -84,6 +85,7 @@
 
 .dc-drawers{
     display: inline-block;
+    white-space: nowrap;
 }
 .dc-drawers-left{
 }
@@ -107,6 +109,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    overflow: hidden;
 }
 .drawer-head{
     display: block;

@@ -292,6 +292,16 @@ a{
     flex-grow: 1;
     height: 100%;
 }
+.logic-mode{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.ui-mode{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
 .draw-holder{
     width: 100%;
     height: 100%;
