@@ -38,7 +38,7 @@ DC.addDrawer = function(name,icon,mode,viewId,normalWidth,minWidth){
     if(DC.drawersMap[name]==null){
         drawer.name = name;
         drawer.id = viewId;
-        drawer.rootView = DC.createDrawerView(name,icon,mode,viewId,normalWidth);
+        drawer.rootView = DC.createDrawerView(name,icon,mode,viewId,normalWidth,minWidth);
         drawer.mainBtn = DC.addDrawerBtn(name,icon,mode,viewId);
         drawer.showView = true;
         drawer.showBtn = true;

@@ -85,7 +85,7 @@ window.onload=function(){
     };
     ViewUtils.bindBorder("editor-space","main-split-line","right",doAfter);
     DC.init("dc",doAfter);
-    DC.addDrawer("属性","leftalignment",DC.DRAWER_MODE_RIGHT,"attr-space",300,150);
+    DC.addDrawer("属性","leftalignment",DC.DRAWER_MODE_RIGHT,"attr-space",300,240);
     DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",400,200);
     DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",200,150);
     DC.addDrawer("新增","integral",DC.DRAWER_MODE_LEFT,"new-space",300,200);
@@ -115,7 +115,7 @@ window.onload=function(){
             <div class="select-box">
                 <div class="select-input">
                     <input type="text" id="select-target" class="tool-input" :value="val" @click="freshList();selectShow=!selectShow" placeholder="选择UI编辑目标"/>
-                    <button class="tool-btn btn-2" @click="freshList()" title="切换编辑目标。">刷新</button>
+                    <button class="tool-btn btn-2 btn--2" @click="freshList()" title="切换编辑目标。">刷新</button>
                     <span></span>
                 </div>
                 <custom-list class="select-show" v-show="selectShow" :list="list" v-on:value1="selectValueHandle"></custom-list>
@@ -338,6 +338,7 @@ window.onload=function(){
                 },
             }
         });
+        ViewUtils.changeShowBtnState("use-auto-code",true);
 
         //监听自动同步代码
         DrawSpace.addChangeListener(function (event) {

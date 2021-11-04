@@ -361,7 +361,6 @@ window.onload=function(){
         if(navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey){//ctrl
             if (e.keyCode === 83){//s
                 e.preventDefault();
-
             }else if(e.keyCode === 90 && e.shiftKey){//shift z
                 e.preventDefault();
                 AceUtils.redo();
