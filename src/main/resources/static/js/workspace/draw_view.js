@@ -167,6 +167,8 @@ DrawSpace.freshSize = function (){
 DrawSpace.freshSizePlus = function(){
     let svg = document.getElementsByClassName("blocklySvg")[0];
     if(svg!=null){
+        svg.removeAttribute("width");
+        svg.removeAttribute("height");
         svg.style.width = "100%";
         svg.style.height = "100%";
     }

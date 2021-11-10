@@ -85,12 +85,12 @@ window.onload=function(){
     };
     ViewUtils.bindBorder("editor-space","main-split-line","right",doAfter);
     DC.init("dc",doAfter);
-    DC.addDrawer("属性","leftalignment",DC.DRAWER_MODE_RIGHT,"attr-space",300,240);
+    DC.addDrawer("属性","nav-list",DC.DRAWER_MODE_RIGHT,"attr-space",300,240);
     DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",400,200);
     DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",200,150);
-    DC.addDrawer("新增","integral",DC.DRAWER_MODE_LEFT,"new-space",300,200);
-    DC.addDrawer("控件树","integral",DC.DRAWER_MODE_LEFT,"tree-space",300,200);
-    DC.addDrawer("结构图","integral",DC.DRAWER_MODE_LEFT,"structure-space",300,200);
+    DC.addDrawer("新增","add",DC.DRAWER_MODE_LEFT,"new-space",300,200);
+    DC.addDrawer("控件树","viewlist",DC.DRAWER_MODE_LEFT,"tree-space",300,200);
+    DC.addDrawer("结构图","viewgallery",DC.DRAWER_MODE_LEFT,"structure-space",300,200);
     DC.closeDrawer("属性");
     DC.closeDrawer("新增");
     DC.closeDrawer("控件树");
