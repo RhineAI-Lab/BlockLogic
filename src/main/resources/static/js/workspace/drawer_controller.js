@@ -31,9 +31,12 @@ DC.init = function (rootViewId,doAfter) {
 };
 
 //首次添加进行布局复制，后期仅进行隐藏
-DC.addDrawer = function(name,icon,mode,viewId,normalWidth,minWidth){
+DC.addDrawer = function(name,icon,mode,viewId,allowOpen,normalWidth,minWidth){
     normalWidth = normalWidth || 400;
     minWidth = minWidth || 150;
+    allowOpen = allowOpen || function(){
+        return true;
+    };
     let drawer = {};
     if(DC.drawersMap[name]==null){
         drawer.name = name;
@@ -42,7 +45,7 @@ DC.addDrawer = function(name,icon,mode,viewId,normalWidth,minWidth){
         drawer.mainBtn = DC.addDrawerBtn(name,icon,mode,viewId);
         drawer.showView = true;
         drawer.showBtn = true;
-        DC.bindDrawerBtns(drawer);
+        DC.bindDrawerBtns(drawer,allowOpen);
         DC.drawersMap[name]=drawer;
     }else {
         drawer = DC.drawersMap[name];
@@ -138,7 +141,7 @@ DC.createSplitLine = function (id) {
     return splitLine
 };
 
-DC.bindDrawerBtns = function (drawer) {
+DC.bindDrawerBtns = function (drawer,allowOpen) {
     let rootView = drawer.rootView;
     let mainBtn = drawer.mainBtn;
     let hideBtn = document.getElementById(drawer.id+"-hide-btn-holder");
@@ -158,7 +161,11 @@ DC.bindDrawerBtns = function (drawer) {
     mainBtn.onmousedown = function (e) {
         drawer.showView = !drawer.showView;
         if(drawer.showView){
-            DC.openDrawer(drawer);
+            if(allowOpen()){
+                DC.openDrawer(drawer);
+            }else {
+                drawer.showView = !drawer.showView;
+            }
         }else {
             DC.closeDrawer(drawer);
         }

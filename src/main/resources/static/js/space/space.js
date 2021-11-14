@@ -22,6 +22,7 @@ var webConsole = null;
 var autoClose = true;
 var autoCode = true;
 var unfoldXml = false;
+var editorMode = 0;
 
 const iconsMap = {
     "normal":"integral",
@@ -47,6 +48,9 @@ var Vue = null;
 var targetPoint = null;
 var target = null;
 var targetIndex = 0;
+
+const leftTip = document.getElementById("left-tip");
+const rightTip = document.getElementById("right-tip");
 
 var tappedNode = null;
 const tempView = document.getElementById("temp");
@@ -83,14 +87,30 @@ window.onload=function(){
     const doAfter = function(){
         if(DrawSpace.workspace!=null)DrawSpace.freshSize()
     };
+    const allowOpenUi = function(){
+        if(editorMode===1){
+            return true
+        }else {
+            alert("请先切换至设计模式");
+            return false
+        }
+    };
+    const allowOpenLogic = function(){
+        if(editorMode===0){
+            return true
+        }else {
+            alert("请先切换至逻辑模式");
+            return false
+        }
+    };
     ViewUtils.bindBorder("editor-space","main-split-line","right",doAfter);
     DC.init("dc",doAfter);
-    DC.addDrawer("属性","nav-list",DC.DRAWER_MODE_RIGHT,"attr-space",300,240);
-    DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",400,200);
-    DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",200,150);
-    DC.addDrawer("新增","add",DC.DRAWER_MODE_LEFT,"new-space",300,200);
-    DC.addDrawer("控件树","viewlist",DC.DRAWER_MODE_LEFT,"tree-space",300,200);
-    DC.addDrawer("结构图","viewgallery",DC.DRAWER_MODE_LEFT,"structure-space",300,200);
+    DC.addDrawer("属性","nav-list",DC.DRAWER_MODE_RIGHT,"attr-space",allowOpenUi,300,240);
+    DC.addDrawer("控制台","leftalignment",DC.DRAWER_MODE_RIGHT,"console-space",null,400,200);
+    DC.addDrawer("项目","integral",DC.DRAWER_MODE_LEFT,"directory-space",allowOpenLogic,200,150);
+    DC.addDrawer("新增","add",DC.DRAWER_MODE_LEFT,"new-space",allowOpenUi,300,200);
+    DC.addDrawer("控件树","viewlist",DC.DRAWER_MODE_LEFT,"tree-space",allowOpenUi,300,200);
+    DC.addDrawer("结构图","viewgallery",DC.DRAWER_MODE_LEFT,"structure-space",allowOpenUi,300,200);
     DC.closeDrawer("属性");
     DC.closeDrawer("新增");
     DC.closeDrawer("控件树");
@@ -107,7 +127,7 @@ window.onload=function(){
                 return {
                     selectShow:false,
                     val:"",
-                    choosed:null
+                    choosed:null,
                 }
             },
             props:["mainBtn","list"],
@@ -140,10 +160,10 @@ window.onload=function(){
         Vue.component("custom-list",{
             props:["list"],
             template:`
-            <ul class="select-list">
-                <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item.tip+" [line:"+item.line[0]+"~"+item.line[1]+"]"}}</li>
-            </ul>
-        `,
+                <ul class="select-list">
+                    <li class="select-item" v-for="item in list" @click="searchValueHandle(item)">{{item.tip+" [line:"+item.line[0]+"~"+item.line[1]+"]"}}</li>
+                </ul>
+            `,
             methods:{
                 searchValueHandle(item){
                     this.$emit("value1",item)
@@ -268,6 +288,8 @@ window.onload=function(){
             data: {
                 ip: '',
                 path: '',
+                list:[],
+                val:'',
             },
             methods:{
                 changeAutoClose:function(v){
@@ -446,6 +468,7 @@ window.onload=function(){
     //初次解析
     require(["esprima","ace","vue","ztree"],function () {
         inited = true;
+        leftTip.innerText = "编辑器初始化完成";
 
         //打开资源
         var source=getURLParameter("source");
@@ -456,6 +479,8 @@ window.onload=function(){
         }
         //解析UI
         freshXmlList();
+
+        rightTip.innerText = "项目打开完成"
     });
 
 };
@@ -486,7 +511,15 @@ function onModeChange(i) {
 }
 
 function onEditorModeChange(i) {
-
+    editorMode = i;
+    if(i===0){
+        DC.closeDrawer("属性");
+        DC.closeDrawer("新增");
+        DC.closeDrawer("控件树");
+        DC.closeDrawer("结构图");
+    }else {
+        DC.closeDrawer("项目");
+    }
 }
 
 function openSource(source) {

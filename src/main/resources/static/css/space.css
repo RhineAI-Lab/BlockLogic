@@ -87,7 +87,6 @@ a{
     display: flex;
     width: 100%;
     min-width: 1080px;
-    overflow: hidden;
     height: 38px;
     border-bottom:1px solid #BBB;
     align-items:center;

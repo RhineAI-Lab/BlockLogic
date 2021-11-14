@@ -31,8 +31,10 @@ AceUtils.getCode = function (withOutXml) {
     }
 };
 
-AceUtils.setCode = function (code) {
-    AceUtils.editor.setValue(code);
+AceUtils.setCode = function (code){
+    if(AceUtils.editor!=null){
+        AceUtils.editor.setValue(code);
+    }
 };
 
 AceUtils.undo = function () {
