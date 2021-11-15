@@ -74,16 +74,14 @@
     margin-top: -2px;
     margin-left: 2px;
     margin-right: 50px;
-    z-index: 201;
+    z-index: 200;
+    position: relative;
     border: 1px solid #aaa;
-}
-.select-list-outter{
 }
 .select-item{
     width: auto;
     font-size: 14px;
     padding: 4px;
-    z-index: 202;
     position:relative;
 
     background: #eee;
