@@ -108,6 +108,9 @@ a{
     position: relative;
     display: inline-block;
 }
+.tool-btn-m0{
+    margin: 0;
+}
 .tool-middle{
     height: 0;
     flex-grow: 1;
@@ -134,7 +137,7 @@ a{
     padding: 4px 6px;
     border: 2px solid #444;
     border-radius: 3px;
-    margin: 4px 2px;
+    margin: 4px 0;
     white-space: nowrap;
     text-align: center;
     font-family: 'Lato', sans-serif;
@@ -161,6 +164,17 @@ a{
 }
 .tool-option:hover{
     background: #00A86B;
+}
+
+.logic-btns-box{
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.ui-target-selector{
+    display: none;
 }
 
 .status-bar{

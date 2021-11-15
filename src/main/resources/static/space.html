@@ -39,13 +39,14 @@
     <button class="tool-btn btn-3" id="save-code" @click="saveCode()" title="保存文件至本地。文件内容以代码编辑器为准。"><span>保存</span></button>
     <a class="tool-space"></a>
     <a class="tool-space"></a>
-    <button class="tool-check btn-9" id="use-unfold-xml"  @click="changeXmlFoldMode($event.target)" title="开启后，用于记录图形块状的XML内容会展开。">展开XML</button>
-    <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)" title="开启后，选择创造新图形块后，不会自动关闭图形块栏目。">保留栏目</button>
-    <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)" title="开启后每当修改图形后会自动同步生成代码。">同步代码</button>
-    <a class="tool-space"></a>
-    <a class="tool-space"></a>
-    <button class="tool-btn btn-3" id="to-code"  @click="toBlock()"><span>TO图形</span></button>
-    <button class="tool-btn btn-3" id="to-block" @click="toCode()"><span>TO代码</span></button>
+    <div class="logic-btns-box" id="logic-btns-box">
+        <button class="tool-check btn-9" id="use-unfold-xml"  @click="changeXmlFoldMode($event.target)" title="开启后，用于记录图形块状的XML内容会展开。">展开XML</button>
+        <button class="tool-check btn-9" id="use-auto-close"  @click="changeAutoClose($event.target)" title="开启后，选择创造新图形块后，不会自动关闭图形块栏目。">保留栏目</button>
+        <button class="tool-check btn-9" id="use-auto-code"   @click="changeAutoCode($event.target)" title="开启后每当修改图形后会自动同步生成代码。">同步代码</button>
+        <button class="tool-btn btn-3 tool-btn-m0" id="to-code"  @click="toBlock()"><span>TO图形</span></button>
+        <button class="tool-btn btn-3 tool-btn-m0" id="to-block" @click="toCode()"><span>TO代码</span></button>
+    </div>
+    <custom-select class="ui-target-selector" id="ui-target-selector" ref="selectTarget" :list="list"></custom-select>
     <a class="tool-space"></a>
     <a class="tool-space"></a>
 
@@ -61,8 +62,6 @@
         <option class="tool-option">设计模式</option>
     </select>
     <a class="tool-middle"></a>
-    <custom-select ref="selectTarget" :list="list"></custom-select>
-    <a class="tool-space"></a>
     <input class="tool-input" placeholder="调试设备IP" v-model="path" id="input-ip" type="text">
     <button class="tool-btn btn-2" id="connect" @click="connect()" title="连接调试设备。">连接</button>
     <button class="tool-btn btn-2" id="run" @click="originRun()" title="在远程连接的设备上运行程序。">运行</button>

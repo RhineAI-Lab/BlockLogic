@@ -521,11 +521,15 @@ function onEditorModeChange(i) {
     }
     editorMode = i;
     if(i===0){
+        document.getElementById("logic-btns-box").style.display = "inline-block";
+        document.getElementById("ui-target-selector").style.display = "none";
         DC.closeDrawer("属性");
         DC.closeDrawer("新增");
         DC.closeDrawer("控件树");
         DC.closeDrawer("结构图");
     }else {
+        document.getElementById("logic-btns-box").style.display = "none";
+        document.getElementById("ui-target-selector").style.display = "inline-block";
         DC.closeDrawer("项目");
     }
 }
