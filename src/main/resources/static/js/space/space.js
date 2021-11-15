@@ -485,7 +485,7 @@ window.onload=function(){
 
 };
 
-function onModeChange(i) {
+function onShowModeChange(i) {
     let mainSplitLine = document.getElementById("main-split-line");
     let editorSpace = document.getElementById("editor-space");
     let drawSpace = document.getElementById("draw-space");
@@ -511,6 +511,14 @@ function onModeChange(i) {
 }
 
 function onEditorModeChange(i) {
+    if(i===1){
+        freshXmlList();
+        if(toolbar.list.length==0){
+            document.getElementById("editor-mode-selector").selectedIndex = 0;
+            alert("程序中有布局时才可切换至布局设计模式");
+            return;
+        }
+    }
     editorMode = i;
     if(i===0){
         DC.closeDrawer("属性");
