@@ -39,7 +39,8 @@
     right: 0;
 }
 .preview-space{
-    width: 600px;
+    min-width: 200px;
+    width: 100%;
     right: 0;
 }
 
