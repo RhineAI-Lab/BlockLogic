@@ -525,6 +525,7 @@ function onEditorModeChange(i) {
         document.getElementById("ui-target-selector").style.display = "none";
         document.getElementById("logic-mode").style.display = "inline-block";
         document.getElementById("ui-mode").style.display = "none";
+        DrawSpace.freshSizePlus();
         DC.closeDrawer("属性");
         DC.closeDrawer("新增");
         DC.closeDrawer("控件树");
