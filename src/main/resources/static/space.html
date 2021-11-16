@@ -33,7 +33,7 @@
 <div class="tool-bar" id="toolbar">
     <button  class="tool-btn btn-3">
             <span>打开
-                <input type="file" class="upload-input" name="file" id="upload" accept="text/javascript"/>
+                <input type="file" class="upload-input" name="file" id="upload" onchange="onUploadFile(this)" accept="text/javascript"/>
             </span>
     </button>
     <button class="tool-btn btn-3" id="run-code" @click="runCode()" title="在网页上运行JS程序，仅支持JS基础语法，不可用扩展函数功能。"><span>运行</span></button>

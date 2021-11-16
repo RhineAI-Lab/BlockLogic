@@ -117,7 +117,6 @@ window.onload=function(){
     DC.closeDrawer("控件树");
     DC.closeDrawer("结构图");
 
-
     //初始化工具栏
     require(["vue"],function (VueIn) {
         Vue = VueIn;
@@ -257,7 +256,7 @@ window.onload=function(){
                         else
                             this.selectOption(this.input_value);
                     }
-                },
+                }
             },
             watch: {
                 value:function() {
@@ -393,21 +392,6 @@ window.onload=function(){
         console.verbose("控制台初始化完成");
     });
 
-    document.getElementById("upload").addEventListener("change",function (e) {
-        let files = e.target.files;
-        if(files.length>0){
-            askForSave();
-            let name = files[0].name;
-            let reader = new FileReader();
-            reader.readAsText(files[0], 'UTF-8');
-            reader.onload = function (e) {
-                let fileContent = e.target.result;
-                openFile(FilesTree.MODE_SINGLE_FILE,name,fileContent)
-            }
-        }
-        event.target.value="";
-    });
-
     //插件配置
     DebugPlugin.onConnect = function(){
         webConsole.log("连接成功 设备:"+DebugPlugin.device,DebugPlugin.SOURCE_TAG+"/i");
@@ -484,6 +468,21 @@ window.onload=function(){
     });
 
 };
+
+function onUploadFile(target) {
+    let files = target.files;
+    if(files.length>0){
+        askForSave();
+        let name = files[0].name;
+        let reader = new FileReader();
+        reader.readAsText(files[0], 'UTF-8');
+        reader.onload = function (e) {
+            let fileContent = e.target.result;
+            openFile(FilesTree.MODE_SINGLE_FILE,name,fileContent)
+        }
+    }
+    target.value="";
+}
 
 function onShowModeChange(i) {
     let mainSplitLine = document.getElementById("main-split-line");
@@ -589,11 +588,11 @@ function openFile(type,name,code) {
     savedCode = code;
     AceUtils.setCode(code);
     toBlock();
-}
 
-function askOnLeave(e){
-    var e = window.event||e;
-    e.returnValue=("请确保您的代码可能未保存。是否确定离开？");
+    freshXmlList();
+    if(toolbar.list.length>0){
+        changeEditorMode(1)
+    }
 }
 
 function showConsole() {
@@ -622,7 +621,7 @@ function askForSave(){
             save();
             return true;
         }
-        return false;
+        return true;
     }
     return false;
 }
