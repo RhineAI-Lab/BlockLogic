@@ -495,12 +495,14 @@ function onShowModeChange(i) {
         drawSpace.style.display = "inline-block";
         editorSpace.style.flexGrow = "0";
         DrawSpace.freshSizePlus();
+        toBlock();
     }else if(i===1){
         mainSplitLine.style.display = "none";
         drawSpace.style.display = "inline-block";
         editorSpace.style.display = "none";
         editorSpace.style.flexGrow = "0";
         DrawSpace.freshSizePlus();
+        toBlock();
     }else if(i===2){
         mainSplitLine.style.display = "none";
         editorSpace.style.display = "inline-block";
@@ -508,6 +510,12 @@ function onShowModeChange(i) {
         editorSpace.style.flexGrow = "1";
     }
     if(DrawSpace.workspace!=null)DrawSpace.freshSize()
+}
+
+function changeShowMode(i) {
+    document.getElementById("show-mode-selector").selectedIndex = i;
+    onShowModeChange(i);
+    return i;
 }
 
 function onEditorModeChange(i) {
@@ -530,16 +538,22 @@ function onEditorModeChange(i) {
         DC.closeDrawer("新增");
         DC.closeDrawer("控件树");
         DC.closeDrawer("结构图");
+        changeShowMode(0);
     }else {
         document.getElementById("logic-btns-box").style.display = "none";
         document.getElementById("ui-target-selector").style.display = "inline-block";
         document.getElementById("ui-mode").style.display = "inline-block";
         document.getElementById("logic-mode").style.display = "none";
-        document.getElementById("show-mode-selector").selectedIndex = 2;
-        onShowModeChange(2);
+        changeShowMode(2);
         DC.closeDrawer("项目");
         DC.openDrawer("控件树");
     }
+}
+
+function changeEditorMode(i) {
+    document.getElementById("editor-mode-selector").selectedIndex = i;
+    onEditorModeChange(i);
+    return i;
 }
 
 function openSource(source) {
@@ -593,7 +607,7 @@ function toCode() {
 }
 
 function toBlock() {
-    var xml = CodeUtils.getXml(AceUtils.getCode());
+    var xml = CodeUtils.getBlockXml(AceUtils.getCode());
     return DrawSpace.xmlToSpace(xml);
 }
 

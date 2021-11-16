@@ -11,8 +11,31 @@ function freshCode() {
     let code = AceUtils.getCode();
     let xmlCode = CodeUtils.getXmlCode(target,targetPoint.indent).substring(targetPoint.indent);
     code = code.substring(0,start)+xmlCode+code.substring(end);
+
+    //检测是否需要同步图形信息
+    let changeTarget = null;
+    let blockCode = CodeUtils.getBlockXml(code);
+    if(blockCode!=null){
+        blockCode = CodeUtils.cleanXmlSpace(blockCode);
+        let xmlObj = CodeUtils.getXmlObject(blockCode);
+        let valueList = xmlObj.getElementsByTagName("value");
+        let trueIndex = -1;
+        for (let i = 0; i < valueList.length; i++) {
+            if(valueList[i].getAttribute("name")==="UI_XML"){
+                trueIndex++;
+                if(trueIndex===targetIndex){
+                    changeTarget = valueList[i].lastChild.firstChild;
+                    changeTarget.innerHTML = CodeUtils.htmlEncode(xmlCode);
+                }
+            }
+        }
+        blockCode = DrawSpace.domToXmlStr(xmlObj,unfoldXml);
+        code = CodeUtils.changeBlockXml(code,blockCode);
+    }
+
     AceUtils.setCode(code);
-    targetPoint.range = [start,start+xmlCode.length]
+    targetPoint.range = [start,start+xmlCode.length];
+    return changeTarget;
 }
 
 function initAdd() {
@@ -65,7 +88,7 @@ function initAdd() {
             itemExp.innerText = widgets[j].getAttribute("example");
             itemMsg.innerText = widgets[j].getAttribute("summary");
             itemBox.onmousedown = function(event){
-                let node = document.createElementNS("add",nameStr);
+                let node = document.createElementNS("",nameStr);
                 tempView.appendChild(node);
                 setTapped(node,event);
                 event.stopPropagation();
@@ -492,25 +515,16 @@ function freshXmlList() {
 }
 
 function changeTarget(t) {
+    targetIndex = toolbar.list.indexOf(t);
     targetPoint = t;
-    target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
+    target = CodeUtils.getXmlObject(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
+
     freshShow();
 }
 
 function askOnLeave(e){
     var e = window.event||e;
     e.returnValue=("请确保您的代码可能未保存。是否确定离开？");
-}
-
-function askForSave(){
-    if(inited&&AceUtils.getCode()!==savedCode){
-        if(confirm("代码还未保存，是否保存？")){
-            save();
-            return true;
-        }
-        return false;
-    }
-    return false;
 }
 
 function freshShow() {
@@ -540,12 +554,6 @@ function chooseNode(node) {
         node.structureBox.style.background = "#66ff6660";
     }
     freshAttr(node);
-}
-
-
-function openFile(code) {
-    AceUtils.setCode(code);
-    freshXmlList();
 }
 
 function save() {

@@ -284,7 +284,7 @@ function toCode() {
 }
 
 function toBlock() {
-    var xml = CodeUtils.getXml(AceUtils.getCode());
+    var xml = CodeUtils.getBlockXml(AceUtils.getCode());
     return DrawSpace.xmlToSpace(xml);
 }
 

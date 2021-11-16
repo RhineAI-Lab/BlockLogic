@@ -179,7 +179,11 @@ DrawSpace.spaceToCode = function () {
 };
 
 DrawSpace.spaceToXml = function (unfold) {
-    var xml = Blockly.Xml.workspaceToDom(DrawSpace.workspace,true);
+    let xml = Blockly.Xml.workspaceToDom(DrawSpace.workspace,true);
+    return DrawSpace.domToXmlStr(xml,unfold);
+};
+
+DrawSpace.domToXmlStr = function (xml,unfold){
     if(unfold){
         xml = "\n"+Blockly.Xml.domToPrettyText(xml)+"\n";
     }else {

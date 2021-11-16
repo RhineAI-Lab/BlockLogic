@@ -170,8 +170,10 @@ Blockly.WorkspaceDragSurfaceSvg.prototype.setContentsAndShow = function(
   blockCanvas.setAttribute('transform', 'translate(0, 0) scale(' + scale + ')');
   bubbleCanvas.setAttribute(
       'transform', 'translate(0, 0) scale(' + scale + ')');
-  this.SVG_.setAttribute('width', width);
-  this.SVG_.setAttribute('height', height);
+  if(!(isNaN(width)||isNaN(height))){
+    this.SVG_.setAttribute('width', width);
+    this.SVG_.setAttribute('height', height);
+  }
   this.SVG_.appendChild(blockCanvas);
   this.SVG_.appendChild(bubbleCanvas);
   this.SVG_.style.display = 'block';

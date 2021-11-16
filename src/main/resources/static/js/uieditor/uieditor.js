@@ -885,7 +885,7 @@ function freshXmlList() {
 
 function changeTarget(t) {
     targetPoint = t;
-    target = CodeUtils.updateXmlCode(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
+    target = CodeUtils.getXmlObject(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
     freshShow();
 }
 

@@ -3,19 +3,54 @@ const CodeUtils = {};
 
 CodeUtils.Esprima = null;
 
+CodeUtils.blockStartStr = "//------ 图形块结构记录 请勿随意修改 ------\n/*";
+
 CodeUtils.init = function(parser){
     CodeUtils.Esprima = parser;
 };
 
-CodeUtils.getXml = function(code) {
-    const startStr = "//------ 图形块结构记录 请勿随意修改 ------\n/*";
-    let i = code.indexOf(startStr);
+CodeUtils.getBlockXml = function(code) {
+    let i = code.indexOf(CodeUtils.blockStartStr);
     if(i==-1){
         return null
     }else {
-        i += startStr.length;
+        i += CodeUtils.blockStartStr.length;
         const length = code.substring(i).indexOf("*/");
         return code.substring(i,i+length)
+    }
+};
+
+CodeUtils.htmlEncode = function(html){
+    html = html.replaceAll("\n","&#10;");
+    var temp = document.createElement ("div");
+    (temp.textContent != undefined ) ? (temp.textContent = html) : (temp.innerText = html);
+    var output = temp.innerHTML;
+    temp = null;
+    return output;
+};
+
+CodeUtils.cleanXmlSpace = function(xmlCode){
+    let startLen = -1;
+    while (xmlCode.length!==startLen){
+        startLen = xmlCode.length;
+        xmlCode = xmlCode.replaceAll("> ",">");
+        xmlCode = xmlCode.replaceAll(" <","<");
+        xmlCode = xmlCode.replaceAll(">\n",">");
+        xmlCode = xmlCode.replaceAll("\n<","<");
+        xmlCode = xmlCode.replaceAll(" >",">");
+        xmlCode = xmlCode.replaceAll("< ","<");
+    }
+    return xmlCode;
+};
+
+CodeUtils.changeBlockXml = function(code,blockCode){
+    let i = code.indexOf(CodeUtils.blockStartStr);
+    if(i==-1){
+        return code
+    }else {
+        i += CodeUtils.blockStartStr.length;
+        const length = code.substring(i).indexOf("*/");
+        return code.substring(0,i)+blockCode+code.substring(i+length)
     }
 };
 
@@ -73,8 +108,8 @@ CodeUtils.getXmlCodeList = function (code) {
     return null;
 };
 
-CodeUtils.updateXmlCode = function (xmlString) {
-    var xmlDoc=null;
+CodeUtils.getXmlObject = function (xmlString) {
+    let xmlDoc=null;
     if(window.DOMParser && document.implementation && document.implementation.createDocument){
         try{
             domParser = new  DOMParser();
