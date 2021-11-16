@@ -30,7 +30,7 @@ a{
 
 .main{
     position: absolute;
-    min-width: 1100px;
+    min-width: 1000px;
     top: 93px;
     bottom: 26px;
     left: 0;
@@ -38,13 +38,13 @@ a{
 }
 
 .head-line{
-    min-width: 1100px;
+    min-width: 1000px;
     background-color: #212529;
     height: 54px;
 }
 .head-line div{
     height: 100%;
-    max-width: 1100px;
+    max-width: 1000px;
     margin:0 auto
 }
 .head-line a{
@@ -86,7 +86,7 @@ a{
 .tool-bar{
     display: flex;
     width: 100%;
-    min-width: 1100px;
+    min-width: 1000px;
     height: 38px;
     border-bottom:1px solid #BBB;
     align-items:center;
