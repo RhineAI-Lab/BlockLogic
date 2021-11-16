@@ -32,7 +32,7 @@ a{
     position: absolute;
     min-width: 1080px;
     top: 93px;
-    bottom: 25px;
+    bottom: 26px;
     left: 0;
     right: 0;
 }
@@ -185,6 +185,7 @@ a{
     left: 0;
     right: 0;
     border-top: solid 1px #BBB;
+    border-bottom: solid 1px #BBB;
 }
 .status-tip{
     height: 24px;

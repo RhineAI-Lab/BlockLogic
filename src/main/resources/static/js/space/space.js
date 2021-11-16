@@ -113,6 +113,7 @@ window.onload=function(){
     DC.addDrawer("结构图","viewgallery",DC.DRAWER_MODE_LEFT,"structure-space",allowOpenUi,300,200);
     DC.closeDrawer("属性");
     DC.closeDrawer("新增");
+    DC.closeDrawer("项目");
     DC.closeDrawer("控件树");
     DC.closeDrawer("结构图");
 
@@ -134,7 +135,7 @@ window.onload=function(){
             template:`
             <div class="select-box">
                 <div class="select-input">
-                    <input type="text" id="select-target" class="tool-input" :value="val" @click="freshList();selectShow=!selectShow" placeholder="选择UI编辑目标"/>
+                    <input type="text" spellcheck="false" id="select-target" class="tool-input" :value="val" @click="freshList();selectShow=!selectShow" placeholder="选择UI编辑目标"/>
                     <button class="tool-btn btn-2 btn--2" @click="freshList()" title="切换编辑目标。">刷新</button>
                     <span></span>
                 </div>
@@ -143,7 +144,6 @@ window.onload=function(){
         `,
             methods:{
                 selectValueHandle: function(item){
-                    console.log(item);
                     this.selectShow = false;
                     this.chooseItem(item);
                 },
