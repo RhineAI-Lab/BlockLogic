@@ -106,7 +106,7 @@ Win+R，输入cmd，回车。打开命令行窗口。 <br/>
 ### 图形块分类
 
 第一种为有输出块，左侧可以连接其他块，上下不可以。具有属性： <br/>
-```json5
+```javascript
 "output":"xxx", 
 ```
 表示该模块的输出数据类型。<br/>
@@ -115,7 +115,7 @@ output属性有多个时用数组表示，如: "output":["xxxa","xxxb"]<br/>
 当前已确认类型：字符串-String，数字-Number，布尔值(对错)-Boolean，列表数组-Array
 
 第二种为无输出块，上下可以连接其他块，左侧不可以。具有属性：
-```json5
+```javascript
 "previousStatement": null,
 "nextStatement": null,
 ```
@@ -142,7 +142,7 @@ output属性有多个时用数组表示，如: "output":["xxxa","xxxb"]<br/>
 输入参数，必须为数组。
 
 在message中的%1，%2，%3等位置除，显示出对应args0数组第123个输入。如: 
-```json5
+```javascript
 {
     "message0": "输入 %3 文本 控件: %1 文本: %2",
     "args0": [
@@ -179,7 +179,7 @@ options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
 
 ### 典型示例
 无输入有输出型:
-```json5
+```javascript
     {
         "type": "app_version_code",
         "message0": "获取当前软件版本号",
@@ -190,7 +190,7 @@ options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
     },
 ```
 选项输入有输出型:
-```json5
+```javascript
     {
         "type": "console_config_level",
         "message0": "配置-写入级别 %1",
@@ -211,7 +211,7 @@ options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
     },
 ```
 无输入无输出型:
-```json5
+```javascript
     {
         "type": "console_clear",
         "message0": "清空控制台",
@@ -223,7 +223,7 @@ options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
     },
 ```
 多输入无输出型:
-```json5
+```javascript
     {
         "type": "dialogs_alert",
         "message0": "对话框 标题 %2 正文 %3",
@@ -239,7 +239,7 @@ options属性: 下拉菜单选项。仅当type=field_dropdown时有效。<br/>
     },
 ```
 多输入有输出型:
-```json5
+```javascript
     {
         "type": "coordinate_press",
         "message0": "按住屏幕   坐标 X: %1 Y: %2 时长(毫秒): %3",
