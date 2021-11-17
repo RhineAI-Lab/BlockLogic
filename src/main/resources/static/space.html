@@ -415,20 +415,10 @@
 <xml id="toolbox" style="display: none">
     <category name="Base">
         <block type="controls_if"></block>
-        <block type="controls_for">
-            <value name="FROM">
-                <shadow type="math_number">
-                    <field name="NUM">1</field>
-                </shadow>
-            </value>
-            <value name="TO">
+        <block type="controls_repeat_ext">
+            <value name="TIMES">
                 <shadow type="math_number">
                     <field name="NUM">10</field>
-                </shadow>
-            </value>
-            <value name="BY">
-                <shadow type="math_number">
-                    <field name="NUM">1</field>
                 </shadow>
             </value>
         </block>
@@ -438,14 +428,6 @@
             </value>
         </block>
         <block type="dialogs_alert">
-            <value name="TITLE">
-                <shadow type="text"></shadow>
-            </value>
-            <value name="CONTENT">
-                <shadow type="text"></shadow>
-            </value>
-        </block>
-        <block type="dialogs_input">
             <value name="TITLE">
                 <shadow type="text"></shadow>
             </value>
