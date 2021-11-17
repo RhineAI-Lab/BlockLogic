@@ -164,7 +164,7 @@ function addAttrInput(parent,parentId,item,node,allAttrs,firstHolder) {
     line.className = "attr-line";
     let id = "dp-"+parentId+"-"+parent.children.length;
 
-    line.innerHTML = "<div class='attr-name' title='"+item.name+"'>"+item.name+"</div>\n<dropdown v-bind:value='value' options='"+findOpt(item.name)+"' id='"+id+"' type='all' @on_change_input_value='onTextChange'></dropdown>"
+    line.innerHTML = "<div class='attr-name' title='"+item.name+"'>"+item.name+"</div>\n<dropdown v-bind:value='value' options='"+findOpt(item.name)+"' id='"+id+"' type='all' @on_change_input_value='onTextChange' spellcheck='false'></dropdown>"
     parent.appendChild(line);
 
     let dp = new Vue({

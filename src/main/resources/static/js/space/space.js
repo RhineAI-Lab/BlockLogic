@@ -379,12 +379,16 @@ window.onload=function(){
                 list:[]
             }
         });
+        let consoleSpace = document.getElementById("console-space");
         webConsole.log = function (msg,source,time) {
             source = source+": " || 'Unknown/v: ';
             time = time || StringUtils.getDateString();
             time = time.length>0?time+' ':'';
             msg = time + source + msg;
-            this.list.push(msg)
+            this.list.push(msg);
+            setTimeout(() => {
+                consoleSpace.scrollTop = consoleSpace.scrollHeight;
+            });
         };
         webConsole.directLog = function(msg){
             this.list.push(msg)
