@@ -14,6 +14,21 @@ var baseHelpUrl = "https://pro.autojs.org/docs/#/zh-cn/widgetsBasedAutomation?id
 
 Blockly.defineBlocksWithJsonArray([
     {
+        "type": "widget_do_text",
+        "message0": "找到 %1 %2 %3 的控件 并 %4",
+        "args0": [
+            {"type": "field_dropdown", "name": "ATTR", "options": [["ID", "id"], ["文本", "text"], ["描述", "desc"], ["类名", "className"], ["包名", "packageName"]]},
+            {"type": "field_dropdown", "name": "WAY", "options": [["等于", ""], ["包含", "Contains"], ["开头是", "StartsWith"], ["结尾是", "EndsWith"], ["正则匹配", "Matches"]]},
+            {"type": "input_value", "name": "VALUE", "check": "String"},
+            {"type": "field_dropdown", "name": "METH", "options": [["点击", "click"], ["长按", "longClick"], ["选中", "select"], ["复制", "copy"], ["剪切", "cut"], ["粘贴", "paste"], ["向前滑", "scrollForward"], ["向后滑", "scrollBackward"], ["向上滑", "scrollUp"], ["向下滑", "scrollDown"], ["向左滑", "scrollLeft"], ["向右滑", "scrollRight"], ["折叠", "collapse"], ["展开", "expand"], ["显示", "show"]]},
+        ],
+        "previousStatement": null,
+        "nextStatement": null,
+        "colour": colour,
+        "tooltip": "快捷进行控件操作",
+        "helpUrl": baseHelpUrl+"uiselectortextstr"
+    },
+    {
         "type": "widget_attr_selector",
         "message0": "筛选控件  属性 %1   匹配 %2   内容 %3",
         "args0": [

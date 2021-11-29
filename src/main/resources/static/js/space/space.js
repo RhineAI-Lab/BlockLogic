@@ -49,6 +49,8 @@ var targetPoint = null;
 var target = null;
 var targetIndex = 0;
 
+var lastChangeCode = "";
+
 const leftTip = document.getElementById("left-tip");
 const rightTip = document.getElementById("right-tip");
 
@@ -427,13 +429,24 @@ window.onload=function(){
         if(navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey){//ctrl
             if (e.keyCode === 83){//s
                 e.preventDefault();
-
+                save();
             }else if(e.keyCode === 90 && e.shiftKey){//shift z
                 e.preventDefault();
                 AceUtils.redo();
+                if(editorMode===0){
+                    toBlock()
+                }else {
+                    freshTarget()
+                }
             }else if(e.keyCode === 90 && !e.shiftKey){//z
                 e.preventDefault();
                 AceUtils.undo();
+                if(editorMode===0){
+                    toBlock()
+                }else {
+                    console.log("a");
+                    freshTarget()
+                }
             }
         }
     });

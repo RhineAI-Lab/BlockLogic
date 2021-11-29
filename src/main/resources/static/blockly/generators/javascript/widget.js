@@ -3,6 +3,15 @@
 goog.provide('Blockly.JavaScript.widget');
 goog.require('Blockly.JavaScript');
 
+Blockly.JavaScript['widget_do_text'] = function(block) {
+    var dropdown_attr = block.getFieldValue('ATTR');
+    var dropdown_way = block.getFieldValue('WAY');
+    var text_value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC, true);
+    var dropdown_meth = block.getFieldValue('METH');
+    var code = dropdown_attr+dropdown_way+"("+text_value+").findOne()."+dropdown_meth+"();\n";
+    return code;
+};
+
 Blockly.JavaScript['widget_attr_selector'] = function(block) {
     var dropdown_attr = block.getFieldValue('ATTR');
     var dropdown_way = block.getFieldValue('WAY');

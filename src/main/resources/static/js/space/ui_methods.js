@@ -522,6 +522,11 @@ function changeTarget(t) {
     freshShow();
 }
 
+function freshTarget() {
+    freshXmlList();
+    changeTarget(toolbar.list[targetIndex])
+}
+
 function askOnLeave(e){
     var e = window.event||e;
     e.returnValue=("请确保您的代码可能未保存。是否确定离开？");

@@ -724,6 +724,30 @@
             <mutation items="0"></mutation>
         </block>
         <block type="lists_create_with"></block>
+        <block type="lists_get">
+            <value name="ARRAY">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+            <value name="INDEX">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="lists_set">
+            <value name="ARRAY">
+                <block type="variables_get">
+                    <field name="VAR">list</field>
+                </block>
+            </value>
+            <value name="INDEX">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="lists_repeat">
             <value name="NUM">
                 <shadow type="math_number">
@@ -931,8 +955,13 @@
         </block>
     </category>
     <category name="Widget">
-        <block type="widget_algorithm"></block>
+        <block type="widget_do_text">
+            <value name="VALUE">
+                <shadow type="text"></shadow>
+            </value>
+        </block>
         <block type="puzzle"></block>
+        <block type="widget_algorithm"></block>
         <block type="widget_attr_selector">
             <value name="VALUE">
                 <shadow type="text"></shadow>
@@ -1192,27 +1221,6 @@
         <block type="puzzle_block"></block>
     </category>
     <category name="Device">
-        <block type="device_width"></block>
-        <block type="device_height"></block>
-        <block type="device_build_id"></block>
-        <block type="device_broad"></block>
-        <block type="device_brand"></block>
-        <block type="device_device"></block>
-        <block type="device_model"></block>
-        <block type="device_product"></block>
-        <block type="device_bootloader"></block>
-        <block type="device_hardware"></block>
-        <block type="device_fingerprint"></block>
-        <block type="device_serial"></block>
-        <block type="device_sdk_int"></block>
-        <block type="device_incremental"></block>
-        <block type="device_release"></block>
-        <block type="device_base_os"></block>
-        <block type="device_security_patch"></block>
-        <block type="device_codename"></block>
-        <block type="device_get_imei"></block>
-        <block type="device_get_android_id"></block>
-        <block type="device_get_mac_address"></block>
         <block type="device_get_brightness"></block>
         <block type="device_get_brightness_mode"></block>
         <block type="device_set_brightness">
@@ -1286,6 +1294,29 @@
             </value>
         </block>
         <block type="cancel_vibration"></block>
+    </category>
+    <category name="DeviceMsg">
+        <block type="device_width"></block>
+        <block type="device_height"></block>
+        <block type="device_build_id"></block>
+        <block type="device_broad"></block>
+        <block type="device_brand"></block>
+        <block type="device_device"></block>
+        <block type="device_model"></block>
+        <block type="device_product"></block>
+        <block type="device_bootloader"></block>
+        <block type="device_hardware"></block>
+        <block type="device_fingerprint"></block>
+        <block type="device_serial"></block>
+        <block type="device_sdk_int"></block>
+        <block type="device_incremental"></block>
+        <block type="device_release"></block>
+        <block type="device_base_os"></block>
+        <block type="device_security_patch"></block>
+        <block type="device_codename"></block>
+        <block type="device_get_imei"></block>
+        <block type="device_get_android_id"></block>
+        <block type="device_get_mac_address"></block>
     </category>
     <category name="Console">
         <block type="console_show"></block>

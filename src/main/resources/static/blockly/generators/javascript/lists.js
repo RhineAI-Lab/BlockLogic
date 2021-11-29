@@ -20,6 +20,24 @@ Blockly.JavaScript['lists_create_empty'] = function(block) {
   return ['[]', Blockly.JavaScript.ORDER_ATOMIC];
 };
 
+Blockly.JavaScript['lists_set'] = function(block) {
+  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC, true);
+  if(value==null||value.length===0){
+    value="null"
+  }
+  var code = array+"["+index+"-1]="+value+";\n";
+  return code;
+};
+
+Blockly.JavaScript['lists_get'] = function(block) {
+  var array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_ATOMIC, true);
+  var code = array+"["+index+"-1]";
+  return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.JavaScript['lists_create_with'] = function(block) {
   // Create a list with any number of elements of any type.
   var elements = new Array(block.itemCount_);
