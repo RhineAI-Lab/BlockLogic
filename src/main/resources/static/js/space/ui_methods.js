@@ -514,6 +514,12 @@ function freshXmlList() {
     }
 }
 
+function logTarget() {
+    console.log(AceUtils.getCode(true));
+    console.log(targetPoint);
+    console.log(AceUtils.getCode().substring(targetPoint.range[0],targetPoint.range[1]));
+}
+
 function changeTarget(t) {
     targetIndex = toolbar.list.indexOf(t);
     targetPoint = t;

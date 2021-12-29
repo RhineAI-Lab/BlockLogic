@@ -331,7 +331,7 @@ window.onload=function(){
                     var ip = document.getElementById("input-ip").value;
                     if(StringUtils.checkIP(ip)){
                         showConsole();
-                        DebugPlugin.connect("ws://"+ip+":9315/")
+                        DebugPlugin.connect("wss://"+ip+":9315/")
                     }else {
                         alert("请输入正确的IP地址")
                     }
@@ -537,6 +537,9 @@ function changeShowMode(i) {
 }
 
 function onEditorModeChange(i) {
+    if(editorMode===i){
+        return
+    }
     if(i===1){
         freshXmlList();
         if(toolbar.list.length==0){

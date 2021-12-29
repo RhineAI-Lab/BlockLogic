@@ -18,10 +18,10 @@ AceUtils.createEditor = function (id) {
     AceUtils.editor = editor;
 };
 
-AceUtils.getCode = function (withOutXml) {
+AceUtils.getCode = function (withOutBlock) {
     if(editor){
         let code = AceUtils.editor.getSession().getValue();
-        if(withOutXml){
+        if(withOutBlock){
             const startStr = "//------ 图形块结构记录 请勿随意修改 ------\n/*";
             code = code.split(startStr)[0]
         }
