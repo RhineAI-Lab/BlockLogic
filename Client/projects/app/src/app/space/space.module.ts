@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
+import { SharedModule } from '../shared/shared.module';
 import { SpaceComponent } from './space.component';
 import { SpaceRoutingModule } from './space-routing.module';
 
 @NgModule({
   declarations: [SpaceComponent],
-  imports: [CommonModule, SpaceRoutingModule],
+  imports: [SharedModule, SpaceRoutingModule],
 })
 export class SpaceModule {}
