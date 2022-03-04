@@ -29,10 +29,13 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "projects/app/src/favicon.ico",
-              "projects/app/src/assets"
+              "projects/app/src/assets",
+              "projects/app/src/manifest.webmanifest"
             ],
             "styles": ["projects/app/src/styles.less"],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "projects/app/ngsw-config.json"
           },
           "configurations": {
             "production": {
@@ -95,7 +98,8 @@
             "inlineStyleLanguage": "less",
             "assets": [
               "projects/app/src/favicon.ico",
-              "projects/app/src/assets"
+              "projects/app/src/assets",
+              "projects/app/src/manifest.webmanifest"
             ],
             "styles": ["projects/app/src/styles.less"],
             "scripts": []
