@@ -1,0 +1,190 @@
+
+.dc{
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.dc-list{
+    display: inline-block;
+    width: 24px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+}
+.dc-list-left{
+    left: 0;
+    border-right: solid 1px #BBB;
+}
+.dc-list-right{
+    right: 0;
+    border-left: solid 1px #BBB;
+}
+.dc-list-inner{
+
+}
+
+.dc-btn{
+    position: relative;
+    width: 24px;
+    min-height: 80px;
+    background: #FFF;
+    margin-bottom: 1px;
+}
+.dc-btn:hover{
+    cursor: pointer;
+}
+.dc-btn-text{
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    max-lines: 1;
+    white-space: nowrap;
+    position: absolute;
+    font-size: 13px;
+    color: #111;
+}
+.dc-btn-icon{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+}
+.dc-btn-text-left{
+    bottom: 40px;
+    transform:rotate(-90deg);
+    transform-origin: 12px 12px;
+}
+.dc-btn-icon-left{
+    bottom: 14px;
+}
+.dc-btn-text-right{
+    top: 40px;
+    transform:rotate(90deg);
+    transform-origin: 12px 12px;
+}
+.dc-btn-icon-right{
+    top: 14px;
+}
+
+
+.dc-flex{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 25px;
+    right: 25px;
+    overflow: hidden;
+}
+
+.dc-drawers{
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.dc-drawers-left{
+}
+.dc-drawers-right{
+}
+
+.dc-main{
+    display: inline-block;
+    flex-grow: 1;
+}
+
+.drawer-root{
+    display: inline-block;
+    height: 100%;
+    position: relative;
+}
+.drawer-main{
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+.drawer-head{
+    display: block;
+    height: 28px;
+    border-bottom: solid 1px #CCC;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.drawer-icon{
+    width: 20px;
+    height: 20px;
+    margin: 4px 6px;
+    color: #555;
+}
+.drawer-title{
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    margin-top: 1px;
+    vertical-align: middle;
+    font-size: 13px;
+    color: #111;
+}
+.drawer-hide-btn-holder{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 4px;
+    top: 2px;
+    border-radius: 2px;
+}
+.drawer-hide-btn-holder:hover{
+    cursor: pointer;
+}
+.drawer-hide-btn{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    color: #333;
+}
+.drawer-hide-btn-holder:hover{
+    background: #DDD;
+}
+.drawer-body{
+    display: block;
+    position: absolute;
+    top: 29px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.vertical-line{
+    display: inline-block;
+    width: 1px;
+    height: 100%;
+}
+.horizontal-line{
+    display: block;
+    height: 1px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
