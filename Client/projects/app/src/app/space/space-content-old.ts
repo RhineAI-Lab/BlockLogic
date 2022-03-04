@@ -70,7 +70,7 @@ export const html = `
                                       <ul class="second-parent" v-show="item.isShow">
                                           <li class="second-item" @click="showBlocks(sub)" v-for="sub in item.sub">
                                               <div class="icon" :style="{'border-color':sub.icon,'background-color':sub.bg}"></div>
-                                              <a :style="{'color':sub.color}">{{sub.name}}</a>
+                                              <span :style="{'color':sub.color}">{{sub.name}}</span>
                                           </li>
                                       </ul>
                                   </li>
@@ -120,7 +120,7 @@ export const html = `
   <div class="console-space" id="console-space">
       <ul class="console-box" id="console-box">
           <li class="console-item" v-for="item in list">
-              <a>{{item}}</a>
+              <span>{{item}}</span>
               <div class="console-split"></div>
           </li>
       </ul>
