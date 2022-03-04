@@ -7,6 +7,8 @@ export const html = `
 <link rel="stylesheet" type="text/css" href="assets/third-party/iconfont/iconfont.css">
 <link rel="stylesheet" type="text/css" href="assets/third-party/metro-style/metro_style.css">
 
+<div id="app">
+
 <div class="tool-bar" id="toolbar">
   <button  class="tool-btn btn-3">
           <span>打开
@@ -103,8 +105,6 @@ export const html = `
   <a class="right-tip status-tip" id="right-tip">正在打开项目...</a>
 </div>
 
-</div>
-
 <div id="follow-box" class="follow-box">
   <div id="follow-title" class="follow-title"></div>
   <div id="follow-split" class="follow-split"></div>
@@ -139,6 +139,8 @@ export const html = `
       </div>
   </div>
 </drawers>
+
+</div>
 
 
 <script type="text/x-template" id="dropdown">

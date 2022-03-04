@@ -1,10 +1,10 @@
-*{
+#app *{
     margin:0;
     padding:0;
     list-style:none;
     outline: none;
 }
-html,body{
+#app html,body{
     width:100%;
     height:100%;
     font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
@@ -13,14 +13,14 @@ html,body{
     text-overflow: ellipsis;
 }
 
-body{
+#app body{
     min-width: 1080px;
 }
-a{
+#app a{
     text-decoration:none
 }
 
-.root{
+#app .root{
     position: absolute;
     width: 100%;
     height: 100%;
@@ -28,7 +28,7 @@ a{
     overflow: hidden;
 }
 
-.main{
+#app .main{
     position: absolute;
     min-width: 1000px;
     top: 105px;
@@ -37,37 +37,37 @@ a{
     right: 0;
 }
 
-.head-line{
+#app .head-line{
     min-width: 1000px;
     background-color: #212529;
     height: 54px;
 }
-.head-line div{
+#app .head-line div{
     height: 100%;
     max-width: 1000px;
     margin:0 auto
 }
-.head-line a{
+#app .head-line a{
     float: right;
     padding: 18px 13px;
     font-size: 15px;
     line-height: 18px;
     color: #ddd;
 }
-.head-line a:hover{
+#app .head-line a:hover{
     background: #00A86B;
     cursor:pointer;
 }
-.head-line h1{
+#app .head-line h1{
     color: #e5e5e5;
     margin-right: 1em;
     margin-top: 8px;
     float: left;
 }
-.head-line h1:hover{
+#app .head-line h1:hover{
     cursor: pointer;
 }
-.head-line img{
+#app .head-line img{
     width: 32px;
     height: 32px;
     float: left;
@@ -75,7 +75,7 @@ a{
     margin-left: 1em;
     margin-right: 6px;
 }
-.upload-input {
+#app .upload-input {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -83,7 +83,7 @@ a{
     top: 0;
     opacity: 0;
 }
-.tool-bar{
+#app .tool-bar{
     display: flex;
     width: 100%;
     min-width: 1000px;
@@ -91,7 +91,7 @@ a{
     border-bottom:1px solid #BBB;
     align-items:center;
 }
-.tool-btn{
+#app .tool-btn{
     color: #222;
     width: auto;
     height: 32px;
@@ -108,17 +108,17 @@ a{
     position: relative;
     display: inline-block;
 }
-.tool-btn-m0{
+#app .tool-btn-m0{
     margin: 0;
 }
-.tool-middle{
+#app .tool-middle{
     height: 0;
     flex-grow: 1;
 }
-.tool-space{
+#app .tool-space{
     width: 3px;
 }
-.tool-input{
+#app .tool-input{
     padding: 0 10px;
     border: 2px solid #555;
     color: #444;
@@ -130,7 +130,7 @@ a{
     transition-delay: 0s;
     transition-property: all;
 }
-.tool-check{
+#app .tool-check{
     color: #222;
     width: auto;
     height: 28px;
@@ -147,37 +147,37 @@ a{
     transition: all 0.3s ease;
     position: relative;
 }
-.tool-input:focus{
+#app .tool-input:focus{
     border: 2px solid #333;
 }
-.tool-select{
+#app .tool-select{
     height: 28px;
     border: 2px solid #444;
     border-radius: 3px;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
 }
-.tool-option{
+#app .tool-option{
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     background: #FFF;
 }
-.tool-option:hover{
+#app .tool-option:hover{
     background: #00A86B;
 }
 
-.logic-btns-box{
+#app .logic-btns-box{
     display: inline-block;
     width: auto;
     height: 100%;
     white-space: nowrap;
     overflow: hidden;
 }
-.ui-target-selector{
+#app .ui-target-selector{
     display: none;
 }
 
-.status-bar{
+#app .status-bar{
     display: block;
     height: 24px;
     position: absolute;
@@ -187,7 +187,7 @@ a{
     border-top: solid 1px #BBB;
     border-bottom: solid 1px #BBB;
 }
-.status-tip{
+#app .status-tip{
     height: 24px;
     line-height: 24px;
     margin: 0 6px;
@@ -196,14 +196,14 @@ a{
     font-size: 14px;
     color: #222;
 }
-.left-tip{
+#app .left-tip{
     left: 0;
 }
-.right-tip{
+#app .right-tip{
     right: 0;
 }
 
-.work-space{
+#app .work-space{
     width: 100%;
     display: flex;
     justify-content:space-between;
@@ -214,13 +214,13 @@ a{
     right: 0;
 }
 
-.vertical-split-line{
+#app .vertical-split-line{
     display: inline-block;
     width: 1px;
     height: 100%;
     background: #BBB;
 }
-.vertical-split-line:before{
+#app .vertical-split-line:before{
     display: block;
     width: 7px;
     height: 100%;
@@ -229,11 +229,11 @@ a{
     margin: 0 -3px;
     content: '';
 }
-.vertical-split-line:hover{
+#app .vertical-split-line:hover{
     cursor: ew-resize;
 }
 
-.left-more::before {
+#app .left-more::before {
     content: '';
     position: absolute;
     top: 0;
@@ -241,7 +241,7 @@ a{
     bottom: 0;
     left: -5px;
 }
-.right-more::before {
+#app .right-more::before {
     content: '';
     position: absolute;
     top: 0;
@@ -249,7 +249,7 @@ a{
     bottom: 0;
     left: 0;
 }
-.horizontal-split-line::before {
+#app .horizontal-split-line::before {
     content: '';
     position: absolute;
     top: -4px;
@@ -258,46 +258,46 @@ a{
     left: 0;
 }
 
-.stack-right{
+#app .stack-right{
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
 }
-.stack-left{
+#app .stack-left{
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
 }
 
-.directory-space{
+#app .directory-space{
     position: relative;
     width: 100%;
     height: 100%;
     overflow-y:auto;
     overflow-x: auto;
 }
-.work-space-core{
+#app .work-space-core{
     display: flex;
     position: relative;
     flex-grow: 1;
     white-space: nowrap;
 }
-.editor-space{
+#app .editor-space{
     display: inline-block;
     position: relative;
     height: 100%;
     width: 500px;
 }
-.console-space{
+#app .console-space{
     position: relative;
     width: 100%;
     height: 100%;
     font-size: 14px;
     overflow-y: auto;
 }
-.side-bar{
+#app .side-bar{
     width: 240px;
     height: 100%;
     color: #324a5b;
@@ -306,29 +306,29 @@ a{
     overflow:auto;
     float: left;
 }
-.draw-space{
+#app .draw-space{
     flex-grow: 1;
     height: 100%;
 }
-.logic-mode{
+#app .logic-mode{
     display: block;
     width: 100%;
     height: 100%;
 }
-.ui-mode{
+#app .ui-mode{
     display: none;
     width: 100%;
     height: 100%;
 }
-.draw-holder{
+#app .draw-holder{
     width: 100%;
     height: 100%;
 }
-.draw{
+#app .draw{
     width: 100%;
     height: 100%;
 }
-.console-item{
+#app .console-item{
     height: auto;
     width: auto;
     padding: 4px 12px;
@@ -337,33 +337,33 @@ a{
     color: #444;
     white-space: normal;
 }
-.console-item:hover{
+#app .console-item:hover{
     background: #DFD;
 }
 
-.editor{
+#app .editor{
     width: 100%;
     height: 100%;
 }
 
-.side-bar h1{
+#app .side-bar h1{
     margin: 20px auto 0;
     font-size: 1.6rem;
     font-weight: 300;
     text-align: center;
     color: black;
 }
-.side-bar h1 a{
+#app .side-bar h1 a{
     text-decoration:none;
     color: #324a5b;
 }
-.side-bar h2{
+#app .side-bar h2{
     margin: 0 auto 10px;
     font-size: 1rem;
     font-weight: 200;
     text-align: center;
 }
-.first-title{
+#app .first-title{
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     display: block;
@@ -372,25 +372,25 @@ a{
     cursor:pointer;
     color: #324a5b;
 }
-.first-title:hover{
+#app .first-title:hover{
     background-color: #DFD;
 }
-.second-item{
+#app .second-item{
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     display: block;
     padding-left: 26px;
 }
-.second-item:hover{
+#app .second-item:hover{
     background-color: #DFD;
     color: black;
     cursor:pointer;
 }
-.second-item a{
+#app .second-item a{
     display: inline-block;
     vertical-align:middle;
 }
-.icon{
+#app .icon{
     display: inline-block;
     vertical-align:middle;
     width: 7.4px;
@@ -405,7 +405,7 @@ a{
     transition-property: all
 }
 
-.editor-container{
+#app .editor-container{
     display: flex;
     width: 100%;
     height: 100%;
