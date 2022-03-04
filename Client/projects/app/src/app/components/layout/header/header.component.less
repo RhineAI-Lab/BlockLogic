@@ -1,0 +1,34 @@
+nz-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+
+  .logo-img {
+    width: 32px;
+    height: 32px;
+    margin-left: 1em;
+    margin-right: 6px;
+  }
+
+  .logo-text {
+    color: #e5e5e5;
+    font-size: xx-large;
+    font-weight: bold;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
+    transform: translateY(1px);
+  }
+}
+
+.right {
+  [nz-menu-item] {
+    font-size: 15px;
+    a {
+      color: #dddddd;
+    }
+  }
+}
