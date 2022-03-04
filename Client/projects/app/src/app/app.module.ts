@@ -10,6 +10,7 @@ import { zh_CN } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(zh);
 
@@ -20,6 +21,7 @@ registerLocaleData(zh);
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    CoreModule,
     AppRoutingModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
