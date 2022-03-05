@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { connectNecessaryArgs, JavaScript } from './_common';
 
 JavaScript['ui_layout'] = function (block: any) {
   JavaScript.setRunMode_('ui');
@@ -83,7 +83,7 @@ JavaScript['ui_inflate'] = function (block: any) {
   const code =
     '$ui.inflate(' +
     xml_value +
-    JavaScript.connectNecessaryArgs([parent_value, in_value], true) +
+    connectNecessaryArgs([parent_value, in_value], true) +
     ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };

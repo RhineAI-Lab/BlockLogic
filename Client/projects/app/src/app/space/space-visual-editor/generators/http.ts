@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { connectNecessaryArgs, JavaScript } from './_common';
 
 JavaScript['http_get'] = function (block: any) {
   const url = JavaScript.valueToCode(
@@ -20,10 +20,7 @@ JavaScript['http_get'] = function (block: any) {
     true,
   );
   const code =
-    'http.get(' +
-    url +
-    JavaScript.connectNecessaryArgs([options, call_back]) +
-    ')';
+    'http.get(' + url + connectNecessaryArgs([options, call_back]) + ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
 JavaScript['http_post'] = function (block: any) {
@@ -53,7 +50,7 @@ JavaScript['http_post'] = function (block: any) {
     url +
     ',' +
     data +
-    JavaScript.connectNecessaryArgs([options, call_back]) +
+    connectNecessaryArgs([options, call_back]) +
     ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
@@ -84,7 +81,7 @@ JavaScript['http_post_json'] = function (block: any) {
     url +
     ',' +
     data +
-    JavaScript.connectNecessaryArgs([options, call_back]) +
+    connectNecessaryArgs([options, call_back]) +
     ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
@@ -115,7 +112,7 @@ JavaScript['http_post_multipart'] = function (block: any) {
     url +
     ',' +
     data +
-    JavaScript.connectNecessaryArgs([options, call_back]) +
+    connectNecessaryArgs([options, call_back]) +
     ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
@@ -139,10 +136,7 @@ JavaScript['http_request'] = function (block: any) {
     true,
   );
   const code =
-    'http.request(' +
-    url +
-    JavaScript.connectNecessaryArgs([options, call_back]) +
-    ')';
+    'http.request(' + url + connectNecessaryArgs([options, call_back]) + ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
 
