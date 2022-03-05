@@ -1571,7 +1571,6 @@
                 <field name="TEXT">true</field>
             </shadow>
         </value>
-        </block>
         <block type="globals_sleep">
             <value name="VALUE">
                 <shadow type="math_number">
