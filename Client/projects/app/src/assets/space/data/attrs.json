@@ -1,0 +1,282 @@
+{
+    "Attrs": {
+      "Attr": [
+        {
+          "name": "id",
+          "tip": "控件id，不能重复使用",
+          "opt": { "value": "id" }
+        },
+        {
+          "name": "w",
+          "tip": "控件宽度",
+          "opt": [
+            {
+              "value": "*",
+              "key": "尽可能填满父控件"
+            },
+            {
+              "value": "auto",
+              "key": "自动计算(经量小)"
+            }
+          ]
+        },
+        {
+          "name": "h",
+          "tip": "控件高度",
+          "opt": [
+            {
+              "value": "*",
+              "key": "尽可能填满父控件"
+            },
+            {
+              "value": "auto",
+              "key": "自动计算(经量小)"
+            }
+          ]
+        },
+        {
+          "name": "layout_width",
+          "opt": [
+            { "value": "match_parent" },
+            { "value": "wrap_content" }
+          ]
+        },
+        {
+          "name": "layout_height",
+          "opt": [
+            { "value": "match_parent" },
+            { "value": "wrap_content" }
+          ]
+        },
+        {
+          "name": "gravity",
+          "tip": "内部子控件的重力方向",
+          "opt": [
+            {
+              "value": "center",
+              "key": "中央"
+            },
+            {
+              "value": "center_vertical",
+              "key": "垂直居中"
+            },
+            {
+              "value": "center_horizontal",
+              "key": "水平居中"
+            },
+            {
+              "value": "top",
+              "key": "靠上"
+            },
+            {
+              "value": "left",
+              "key": "靠左"
+            },
+            {
+              "value": "right",
+              "key": "靠右"
+            },
+            {
+              "value": "bottom",
+              "key": "靠下"
+            }
+          ]
+        },
+        {
+          "name": "layout_gravity",
+          "tip": "自身在父布局的重力方向",
+          "opt": [
+            {
+              "value": "center",
+              "key": "中央"
+            },
+            {
+              "value": "center_vertical",
+              "key": "垂直居中"
+            },
+            {
+              "value": "center_horizontal",
+              "key": "水平居中"
+            },
+            {
+              "value": "top",
+              "key": "靠上"
+            },
+            {
+              "value": "left",
+              "key": "靠左"
+            },
+            {
+              "value": "right",
+              "key": "靠右"
+            },
+            {
+              "value": "bottom",
+              "key": "靠下"
+            }
+          ]
+        },
+        {
+          "name": "bg",
+          "tip": "背景 可以是颜色，图片，或drawable资源等",
+          "opt": [
+            { "value": "./" },
+            { "value": "/sdcard/" }
+          ]
+        },
+        {
+          "name": "visibility",
+          "tip": "控件是否可见",
+          "opt": [
+            {
+              "value": "gone",
+              "key": "不显示且不占空间"
+            },
+            {
+              "value": "visible",
+              "key": "显示且占空间"
+            },
+            {
+              "value": "invisible",
+              "key": "不显示但占空间"
+            }
+          ]
+        },
+        {
+          "name": "typeface",
+          "tip": "字体",
+          "opt": [
+            { "value": "normal" },
+            { "value": "sans" },
+            { "value": "serif" },
+            { "value": "monospace" }
+          ]
+        },
+        {
+          "name": "ellipsize",
+          "opt": [
+            { "value": "end" },
+            { "value": "marquee" },
+            { "value": "middle" },
+            { "value": "none" },
+            { "value": "start" }
+          ]
+        },
+        {
+          "name": "autoLink",
+          "opt": [
+            { "value": "all" },
+            { "value": "email" },
+            { "value": "map" },
+            { "value": "none" },
+            { "value": "phone" },
+            { "value": "web" }
+          ]
+        },
+        {
+          "name": "inputType",
+          "tip": "输入类型 详情见文档",
+          "opt": [
+            { "value": "date" },
+            { "value": "datetime" },
+            { "value": "none" },
+            { "value": "number" },
+            { "value": "numberDecimal" },
+            { "value": "numberPassword" },
+            { "value": "numberSigned" },
+            { "value": "phone" },
+            { "value": "text" },
+            { "value": "textAutoCorrect" },
+            { "value": "textPassword" },
+            { "value": "textUri" },
+            { "value": "textVisiblePassword" },
+            { "value": "time" }
+          ]
+        },
+        {
+          "name": "password",
+          "tip": "设置为true后内部文字会显示成*",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "numeric",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "phoneNumber",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "singleLine",
+          "tip": "仅有一行",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "src",
+          "tip": "资源路径",
+          "opt": [
+            {
+              "value": "http",
+              "key": "//"
+            },
+            {
+              "value": "file",
+              "key": "//"
+            },
+            {
+              "value": "data",
+              "key": "image/png;base64,"
+            }
+          ]
+        },
+        {
+          "name": "scaleType",
+          "tip": "图片适应方式 详情见文档",
+          "opt": [
+            { "value": "center" },
+            { "value": "centerCrop" },
+            { "value": "centerInside" },
+            { "value": "fitCenter" },
+            { "value": "fitEnd" },
+            { "value": "fitStart" },
+            { "value": "fitXY" },
+            { "value": "matrix" }
+          ]
+        },
+        {
+          "name": "checked",
+          "tip": "是否选中",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "indeterminate",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        },
+        {
+          "name": "circle",
+          "opt": [
+            { "value": "true" },
+            { "value": "false" }
+          ]
+        }
+      ]
+    }
+  }
