@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>YourSpace - BLogic</title>
-    <link rel="icon" href="../media/logo.ico" type="image/x-icon" />
-    <link rel="stylesheet" type="text/css" href="./css/space.css">
-    <link rel="stylesheet" type="text/css" href="./css/uieditor.css">
-    <link rel="stylesheet" type="text/css" href="./css/drawer.css">
-    <link rel="stylesheet" type="text/css" href="./css/btn.css">
-    <link rel="stylesheet" type="text/css" href="./css/scrollbar.css">
-    <link rel="stylesheet" type="text/css" href="../third-party/iconfont/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="../third-party/metro-style/metro_style.css">
+    <link rel="icon" href="media/logo.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="app/css/space.css">
+    <link rel="stylesheet" type="text/css" href="app/css/uieditor.css">
+    <link rel="stylesheet" type="text/css" href="app/css/drawer.css">
+    <link rel="stylesheet" type="text/css" href="app/css/btn.css">
+    <link rel="stylesheet" type="text/css" href="app/css/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="third-party/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="third-party/metro-style/metro_style.css">
 </head>
 <body onbeforeunload="askOnLeave()">
 <div class="root">
 
 <div class="head-line">
     <div>
-        <img src="../media/logo.png"/>
+        <img src="media/logo.png"/>
         <h1 onclick="window.open('index')">B-Logic</h1>
         <a target="view_window" href="/index#contact">联系我们</a>
         <a target="view_window" href="/index">我的</a>
@@ -185,27 +185,27 @@
     </div>
 </script>
 
-<script src="./blockly/blockly_compressed.js"></script>
-<script src="./blockly/blocks_compressed.js"></script>
-<script src="./blockly/javascript_compressed.js"></script>
-<script src="./blockly/msg/js/zh-hans.js"></script>
+<script src="app/blockly/blockly_compressed.js"></script>
+<script src="app/blockly/blocks_compressed.js"></script>
+<script src="app/blockly/javascript_compressed.js"></script>
+<script src="app/blockly/msg/js/zh-hans.js"></script>
 
-<script src="../third-party/require/require.js"></script>
-<script src="../third-party/jquery/jquery.main.min.js"></script>
+<script src="third-party/require/require.js"></script>
+<script src="third-party/jquery/jquery.main.min.js"></script>
 
-<script src="./js/utils/string_utils.js"></script>
-<script src="./js/utils/code_utils.js"></script>
-<script src="./js/utils/view_utils.js"></script>
-<script src="./js/utils/ace_utils.js"></script>
-<script src="./js/utils/follow_utils.js"></script>
+<script src="app/js/utils/string_utils.js"></script>
+<script src="app/js/utils/code_utils.js"></script>
+<script src="app/js/utils/view_utils.js"></script>
+<script src="app/js/utils/ace_utils.js"></script>
+<script src="app/js/utils/follow_utils.js"></script>
 
-<script src="./js/modules/debug_plugin.js"></script>
-<script src="./js/modules/draw_view.js"></script>
-<script src="./js/modules/files_view.js"></script>
-<script src="./js/modules/drawer_controller.js"></script>
-<script src="./js/modules/run_online_functions.js"></script>
-<script src="./js/uieditor.js"></script>
-<script src="./js/space.js"></script>
+<script src="app/js/modules/debug_plugin.js"></script>
+<script src="app/js/modules/draw_view.js"></script>
+<script src="app/js/modules/files_view.js"></script>
+<script src="app/js/modules/drawer_controller.js"></script>
+<script src="app/js/modules/run_online_functions.js"></script>
+<script src="app/js/uieditor.js"></script>
+<script src="app/js/space.js"></script>
 
 <message>
     <Widgets>
@@ -322,7 +322,7 @@
             <opt value="bottom" key="靠下"/>
         </Attr>
         <Attr name="bg" tip="背景 可以是颜色，图片，或drawable资源等">
-            <opt value="./"/>
+            <opt value="app/"/>
             <opt value="/sdcard/"/>
         </Attr>
         <Attr name="visibility" tip="控件是否可见">
@@ -1844,7 +1844,7 @@
         <block type="$debug_dump_hprof">
             <value name="HPROF">
                 <shadow type="text">
-                    <field name="TEXT">./dump.hprof</field>
+                    <field name="TEXT">app/dump.hprof</field>
                 </shadow>
             </value>
         </block>
