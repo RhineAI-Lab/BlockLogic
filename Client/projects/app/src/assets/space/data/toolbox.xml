@@ -49,8 +49,7 @@
         <block type="logic_compare"></block>
         <block type="globals_sleep">
             <value name="VALUE">
-                <shadow type="math_number">
-                </shadow>
+                <shadow type="math_number"></shadow>
             </value>
         </block>
         <block type="var_function_wc"></block>
@@ -966,8 +965,7 @@
         </block>
         <block type="console_config_file_pattern">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
     </category>
@@ -1055,8 +1053,7 @@
     <category name="Globals">
         <block type="globals_sleep">
             <value name="VALUE">
-                <shadow type="math_number">
-                </shadow>
+                <shadow type="math_number"></shadow>
             </value>
         </block>
         <block type="globals_current_package"></block>
@@ -1094,33 +1091,28 @@
         </block>
 
         <block type="globals_random_float"></block>
-        <block type="globals_requires_api">
-        </block>
+        <block type="globals_requires_api"></block>
         <block type="globals_requires_version">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="globals_request_permissions"></block>
         <block type="globals_load_jar">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="globals_load_dex">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
     </category>
     <category name="Storages">
         <block type="storages_create">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="storages_get">
@@ -1130,8 +1122,7 @@
                 </block>
             </value>
             <value name="KEY">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="storages_put">
@@ -1141,8 +1132,7 @@
                 </block>
             </value>
             <value name="KEY">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="storages_remove">
@@ -1152,8 +1142,7 @@
                 </block>
             </value>
             <value name="KEY">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="storages_contains">
@@ -1163,8 +1152,7 @@
                 </block>
             </value>
             <value name="KEY">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="storages_clear">
@@ -1457,8 +1445,7 @@
         <block type="intent_send_broadcast"></block>
         <block type="intent_start_service"></block>
         <block type="intent_send_broadcast_by_name"></block>
-        <block type="intent_intent_to_shell">
-        </block>
+        <block type="intent_intent_to_shell"></block>
         <block type="intent_parse_uri">
             <value name="URI">
                 <shadow type="text">
@@ -1573,8 +1560,7 @@
         </value>
         <block type="globals_sleep">
             <value name="VALUE">
-                <shadow type="math_number">
-                </shadow>
+                <shadow type="math_number"></shadow>
             </value>
         </block>
         <block type="console_output">
@@ -1609,14 +1595,12 @@
         <block type="globals_request_permissions"></block>
         <block type="globals_load_jar">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
         <block type="globals_load_dex">
             <value name="VALUE">
-                <shadow type="text">
-                </shadow>
+                <shadow type="text"></shadow>
             </value>
         </block>
     </category>
