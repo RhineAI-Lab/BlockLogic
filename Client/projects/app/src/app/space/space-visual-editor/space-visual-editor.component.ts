@@ -1,3 +1,5 @@
+import './blocks';
+
 import { Component, OnInit } from '@angular/core';
 import { NgxBlocklyConfig } from 'ngx-blockly';
 
