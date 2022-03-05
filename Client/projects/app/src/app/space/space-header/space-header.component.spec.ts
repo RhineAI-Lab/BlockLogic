@@ -8,9 +8,8 @@ describe('SpaceHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceHeaderComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceHeaderComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
