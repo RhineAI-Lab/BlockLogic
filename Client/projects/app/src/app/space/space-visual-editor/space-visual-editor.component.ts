@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import * as ZH from 'blockly/msg/zh-hans';
 import { NgxBlocklyConfig } from 'ngx-blockly';
-import { Blockly } from 'ngx-blockly';
+import { Blockly, NgxBlocklyGenerator } from 'ngx-blockly';
 
 Blockly.setLocale(ZH);
 
@@ -39,6 +39,7 @@ export class SpaceVisualEditorComponent implements OnInit {
               scaleSpeed: 1.2,
             },
             toolbox: xmlText,
+            generators: [NgxBlocklyGenerator.JAVASCRIPT],
           }),
       );
   }
