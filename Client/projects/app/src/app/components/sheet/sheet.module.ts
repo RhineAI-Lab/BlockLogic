@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
-import { SheetComponent } from './sheet.component';
+import { SheetComponent } from './sheet/sheet.component';
 
 @NgModule({
   declarations: [SheetComponent],
