@@ -1,5 +1,6 @@
 import './blocks';
 
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxBlocklyConfig } from 'ngx-blockly';
 
@@ -9,24 +10,32 @@ import { NgxBlocklyConfig } from 'ngx-blockly';
   styleUrls: ['./space-visual-editor.component.less'],
 })
 export class SpaceVisualEditorComponent implements OnInit {
-  config: NgxBlocklyConfig = {
-    grid: {
-      spacing: 20,
-      length: 6,
-      colour: '#ddd',
-      snap: true,
-    },
-    zoom: {
-      controls: true,
-      wheel: true,
-      startScale: 1.0,
-      maxScale: 2,
-      minScale: 0.5,
-      scaleSpeed: 1.2,
-    },
-  };
+  config?: NgxBlocklyConfig;
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.httpClient
+      .get('assets/space/data/toolbox.xml', { responseType: 'text' })
+      .subscribe(
+        (xmlText) =>
+          (this.config = {
+            grid: {
+              spacing: 20,
+              length: 6,
+              colour: '#ddd',
+              snap: true,
+            },
+            zoom: {
+              controls: true,
+              wheel: true,
+              startScale: 1.0,
+              maxScale: 2,
+              minScale: 0.5,
+              scaleSpeed: 1.2,
+            },
+            toolbox: xmlText,
+          }),
+      );
+  }
 }
