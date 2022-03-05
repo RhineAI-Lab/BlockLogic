@@ -1,13 +1,19 @@
-export const html = `
-<link rel="stylesheet" type="text/css" href="assets/space/css/space.css">
-<link rel="stylesheet" type="text/css" href="assets/space/css/uieditor.css">
-<link rel="stylesheet" type="text/css" href="assets/space/css/drawer.css">
-<link rel="stylesheet" type="text/css" href="assets/space/css/btn.css">
-<link rel="stylesheet" type="text/css" href="assets/space/css/scrollbar.css">
-<link rel="stylesheet" type="text/css" href="assets/third-party/iconfont/iconfont.css">
-<link rel="stylesheet" type="text/css" href="assets/third-party/metro-style/metro_style.css">
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/assets/space/css/space.css">
+    <link rel="stylesheet" type="text/css" href="/assets/space/css/uieditor.css">
+    <link rel="stylesheet" type="text/css" href="/assets/space/css/drawer.css">
+    <link rel="stylesheet" type="text/css" href="/assets/space/css/btn.css">
+    <link rel="stylesheet" type="text/css" href="/assets/space/css/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="/assets/third-party/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/assets/third-party/metro-style/metro_style.css">
+</head>
 
-<div id="app">
+<body onbeforeunload="askOnLeave()">
+
+<div class="root">
 
 <div class="tool-bar" id="toolbar">
   <button  class="tool-btn btn-3">
@@ -165,27 +171,27 @@ export const html = `
     </div>
 </script>
 
-<script src="assets/space/js/blockly/blockly_compressed.js"></script>
-<script src="assets/space/js/blockly/blocks_compressed.js"></script>
-<script src="assets/space/js/blockly/javascript_compressed.js"></script>
-<script src="assets/space/js/blockly/zh-hans.js"></script>
+<script src="/assets/space/js/blockly/blockly_compressed.js"></script>
+<script src="/assets/space/js/blockly/blocks_compressed.js"></script>
+<script src="/assets/space/js/blockly/javascript_compressed.js"></script>
+<script src="/assets/space/js/blockly/zh-hans.js"></script>
 
-<script src="assets/third-party/require/require.js"></script>
-<script src="assets/third-party/jquery/jquery.main.min.js"></script>
+<script src="/assets/third-party/require/require.js"></script>
+<script src="/assets/third-party/jquery/jquery.main.min.js"></script>
 
-<script src="assets/space/js/utils/string_utils.js"></script>
-<script src="assets/space/js/utils/code_utils.js"></script>
-<script src="assets/space/js/utils/view_utils.js"></script>
-<script src="assets/space/js/utils/ace_utils.js"></script>
-<script src="assets/space/js/utils/follow_utils.js"></script>
+<script src="/assets/space/js/utils/string_utils.js"></script>
+<script src="/assets/space/js/utils/code_utils.js"></script>
+<script src="/assets/space/js/utils/view_utils.js"></script>
+<script src="/assets/space/js/utils/ace_utils.js"></script>
+<script src="/assets/space/js/utils/follow_utils.js"></script>
 
-<script src="assets/space/js/modules/debug_plugin.js"></script>
-<script src="assets/space/js/modules/draw_view.js"></script>
-<script src="assets/space/js/modules/files_view.js"></script>
-<script src="assets/space/js/modules/drawer_controller.js"></script>
-<script src="assets/space/js/modules/run_online_functions.js"></script>
-<script src="assets/space/js/uieditor.js"></script>
-<script src="assets/space/js/space.js"></script>
+<script src="/assets/space/js/modules/debug_plugin.js"></script>
+<script src="/assets/space/js/modules/draw_view.js"></script>
+<script src="/assets/space/js/modules/files_view.js"></script>
+<script src="/assets/space/js/modules/drawer_controller.js"></script>
+<script src="/assets/space/js/modules/run_online_functions.js"></script>
+<script src="/assets/space/js/uieditor.js"></script>
+<script src="/assets/space/js/space.js"></script>
 
 <message>
     <Widgets>
@@ -1965,7 +1971,6 @@ export const html = `
                 <field name="TEXT">true</field>
             </shadow>
         </value>
-        </block>
         <block type="globals_sleep">
             <value name="VALUE">
                 <shadow type="math_number">
@@ -2080,4 +2085,5 @@ export const html = `
         <block type="ui_btn_on_click"></block>
     </category>
 </xml>
-`;
+</body>
+</html>

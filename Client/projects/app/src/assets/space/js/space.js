@@ -62,10 +62,10 @@ require.config({
     baseUrl:'',
     waitSeconds: 1000,
     paths : {
-        "ace" : "assets/third-party/ace/ace",
-        "vue" : "assets/third-party/vue/vue.min",
-        "esprima" : "assets/third-party/esprima/esprima.min",
-        "ztree" : "assets/third-party/jquery/jquery.ztree.all.min"
+        "ace" : "/assets/third-party/ace/ace",
+        "vue" : "/assets/third-party/vue/vue.min",
+        "esprima" : "/assets/third-party/esprima/esprima.min",
+        "ztree" : "/assets/third-party/jquery/jquery.ztree.all.min"
     }
 });
 

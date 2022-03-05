@@ -1,19 +1,19 @@
 
-#app ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 10px;
     height: 10px;
 }
 
-#app ::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb {
     background-color: #ccc;
     border-radius: 5px;
 }
 
-#app ::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover{
     background-color: #bbb;
 }
 
-#app ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     background: #ff000000;
 }

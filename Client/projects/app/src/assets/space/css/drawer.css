@@ -1,5 +1,5 @@
 
-#app .dc{
+.dc{
     display: block;
     position: absolute;
     top: 0;
@@ -8,36 +8,36 @@
     right: 0;
 }
 
-#app .dc-list{
+.dc-list{
     display: inline-block;
     width: 24px;
     position: absolute;
     top: 0;
     bottom: 0;
 }
-#app .dc-list-left{
+.dc-list-left{
     left: 0;
     border-right: solid 1px #BBB;
 }
-#app .dc-list-right{
+.dc-list-right{
     right: 0;
     border-left: solid 1px #BBB;
 }
-#app .dc-list-inner{
+.dc-list-inner{
 
 }
 
-#app .dc-btn{
+.dc-btn{
     position: relative;
     width: 24px;
     min-height: 80px;
     background: #FFF;
     margin-bottom: 1px;
 }
-#app .dc-btn:hover{
+.dc-btn:hover{
     cursor: pointer;
 }
-#app .dc-btn-text{
+.dc-btn-text{
     height: 24px;
     line-height: 24px;
     vertical-align: middle;
@@ -47,31 +47,31 @@
     font-size: 13px;
     color: #111;
 }
-#app .dc-btn-icon{
+.dc-btn-icon{
     position: absolute;
     width: 20px;
     height: 20px;
     margin: 2px;
 }
-#app .dc-btn-text-left{
+.dc-btn-text-left{
     bottom: 40px;
     transform:rotate(-90deg);
     transform-origin: 12px 12px;
 }
-#app .dc-btn-icon-left{
+.dc-btn-icon-left{
     bottom: 14px;
 }
-#app .dc-btn-text-right{
+.dc-btn-text-right{
     top: 40px;
     transform:rotate(90deg);
     transform-origin: 12px 12px;
 }
-#app .dc-btn-icon-right{
+.dc-btn-icon-right{
     top: 14px;
 }
 
 
-#app .dc-flex{
+.dc-flex{
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
@@ -84,27 +84,27 @@
     overflow: hidden;
 }
 
-#app .dc-drawers{
+.dc-drawers{
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
 }
-#app .dc-drawers-left{
+.dc-drawers-left{
 }
-#app .dc-drawers-right{
+.dc-drawers-right{
 }
 
-#app .dc-main{
+.dc-main{
     display: inline-block;
     flex-grow: 1;
 }
 
-#app .drawer-root{
+.drawer-root{
     display: inline-block;
     height: 100%;
     position: relative;
 }
-#app .drawer-main{
+.drawer-main{
     display: inline-block;
     position: absolute;
     top: 0;
@@ -113,7 +113,7 @@
     right: 0;
     overflow: hidden;
 }
-#app .drawer-head{
+.drawer-head{
     display: block;
     height: 28px;
     border-bottom: solid 1px #CCC;
@@ -121,13 +121,13 @@
     left: 0;
     right: 0;
 }
-#app .drawer-icon{
+.drawer-icon{
     width: 20px;
     height: 20px;
     margin: 4px 6px;
     color: #555;
 }
-#app .drawer-title{
+.drawer-title{
     display: inline-block;
     height: 27px;
     line-height: 27px;
@@ -136,7 +136,7 @@
     font-size: 13px;
     color: #111;
 }
-#app .drawer-hide-btn-holder{
+.drawer-hide-btn-holder{
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -145,10 +145,10 @@
     top: 2px;
     border-radius: 2px;
 }
-#app .drawer-hide-btn-holder:hover{
+.drawer-hide-btn-holder:hover{
     cursor: pointer;
 }
-#app .drawer-hide-btn{
+.drawer-hide-btn{
     width: 20px;
     height: 20px;
     position: absolute;
@@ -156,10 +156,10 @@
     left: 2px;
     color: #333;
 }
-#app .drawer-hide-btn-holder:hover{
+.drawer-hide-btn-holder:hover{
     background: #DDD;
 }
-#app .drawer-body{
+.drawer-body{
     display: block;
     position: absolute;
     top: 29px;
@@ -168,12 +168,12 @@
     right: 0;
 }
 
-#app .vertical-line{
+.vertical-line{
     display: inline-block;
     width: 1px;
     height: 100%;
 }
-#app .horizontal-line{
+.horizontal-line{
     display: block;
     height: 1px;
     width: 100%;
