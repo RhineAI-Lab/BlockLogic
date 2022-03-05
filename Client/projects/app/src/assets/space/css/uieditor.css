@@ -1,5 +1,5 @@
 
-#app .ui-workspace{
+.ui-workspace{
     width: 100%;
     display: flex;
     justify-content:space-between;
@@ -10,41 +10,41 @@
     right: 0;
 }
 
-#app .drawer{
+.drawer{
     min-width: 180px;
     height: 100%;
     display: inline-block;
     position: relative;
 }
-#app .layer-inner{
+.layer-inner{
     height: 100%;
     display: inline-flex;
     flex-grow: 1;
 }
-#app .new-space{
+.new-space{
     width: 100%;
 }
-#app .tree-space{
+.tree-space{
     width: 100%;
     padding-right: 3px;
     left: 0;
     overflow: auto;
 }
-#app .code-space{
+.code-space{
     width: 600px;
     right: 0;
 }
-#app .attr-space{
+.attr-space{
     width: 100%;
     right: 0;
 }
-#app .preview-space{
+.preview-space{
     min-width: 200px;
     width: 100%;
     right: 0;
 }
 
-#app .structure-space{
+.structure-space{
     width: 100%;
     height: 100%;
     flex-grow: 1;
@@ -52,7 +52,7 @@
     overflow-y: auto;
 }
 
-#app .temp-text{
+.temp-text{
     width: 100%;
     height: 100%;
     font-size: 3em;
@@ -60,18 +60,18 @@
     color: #aaa;
 }
 
-#app .select-box{
+.select-box{
     height: 100%;
 }
-#app .select-input{
+.select-input{
     height: 100%;
     margin-left: 4px;
 }
-#app .btn--2{
+.btn--2{
     margin-left: -2px;
 }
 
-#app .select-list{
+.select-list{
     margin-top: -2px;
     margin-left: 2px;
     margin-right: 50px;
@@ -79,7 +79,7 @@
     position: relative;
     border: 1px solid #aaa;
 }
-#app .select-item{
+.select-item{
     width: auto;
     font-size: 14px;
     padding: 4px;
@@ -88,17 +88,17 @@
     background: #eee;
     color: #111;
 }
-#app .select-item:hover{
+.select-item:hover{
     background: #347d74;
     color: #fff;
 }
 
-#app .structure-show{
+.structure-show{
     max-width: 600px;
     margin: 0 8px;
 }
 
-#app .structure-box{
+.structure-box{
     user-select: none;
     margin: 5px;
     padding: 5px;
@@ -108,43 +108,43 @@
     border-radius: 3px;
     overflow: hidden;
 }
-#app .structure-title{
+.structure-title{
     display: inline-block;
     user-select: none;
     font-size: 16px;
     margin: 3px;
     color: #444;
 }
-#app .structure-msg{
+.structure-msg{
     user-select: none;
     font-size: 12px;
     margin: 2px 1px;
     color: #555;
 }
-#app .structure-split{
+.structure-split{
     height: 1px;
     margin: 4px -2px;
     background: #999;
 }
-#app .structure-icon{
+.structure-icon{
     display: inline-block;
     font-size: 18px;
     color: #666;
 }
 
-#app .tree-box{
+.tree-box{
     user-select: none;
     width: auto;
     overflow: hidden;
 }
-#app .tree-title-box{
+.tree-title-box{
     width: auto;
     height: 24px;
     display: block;
     padding: 1px;
     border: 0 solid #11ae62;
 }
-#app .tree-title{
+.tree-title{
     width: auto;
     height: 20px;
     display: inline-block;
@@ -154,100 +154,100 @@
     vertical-align:middle;
     color: #444;
 }
-#app .tree-icon{
+.tree-icon{
     color: #777;
 }
-#app .tree-swi{
+.tree-swi{
     color: #444;
 }
 
-#app .new-show{
+.new-show{
     height: 100%;
     width: 100%;
     overflow-y: auto;
 }
-#app .new-box{
+.new-box{
     width: 100%;
     user-select: none;
     border-bottom: 1px solid #bbb;
 }
-#app .new-title-box{
+.new-title-box{
     padding: 4px 5px;
     background: #fff;
     white-space: nowrap;
 }
-#app .new-title-box:hover{
+.new-title-box:hover{
     background: #e2e2e2;
 }
-#app .new-title{
+.new-title{
     display: inline-block;
     font-size: 15px;
     font-weight: 600;
     color: #444;
 }
-#app .new-swi{
+.new-swi{
     display: inline-block;
     font-size: 16px;
     color: #666;
 }
-#app .new-items-holder{
+.new-items-holder{
     overflow: hidden;
 }
-#app .new-item-box{
+.new-item-box{
     padding: 4px 6px 4px 20px;
     background: #fff;
     border-top: 1px solid #ddd;
     white-space: normal;
 }
-#app .new-item-box:hover{
+.new-item-box:hover{
     background: #e2e2e2;
 }
-#app .new-item-icon{
+.new-item-icon{
     font-size: 16px;
     color: #555;
 }
-#app .new-item-title{
+.new-item-title{
     display: inline-block;
     font-size: 16px;
     color: #444;
     margin-left: 2px;
 }
-#app .new-item-exp{
+.new-item-exp{
     font-size: 10px;
     color: #777;
     margin-left: 5px;
     white-space: nowrap;
 }
-#app .new-item-msg{
+.new-item-msg{
     font-size: 12px;
     color: #555;
 }
 
-#app .attr-show{
+.attr-show{
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
 }
-#app .attr-items-holder{
+.attr-items-holder{
     padding-left: 3px;
     overflow: visible;
 }
-#app .attr-title-box{
+.attr-title-box{
     padding: 4px 5px;
     background: #fff;
     white-space: nowrap;
     border-bottom: 1px solid #bbb;
     margin-bottom: -1px;
 }
-#app .attr-title-box:hover{
+.attr-title-box:hover{
     background: #e2e2e2;
 }
-#app .attr-line{
+.attr-line{
     height: 25px;
     margin: 4px 4px;
     white-space: nowrap;
 }
-#app .attr-name{
+.attr-name{
     width: 36%;
     height: 25px;
     line-height: 25px;
@@ -258,13 +258,13 @@
     display: inline-block;
 }
 
-#app .dropdown{
+.dropdown{
     width: 60%;
     height: 25px;
     line-height: 25px;
     display: inline-block;
 }
-#app .dropdown-input {
+.dropdown-input {
     width: 100%;
     height: 20px;
     vertical-align: middle;
@@ -274,10 +274,10 @@
     border: solid #ddd 2px;
     border-radius: 2px;
 }
-#app .dropdown-input:focus{
+.dropdown-input:focus{
     border: solid #98d7a2 3px;
 }
-#app .dropdown-content {
+.dropdown-content {
     position: relative;
     background-color: #fff;
     max-height: 15em;
@@ -288,7 +288,7 @@
     overflow: auto;
     z-index: 1;
 }
-#app .dropdown-item {
+.dropdown-item {
     font-size: .9em;
     line-height: 1em;
     padding: 8px;
@@ -296,11 +296,11 @@
     display: block;
     cursor: pointer;
 }
-#app .dropdown-item:hover{
+.dropdown-item:hover{
     background-color: #e0e3da;
 }
 
-#app .follow-box{
+.follow-box{
     min-width: 40px;
     position: absolute;
     visibility: hidden;
@@ -313,20 +313,20 @@
     padding: 3px;
 }
 
-#app .follow-title{
+.follow-title{
     font-size: 14px;
     color: #555
 }
-#app .follow-msg{
+.follow-msg{
     font-size: 12px;
     color: #555
 }
-#app .follow-split{
+.follow-split{
     height: 1px;
     margin: 2px 0;
 }
 
-#app .move-tip{
+.move-tip{
     position: absolute;
     visibility: hidden;
     z-index: 100;
@@ -338,7 +338,7 @@
     border-width: 1px;
 }
 
-#app .temp{
+.temp{
     visibility: hidden;
 }
 

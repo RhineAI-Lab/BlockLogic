@@ -1,18 +1,10 @@
-#app {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-}
-
-#app *{
+*{
     margin:0;
     padding:0;
     list-style:none;
     outline: none;
 }
-#app html,body{
+html,body{
     width:100%;
     height:100%;
     font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
@@ -21,59 +13,59 @@
     text-overflow: ellipsis;
 }
 
-#app body{
+body{
     min-width: 1080px;
 }
-#app a{
+a{
     text-decoration:none
 }
 
-#app .root{
-    position: absolute;
-    width: 100%;
+.root{
+    display: flex;
+    flex-direction: column;
     height: 100%;
     min-width: 1080px;
     overflow: hidden;
 }
 
-#app .main{
+.main{
     min-width: 1000px;
     height: 0;
     flex-grow: 1;
     position: relative;
 }
 
-#app .head-line{
+.head-line{
     min-width: 1000px;
     background-color: #212529;
     height: 54px;
 }
-#app .head-line div{
+.head-line div{
     height: 100%;
     max-width: 1000px;
     margin:0 auto
 }
-#app .head-line a{
+.head-line a{
     float: right;
     padding: 18px 13px;
     font-size: 15px;
     line-height: 18px;
     color: #ddd;
 }
-#app .head-line a:hover{
+.head-line a:hover{
     background: #00A86B;
     cursor:pointer;
 }
-#app .head-line h1{
+.head-line h1{
     color: #e5e5e5;
     margin-right: 1em;
     margin-top: 8px;
     float: left;
 }
-#app .head-line h1:hover{
+.head-line h1:hover{
     cursor: pointer;
 }
-#app .head-line img{
+.head-line img{
     width: 32px;
     height: 32px;
     float: left;
@@ -81,7 +73,7 @@
     margin-left: 1em;
     margin-right: 6px;
 }
-#app .upload-input {
+.upload-input {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -89,7 +81,7 @@
     top: 0;
     opacity: 0;
 }
-#app .tool-bar{
+.tool-bar{
     display: flex;
     width: 100%;
     min-width: 1000px;
@@ -97,7 +89,7 @@
     border-bottom:1px solid #BBB;
     align-items:center;
 }
-#app .tool-btn{
+.tool-btn{
     color: #222;
     width: auto;
     height: 32px;
@@ -114,17 +106,17 @@
     position: relative;
     display: inline-block;
 }
-#app .tool-btn-m0{
+.tool-btn-m0{
     margin: 0;
 }
-#app .tool-middle{
+.tool-middle{
     height: 0;
     flex-grow: 1;
 }
-#app .tool-space{
+.tool-space{
     width: 3px;
 }
-#app .tool-input{
+.tool-input{
     padding: 0 10px;
     border: 2px solid #555;
     color: #444;
@@ -136,7 +128,7 @@
     transition-delay: 0s;
     transition-property: all;
 }
-#app .tool-check{
+.tool-check{
     color: #222;
     width: auto;
     height: 28px;
@@ -153,43 +145,43 @@
     transition: all 0.3s ease;
     position: relative;
 }
-#app .tool-input:focus{
+.tool-input:focus{
     border: 2px solid #333;
 }
-#app .tool-select{
+.tool-select{
     height: 28px;
     border: 2px solid #444;
     border-radius: 3px;
     font-family: 'Lato', sans-serif;
     font-weight: 500;
 }
-#app .tool-option{
+.tool-option{
     font-family: 'Lato', sans-serif;
     font-weight: 500;
     background: #FFF;
 }
-#app .tool-option:hover{
+.tool-option:hover{
     background: #00A86B;
 }
 
-#app .logic-btns-box{
+.logic-btns-box{
     display: inline-block;
     width: auto;
     height: 100%;
     white-space: nowrap;
     overflow: hidden;
 }
-#app .ui-target-selector{
+.ui-target-selector{
     display: none;
 }
 
-#app .status-bar{
+.status-bar{
     display: block;
     height: 24px;
     border-top: solid 1px #BBB;
     border-bottom: solid 1px #BBB;
 }
-#app .status-tip{
+.status-tip{
     height: 24px;
     line-height: 24px;
     margin: 0 6px;
@@ -198,14 +190,14 @@
     font-size: 14px;
     color: #222;
 }
-#app .left-tip{
+.left-tip{
     left: 0;
 }
-#app .right-tip{
+.right-tip{
     right: 0;
 }
 
-#app .work-space{
+.work-space{
     width: 100%;
     display: flex;
     justify-content:space-between;
@@ -216,13 +208,13 @@
     right: 0;
 }
 
-#app .vertical-split-line{
+.vertical-split-line{
     display: inline-block;
     width: 1px;
     height: 100%;
     background: #BBB;
 }
-#app .vertical-split-line:before{
+.vertical-split-line:before{
     display: block;
     width: 7px;
     height: 100%;
@@ -231,11 +223,11 @@
     margin: 0 -3px;
     content: '';
 }
-#app .vertical-split-line:hover{
+.vertical-split-line:hover{
     cursor: ew-resize;
 }
 
-#app .left-more::before {
+.left-more::before {
     content: '';
     position: absolute;
     top: 0;
@@ -243,7 +235,7 @@
     bottom: 0;
     left: -5px;
 }
-#app .right-more::before {
+.right-more::before {
     content: '';
     position: absolute;
     top: 0;
@@ -251,7 +243,7 @@
     bottom: 0;
     left: 0;
 }
-#app .horizontal-split-line::before {
+.horizontal-split-line::before {
     content: '';
     position: absolute;
     top: -4px;
@@ -260,46 +252,46 @@
     left: 0;
 }
 
-#app .stack-right{
+.stack-right{
     position: absolute;
     top: 0;
     bottom: 0;
     right: 0;
 }
-#app .stack-left{
+.stack-left{
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
 }
 
-#app .directory-space{
+.directory-space{
     position: relative;
     width: 100%;
     height: 100%;
     overflow-y:auto;
     overflow-x: auto;
 }
-#app .work-space-core{
+.work-space-core{
     display: flex;
     position: relative;
     flex-grow: 1;
     white-space: nowrap;
 }
-#app .editor-space{
+.editor-space{
     display: inline-block;
     position: relative;
     height: 100%;
     width: 500px;
 }
-#app .console-space{
+.console-space{
     position: relative;
     width: 100%;
     height: 100%;
     font-size: 14px;
     overflow-y: auto;
 }
-#app .side-bar{
+.side-bar{
     width: 240px;
     height: 100%;
     color: #324a5b;
@@ -308,29 +300,29 @@
     overflow:auto;
     float: left;
 }
-#app .draw-space{
+.draw-space{
     flex-grow: 1;
     height: 100%;
 }
-#app .logic-mode{
+.logic-mode{
     display: block;
     width: 100%;
     height: 100%;
 }
-#app .ui-mode{
+.ui-mode{
     display: none;
     width: 100%;
     height: 100%;
 }
-#app .draw-holder{
+.draw-holder{
     width: 100%;
     height: 100%;
 }
-#app .draw{
+.draw{
     width: 100%;
     height: 100%;
 }
-#app .console-item{
+.console-item{
     height: auto;
     width: auto;
     padding: 4px 12px;
@@ -339,33 +331,33 @@
     color: #444;
     white-space: normal;
 }
-#app .console-item:hover{
+.console-item:hover{
     background: #DFD;
 }
 
-#app .editor{
+.editor{
     width: 100%;
     height: 100%;
 }
 
-#app .side-bar h1{
+.side-bar h1{
     margin: 20px auto 0;
     font-size: 1.6rem;
     font-weight: 300;
     text-align: center;
     color: black;
 }
-#app .side-bar h1 a{
+.side-bar h1 a{
     text-decoration:none;
     color: #324a5b;
 }
-#app .side-bar h2{
+.side-bar h2{
     margin: 0 auto 10px;
     font-size: 1rem;
     font-weight: 200;
     text-align: center;
 }
-#app .first-title{
+.first-title{
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     display: block;
@@ -374,25 +366,25 @@
     cursor:pointer;
     color: #324a5b;
 }
-#app .first-title:hover{
+.first-title:hover{
     background-color: #DFD;
 }
-#app .second-item{
+.second-item{
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     display: block;
     padding-left: 26px;
 }
-#app .second-item:hover{
+.second-item:hover{
     background-color: #DFD;
     color: black;
     cursor:pointer;
 }
-#app .second-item span{
+.second-item span{
     display: inline-block;
     vertical-align:middle;
 }
-#app .icon{
+.icon{
     display: inline-block;
     vertical-align:middle;
     width: 7.4px;
@@ -407,7 +399,7 @@
     transition-property: all
 }
 
-#app .editor-container{
+.editor-container{
     display: flex;
     width: 100%;
     height: 100%;
