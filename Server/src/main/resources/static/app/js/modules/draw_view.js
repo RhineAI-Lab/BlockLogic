@@ -116,6 +116,7 @@ DrawSpace.init = function (blocklyId,toolboxId) {
 
     DrawSpace.workspace = Blockly.inject(blocklyId,{
         toolbox: toolbox,
+        media: "app/blockly/media/",
         grid: {
             spacing: 20,
             length: 6,
