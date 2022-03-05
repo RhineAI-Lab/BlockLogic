@@ -1,3 +1,11 @@
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
 #app *{
     margin:0;
     padding:0;
@@ -29,12 +37,10 @@
 }
 
 #app .main{
-    position: absolute;
     min-width: 1000px;
-    top: 105px;
-    bottom: 26px;
-    left: 0;
-    right: 0;
+    height: 0;
+    flex-grow: 1;
+    position: relative;
 }
 
 #app .head-line{
@@ -180,10 +186,6 @@
 #app .status-bar{
     display: block;
     height: 24px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     border-top: solid 1px #BBB;
     border-bottom: solid 1px #BBB;
 }
