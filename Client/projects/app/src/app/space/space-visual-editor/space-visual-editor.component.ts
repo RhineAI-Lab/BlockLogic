@@ -2,7 +2,11 @@ import './blocks';
 
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import * as ZH from 'blockly/msg/zh-hans';
 import { NgxBlocklyConfig } from 'ngx-blockly';
+import { Blockly } from 'ngx-blockly';
+
+Blockly.setLocale(ZH);
 
 @Component({
   selector: 'app-space-visual-editor',
