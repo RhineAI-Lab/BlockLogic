@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less'],
+  selector: 'app-layout-header',
+  templateUrl: './layout-header.component.html',
+  styleUrls: ['./layout-header.component.less'],
 })
-export class HeaderComponent implements OnInit {
+export class LayoutHeaderComponent implements OnInit {
   // TODO: links
   links: HeaderLink[] = [
     { text: '主页', url: '/' },

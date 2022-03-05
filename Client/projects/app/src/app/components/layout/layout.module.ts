@@ -3,11 +3,11 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
 import { SharedModule } from '../../shared/shared.module';
-import { HeaderComponent } from './header/header.component';
+import { LayoutHeaderComponent } from './layout-header/layout-header.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [LayoutHeaderComponent],
   imports: [SharedModule, NzLayoutModule, NzMenuModule],
-  exports: [HeaderComponent],
+  exports: [LayoutHeaderComponent],
 })
 export class LayoutModule {}
