@@ -24,9 +24,7 @@ export abstract class CustomBlockEnhanced implements Omit<CustomBlock, ''> {
   init(block: Blockly.Block): void {
     this.block = block;
     this.defineBlock();
-    this.block.setOnChange(function (this: any, event) {
-      this.blockInstance.onChange(event);
-    });
+    this.block.setOnChange(this.onChange.bind(this));
   }
 
   abstract defineBlock(): void;
