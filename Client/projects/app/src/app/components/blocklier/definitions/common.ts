@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Blockly, BlockMutator, Constructor, CustomBlock } from 'ngx-blockly';
 
 export const helpUrlBuilder =
@@ -6,13 +7,16 @@ export const helpUrlBuilder =
     `https://pro.autojs.org/docs/#/zh-cn/${scope}?id=${id}`;
 
 export type CodeDefinition = string | [string, number];
+export type ArgumentReader = (name: string) => string;
 
 /**
  * Better implementation of {@link CustomBlock}
  */
 export abstract class CustomBlockEnhanced implements Omit<CustomBlock, ''> {
   static use(classRefs: (new () => CustomBlockEnhanced)[]): CustomBlock[] {
-    return classRefs.map((classRef) => new classRef() as CustomBlock);
+    return classRefs.map(
+      (classRef) => new classRef() as unknown as CustomBlock,
+    );
   }
 
   abstract type: string;
@@ -34,29 +38,51 @@ export abstract class CustomBlockEnhanced implements Omit<CustomBlock, ''> {
 
   abstract defineBlock(): void;
 
-  onChange(_changeEvent: Blockly.Events.Abstract): void {}
+  onChange(changeEvent: Blockly.Events.Abstract): void {}
 
   toXML(): string {
     return `<block type="${this.type}" disabled="${this.disabled}"></block>`;
   }
 
-  toDartCode(_block: Blockly.Block): CodeDefinition {
-    throw 'not implemented';
+  toDartCode(): CodeDefinition {
+    return this.toDartCodeInternal((name) =>
+      Blockly.Dart.valueToCode(this.block, name, 0),
+    );
+  }
+  toJavaScriptCode(): CodeDefinition {
+    return this.toJavaScriptCodeInternal((name) =>
+      Blockly.JavaScript.valueToCode(this.block, name, 0),
+    );
+  }
+  toLuaCode(): CodeDefinition {
+    return this.toLuaCodeInternal((name) =>
+      Blockly.Lua.valueToCode(this.block, name, 0),
+    );
+  }
+  toPHPCode(): CodeDefinition {
+    return this.toPHPCodeInternal((name) =>
+      Blockly.PHP.valueToCode(this.block, name, 0),
+    );
+  }
+  toPythonCode(): CodeDefinition {
+    return this.toPythonCodeInternal((name) =>
+      Blockly.Python.valueToCode(this.block, name, 0),
+    );
   }
 
-  toJavaScriptCode(_block: Blockly.Block): CodeDefinition {
+  toDartCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-
-  toLuaCode(_block: Blockly.Block): CodeDefinition {
+  toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-
-  toPHPCode(_block: Blockly.Block): CodeDefinition {
+  toLuaCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-
-  toPythonCode(_block: Blockly.Block): CodeDefinition {
+  toPHPCodeInternal(arg: ArgumentReader): CodeDefinition {
+    throw 'not implemented';
+  }
+  toPythonCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
 }
