@@ -1,5 +1,4 @@
 import 'blockly/blocks'; // include default blocks
-import './app';
 import './auto';
 import './console';
 import './coordinate';

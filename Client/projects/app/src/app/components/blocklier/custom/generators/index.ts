@@ -1,5 +1,3 @@
-import './app';
-import './app';
 import './console';
 import './crypto';
 import './device';

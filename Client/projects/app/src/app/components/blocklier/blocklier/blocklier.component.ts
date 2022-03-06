@@ -2,6 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
+import {
+  AppAutojsBlock,
+  AppEditfileBlock,
+  AppGetAppNameBlock,
+  AppGetPackageNameBlock,
+  AppLaunchAppBlock,
+  AppLaunchBlock,
+  AppOpenAppSettingBlock,
+  AppOpenurlBlock,
+  AppSendEmailBlock,
+  AppStartActivityBlock,
+  AppUninstallBlock,
+  AppVersionCodeBlock,
+  AppVersionNameBlock,
+  AppViewfileBlock,
+} from '../custom/app.blocks';
 import { CustomBlockEnhanced } from '../custom/custom-block-enhanced';
 import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
 
@@ -11,7 +27,24 @@ import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit {
-  blocks = CustomBlockEnhanced.use([ListsGetBlock, ListsSetBlock]);
+  blocks = CustomBlockEnhanced.use([
+    ListsGetBlock,
+    ListsSetBlock,
+    AppVersionCodeBlock,
+    AppVersionNameBlock,
+    AppAutojsBlock,
+    AppLaunchBlock,
+    AppLaunchAppBlock,
+    AppGetPackageNameBlock,
+    AppGetAppNameBlock,
+    AppOpenAppSettingBlock,
+    AppViewfileBlock,
+    AppEditfileBlock,
+    AppUninstallBlock,
+    AppOpenurlBlock,
+    AppSendEmailBlock,
+    AppStartActivityBlock,
+  ]);
   config?: NgxBlocklyConfig;
 
   constructor(private httpClient: HttpClient) {}
