@@ -19,7 +19,6 @@ import './debug';
 import './dialog';
 import './global';
 import './index';
-import './lists';
 import './plugins';
 import './puzzle';
 import './setting';

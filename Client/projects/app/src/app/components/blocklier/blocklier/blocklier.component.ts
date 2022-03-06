@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
+import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
+
 @Component({
   selector: 'app-blocklier',
   templateUrl: './blocklier.component.html',
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit {
+  blocks = [new ListsGetBlock(), new ListsSetBlock()];
   config?: NgxBlocklyConfig;
 
   constructor(private httpClient: HttpClient) {}
@@ -33,6 +36,7 @@ export class BlocklierComponent implements OnInit {
               scaleSpeed: 1.2,
             },
             toolbox: xmlText,
+
             generators: [NgxBlocklyGenerator.JAVASCRIPT],
           }),
       );

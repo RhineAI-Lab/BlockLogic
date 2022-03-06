@@ -11,7 +11,6 @@ import './files';
 import './globals';
 import './http';
 import './intent';
-import './lists';
 import './media';
 import './plugins';
 import './power-manager';
