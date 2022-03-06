@@ -612,14 +612,14 @@
                 </value>
             </block>
             <block type="app_get_package_name">
-                <value name="PACKAGE">
+                <value name="APP_NAME">
                     <shadow type="text">
                         <field name="TEXT">QQ</field>
                     </shadow>
                 </value>
             </block>
             <block type="app_get_app_name">
-                <value name="GET">
+                <value name="PACKAGE_NAME">
                     <shadow type="text">
                         <field name="TEXT">com.tencent.mobileqq</field>
                     </shadow>
@@ -627,21 +627,21 @@
             </block>
             <block type="app_open_app_setting"></block>
             <block type="app_view_file">
-                <value name="VIEWFILE">
+                <value name="PATH">
                     <shadow type="text">
                         <field name="TEXT">/sdcard/1.txt</field>
                     </shadow>
                 </value>
             </block>
             <block type="app_edit_file">
-                <value name="EDITFILE">
+                <value name="PATH">
                     <shadow type="text">
                         <field name="TEXT">/sdcard/1.txt</field>
                     </shadow>
                 </value>
             </block>
             <block type="app_uninstall">
-                <value name="UNINSTALL">
+                <value name="PACKAGE_NAME">
                     <shadow type="text">
                         <field name="TEXT">com.tencent.mobileqq</field>
                     </shadow>
@@ -656,7 +656,7 @@
             </block>
             <block type="app_send_email"></block>
             <block type="app_start_activity">
-                <value name="ACTIVITY">
+                <value name="NAME">
                     <shadow type="text">
                         <field name="TEXT">console</field>
                     </shadow>

@@ -1,6 +1,6 @@
 import { Blockly } from 'ngx-blockly';
 
-import { helpUrlBuilder } from './common';
+import { ArgumentReader, helpUrlBuilder } from './common';
 import { CodeDefinition, CustomBlockEnhanced } from './common';
 
 const colour = '#c6a000';
@@ -20,9 +20,8 @@ export class AppVersionCodeBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): CodeDefinition {
-    const code = 'app.versionCode';
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  override toJavaScriptCodeInternal(): CodeDefinition {
+    return ['app.versionCode', 0];
   }
 }
 
@@ -41,8 +40,7 @@ export class AppVersionNameBlock extends CustomBlockEnhanced {
   }
 
   override toJavaScriptCode(): CodeDefinition {
-    const code = 'app.versionName';
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    return ['app.versionName', 0];
   }
 }
 
@@ -55,7 +53,7 @@ export class AppAutojsBlock extends CustomBlockEnhanced {
       args0: [
         {
           type: 'field_dropdown',
-          name: 'AUTO',
+          name: 'KEY',
           options: [
             ['版本号', 'versionCode'],
             ['版本名', 'versionName'],
@@ -70,15 +68,9 @@ export class AppAutojsBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'AUTO',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.autojs(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const value = arg('KEY');
+    return `app.autojs.${value};\n`;
   }
 }
 
@@ -98,15 +90,9 @@ export class AppLaunchBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'PACKAGE_NAME',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.launch(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const packageName = arg('PACKAGE_NAME');
+    return `app.launch(${packageName});\n`;
   }
 }
 
@@ -126,15 +112,9 @@ export class AppLaunchAppBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'APP_NAME',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.launchApp(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const appName = arg('APP_NAME');
+    return `app.launchApp(${appName});\n`;
   }
 }
 
@@ -146,7 +126,7 @@ export class AppGetPackageNameBlock extends CustomBlockEnhanced {
       message0: '获取应用名对应的包名 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'PACKAGE', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'APP_NAME', check: 'String' }],
       colour: colour,
       tooltip:
         '如果该找不到该应用，返回null；如果该名称对应多个应用，则只返回其中某一个的包名。。',
@@ -154,9 +134,9 @@ export class AppGetPackageNameBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): CodeDefinition {
-    const code = 'app.getPackageName';
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const appName = arg('APP_NAME');
+    return [`app.getPackageName(${appName})`, 0];
   }
 }
 
@@ -168,23 +148,16 @@ export class AppGetAppNameBlock extends CustomBlockEnhanced {
       message0: '获取包名对应的应用名 %1',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'GET', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'PACKAGE_NAME', check: 'String' }],
       colour: colour,
       tooltip: '如果该找不到该应用，返回null。',
       helpUrl: helpUrl('appgetappnamepackagename'),
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'GET',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.getAppName';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const packageName = arg('PACKAGE_NAME');
+    return `app.getAppName(${packageName})`;
   }
 }
 
@@ -215,7 +188,7 @@ export class AppViewFileBlock extends CustomBlockEnhanced {
       message0: '用其他应用查看文件 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'VIEW_FILE', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'PATH', check: 'String' }],
       colour: colour,
       tooltip:
         '文件不存在的情况由查看文件的应用处理。如果找不出可以查看该文件的应用，则抛出ActivityNotException。',
@@ -223,15 +196,9 @@ export class AppViewFileBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'VIEW_FILE',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.viewFile(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const path = arg('PATH');
+    return `app.viewFile(${path});\n`;
   }
 }
 
@@ -243,7 +210,7 @@ export class AppEditFileBlock extends CustomBlockEnhanced {
       message0: '用其他应用编辑文件 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'EDIT_FILE', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'PATH', check: 'String' }],
       colour: colour,
       tooltip:
         '文件不存在的情况由编辑文件的应用处理。如果找不出可以编辑该文件的应用，则抛出ActivityNotException。',
@@ -251,15 +218,9 @@ export class AppEditFileBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'EDIT_FILE',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.editFile(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const path = arg('PATH');
+    return `app.editFile(${path});\n`;
   }
 }
 
@@ -271,7 +232,7 @@ export class AppUninstallBlock extends CustomBlockEnhanced {
       message0: '卸载应用 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'UNINSTALL', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'PACKAGE_NAME', check: 'String' }],
       colour: colour,
       tooltip:
         '执行后会会弹出卸载应用的提示框。如果该包名的应用未安装，由应用卸载程序处理，可能弹出未找到应用的提示。',
@@ -279,15 +240,9 @@ export class AppUninstallBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'UNINSTALL',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.uninstall(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const packageName = arg('PACKAGE_NAME');
+    return `app.uninstall(${packageName});\n`;
   }
 }
 
@@ -306,15 +261,9 @@ export class AppOpenUrlBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'URL',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.openUrl(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const url = arg('URL');
+    return `app.openUrl(${url});\n`;
   }
 }
 
@@ -323,26 +272,21 @@ export class AppSendEmailBlock extends CustomBlockEnhanced {
 
   defineBlock(): void {
     this.block.jsonInit({
+      type: 'app_send_email',
       message0: '根据选项options调用邮箱应用发送邮件 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'EMAIL', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'OPTIONS', check: 'String' }], // TODO: arg type?
       colour: colour,
       tooltip:
         '如果该名称对应的应用不存在，则返回false; 否则返回true。如果该名称对应多个应用，则只启动其中某一个。',
-      helpUrl: helpUrl('aappsendemailoptions'),
+      helpUrl: helpUrl('appsendemailoptions'),
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'OPTIONS',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.sendEmail(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const options = arg('OPTIONS');
+    return `app.sendEmail(${options});\n`;
   }
 }
 
@@ -354,7 +298,7 @@ export class AppStartActivityBlock extends CustomBlockEnhanced {
       message0: '启动Auto.js界面 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'ACTIVITY', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'NAME', check: 'String' }],
       colour: colour,
       tooltip:
         '该函数在Auto.js内运行则会打开Auto.js内的界面，在打包应用中运行则会打开打包应用的相应界面。',
@@ -362,14 +306,8 @@ export class AppStartActivityBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const name_value = Blockly.JavaScript.valueToCode(
-      block,
-      'ACTIVITY',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = 'app.startActivity(' + name_value + ');\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const name = arg('NAME');
+    return `app.startActivity(${name});\n`;
   }
 }

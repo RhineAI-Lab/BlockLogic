@@ -1,6 +1,4 @@
-import { Blockly } from 'ngx-blockly';
-
-import { CodeDefinition, CustomBlockEnhanced } from './common';
+import { ArgumentReader, CodeDefinition, CustomBlockEnhanced } from './common';
 
 export class ListsGetBlock extends CustomBlockEnhanced {
   type = 'lists_get';
@@ -18,21 +16,10 @@ export class ListsGetBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const array = Blockly.JavaScript.valueToCode(
-      block,
-      'ARRAY',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const index = Blockly.JavaScript.valueToCode(
-      block,
-      'INDEX',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const code = array + '[' + index + '-1]';
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const array = arg('ARRAY');
+    const index = arg('INDEX');
+    return [`${array}[${index}-1]`, 0];
   }
 }
 
@@ -55,29 +42,10 @@ export class ListsSetBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
-    const array = Blockly.JavaScript.valueToCode(
-      block,
-      'ARRAY',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    const index = Blockly.JavaScript.valueToCode(
-      block,
-      'INDEX',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    let value = Blockly.JavaScript.valueToCode(
-      block,
-      'VALUE',
-      Blockly.JavaScript.ORDER_ATOMIC,
-      true,
-    );
-    if (value == null || value.length === 0) {
-      value = 'null';
-    }
-    const code = array + '[' + index + '-1]=' + value + ';\n';
-    return code;
+  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+    const array = arg('ARRAY');
+    const index = arg('INDEX');
+    const value = arg('VALUE') || 'null';
+    return `${array}[${index}-1] = ${value};\n`;
   }
 }
