@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NgxBlocklyModule } from 'ngx-blockly';
 
+import { BlocklierModule } from '../components/blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceComponent } from './space.component';
@@ -20,9 +20,9 @@ import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-e
     SharedModule,
     SpaceRoutingModule,
     SheetModule,
+    BlocklierModule,
     NzLayoutModule,
     NzMenuModule,
-    NgxBlocklyModule,
   ],
 })
 export class SpaceModule {}
