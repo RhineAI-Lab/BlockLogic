@@ -18,7 +18,7 @@ import {
   AppVersionNameBlock,
   AppViewfileBlock,
 } from '../custom/app.blocks';
-import { CustomBlockEnhanced } from '../custom/custom-block-enhanced';
+import { CustomBlockEnhanced } from '../custom/common';
 import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
 
 @Component({

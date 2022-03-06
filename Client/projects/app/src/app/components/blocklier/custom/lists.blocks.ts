@@ -1,6 +1,6 @@
 import { Blockly } from 'ngx-blockly';
 
-import { CodeDefinition, CustomBlockEnhanced } from './custom-block-enhanced';
+import { CodeDefinition, CustomBlockEnhanced } from './common';
 
 export class ListsGetBlock extends CustomBlockEnhanced {
   type = 'lists_get';
