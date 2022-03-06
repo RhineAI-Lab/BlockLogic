@@ -17,9 +17,9 @@ import {
   AppVersionCodeBlock,
   AppVersionNameBlock,
   AppViewfileBlock,
-} from '../custom/app.blocks';
-import { CustomBlockEnhanced } from '../custom/common';
-import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
+} from '../definitions/app.blocks';
+import { CustomBlockEnhanced } from '../definitions/common';
+import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 
 @Component({
   selector: 'app-blocklier',

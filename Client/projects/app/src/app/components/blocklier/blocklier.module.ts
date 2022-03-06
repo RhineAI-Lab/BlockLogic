@@ -1,6 +1,6 @@
 import 'blockly/blocks'; // default blocks
-import './custom/blocks';
-import './custom/generators';
+import './definitions/blocks';
+import './definitions/generators';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
