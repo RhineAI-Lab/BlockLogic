@@ -21,7 +21,7 @@ export class SpaceVisualEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpClient
-      .get('assets/space/data/toolbox.xml', { responseType: 'text' })
+      .get('assets/toolbox.xml', { responseType: 'text' })
       .subscribe(
         (xmlText) =>
           (this.config = {
