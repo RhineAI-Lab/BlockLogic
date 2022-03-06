@@ -4,19 +4,19 @@ import { NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
 import {
   AppAutojsBlock,
-  AppEditfileBlock,
+  AppEditFileBlock,
   AppGetAppNameBlock,
   AppGetPackageNameBlock,
   AppLaunchAppBlock,
   AppLaunchBlock,
   AppOpenAppSettingBlock,
-  AppOpenurlBlock,
+  AppOpenUrlBlock,
   AppSendEmailBlock,
   AppStartActivityBlock,
   AppUninstallBlock,
   AppVersionCodeBlock,
   AppVersionNameBlock,
-  AppViewfileBlock,
+  AppViewFileBlock,
 } from '../definitions/app.blocks';
 import { CustomBlockEnhanced } from '../definitions/common';
 import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
@@ -38,10 +38,10 @@ export class BlocklierComponent implements OnInit {
     AppGetPackageNameBlock,
     AppGetAppNameBlock,
     AppOpenAppSettingBlock,
-    AppViewfileBlock,
-    AppEditfileBlock,
+    AppViewFileBlock,
+    AppEditFileBlock,
     AppUninstallBlock,
-    AppOpenurlBlock,
+    AppOpenUrlBlock,
     AppSendEmailBlock,
     AppStartActivityBlock,
   ]);

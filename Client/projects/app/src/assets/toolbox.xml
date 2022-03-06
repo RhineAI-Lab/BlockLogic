@@ -626,14 +626,14 @@
                 </value>
             </block>
             <block type="app_open_app_setting"></block>
-            <block type="app_viewfile">
+            <block type="app_view_file">
                 <value name="VIEWFILE">
                     <shadow type="text">
                         <field name="TEXT">/sdcard/1.txt</field>
                     </shadow>
                 </value>
             </block>
-            <block type="app_editfile">
+            <block type="app_edit_file">
                 <value name="EDITFILE">
                     <shadow type="text">
                         <field name="TEXT">/sdcard/1.txt</field>
@@ -647,7 +647,7 @@
                     </shadow>
                 </value>
             </block>
-            <block type="app_openurl">
+            <block type="app_open_url">
                 <value name="URL">
                     <shadow type="text">
                         <field name="TEXT">http://</field>

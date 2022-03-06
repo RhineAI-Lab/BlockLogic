@@ -105,7 +105,7 @@ export class AppLaunchBlock extends CustomBlockEnhanced {
       Blockly.JavaScript.ORDER_ATOMIC,
       true,
     );
-    const code = 'app.lauch(' + name_value + ');\n';
+    const code = 'app.launch(' + name_value + ');\n';
     return code;
   }
 }
@@ -133,7 +133,7 @@ export class AppLaunchAppBlock extends CustomBlockEnhanced {
       Blockly.JavaScript.ORDER_ATOMIC,
       true,
     );
-    const code = 'app.lauchApp(' + name_value + ');\n';
+    const code = 'app.launchApp(' + name_value + ');\n';
     return code;
   }
 }
@@ -207,15 +207,15 @@ export class AppOpenAppSettingBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppViewfileBlock extends CustomBlockEnhanced {
-  type = 'app_viewfile';
+export class AppViewFileBlock extends CustomBlockEnhanced {
+  type = 'app_view_file';
 
   defineBlock(): void {
     this.block.jsonInit({
       message0: '用其他应用查看文件 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'VIEWFILE', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'VIEW_FILE', check: 'String' }],
       colour: colour,
       tooltip:
         '文件不存在的情况由查看文件的应用处理。如果找不出可以查看该文件的应用，则抛出ActivityNotException。',
@@ -226,7 +226,7 @@ export class AppViewfileBlock extends CustomBlockEnhanced {
   override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
-      'VIEWFILE',
+      'VIEW_FILE',
       Blockly.JavaScript.ORDER_ATOMIC,
       true,
     );
@@ -235,15 +235,15 @@ export class AppViewfileBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppEditfileBlock extends CustomBlockEnhanced {
-  type = 'app_editfile';
+export class AppEditFileBlock extends CustomBlockEnhanced {
+  type = 'app_edit_file';
 
   defineBlock(): void {
     this.block.jsonInit({
       message0: '用其他应用编辑文件 %1 ',
       previousStatement: null,
       nextStatement: null,
-      args0: [{ type: 'input_value', name: 'EDITFILE', check: 'String' }],
+      args0: [{ type: 'input_value', name: 'EDIT_FILE', check: 'String' }],
       colour: colour,
       tooltip:
         '文件不存在的情况由编辑文件的应用处理。如果找不出可以编辑该文件的应用，则抛出ActivityNotException。',
@@ -254,7 +254,7 @@ export class AppEditfileBlock extends CustomBlockEnhanced {
   override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
-      'EDITFILE',
+      'EDIT_FILE',
       Blockly.JavaScript.ORDER_ATOMIC,
       true,
     );
@@ -291,8 +291,8 @@ export class AppUninstallBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppOpenurlBlock extends CustomBlockEnhanced {
-  type = 'app_openurl';
+export class AppOpenUrlBlock extends CustomBlockEnhanced {
+  type = 'app_open_url';
 
   defineBlock(): void {
     this.block.jsonInit({
