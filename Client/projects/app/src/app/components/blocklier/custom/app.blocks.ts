@@ -1,7 +1,7 @@
 import { Blockly } from 'ngx-blockly';
 
 import { helpUrlBuilder } from './common';
-import { CustomBlockEnhanced } from './custom-block-enhanced';
+import { CodeDefinition, CustomBlockEnhanced } from './custom-block-enhanced';
 
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');
@@ -20,7 +20,7 @@ export class AppVersionCodeBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): string | [string, number] {
+  override toJavaScriptCode(): CodeDefinition {
     const code = 'app.versionCode';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -40,7 +40,7 @@ export class AppVersionNameBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): string | [string, number] {
+  override toJavaScriptCode(): CodeDefinition {
     const code = 'app.versionName';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -70,7 +70,7 @@ export class AppAutojsBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'AUTO',
@@ -98,7 +98,7 @@ export class AppLaunchBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'PACKAGE_NAME',
@@ -126,7 +126,7 @@ export class AppLaunchAppBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'APP_NAME',
@@ -154,7 +154,7 @@ export class AppGetPackageNameBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): string | [string, number] {
+  override toJavaScriptCode(): CodeDefinition {
     const code = 'app.getPackageName';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -175,7 +175,7 @@ export class AppGetAppNameBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const name_value = Blockly.JavaScript.valueToCode(
       block,
@@ -201,7 +201,7 @@ export class AppOpenAppSettingBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(): string | [string, number] {
+  override toJavaScriptCode(): CodeDefinition {
     const code = 'app.openAppSetting';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
@@ -223,7 +223,7 @@ export class AppViewfileBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'VIEWFILE',
@@ -251,7 +251,7 @@ export class AppEditfileBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'EDITFILE',
@@ -279,7 +279,7 @@ export class AppUninstallBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'UNINSTALL',
@@ -306,7 +306,7 @@ export class AppOpenurlBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'URL',
@@ -334,7 +334,7 @@ export class AppSendEmailBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'OPTIONS',
@@ -362,7 +362,7 @@ export class AppStartActivityBlock extends CustomBlockEnhanced {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
+  override toJavaScriptCode(block: Blockly.Block): CodeDefinition {
     const name_value = Blockly.JavaScript.valueToCode(
       block,
       'ACTIVITY',
