@@ -7,7 +7,6 @@ export class ListsGetBlock extends CustomBlockEnhanced {
 
   defineBlock(): void {
     this.block.jsonInit({
-      type: 'lists_get',
       message0: '列表 %1 第 %2 项',
       output: null,
       style: 'list_blocks',
@@ -42,7 +41,6 @@ export class ListsSetBlock extends CustomBlockEnhanced {
 
   defineBlock(): void {
     this.block.jsonInit({
-      type: 'lists_set',
       message0: '设置列表 %1 第 %2 项 为 %3',
       previousStatement: null,
       nextStatement: null,
