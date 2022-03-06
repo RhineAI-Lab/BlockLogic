@@ -1,3 +1,4 @@
+import 'blockly/blocks'; // default blocks
 import './custom/blocks';
 import './custom/generators';
 
