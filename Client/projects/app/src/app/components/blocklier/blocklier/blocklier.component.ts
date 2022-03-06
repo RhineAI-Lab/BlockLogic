@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
+import { CustomBlockEnhanced } from '../custom/custom-block-enhanced';
 import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
 
 @Component({
@@ -10,7 +11,7 @@ import { ListsGetBlock, ListsSetBlock } from '../custom/lists.blocks';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit {
-  blocks = [new ListsGetBlock(), new ListsSetBlock()];
+  blocks = CustomBlockEnhanced.use([ListsGetBlock, ListsSetBlock]);
   config?: NgxBlocklyConfig;
 
   constructor(private httpClient: HttpClient) {}

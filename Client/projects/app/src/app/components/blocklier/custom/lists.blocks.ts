@@ -1,10 +1,9 @@
-import { Blockly, CustomBlock } from 'ngx-blockly';
+import { Blockly } from 'ngx-blockly';
 
-export class ListsGetBlock extends CustomBlock {
-  constructor() {
-    super('lists_get');
-    this.class = ListsGetBlock;
-  }
+import { CustomBlockEnhanced } from './custom-block-enhanced';
+
+export class ListsGetBlock extends CustomBlockEnhanced {
+  type = 'lists_get';
 
   defineBlock(): void {
     this.block.jsonInit({
@@ -20,7 +19,7 @@ export class ListsGetBlock extends CustomBlock {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | any[] {
+  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
     const array = Blockly.JavaScript.valueToCode(
       block,
       'ARRAY',
@@ -38,11 +37,8 @@ export class ListsGetBlock extends CustomBlock {
   }
 }
 
-export class ListsSetBlock extends CustomBlock {
-  constructor() {
-    super('lists_set');
-    this.class = ListsSetBlock;
-  }
+export class ListsSetBlock extends CustomBlockEnhanced {
+  type = 'lists_set';
 
   defineBlock(): void {
     this.block.jsonInit({
@@ -61,7 +57,7 @@ export class ListsSetBlock extends CustomBlock {
     });
   }
 
-  override toJavaScriptCode(block: Blockly.Block): string | any[] {
+  override toJavaScriptCode(block: Blockly.Block): string | [string, number] {
     const array = Blockly.JavaScript.valueToCode(
       block,
       'ARRAY',
