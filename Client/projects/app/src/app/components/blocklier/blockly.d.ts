@@ -2,10 +2,14 @@ import 'blockly/core';
 
 declare module 'blockly/core' {
   export const JavaScript: JavaScriptGenerator;
+  export const Dart: Generator;
+  export const Lua: Generator;
+  export const PHP: Generator;
+  export const Python: Generator;
 
   export interface JavaScriptGenerator extends Generator {
     // Orders from "https://developers.google.com/blockly/guides/create-custom-blocks/operator-precedence"
-    ORDER_ATOMIC: number; // 0 "" ...
+    ORDER_ATOMIC: 0; // 0 "" ...
     ORDER_NEW: 1.1; // new
     ORDER_MEMBER: 1.2; // . []
     ORDER_FUNCTION_CALL: 2; // ()
