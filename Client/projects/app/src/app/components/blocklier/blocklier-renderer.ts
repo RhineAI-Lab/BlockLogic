@@ -3,15 +3,16 @@ import { Blockly } from 'ngx-blockly';
 /**
  * @see https://github.com/google/blockly-samples/blob/master/codelabs/custom_renderer/custom_renderer.md
  */
-export class BlocklierRenderer extends Blockly.blockRendering.Renderer {
-  override makeConstants_(): Blockly.blockRendering.ConstantProvider {
+export class BlocklierRenderer extends Blockly.geras.Renderer {
+  override makeConstants_(): Blockly.geras.ConstantProvider {
     return new BlocklierRendererConstantProvider();
   }
 }
 
-class BlocklierRendererConstantProvider extends Blockly.blockRendering
-  .ConstantProvider {
+class BlocklierRendererConstantProvider extends Blockly.geras.ConstantProvider {
   override CORNER_RADIUS = 4;
+
+  override FIELD_TEXT_BASELINE_CENTER = false;
 
   override makeNotch() {
     const width = this.NOTCH_WIDTH;

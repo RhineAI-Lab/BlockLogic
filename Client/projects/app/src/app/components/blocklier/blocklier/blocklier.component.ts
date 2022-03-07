@@ -67,6 +67,7 @@ export class BlocklierComponent implements OnInit {
     },
     generators: [NgxBlocklyGenerator.JAVASCRIPT],
     renderer: BlocklierRenderer.name,
+    // renderer: 'geras',
   };
 
   categories: ToolboxCategory[] = [];
