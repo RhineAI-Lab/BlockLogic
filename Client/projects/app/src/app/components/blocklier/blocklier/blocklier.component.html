@@ -1,5 +1,5 @@
 <nz-layout *ngIf="!loading">
-  <nz-sider nzTheme="light" nzWidth="240px">
+  <nz-sider nzTheme="light">
     <ul nz-menu nzMode="inline" [nzSelectable]="false">
       <ng-container
         *ngTemplateOutlet="menuTemplate; context: { $implicit: categories }"
