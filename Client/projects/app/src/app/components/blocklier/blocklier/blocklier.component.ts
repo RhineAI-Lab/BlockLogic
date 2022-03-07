@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
+import { finalize } from 'rxjs';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
 import {
@@ -28,6 +29,8 @@ import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit {
+  loading = true;
+
   blocks = CustomBlockEnhanced.use([
     ListsGetBlock,
     ListsSetBlock,
@@ -46,7 +49,26 @@ export class BlocklierComponent implements OnInit {
     AppSendEmailBlock,
     AppStartActivityBlock,
   ]);
-  config?: NgxBlocklyConfig;
+
+  config: NgxBlocklyConfig = {
+    grid: {
+      spacing: 20,
+      length: 6,
+      colour: '#ddd',
+      snap: true,
+    },
+    zoom: {
+      controls: true,
+      wheel: true,
+      startScale: 1.0,
+      maxScale: 2,
+      minScale: 0.5,
+      scaleSpeed: 1.2,
+    },
+    generators: [NgxBlocklyGenerator.JAVASCRIPT],
+    renderer: BlocklierRenderer.name,
+  };
+
   categories: ToolboxCategory[] = [];
   categorySelected?: ToolboxCategory;
 
@@ -58,28 +80,10 @@ export class BlocklierComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient
       .get('assets/toolbox.xml', { responseType: 'text' })
-      .subscribe(
-        (xmlText) =>
-          (this.config = {
-            grid: {
-              spacing: 20,
-              length: 6,
-              colour: '#ddd',
-              snap: true,
-            },
-            zoom: {
-              controls: true,
-              wheel: true,
-              startScale: 1.0,
-              maxScale: 2,
-              minScale: 0.5,
-              scaleSpeed: 1.2,
-            },
-            toolbox: xmlText,
-            generators: [NgxBlocklyGenerator.JAVASCRIPT],
-            renderer: BlocklierRenderer.name,
-          }),
-      );
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((xmlText) => {
+        this.config.toolbox = xmlText;
+      });
   }
 
   onWorkspaceInit(workspace: Blockly.WorkspaceSvg): void {
