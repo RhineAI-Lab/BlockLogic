@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Blockly, BlockMutator, Constructor, CustomBlock } from 'ngx-blockly';
+import {
+  Blockly,
+  BlockMutator,
+  Constructor,
+  CustomBlock as CustomBlockBase,
+} from 'ngx-blockly';
 
 export const helpUrlBuilder =
   (scope: string) =>
@@ -10,12 +15,12 @@ export type CodeDefinition = string | [string, number];
 export type ArgumentReader = (name: string) => string;
 
 /**
- * Better implementation of {@link CustomBlock}
+ * Better implementation of {@link CustomBlockBase}
  */
-export abstract class CustomBlockEnhanced implements Omit<CustomBlock, ''> {
-  static use(classRefs: (new () => CustomBlockEnhanced)[]): CustomBlock[] {
+export abstract class CustomBlock implements Omit<CustomBlockBase, ''> {
+  static use(classRefs: (new () => CustomBlock)[]): CustomBlockBase[] {
     return classRefs.map(
-      (classRef) => new classRef() as unknown as CustomBlock,
+      (classRef) => new classRef() as unknown as CustomBlockBase,
     );
   }
 

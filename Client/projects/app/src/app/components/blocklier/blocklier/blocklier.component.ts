@@ -20,7 +20,7 @@ import {
   AppVersionNameBlock,
   AppViewFileBlock,
 } from '../definitions/app.blocks';
-import { CustomBlockEnhanced } from '../definitions/common';
+import { CustomBlock } from '../definitions/common';
 import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 
 @Component({
@@ -31,7 +31,7 @@ import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 export class BlocklierComponent implements OnInit {
   loading = true;
 
-  blocks = CustomBlockEnhanced.use([
+  blocks = CustomBlock.use([
     ListsGetBlock,
     ListsSetBlock,
     AppVersionCodeBlock,
