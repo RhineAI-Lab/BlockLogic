@@ -1,6 +1,6 @@
-import { ArgumentReader, CodeDefinition, CustomBlockEnhanced } from './common';
+import { ArgumentReader, CodeDefinition, CustomBlock } from './common';
 
-export class ListsGetBlock extends CustomBlockEnhanced {
+export class ListsGetBlock extends CustomBlock {
   type = 'lists_get';
 
   defineBlock(): void {
@@ -23,7 +23,7 @@ export class ListsGetBlock extends CustomBlockEnhanced {
   }
 }
 
-export class ListsSetBlock extends CustomBlockEnhanced {
+export class ListsSetBlock extends CustomBlock {
   type = 'lists_set';
 
   defineBlock(): void {

@@ -1,12 +1,12 @@
 import { Blockly } from 'ngx-blockly';
 
 import { ArgumentReader, helpUrlBuilder } from './common';
-import { CodeDefinition, CustomBlockEnhanced } from './common';
+import { CodeDefinition, CustomBlock } from './common';
 
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');
 
-export class AppVersionCodeBlock extends CustomBlockEnhanced {
+export class AppVersionCodeBlock extends CustomBlock {
   type = 'app_version_code';
 
   defineBlock(): void {
@@ -25,7 +25,7 @@ export class AppVersionCodeBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppVersionNameBlock extends CustomBlockEnhanced {
+export class AppVersionNameBlock extends CustomBlock {
   type = 'app_version_name';
 
   defineBlock(): void {
@@ -44,7 +44,7 @@ export class AppVersionNameBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppAutojsBlock extends CustomBlockEnhanced {
+export class AppAutojsBlock extends CustomBlock {
   type = 'app_autojs';
 
   defineBlock(): void {
@@ -74,7 +74,7 @@ export class AppAutojsBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppLaunchBlock extends CustomBlockEnhanced {
+export class AppLaunchBlock extends CustomBlock {
   type = 'app_launch';
 
   defineBlock(): void {
@@ -96,7 +96,7 @@ export class AppLaunchBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppLaunchAppBlock extends CustomBlockEnhanced {
+export class AppLaunchAppBlock extends CustomBlock {
   type = 'app_launch_app';
 
   defineBlock(): void {
@@ -118,7 +118,7 @@ export class AppLaunchAppBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppGetPackageNameBlock extends CustomBlockEnhanced {
+export class AppGetPackageNameBlock extends CustomBlock {
   type = 'app_get_package_name';
 
   defineBlock(): void {
@@ -140,7 +140,7 @@ export class AppGetPackageNameBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppGetAppNameBlock extends CustomBlockEnhanced {
+export class AppGetAppNameBlock extends CustomBlock {
   type = 'app_get_app_name';
 
   defineBlock(): void {
@@ -161,7 +161,7 @@ export class AppGetAppNameBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppOpenAppSettingBlock extends CustomBlockEnhanced {
+export class AppOpenAppSettingBlock extends CustomBlock {
   type = 'app_open_app_setting';
 
   defineBlock(): void {
@@ -180,7 +180,7 @@ export class AppOpenAppSettingBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppViewFileBlock extends CustomBlockEnhanced {
+export class AppViewFileBlock extends CustomBlock {
   type = 'app_view_file';
 
   defineBlock(): void {
@@ -202,7 +202,7 @@ export class AppViewFileBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppEditFileBlock extends CustomBlockEnhanced {
+export class AppEditFileBlock extends CustomBlock {
   type = 'app_edit_file';
 
   defineBlock(): void {
@@ -224,7 +224,7 @@ export class AppEditFileBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppUninstallBlock extends CustomBlockEnhanced {
+export class AppUninstallBlock extends CustomBlock {
   type = 'app_uninstall';
 
   defineBlock(): void {
@@ -246,7 +246,7 @@ export class AppUninstallBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppOpenUrlBlock extends CustomBlockEnhanced {
+export class AppOpenUrlBlock extends CustomBlock {
   type = 'app_open_url';
 
   defineBlock(): void {
@@ -267,7 +267,7 @@ export class AppOpenUrlBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppSendEmailBlock extends CustomBlockEnhanced {
+export class AppSendEmailBlock extends CustomBlock {
   type = 'app_send_email';
 
   defineBlock(): void {
@@ -290,7 +290,7 @@ export class AppSendEmailBlock extends CustomBlockEnhanced {
   }
 }
 
-export class AppStartActivityBlock extends CustomBlockEnhanced {
+export class AppStartActivityBlock extends CustomBlock {
   type = 'app_start_activity';
 
   defineBlock(): void {
