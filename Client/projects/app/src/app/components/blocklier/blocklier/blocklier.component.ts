@@ -3,6 +3,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 import { finalize } from 'rxjs';
 
+import { CustomBlock } from '../blocklier-models';
 import { BlocklierRenderer } from '../blocklier-renderer';
 import {
   AppAutojsBlock,
@@ -20,7 +21,6 @@ import {
   AppVersionNameBlock,
   AppViewFileBlock,
 } from '../definitions/app.blocks';
-import { CustomBlock } from '../definitions/common';
 import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 
 @Component({

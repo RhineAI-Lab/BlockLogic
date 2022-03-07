@@ -1,7 +1,12 @@
 import { Blockly } from 'ngx-blockly';
 
-import { ArgumentReader, BlockDefinition, helpUrlBuilder } from './common';
-import { CodeDefinition, CustomBlock } from './common';
+import {
+  ArgumentReader,
+  BlockDefinition,
+  CodeDefinition,
+  CustomBlock,
+} from '../blocklier-models';
+import { helpUrlBuilder } from './common';
 
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');

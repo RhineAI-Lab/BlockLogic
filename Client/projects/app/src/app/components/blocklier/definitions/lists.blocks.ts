@@ -3,7 +3,7 @@ import {
   BlockDefinition,
   CodeDefinition,
   CustomBlock,
-} from './common';
+} from '../blocklier-models';
 
 export class ListsGetBlock extends CustomBlock {
   type = 'lists_get';
