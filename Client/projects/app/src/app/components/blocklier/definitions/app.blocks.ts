@@ -23,7 +23,7 @@ export class AppVersionCodeBlock extends CustomBlock {
     helpUrl: helpUrl('appversionCode'),
   };
 
-  protected override toJavaScriptCodeInternal(): CodeDefinition {
+  protected override js(): CodeDefinition {
     return ['app.versionCode', 0];
   }
 }
@@ -40,7 +40,7 @@ export class AppVersionNameBlock extends CustomBlock {
     helpUrl: helpUrl('appversionName'),
   };
 
-  protected override toJavaScriptCodeInternal(): CodeDefinition {
+  protected override js(): CodeDefinition {
     return ['app.versionName', 0];
   }
 }
@@ -71,7 +71,7 @@ export class AppAutojsBlock extends CustomBlock {
     helpUrl: helpUrl('appautojsversioncode'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const value = arg('KEY');
     return `app.autojs.${value};\n`;
   }
@@ -95,7 +95,7 @@ export class AppLaunchBlock extends CustomBlock {
     helpUrl: helpUrl('applaunchpackagename'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const packageName = arg('PACKAGE_NAME');
     return `app.launch(${packageName});\n`;
   }
@@ -119,7 +119,7 @@ export class AppLaunchAppBlock extends CustomBlock {
     helpUrl: helpUrl('applaunchappappname'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const appName = arg('APP_NAME');
     return `app.launchApp(${appName});\n`;
   }
@@ -143,7 +143,7 @@ export class AppGetPackageNameBlock extends CustomBlock {
     helpUrl: helpUrl('appgetpackagenameappname'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const appName = arg('APP_NAME');
     return [`app.getPackageName(${appName})`, 0];
   }
@@ -166,7 +166,7 @@ export class AppGetAppNameBlock extends CustomBlock {
     helpUrl: helpUrl('appgetappnamepackagename'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const packageName = arg('PACKAGE_NAME');
     return `app.getAppName(${packageName})`;
   }
@@ -211,7 +211,7 @@ export class AppViewFileBlock extends CustomBlock {
     helpUrl: helpUrl('appviewfilepath'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const path = arg('PATH');
     return `app.viewFile(${path});\n`;
   }
@@ -235,7 +235,7 @@ export class AppEditFileBlock extends CustomBlock {
     helpUrl: helpUrl('appeditfilepath'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const path = arg('PATH');
     return `app.editFile(${path});\n`;
   }
@@ -259,7 +259,7 @@ export class AppUninstallBlock extends CustomBlock {
     helpUrl: helpUrl('appuninstallpackagename'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const packageName = arg('PACKAGE_NAME');
     return `app.uninstall(${packageName});\n`;
   }
@@ -282,7 +282,7 @@ export class AppOpenUrlBlock extends CustomBlock {
     helpUrl: helpUrl('appopenurlurl'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const url = arg('URL');
     return `app.openUrl(${url});\n`;
   }
@@ -306,7 +306,7 @@ export class AppSendEmailBlock extends CustomBlock {
     helpUrl: helpUrl('appsendemailoptions'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const options = arg('OPTIONS');
     return `app.sendEmail(${options});\n`;
   }
@@ -330,7 +330,7 @@ export class AppStartActivityBlock extends CustomBlock {
     helpUrl: helpUrl('appstartactivityname'),
   };
 
-  override toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const name = arg('NAME');
     return `app.startActivity(${name});\n`;
   }

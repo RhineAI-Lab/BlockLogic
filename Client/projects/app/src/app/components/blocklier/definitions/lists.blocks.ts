@@ -23,9 +23,7 @@ export class ListsGetBlock extends CustomBlock {
     tooltip: '获取列表第指定项',
   };
 
-  protected override toJavaScriptCodeInternal(
-    arg: ArgumentReader,
-  ): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const array = arg('ARRAY');
     const index = arg('INDEX');
     return [`${array}[${index}-1]`, 0];
@@ -53,9 +51,7 @@ export class ListsSetBlock extends CustomBlock {
     tooltip: '设置列表第某项的值',
   };
 
-  protected override toJavaScriptCodeInternal(
-    arg: ArgumentReader,
-  ): CodeDefinition {
+  override js(arg: ArgumentReader): CodeDefinition {
     const array = arg('ARRAY');
     const index = arg('INDEX');
     const value = arg('VALUE') || 'null';

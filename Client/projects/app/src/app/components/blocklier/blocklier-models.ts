@@ -63,27 +63,21 @@ export abstract class CustomBlock
   }
 
   toDartCode(): CodeDefinition {
-    return this.toDartCodeInternal((name) =>
-      Blockly.Dart.valueToCode(this.block, name, 0),
-    );
+    return this.dart((name) => Blockly.Dart.valueToCode(this.block, name, 0));
   }
   toJavaScriptCode(): CodeDefinition {
-    return this.toJavaScriptCodeInternal((name) =>
+    return this.js((name) =>
       Blockly.JavaScript.valueToCode(this.block, name, 0),
     );
   }
   toLuaCode(): CodeDefinition {
-    return this.toLuaCodeInternal((name) =>
-      Blockly.Lua.valueToCode(this.block, name, 0),
-    );
+    return this.lua((name) => Blockly.Lua.valueToCode(this.block, name, 0));
   }
   toPHPCode(): CodeDefinition {
-    return this.toPHPCodeInternal((name) =>
-      Blockly.PHP.valueToCode(this.block, name, 0),
-    );
+    return this.php((name) => Blockly.PHP.valueToCode(this.block, name, 0));
   }
   toPythonCode(): CodeDefinition {
-    return this.toPythonCodeInternal((name) =>
+    return this.python((name) =>
       Blockly.Python.valueToCode(this.block, name, 0),
     );
   }
@@ -100,19 +94,19 @@ export abstract class CustomBlock
     }
   }
 
-  protected toDartCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected dart(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  protected toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected js(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  protected toLuaCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected lua(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  protected toPHPCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected php(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  protected toPythonCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected python(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
 
