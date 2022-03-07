@@ -29,6 +29,42 @@ class BlocklierRendererConstantProvider extends Blockly.blockRendering
     const pathRight = makeMainPath(-1);
     return { type: this.SHAPES.NOTCH, width, height, pathLeft, pathRight };
   }
+
+  override makeOutsideCorners() {
+    const radius = this.CORNER_RADIUS;
+
+    const topLeft =
+      Blockly.utils.svgPaths.moveBy(0, radius) +
+      Blockly.utils.svgPaths.line([
+        Blockly.utils.svgPaths.point(radius, -radius),
+      ]);
+
+    const topRight = Blockly.utils.svgPaths.arc(
+      'a',
+      '0 0,1',
+      radius,
+      Blockly.utils.svgPaths.point(radius, radius),
+    );
+
+    const bottomLeft = Blockly.utils.svgPaths.line([
+      Blockly.utils.svgPaths.point(-radius, -radius),
+    ]);
+
+    const bottomRight = Blockly.utils.svgPaths.arc(
+      'a',
+      '0 0,1',
+      radius,
+      Blockly.utils.svgPaths.point(-radius, radius),
+    );
+
+    return {
+      topLeft: topLeft,
+      topRight: topRight,
+      bottomRight: bottomRight,
+      bottomLeft: bottomLeft,
+      rightHeight: radius,
+    };
+  }
 }
 
 Blockly.blockRendering.register(BlocklierRenderer.name, BlocklierRenderer);
