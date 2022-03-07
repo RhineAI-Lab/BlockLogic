@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
+import { BlocklierRenderer } from '../blocklier-renderer';
 import {
   AppAutojsBlock,
   AppEditFileBlock,
@@ -76,6 +77,7 @@ export class BlocklierComponent implements OnInit {
             },
             toolbox: xmlText,
             generators: [NgxBlocklyGenerator.JAVASCRIPT],
+            renderer: BlocklierRenderer.name,
           }),
       );
   }
@@ -114,8 +116,6 @@ export class BlocklierComponent implements OnInit {
     return results;
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
-
-  console = console;
 }
 
 interface ToolboxCategory {
