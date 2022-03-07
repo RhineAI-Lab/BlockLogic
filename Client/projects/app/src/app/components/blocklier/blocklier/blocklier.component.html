@@ -12,7 +12,7 @@
             [nzPaddingLeft]="category.depth * 24"
             (click)="
               $event.stopPropagation();
-              category.click();
+              category.$row.click();
               categorySelected == category
                 ? (categorySelected = undefined)
                 : (categorySelected = category)
@@ -26,7 +26,6 @@
             *ngIf="category.children.length"
             [nzPaddingLeft]="category.depth * 24"
             [nzTitle]="category.name"
-            (nzOpenChange)="category.click()"
           >
             <ul>
               <ng-container

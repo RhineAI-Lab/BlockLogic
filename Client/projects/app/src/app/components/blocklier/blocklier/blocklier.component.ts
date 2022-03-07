@@ -102,19 +102,14 @@ export class BlocklierComponent implements OnInit {
     );
     const results: ToolboxCategory[] = [];
     for (let i = 0; i < $categories.length; i++) {
-      const $category = $categories[i];
-      const $row = $category.querySelector<HTMLDivElement>(
+      const $host = $categories[i];
+      const $row = $host.querySelector<HTMLDivElement>(
         ':scope > .blocklyTreeRow',
       )!;
       const $label = $row.querySelector<HTMLSpanElement>('.blocklyTreeLabel')!;
-      const children = this.resolveToolboxCategories($category, depth + 1);
-      results.push({
-        name: $label.innerHTML,
-        depth,
-        children: children,
-        click: () => $row.click(),
-        element: $category,
-      });
+      const children = this.resolveToolboxCategories($host, depth + 1);
+      if (children.length) $row.click(); // expand the child categories.
+      results.push({ name: $label.innerHTML, depth, $host, $row, children });
     }
     return results;
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
@@ -126,7 +121,7 @@ export class BlocklierComponent implements OnInit {
 interface ToolboxCategory {
   name: string;
   depth: number;
-  element: HTMLDivElement;
-  click(): void;
+  $host: HTMLDivElement;
+  $row: HTMLDivElement;
   children: ToolboxCategory[];
 }
