@@ -2,7 +2,6 @@
 import {
   Blockly,
   BlockMutator,
-  Constructor,
   CustomBlock as CustomBlockBase,
 } from 'ngx-blockly';
 
@@ -12,12 +11,35 @@ export const helpUrlBuilder =
     `https://pro.autojs.org/docs/#/zh-cn/${scope}?id=${id}`;
 
 export type CodeDefinition = string | [string, number];
+export type BlockDefinition = {
+  lines: { message: string; args?: any }[];
+  previousStatement?: null | string;
+  nextStatement?: null | string;
+  output?: null | string;
+  inputsInline?: boolean;
+  colour?: string;
+  tooltip?: string;
+  style?: string;
+  helpUrl?: string;
+};
 export type ArgumentReader = (name: string) => string;
 
 /**
  * Better implementation of {@link CustomBlockBase}
  */
-export abstract class CustomBlock implements Omit<CustomBlockBase, ''> {
+export abstract class CustomBlock
+  implements
+    Omit<
+      CustomBlockBase,
+      | 'kind'
+      | 'block'
+      | 'class'
+      | 'blockMutator'
+      | 'args'
+      | 'defineBlock'
+      | 'onChange'
+    >
+{
   static use(classRefs: (new () => CustomBlock)[]): CustomBlockBase[] {
     return classRefs.map(
       (classRef) => new classRef() as unknown as CustomBlockBase,
@@ -25,25 +47,19 @@ export abstract class CustomBlock implements Omit<CustomBlockBase, ''> {
   }
 
   abstract type: string;
-  blockMutator!: BlockMutator; // type assertion here because of the terrible original type
-  args: unknown[] = [];
-
-  kind = 'BLOCK';
+  definition?: BlockDefinition;
   block!: Blockly.Block;
+  mutator?: BlockMutator;
   disabled = false;
-
-  // prettier-ignore
-  get class(): Constructor { return this.constructor as Constructor }
 
   init(block: Blockly.Block): void {
     this.block = block;
-    this.defineBlock();
+    this.define();
     this.block.setOnChange(this.onChange.bind(this));
+    this.p('kind', 'BLOCK');
+    this.p('class', this.constructor);
+    this.p('blockMutator', this.mutator);
   }
-
-  abstract defineBlock(): void;
-
-  onChange(changeEvent: Blockly.Events.Abstract): void {}
 
   toXML(): string {
     return `<block type="${this.type}" disabled="${this.disabled}"></block>`;
@@ -75,19 +91,41 @@ export abstract class CustomBlock implements Omit<CustomBlockBase, ''> {
     );
   }
 
-  toDartCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected define(): void {
+    if (this.definition) {
+      const { lines, ...definition } = this.definition;
+      const result: any = definition;
+      lines.forEach((line, index) => {
+        result[`message${index}`] = line.message;
+        if (line.args) result[`args${index}`] = line.args;
+      });
+      this.block.jsonInit(result);
+    }
+  }
+
+  protected toDartCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected toJavaScriptCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  toLuaCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected toLuaCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  toPHPCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected toPHPCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
   }
-  toPythonCodeInternal(arg: ArgumentReader): CodeDefinition {
+  protected toPythonCodeInternal(arg: ArgumentReader): CodeDefinition {
     throw 'not implemented';
+  }
+
+  protected onChange(changeEvent: Blockly.Events.Abstract): void {}
+
+  private p(name: string, value: unknown) {
+    Object.defineProperty(this, name, {
+      value,
+      configurable: true,
+      enumerable: true,
+    });
   }
 }
