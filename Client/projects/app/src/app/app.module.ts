@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -25,6 +26,7 @@ registerLocaleData(zh);
     HttpClientModule,
     CoreModule,
     AppRoutingModule,
+    NzIconModule.forRoot([]),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
