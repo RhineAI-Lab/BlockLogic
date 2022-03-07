@@ -82,7 +82,10 @@ export class BlocklierComponent implements OnInit {
 
   onWorkspaceInit(workspace: Blockly.WorkspaceSvg): void {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    workspace.getToolbox().setVisible(false);
+    const toolbox = workspace.getToolbox();
+    toolbox.setVisible(false);
+    const flyout = toolbox.getFlyout();
+    flyout.autoClose = false;
     const $host = this.elementRef.nativeElement;
     const $root = $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!;
     this.categories = this.resolveToolboxCategories($root);
