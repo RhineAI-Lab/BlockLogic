@@ -8,13 +8,14 @@ import { NgModule } from '@angular/core';
 import * as ZH from 'blockly/msg/zh-hans';
 import { Blockly, NgxBlocklyModule } from 'ngx-blockly';
 
+import { SheetModule } from '../sheet/sheet.module';
 import { BlocklierComponent } from './blocklier/blocklier.component';
 
 Blockly.setLocale(ZH);
 
 @NgModule({
   declarations: [BlocklierComponent],
-  imports: [CommonModule, HttpClientModule, NgxBlocklyModule],
+  imports: [CommonModule, HttpClientModule, SheetModule, NgxBlocklyModule],
   exports: [BlocklierComponent],
 })
 export class BlocklierModule {}
