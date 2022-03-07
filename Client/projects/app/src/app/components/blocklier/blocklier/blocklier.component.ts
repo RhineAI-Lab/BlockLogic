@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 
 import {
   AppAutojsBlock,
@@ -46,8 +46,13 @@ export class BlocklierComponent implements OnInit {
     AppStartActivityBlock,
   ]);
   config?: NgxBlocklyConfig;
+  categories: ToolboxCategory[] = [];
+  categorySelected?: ToolboxCategory;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private elementRef: ElementRef<HTMLElement>,
+    private httpClient: HttpClient,
+  ) {}
 
   ngOnInit(): void {
     this.httpClient
@@ -70,9 +75,55 @@ export class BlocklierComponent implements OnInit {
               scaleSpeed: 1.2,
             },
             toolbox: xmlText,
-
             generators: [NgxBlocklyGenerator.JAVASCRIPT],
           }),
       );
   }
+
+  onWorkspaceInit(workspace: Blockly.WorkspaceSvg): void {
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
+    workspace.getToolbox().setVisible(false);
+    const $host = this.elementRef.nativeElement;
+    const $root = $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!;
+    this.categories = this.resolveToolboxCategories($root);
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  private resolveToolboxCategories(
+    $root: HTMLDivElement,
+    depth = 1,
+  ): ToolboxCategory[] {
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
+    const $categories = $root.querySelectorAll<HTMLDivElement>(
+      ':scope > .blocklyToolboxContents > .blocklyToolboxCategory',
+    );
+    const results: ToolboxCategory[] = [];
+    for (let i = 0; i < $categories.length; i++) {
+      const $category = $categories[i];
+      const $row = $category.querySelector<HTMLDivElement>(
+        ':scope > .blocklyTreeRow',
+      )!;
+      const $label = $row.querySelector<HTMLSpanElement>('.blocklyTreeLabel')!;
+      const children = this.resolveToolboxCategories($category, depth + 1);
+      results.push({
+        name: $label.innerHTML,
+        depth,
+        children: children,
+        click: () => $row.click(),
+        element: $category,
+      });
+    }
+    return results;
+    /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  console = console;
+}
+
+interface ToolboxCategory {
+  name: string;
+  depth: number;
+  element: HTMLDivElement;
+  click(): void;
+  children: ToolboxCategory[];
 }

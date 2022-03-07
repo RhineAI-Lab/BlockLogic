@@ -6,16 +6,23 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import * as ZH from 'blockly/msg/zh-hans';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { Blockly, NgxBlocklyModule } from 'ngx-blockly';
 
-import { SheetModule } from '../sheet/sheet.module';
 import { BlocklierComponent } from './blocklier/blocklier.component';
 
 Blockly.setLocale(ZH);
 
 @NgModule({
   declarations: [BlocklierComponent],
-  imports: [CommonModule, HttpClientModule, SheetModule, NgxBlocklyModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NgxBlocklyModule,
+  ],
   exports: [BlocklierComponent],
 })
 export class BlocklierModule {}

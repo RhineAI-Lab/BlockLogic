@@ -1,7 +1,52 @@
-<app-sheet>
-  <ngx-blockly
-    *ngIf="config"
-    [config]="config"
-    [customBlocks]="blocks"
-  ></ngx-blockly>
-</app-sheet>
+<nz-layout *ngIf="config">
+  <nz-sider nzTheme="light" nzWidth="240px">
+    <ul nz-menu nzMode="inline" [nzSelectable]="false">
+      <ng-container
+        *ngTemplateOutlet="menuTemplate; context: { $implicit: categories }"
+      ></ng-container>
+      <ng-template let-categories #menuTemplate>
+        <ng-container *ngFor="let category of categories">
+          <li
+            nz-menu-item
+            *ngIf="!category.children.length"
+            [nzPaddingLeft]="category.depth * 24"
+            (click)="
+              $event.stopPropagation();
+              category.click();
+              categorySelected == category
+                ? (categorySelected = undefined)
+                : (categorySelected = category)
+            "
+            [nzSelected]="categorySelected == category"
+          >
+            <span>{{ category.name }}</span>
+          </li>
+          <li
+            nz-submenu
+            *ngIf="category.children.length"
+            [nzPaddingLeft]="category.depth * 24"
+            [nzTitle]="category.name"
+            (nzOpenChange)="category.click()"
+          >
+            <ul>
+              <ng-container
+                *ngTemplateOutlet="
+                  menuTemplate;
+                  context: { $implicit: category.children }
+                "
+              ></ng-container>
+            </ul>
+          </li>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </nz-sider>
+
+  <nz-content>
+    <ngx-blockly
+      [config]="config"
+      [customBlocks]="blocks"
+      (workspaceCreate)="onWorkspaceInit($event)"
+    ></ngx-blockly>
+  </nz-content>
+</nz-layout>
