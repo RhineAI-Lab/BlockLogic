@@ -53,4 +53,12 @@ declare module 'blockly/core' {
       forceReturn?: boolean,
     ): string;
   }
+
+  /**
+   * One of the built-in renderers.
+   */
+  export namespace geras {
+    export class Renderer extends blockRendering.Renderer {}
+    export class ConstantProvider extends blockRendering.ConstantProvider {}
+  }
 }
