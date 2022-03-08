@@ -3,35 +3,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
 import { finalize } from 'rxjs';
 
-import { CustomBlock } from '../blocklier-models';
 import { BlocklierRenderer } from '../blocklier-renderer';
-import {
-  AppAutojsBlock,
-  AppEditFileBlock,
-  AppGetAppNameBlock,
-  AppGetPackageNameBlock,
-  AppLaunchAppBlock,
-  AppLaunchBlock,
-  AppOpenAppSettingBlock,
-  AppOpenUrlBlock,
-  AppSendEmailBlock,
-  AppStartActivityBlock,
-  AppUninstallBlock,
-  AppVersionCodeBlock,
-  AppVersionNameBlock,
-  AppViewFileBlock,
-} from '../definitions/app.blocks';
-import {
-  AutoRootBlock,
-  AutoRootInActiveWindowBlock,
-  AutoServiceBlock,
-  AutoSetFlagsBlock,
-  AutoSetModeBlock,
-  AutoSetWindowFilterBlock,
-  AutoWaitForBlock,
-  AutoWindowsBlock,
-} from '../definitions/auto.blocks';
-import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 
 @Component({
   selector: 'app-blocklier',
@@ -40,33 +12,6 @@ import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 })
 export class BlocklierComponent implements OnInit {
   loading = true;
-
-  blocks = CustomBlock.use([
-    ListsGetBlock,
-    ListsSetBlock,
-    AppVersionCodeBlock,
-    AppVersionNameBlock,
-    AppAutojsBlock,
-    AppLaunchBlock,
-    AppLaunchAppBlock,
-    AppGetPackageNameBlock,
-    AppGetAppNameBlock,
-    AppOpenAppSettingBlock,
-    AppViewFileBlock,
-    AppEditFileBlock,
-    AppUninstallBlock,
-    AppOpenUrlBlock,
-    AppSendEmailBlock,
-    AppStartActivityBlock,
-    AutoWaitForBlock,
-    AutoSetModeBlock,
-    AutoSetFlagsBlock,
-    AutoServiceBlock,
-    AutoWindowsBlock,
-    AutoRootBlock,
-    AutoRootInActiveWindowBlock,
-    AutoSetWindowFilterBlock,
-  ]);
 
   config: NgxBlocklyConfig = {
     grid: {

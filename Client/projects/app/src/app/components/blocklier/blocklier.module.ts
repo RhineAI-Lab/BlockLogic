@@ -1,6 +1,7 @@
-import 'blockly/blocks'; // default blocks
-import './definitions/blocks';
-import './definitions/generators';
+// TODO: convert all definitions to the class-based syntax
+import './definitions';
+import './definitions/blocks'; // deprecated
+import './definitions/generators'; // deprecated
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';

@@ -2,6 +2,7 @@ import {
   Blockly,
   BlockMutator,
   CustomBlock as CustomBlockBase,
+  NgxBlocklyComponent,
 } from 'ngx-blockly';
 
 export type CodeDefinition = string | [string, number];
@@ -31,10 +32,11 @@ export abstract class CustomBlock
 {
   /* eslint-disable @typescript-eslint/no-unused-vars */
 
-  static use(classRefs: (new () => CustomBlock)[]): CustomBlockBase[] {
-    return classRefs.map(
+  static use(classRefs: (new () => CustomBlock)[]): void {
+    const blocks = classRefs.map(
       (classRef) => new classRef() as unknown as CustomBlockBase,
     );
+    NgxBlocklyComponent.initCustomBlocks(blocks);
   }
 
   abstract type: string;
