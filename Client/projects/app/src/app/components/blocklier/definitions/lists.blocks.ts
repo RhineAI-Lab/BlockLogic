@@ -5,6 +5,8 @@ import {
   CustomBlock,
 } from '../blocklier-models';
 
+const style = 'list_blocks';
+
 export class ListsGetBlock extends CustomBlock {
   type = 'lists_get';
 
@@ -19,7 +21,7 @@ export class ListsGetBlock extends CustomBlock {
       },
     ],
     output: null,
-    style: 'list_blocks',
+    style,
     tooltip: '获取列表第指定项',
   };
 
@@ -46,7 +48,7 @@ export class ListsSetBlock extends CustomBlock {
     ],
     previousStatement: null,
     nextStatement: null,
-    style: 'list_blocks',
+    style,
     inputsInline: true,
     tooltip: '设置列表第某项的值',
   };
