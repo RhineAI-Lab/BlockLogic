@@ -7,6 +7,7 @@ import {
 
 const style = 'list_blocks';
 
+@BlocklierCustomBlock.register()
 export class ListsGetBlock extends BlocklierCustomBlock {
   type = 'lists_get';
 
@@ -32,6 +33,7 @@ export class ListsGetBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ListsSetBlock extends BlocklierCustomBlock {
   type = 'lists_set';
 

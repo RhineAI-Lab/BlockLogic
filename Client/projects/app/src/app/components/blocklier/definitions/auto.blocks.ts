@@ -9,6 +9,7 @@ import { helpUrlBuilder } from './common';
 const colour = '#e5af00';
 const helpUrl = helpUrlBuilder('widgetsBasedAutomation');
 
+@BlocklierCustomBlock.register()
 export class AutoWaitForBlock extends BlocklierCustomBlock {
   override type = 'auto_wait_for';
 
@@ -21,11 +22,12 @@ export class AutoWaitForBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autowaitfor'),
   };
 
-  protected override toJS(): BlocklierCodeDefinition {
+  override toJS(): BlocklierCodeDefinition {
     return `auto.waitFor();\n`;
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoSetModeBlock extends BlocklierCustomBlock {
   override type = 'auto_set_mode';
 
@@ -52,14 +54,13 @@ export class AutoSetModeBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autosetmodemode'),
   };
 
-  protected override toJS(
-    args: BlocklierArgumentReader,
-  ): BlocklierCodeDefinition {
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     const mode = args.value('MODE');
     return `auto.setMode('${mode}')\n`;
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoSetFlagsBlock extends BlocklierCustomBlock {
   override type = 'auto_set_flags';
 
@@ -87,14 +88,13 @@ export class AutoSetFlagsBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autosetflagsflags'),
   };
 
-  protected override toJS(
-    args: BlocklierArgumentReader,
-  ): BlocklierCodeDefinition {
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     const flag = args.value('FLAT');
     return `auto.setFlags(['${flag}']);\n`;
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoServiceBlock extends BlocklierCustomBlock {
   override type = 'auto_service';
 
@@ -110,11 +110,12 @@ export class AutoServiceBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autoservice'),
   };
 
-  protected override toJS(): BlocklierCodeDefinition {
+  override toJS(): BlocklierCodeDefinition {
     return [`auto.service`, 0];
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoWindowsBlock extends BlocklierCustomBlock {
   override type = 'auto_windows';
 
@@ -126,10 +127,12 @@ export class AutoWindowsBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autowindows'),
   };
 
-  protected override toJS(): BlocklierCodeDefinition {
+  override toJS(): BlocklierCodeDefinition {
     return [`auto.windows`, 0];
   }
 }
+
+@BlocklierCustomBlock.register()
 export class AutoRootBlock extends BlocklierCustomBlock {
   override type = 'auto_root';
 
@@ -141,11 +144,12 @@ export class AutoRootBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autoroot'),
   };
 
-  protected override toJS(): BlocklierCodeDefinition {
+  override toJS(): BlocklierCodeDefinition {
     return [`auto.root`, 0];
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoRootInActiveWindowBlock extends BlocklierCustomBlock {
   override type = 'auto_root_in_active_window';
 
@@ -161,11 +165,12 @@ export class AutoRootInActiveWindowBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autorootinactivewindow'),
   };
 
-  protected override toJS(): BlocklierCodeDefinition {
+  override toJS(): BlocklierCodeDefinition {
     return [`auto.rootInActiveWindow`, 0];
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AutoSetWindowFilterBlock extends BlocklierCustomBlock {
   override type = 'auto_set_window_filter';
 
@@ -183,9 +188,7 @@ export class AutoSetWindowFilterBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('autosetwindowfilterfilter'),
   };
 
-  protected override toJS(
-    args: BlocklierArgumentReader,
-  ): BlocklierCodeDefinition {
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     const filter = args.code('FILTER');
     return `auto.setWindowFilter('${filter}');\n`;
   }

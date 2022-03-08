@@ -11,6 +11,7 @@ import { helpUrlBuilder } from './common';
 const colour = '#0eaf9e';
 const helpUrl = helpUrlBuilder('console');
 
+@BlocklierCustomBlock.register()
 export class ConsoleShowBlock extends BlocklierCustomBlock {
   override type = 'console_show';
 
@@ -43,6 +44,7 @@ export class ConsoleShowBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleClearBlock extends BlocklierCustomBlock {
   override type = 'console_clear';
 
@@ -60,6 +62,7 @@ export class ConsoleClearBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleOutputBlock extends BlocklierCustomBlock {
   override type = 'console_output';
 
@@ -102,6 +105,7 @@ export class ConsoleOutputBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleTimeBlock extends BlocklierCustomBlock {
   override type = 'console_time';
 
@@ -136,6 +140,7 @@ export class ConsoleTimeBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleSetSizeBlock extends BlocklierCustomBlock {
   override type = 'console_set_size';
 
@@ -164,6 +169,7 @@ export class ConsoleSetSizeBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleSetPositionBlock extends BlocklierCustomBlock {
   override type = 'console_set_position';
 
@@ -192,6 +198,7 @@ export class ConsoleSetPositionBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigBlock extends BlocklierCustomBlock {
   override type = 'console_config';
 
@@ -217,6 +224,7 @@ export class ConsoleConfigBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigPathBlock extends BlocklierCustomBlock {
   override type = 'console_config_path';
 
@@ -247,6 +255,7 @@ export class ConsoleConfigPathBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigFileSizeBlock extends BlocklierCustomBlock {
   override type = 'console_config_file_size';
 
@@ -272,6 +281,7 @@ export class ConsoleConfigFileSizeBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigLevelBlock extends BlocklierCustomBlock {
   override type = 'console_config_level';
 
@@ -309,6 +319,7 @@ export class ConsoleConfigLevelBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigBackupSizeBlock extends BlocklierCustomBlock {
   override type = 'console_config_backup_size';
 
@@ -332,6 +343,7 @@ export class ConsoleConfigBackupSizeBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class ConsoleConfigFilePatternBlock extends BlocklierCustomBlock {
   override type = 'console_config_file_pattern';
 

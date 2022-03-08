@@ -11,6 +11,7 @@ import { helpUrlBuilder } from './common';
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');
 
+@BlocklierCustomBlock.register()
 export class AppVersionCodeBlock extends BlocklierCustomBlock {
   type = 'app_version_code';
 
@@ -28,6 +29,7 @@ export class AppVersionCodeBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppVersionNameBlock extends BlocklierCustomBlock {
   type = 'app_version_name';
 
@@ -45,6 +47,7 @@ export class AppVersionNameBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppAutojsBlock extends BlocklierCustomBlock {
   type = 'app_autojs';
 
@@ -77,6 +80,7 @@ export class AppAutojsBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppLaunchBlock extends BlocklierCustomBlock {
   type = 'app_launch';
 
@@ -101,6 +105,7 @@ export class AppLaunchBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppLaunchAppBlock extends BlocklierCustomBlock {
   type = 'app_launch_app';
 
@@ -125,6 +130,7 @@ export class AppLaunchAppBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppGetPackageNameBlock extends BlocklierCustomBlock {
   type = 'app_get_package_name';
 
@@ -149,6 +155,7 @@ export class AppGetPackageNameBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppGetAppNameBlock extends BlocklierCustomBlock {
   type = 'app_get_app_name';
 
@@ -172,6 +179,7 @@ export class AppGetAppNameBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppOpenAppSettingBlock extends BlocklierCustomBlock {
   type = 'app_open_app_setting';
 
@@ -193,6 +201,7 @@ export class AppOpenAppSettingBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppViewFileBlock extends BlocklierCustomBlock {
   type = 'app_view_file';
 
@@ -217,6 +226,7 @@ export class AppViewFileBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppEditFileBlock extends BlocklierCustomBlock {
   type = 'app_edit_file';
 
@@ -241,6 +251,7 @@ export class AppEditFileBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppUninstallBlock extends BlocklierCustomBlock {
   type = 'app_uninstall';
 
@@ -265,6 +276,7 @@ export class AppUninstallBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppOpenUrlBlock extends BlocklierCustomBlock {
   type = 'app_open_url';
 
@@ -288,6 +300,7 @@ export class AppOpenUrlBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppSendEmailBlock extends BlocklierCustomBlock {
   type = 'app_send_email';
 
@@ -312,6 +325,7 @@ export class AppSendEmailBlock extends BlocklierCustomBlock {
   }
 }
 
+@BlocklierCustomBlock.register()
 export class AppStartActivityBlock extends BlocklierCustomBlock {
   type = 'app_start_activity';
 

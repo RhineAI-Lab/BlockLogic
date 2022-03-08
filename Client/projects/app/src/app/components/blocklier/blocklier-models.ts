@@ -30,12 +30,12 @@ export abstract class BlocklierCustomBlock
 {
   /* eslint-disable @typescript-eslint/no-unused-vars */
 
-  static use(classRefs: (new () => BlocklierCustomBlock)[]): void {
-    const blocks = classRefs.map(
-      (classRef) => new classRef() as unknown as CustomBlock,
-    );
-    NgxBlocklyComponent.initCustomBlocks(blocks);
-  }
+  static register =
+    () =>
+    (target: new () => BlocklierCustomBlock): void =>
+      NgxBlocklyComponent.initCustomBlocks([
+        new target() as unknown as CustomBlock,
+      ]);
 
   abstract type: string;
   definition?: BlocklierBlockDefinition;
