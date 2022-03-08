@@ -1,4 +1,3 @@
-import './coordinate';
 import './crypto';
 import './debug';
 import './device';

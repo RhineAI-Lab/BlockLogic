@@ -12,7 +12,7 @@ export type BlocklierBlockDefinition = {
   nextStatement?: null | string;
   output?: null | string | string[];
   inputsInline?: boolean;
-  colour?: string;
+  colour?: string | number;
   tooltip?: string;
   style?: string;
   helpUrl?: string;

@@ -10,7 +10,6 @@ import './simple';
 import './text';
 import './ui-text';
 import './var-function';
-import './coordinate';
 import './debug';
 import './dialog';
 import './global';
