@@ -1,20 +1,20 @@
 import { Blockly } from 'ngx-blockly';
 
 import {
-  ArgumentReader,
-  BlockDefinition,
-  CodeDefinition,
-  CustomBlock,
+  BlocklierArgumentReader,
+  BlocklierBlockDefinition,
+  BlocklierCodeDefinition,
+  BlocklierCustomBlock,
 } from '../blocklier-models';
 import { helpUrlBuilder } from './common';
 
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');
 
-export class AppVersionCodeBlock extends CustomBlock {
+export class AppVersionCodeBlock extends BlocklierCustomBlock {
   type = 'app_version_code';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [{ message: '获取当前软件版本号' }],
     output: 'Number',
     colour,
@@ -23,15 +23,15 @@ export class AppVersionCodeBlock extends CustomBlock {
     helpUrl: helpUrl('appversionCode'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return ['app.versionCode', 0];
   }
 }
 
-export class AppVersionNameBlock extends CustomBlock {
+export class AppVersionNameBlock extends BlocklierCustomBlock {
   type = 'app_version_name';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [{ message: '获取当前软件的版本名称' }],
     output: 'String',
     colour: colour,
@@ -40,15 +40,15 @@ export class AppVersionNameBlock extends CustomBlock {
     helpUrl: helpUrl('appversionName'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return ['app.versionName', 0];
   }
 }
 
-export class AppAutojsBlock extends CustomBlock {
+export class AppAutojsBlock extends BlocklierCustomBlock {
   type = 'app_autojs';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '获取当前autojs的 %1 ',
@@ -71,16 +71,16 @@ export class AppAutojsBlock extends CustomBlock {
     helpUrl: helpUrl('appautojsversioncode'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const value = arg('KEY');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const value = args.code('KEY');
     return `app.autojs.${value};\n`;
   }
 }
 
-export class AppLaunchBlock extends CustomBlock {
+export class AppLaunchBlock extends BlocklierCustomBlock {
   type = 'app_launch';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '通过应用包名启动应用 %1 ',
@@ -95,16 +95,16 @@ export class AppLaunchBlock extends CustomBlock {
     helpUrl: helpUrl('applaunchpackagename'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const packageName = arg('PACKAGE_NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const packageName = args.code('PACKAGE_NAME');
     return `app.launch(${packageName});\n`;
   }
 }
 
-export class AppLaunchAppBlock extends CustomBlock {
+export class AppLaunchAppBlock extends BlocklierCustomBlock {
   type = 'app_launch_app';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '通过应用名称启动应用 %1 ',
@@ -119,16 +119,16 @@ export class AppLaunchAppBlock extends CustomBlock {
     helpUrl: helpUrl('applaunchappappname'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const appName = arg('APP_NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const appName = args.code('APP_NAME');
     return `app.launchApp(${appName});\n`;
   }
 }
 
-export class AppGetPackageNameBlock extends CustomBlock {
+export class AppGetPackageNameBlock extends BlocklierCustomBlock {
   type = 'app_get_package_name';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '获取应用名对应的包名 %1 ',
@@ -143,16 +143,16 @@ export class AppGetPackageNameBlock extends CustomBlock {
     helpUrl: helpUrl('appgetpackagenameappname'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const appName = arg('APP_NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const appName = args.code('APP_NAME');
     return [`app.getPackageName(${appName})`, 0];
   }
 }
 
-export class AppGetAppNameBlock extends CustomBlock {
+export class AppGetAppNameBlock extends BlocklierCustomBlock {
   type = 'app_get_app_name';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '获取包名对应的应用名 %1',
@@ -166,16 +166,16 @@ export class AppGetAppNameBlock extends CustomBlock {
     helpUrl: helpUrl('appgetappnamepackagename'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const packageName = arg('PACKAGE_NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const packageName = args.code('PACKAGE_NAME');
     return `app.getAppName(${packageName})`;
   }
 }
 
-export class AppOpenAppSettingBlock extends CustomBlock {
+export class AppOpenAppSettingBlock extends BlocklierCustomBlock {
   type = 'app_open_app_setting';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '打开应用的详情页',
@@ -187,16 +187,16 @@ export class AppOpenAppSettingBlock extends CustomBlock {
     helpUrl: helpUrl('appopenappsettingpackagename'),
   };
 
-  override toJavaScriptCode(): CodeDefinition {
+  override toJavaScriptCode(): BlocklierCodeDefinition {
     const code = 'app.openAppSetting';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
   }
 }
 
-export class AppViewFileBlock extends CustomBlock {
+export class AppViewFileBlock extends BlocklierCustomBlock {
   type = 'app_view_file';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '用其他应用查看文件 %1 ',
@@ -211,16 +211,16 @@ export class AppViewFileBlock extends CustomBlock {
     helpUrl: helpUrl('appviewfilepath'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const path = arg('PATH');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const path = args.code('PATH');
     return `app.viewFile(${path});\n`;
   }
 }
 
-export class AppEditFileBlock extends CustomBlock {
+export class AppEditFileBlock extends BlocklierCustomBlock {
   type = 'app_edit_file';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '用其他应用编辑文件 %1 ',
@@ -235,16 +235,16 @@ export class AppEditFileBlock extends CustomBlock {
     helpUrl: helpUrl('appeditfilepath'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const path = arg('PATH');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const path = args.code('PATH');
     return `app.editFile(${path});\n`;
   }
 }
 
-export class AppUninstallBlock extends CustomBlock {
+export class AppUninstallBlock extends BlocklierCustomBlock {
   type = 'app_uninstall';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '卸载应用 %1 ',
@@ -259,16 +259,16 @@ export class AppUninstallBlock extends CustomBlock {
     helpUrl: helpUrl('appuninstallpackagename'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const packageName = arg('PACKAGE_NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const packageName = args.code('PACKAGE_NAME');
     return `app.uninstall(${packageName});\n`;
   }
 }
 
-export class AppOpenUrlBlock extends CustomBlock {
+export class AppOpenUrlBlock extends BlocklierCustomBlock {
   type = 'app_open_url';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '用浏览器打开网站url %1 ',
@@ -282,16 +282,16 @@ export class AppOpenUrlBlock extends CustomBlock {
     helpUrl: helpUrl('appopenurlurl'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const url = arg('URL');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const url = args.code('URL');
     return `app.openUrl(${url});\n`;
   }
 }
 
-export class AppSendEmailBlock extends CustomBlock {
+export class AppSendEmailBlock extends BlocklierCustomBlock {
   type = 'app_send_email';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '根据选项options调用邮箱应用发送邮件 %1 ',
@@ -306,16 +306,16 @@ export class AppSendEmailBlock extends CustomBlock {
     helpUrl: helpUrl('appsendemailoptions'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const options = arg('OPTIONS');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const options = args.code('OPTIONS');
     return `app.sendEmail(${options});\n`;
   }
 }
 
-export class AppStartActivityBlock extends CustomBlock {
+export class AppStartActivityBlock extends BlocklierCustomBlock {
   type = 'app_start_activity';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '启动Auto.js界面 %1 ',
@@ -330,8 +330,8 @@ export class AppStartActivityBlock extends CustomBlock {
     helpUrl: helpUrl('appstartactivityname'),
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const name = arg('NAME');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const name = args.code('NAME');
     return `app.startActivity(${name});\n`;
   }
 }

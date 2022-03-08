@@ -1,18 +1,18 @@
 import {
-  ArgumentReader,
-  BlockDefinition,
-  CodeDefinition,
-  CustomBlock,
+  BlocklierArgumentReader,
+  BlocklierBlockDefinition,
+  BlocklierCodeDefinition,
+  BlocklierCustomBlock,
 } from '../blocklier-models';
 import { helpUrlBuilder } from './common';
 
 const colour = '#e5af00';
 const helpUrl = helpUrlBuilder('widgetsBasedAutomation');
 
-export class AutoWaitForBlock extends CustomBlock {
+export class AutoWaitForBlock extends BlocklierCustomBlock {
   override type = 'auto_wait_for';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [{ message: '申请并等待无障碍权限开启' }],
     previousStatement: null,
     nextStatement: null,
@@ -21,15 +21,15 @@ export class AutoWaitForBlock extends CustomBlock {
     helpUrl: helpUrl('autowaitfor'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return `auto.waitFor();\n`;
   }
 }
 
-export class AutoSetModeBlock extends CustomBlock {
+export class AutoSetModeBlock extends BlocklierCustomBlock {
   override type = 'auto_set_mode';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '设置无障碍模式 %1',
@@ -52,16 +52,18 @@ export class AutoSetModeBlock extends CustomBlock {
     helpUrl: helpUrl('autosetmodemode'),
   };
 
-  protected override js(arg: ArgumentReader): CodeDefinition {
-    const mode = arg('MODE');
+  protected override toJS(
+    args: BlocklierArgumentReader,
+  ): BlocklierCodeDefinition {
+    const mode = args.value('MODE');
     return `auto.setMode('${mode}')\n`;
   }
 }
 
-export class AutoSetFlagsBlock extends CustomBlock {
+export class AutoSetFlagsBlock extends BlocklierCustomBlock {
   override type = 'auto_set_flags';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '设置无障碍标志 %1',
@@ -85,16 +87,18 @@ export class AutoSetFlagsBlock extends CustomBlock {
     helpUrl: helpUrl('autosetflagsflags'),
   };
 
-  protected override js(arg: ArgumentReader): CodeDefinition {
-    const flag = arg('FLAT');
+  protected override toJS(
+    args: BlocklierArgumentReader,
+  ): BlocklierCodeDefinition {
+    const flag = args.value('FLAT');
     return `auto.setFlags(['${flag}']);\n`;
   }
 }
 
-export class AutoServiceBlock extends CustomBlock {
+export class AutoServiceBlock extends BlocklierCustomBlock {
   override type = 'auto_service';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '获取无障碍服务',
@@ -106,15 +110,15 @@ export class AutoServiceBlock extends CustomBlock {
     helpUrl: helpUrl('autoservice'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return [`auto.service`, 0];
   }
 }
 
-export class AutoWindowsBlock extends CustomBlock {
+export class AutoWindowsBlock extends BlocklierCustomBlock {
   override type = 'auto_windows';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [{ message: '获取当前窗口' }],
     output: ['AutoWindows', 'Array'],
     colour,
@@ -122,14 +126,14 @@ export class AutoWindowsBlock extends CustomBlock {
     helpUrl: helpUrl('autowindows'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return [`auto.windows`, 0];
   }
 }
-export class AutoRootBlock extends CustomBlock {
+export class AutoRootBlock extends BlocklierCustomBlock {
   override type = 'auto_root';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [{ message: '获取当前窗口根控件' }],
     output: 'UiObject',
     colour,
@@ -137,15 +141,15 @@ export class AutoRootBlock extends CustomBlock {
     helpUrl: helpUrl('autoroot'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return [`auto.root`, 0];
   }
 }
 
-export class AutoRootInActiveWindowBlock extends CustomBlock {
+export class AutoRootInActiveWindowBlock extends BlocklierCustomBlock {
   override type = 'auto_root_in_active_window';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '获取活跃窗口根控件',
@@ -157,15 +161,15 @@ export class AutoRootInActiveWindowBlock extends CustomBlock {
     helpUrl: helpUrl('autorootinactivewindow'),
   };
 
-  protected override js(): CodeDefinition {
+  protected override toJS(): BlocklierCodeDefinition {
     return [`auto.rootInActiveWindow`, 0];
   }
 }
 
-export class AutoSetWindowFilterBlock extends CustomBlock {
+export class AutoSetWindowFilterBlock extends BlocklierCustomBlock {
   override type = 'auto_set_window_filter';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '设置窗口过滤器 %1',
@@ -179,8 +183,10 @@ export class AutoSetWindowFilterBlock extends CustomBlock {
     helpUrl: helpUrl('autosetwindowfilterfilter'),
   };
 
-  protected override js(arg: ArgumentReader): CodeDefinition {
-    const filter = arg('FILTER');
+  protected override toJS(
+    args: BlocklierArgumentReader,
+  ): BlocklierCodeDefinition {
+    const filter = args.code('FILTER');
     return `auto.setWindowFilter('${filter}');\n`;
   }
 }

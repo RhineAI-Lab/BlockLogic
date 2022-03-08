@@ -1,12 +1,12 @@
 import {
   Blockly,
   BlockMutator,
-  CustomBlock as CustomBlockBase,
+  CustomBlock,
   NgxBlocklyComponent,
 } from 'ngx-blockly';
 
-export type CodeDefinition = string | [string, number];
-export type BlockDefinition = {
+export type BlocklierCodeDefinition = string | [string, number];
+export type BlocklierBlockDefinition = {
   lines: { message: string; args?: any }[];
   previousStatement?: null | string;
   nextStatement?: null | string;
@@ -18,29 +18,27 @@ export type BlockDefinition = {
   helpUrl?: string;
 };
 
-export type ArgumentReader = (name: string) => string;
-
 /**
  * Better implementation of {@link CustomBlockBase}
  */
-export abstract class CustomBlock
+export abstract class BlocklierCustomBlock
   implements
     Omit<
-      CustomBlockBase,
+      CustomBlock,
       'kind' | 'block' | 'class' | 'blockMutator' | 'defineBlock' | 'onChange'
     >
 {
   /* eslint-disable @typescript-eslint/no-unused-vars */
 
-  static use(classRefs: (new () => CustomBlock)[]): void {
+  static use(classRefs: (new () => BlocklierCustomBlock)[]): void {
     const blocks = classRefs.map(
-      (classRef) => new classRef() as unknown as CustomBlockBase,
+      (classRef) => new classRef() as unknown as CustomBlock,
     );
     NgxBlocklyComponent.initCustomBlocks(blocks);
   }
 
   abstract type: string;
-  definition?: BlockDefinition;
+  definition?: BlocklierBlockDefinition;
   block!: Blockly.Block;
   mutator?: BlockMutator;
   disabled = false;
@@ -62,23 +60,23 @@ export abstract class CustomBlock
     return `<block type="${this.type}" disabled="${this.disabled}"></block>`;
   }
 
-  toDartCode(): CodeDefinition {
-    return this.dart((name) => Blockly.Dart.valueToCode(this.block, name, 0));
+  toDartCode(): BlocklierCodeDefinition {
+    return this.toDart(new BlocklierArgumentReader(Blockly.Dart, this.block));
   }
-  toJavaScriptCode(): CodeDefinition {
-    return this.js((name) =>
-      Blockly.JavaScript.valueToCode(this.block, name, 0),
+  toJavaScriptCode(): BlocklierCodeDefinition {
+    return this.toJS(
+      new BlocklierArgumentReader(Blockly.JavaScript, this.block),
     );
   }
-  toLuaCode(): CodeDefinition {
-    return this.lua((name) => Blockly.Lua.valueToCode(this.block, name, 0));
+  toLuaCode(): BlocklierCodeDefinition {
+    return this.toLua(new BlocklierArgumentReader(Blockly.Lua, this.block));
   }
-  toPHPCode(): CodeDefinition {
-    return this.php((name) => Blockly.PHP.valueToCode(this.block, name, 0));
+  toPHPCode(): BlocklierCodeDefinition {
+    return this.toPHP(new BlocklierArgumentReader(Blockly.PHP, this.block));
   }
-  toPythonCode(): CodeDefinition {
-    return this.python((name) =>
-      Blockly.Python.valueToCode(this.block, name, 0),
+  toPythonCode(): BlocklierCodeDefinition {
+    return this.toPython(
+      new BlocklierArgumentReader(Blockly.Python, this.block),
     );
   }
 
@@ -94,19 +92,19 @@ export abstract class CustomBlock
     }
   }
 
-  protected dart(arg: ArgumentReader): CodeDefinition {
+  protected toDart(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     throw 'not implemented';
   }
-  protected js(arg: ArgumentReader): CodeDefinition {
+  protected toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     throw 'not implemented';
   }
-  protected lua(arg: ArgumentReader): CodeDefinition {
+  protected toLua(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     throw 'not implemented';
   }
-  protected php(arg: ArgumentReader): CodeDefinition {
+  protected toPHP(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     throw 'not implemented';
   }
-  protected python(arg: ArgumentReader): CodeDefinition {
+  protected toPython(args: BlocklierArgumentReader): BlocklierCodeDefinition {
     throw 'not implemented';
   }
 
@@ -121,4 +119,21 @@ export abstract class CustomBlock
   }
 
   /* eslint-enable @typescript-eslint/no-unused-vars */
+}
+
+export class BlocklierArgumentReader {
+  constructor(
+    public generator: Blockly.Generator,
+    private block: Blockly.Block,
+  ) {}
+
+  value(name: string): string {
+    return this.block.getFieldValue(name);
+  }
+
+  code(name: string, statement = false): string {
+    return statement
+      ? this.generator.statementToCode(this.block, name)
+      : this.generator.valueToCode(this.block, name, 0);
+  }
 }

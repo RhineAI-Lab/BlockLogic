@@ -1,6 +1,6 @@
 import 'blockly/blocks'; // default blocks
 
-import { CustomBlock } from '../blocklier-models';
+import { BlocklierCustomBlock } from '../blocklier-models';
 import {
   AppAutojsBlock,
   AppEditFileBlock,
@@ -29,7 +29,7 @@ import {
 } from './auto.blocks';
 import { ListsGetBlock, ListsSetBlock } from './lists.blocks';
 
-CustomBlock.use([
+BlocklierCustomBlock.use([
   ListsGetBlock,
   ListsSetBlock,
   AppVersionCodeBlock,

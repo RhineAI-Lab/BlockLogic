@@ -1,16 +1,16 @@
 import {
-  ArgumentReader,
-  BlockDefinition,
-  CodeDefinition,
-  CustomBlock,
+  BlocklierArgumentReader,
+  BlocklierBlockDefinition,
+  BlocklierCodeDefinition,
+  BlocklierCustomBlock,
 } from '../blocklier-models';
 
 const style = 'list_blocks';
 
-export class ListsGetBlock extends CustomBlock {
+export class ListsGetBlock extends BlocklierCustomBlock {
   type = 'lists_get';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '列表 %1 第 %2 项',
@@ -25,17 +25,17 @@ export class ListsGetBlock extends CustomBlock {
     tooltip: '获取列表第指定项',
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const array = arg('ARRAY');
-    const index = arg('INDEX');
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const array = args.code('ARRAY');
+    const index = args.code('INDEX');
     return [`${array}[${index}-1]`, 0];
   }
 }
 
-export class ListsSetBlock extends CustomBlock {
+export class ListsSetBlock extends BlocklierCustomBlock {
   type = 'lists_set';
 
-  override definition: BlockDefinition = {
+  override definition: BlocklierBlockDefinition = {
     lines: [
       {
         message: '设置列表 %1 第 %2 项 为 %3',
@@ -53,10 +53,10 @@ export class ListsSetBlock extends CustomBlock {
     tooltip: '设置列表第某项的值',
   };
 
-  override js(arg: ArgumentReader): CodeDefinition {
-    const array = arg('ARRAY');
-    const index = arg('INDEX');
-    const value = arg('VALUE') || 'null';
+  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+    const array = args.code('ARRAY');
+    const index = args.code('INDEX');
+    const value = args.code('VALUE') || 'null';
     return `${array}[${index}-1] = ${value};\n`;
   }
 }
