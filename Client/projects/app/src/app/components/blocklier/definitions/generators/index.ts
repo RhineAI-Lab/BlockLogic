@@ -1,4 +1,3 @@
-import './console';
 import './crypto';
 import './device';
 import './files';
