@@ -9,7 +9,7 @@ export type BlockDefinition = {
   lines: { message: string; args?: any }[];
   previousStatement?: null | string;
   nextStatement?: null | string;
-  output?: null | string;
+  output?: null | string | string[];
   inputsInline?: boolean;
   colour?: string;
   tooltip?: string;

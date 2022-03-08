@@ -1,4 +1,3 @@
-import './auto';
 import './console';
 import './coordinate';
 import './crypto';

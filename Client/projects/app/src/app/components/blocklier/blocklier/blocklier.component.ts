@@ -21,6 +21,16 @@ import {
   AppVersionNameBlock,
   AppViewFileBlock,
 } from '../definitions/app.blocks';
+import {
+  AutoRootBlock,
+  AutoRootInActiveWindowBlock,
+  AutoServiceBlock,
+  AutoSetFlagsBlock,
+  AutoSetModeBlock,
+  AutoSetWindowFilterBlock,
+  AutoWaitForBlock,
+  AutoWindowsBlock,
+} from '../definitions/auto.blocks';
 import { ListsGetBlock, ListsSetBlock } from '../definitions/lists.blocks';
 
 @Component({
@@ -48,6 +58,14 @@ export class BlocklierComponent implements OnInit {
     AppOpenUrlBlock,
     AppSendEmailBlock,
     AppStartActivityBlock,
+    AutoWaitForBlock,
+    AutoSetModeBlock,
+    AutoSetFlagsBlock,
+    AutoServiceBlock,
+    AutoWindowsBlock,
+    AutoRootBlock,
+    AutoRootInActiveWindowBlock,
+    AutoSetWindowFilterBlock,
   ]);
 
   config: NgxBlocklyConfig = {

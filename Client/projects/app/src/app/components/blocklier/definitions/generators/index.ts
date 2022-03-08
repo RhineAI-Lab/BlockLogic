@@ -11,7 +11,6 @@ import './simple';
 import './text';
 import './ui-text';
 import './var-function';
-import './auto';
 import './coordinate';
 import './debug';
 import './dialog';
