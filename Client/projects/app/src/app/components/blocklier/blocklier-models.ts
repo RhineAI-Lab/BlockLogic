@@ -26,13 +26,7 @@ export abstract class CustomBlock
   implements
     Omit<
       CustomBlockBase,
-      | 'kind'
-      | 'block'
-      | 'class'
-      | 'blockMutator'
-      | 'args'
-      | 'defineBlock'
-      | 'onChange'
+      'kind' | 'block' | 'class' | 'blockMutator' | 'defineBlock' | 'onChange'
     >
 {
   /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -48,14 +42,18 @@ export abstract class CustomBlock
   block!: Blockly.Block;
   mutator?: BlockMutator;
   disabled = false;
+  args: unknown[] = [];
+
+  constructor() {
+    this.p('kind', 'BLOCK');
+    this.p('class', this.constructor);
+    this.p('blockMutator', this.mutator);
+  }
 
   init(block: Blockly.Block): void {
     this.block = block;
     this.define();
     this.block.setOnChange(this.onChange.bind(this));
-    this.p('kind', 'BLOCK');
-    this.p('class', this.constructor);
-    this.p('blockMutator', this.mutator);
   }
 
   toXML(): string {
