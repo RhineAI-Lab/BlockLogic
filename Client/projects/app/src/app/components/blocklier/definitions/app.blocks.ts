@@ -12,13 +12,11 @@ import { helpUrlBuilder } from './common';
 const colour = '#c6a000';
 const helpUrl = helpUrlBuilder('app');
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_version_code')
 export class AppVersionCodeBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_version_code';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '获取当前软件版本号' }],
     output: 'Number',
@@ -33,13 +31,11 @@ export class AppVersionCodeBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_version_name')
 export class AppVersionNameBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_version_name';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '获取当前软件的版本名称' }],
     output: 'String',
@@ -54,13 +50,11 @@ export class AppVersionNameBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_autojs')
 export class AppAutojsBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_autojs';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -90,13 +84,11 @@ export class AppAutojsBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_launch')
 export class AppLaunchBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_launch';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -118,13 +110,11 @@ export class AppLaunchBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_launch_app')
 export class AppLaunchAppBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_launch_app';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -146,13 +136,11 @@ export class AppLaunchAppBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_get_package_name')
 export class AppGetPackageNameBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_get_package_name';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -174,13 +162,11 @@ export class AppGetPackageNameBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_get_app_name')
 export class AppGetAppNameBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_get_app_name';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -201,13 +187,11 @@ export class AppGetAppNameBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_open_app_setting')
 export class AppOpenAppSettingBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_open_app_setting';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -226,13 +210,11 @@ export class AppOpenAppSettingBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_view_file')
 export class AppViewFileBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_view_file';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -254,13 +236,11 @@ export class AppViewFileBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_edit_file')
 export class AppEditFileBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_edit_file';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -282,13 +262,11 @@ export class AppEditFileBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_uninstall')
 export class AppUninstallBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_uninstall';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -310,13 +288,11 @@ export class AppUninstallBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_open_url')
 export class AppOpenUrlBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_open_url';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -337,13 +313,11 @@ export class AppOpenUrlBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_send_email')
 export class AppSendEmailBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_send_email';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -365,13 +339,11 @@ export class AppSendEmailBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('app_start_activity')
 export class AppStartActivityBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'app_start_activity';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {

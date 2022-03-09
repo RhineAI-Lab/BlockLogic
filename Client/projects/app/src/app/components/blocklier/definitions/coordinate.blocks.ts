@@ -10,13 +10,11 @@ import { helpUrlBuilder } from './common';
 const colour = 230;
 const helpUrl = helpUrlBuilder('coordinatesBasedAutomation');
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_set_screen')
 export class Coordinate_coordinate_set_screen_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_set_screen';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -42,13 +40,11 @@ export class Coordinate_coordinate_set_screen_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_click')
 export class Coordinate_coordinate_click_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_click';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -74,13 +70,11 @@ export class Coordinate_coordinate_click_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_long_click')
 export class Coordinate_coordinate_long_click_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_long_click';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -106,13 +100,11 @@ export class Coordinate_coordinate_long_click_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_press')
 export class Coordinate_coordinate_press_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_press';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -140,13 +132,11 @@ export class Coordinate_coordinate_press_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_swipe')
 export class Coordinate_coordinate_swipe_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_swipe';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -178,13 +168,11 @@ export class Coordinate_coordinate_swipe_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_root_tap')
 export class Coordinate_coordinate_root_tap_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_root_tap';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -210,13 +198,11 @@ export class Coordinate_coordinate_root_tap_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('coordinate_root_swipe')
 export class Coordinate_coordinate_root_swipe_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'coordinate_root_swipe';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {

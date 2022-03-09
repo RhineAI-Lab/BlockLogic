@@ -6,18 +6,16 @@ import { BlocklierArgumentReader } from './blocklier-argument-reader.class';
  * Abstraction of a Blockly Custom Block.
  */
 export abstract class BlocklierCustomBlock {
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-
   static register =
-    () =>
+    (type: string) =>
     (classRef: new () => BlocklierCustomBlock): void => {
       const instance = new classRef();
-      this.registerBlock(instance);
-      this.registerGenerators(instance);
+      this.registerBlock(type, instance);
+      this.registerGenerators(type, instance);
     };
 
-  private static registerBlock(instance: BlocklierCustomBlock) {
-    Blockly.Blocks[instance.type] = {
+  private static registerBlock(type: string, instance: BlocklierCustomBlock) {
+    Blockly.Blocks[type] = {
       init(this: Blockly.Block) {
         const { lines, ...definitions } = instance.definition;
         const result = definitions as Record<string, unknown>;
@@ -30,7 +28,10 @@ export abstract class BlocklierCustomBlock {
     };
   }
 
-  private static registerGenerators(instance: BlocklierCustomBlock) {
+  private static registerGenerators(
+    type: string,
+    instance: BlocklierCustomBlock,
+  ) {
     const register = (
       generator: Blockly.Generator,
       method: (reader: BlocklierArgumentReader) => BlocklierCustomBlockCode,
@@ -39,7 +40,7 @@ export abstract class BlocklierCustomBlock {
         string,
         (block: Blockly.Block) => BlocklierCustomBlockCode
       >;
-      registry[instance.type] = (block) =>
+      registry[type] = (block) =>
         method(new BlocklierArgumentReader(generator, block));
     };
     const i = instance as Partial<BlocklierCustomBlockWithAll>;
@@ -50,10 +51,7 @@ export abstract class BlocklierCustomBlock {
     if (i.toPython) register(Blockly.Python, i.toPython.bind(i));
   }
 
-  abstract type: string;
   abstract definition: BlocklierCustomBlockDefinition;
-
-  /* eslint-enable @typescript-eslint/no-unused-vars */
 }
 
 export interface BlocklierCustomBlockWithJavaScript

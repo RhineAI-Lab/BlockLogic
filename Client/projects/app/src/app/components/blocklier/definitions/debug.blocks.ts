@@ -10,13 +10,11 @@ import { helpUrlBuilder } from './common';
 const colour = '#cc9999';
 const helpUrl = helpUrlBuilder('debug');
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('$debug_dump_hprof')
 export class Debug_dump_hprof_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = '$debug_dump_hprof';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -38,13 +36,11 @@ export class Debug_dump_hprof_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('$debug_dump_and_send_hprof')
 export class Debug_dump_and_send_hprof_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = '$debug_dump_and_send_hprof';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       { message: '将整个脚本进程的内存dump到文件file中，并自动压缩为zip文件' },
@@ -60,13 +56,11 @@ export class Debug_dump_and_send_hprof_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('$debug_get_stack_trace')
 export class Debug_get_stack_trace_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = '$debug_get_stack_trace';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -87,13 +81,11 @@ export class Debug_get_stack_trace_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('$debug_set_memory_leak_detection_enabled')
 export class Debug_set_memory_leak_detection_enabled_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = '$debug_set_memory_leak_detection_enabled';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -123,13 +115,11 @@ export class Debug_set_memory_leak_detection_enabled_Block
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('$debug_gc')
 export class Debug_gc_Block
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = '$debug_gc';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {

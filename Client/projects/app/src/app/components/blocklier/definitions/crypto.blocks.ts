@@ -10,13 +10,11 @@ import { helpUrlBuilder } from './common';
 const colour = '#88282a';
 const helpUrl = helpUrlBuilder('crypto');
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_digest')
 export class CryptoDigestBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_digest';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -52,13 +50,11 @@ export class CryptoDigestBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_encrypt')
 export class CryptoEncryptBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_encrypt';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -103,13 +99,11 @@ export class CryptoEncryptBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_decrypt')
 export class CryptoDecryptBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_decrypt';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -154,13 +148,11 @@ export class CryptoDecryptBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_generate_key_pir')
 export class CryptoGenerateKeyPairBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_generate_key_pair';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -194,13 +186,11 @@ export class CryptoGenerateKeyPairBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('new_crypto_key')
 export class CryptoNewKeyBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'new_crypto_key';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -220,13 +210,11 @@ export class CryptoNewKeyBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_key_data')
 export class CryptoKeyDataBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_key_data';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -246,13 +234,11 @@ export class CryptoKeyDataBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_keypair_public')
 export class CryptoKeypairPublicBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_keypair_public';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -272,13 +258,11 @@ export class CryptoKeypairPublicBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('crypto_keypair_private')
 export class CryptoKeypairPrivateBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'crypto_keypair_private';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -298,13 +282,11 @@ export class CryptoKeypairPrivateBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('new_key_pair')
 export class CryptoNewKeyPairBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'new_key_pair';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {

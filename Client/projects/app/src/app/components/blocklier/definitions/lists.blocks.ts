@@ -8,13 +8,11 @@ import {
 
 const style = 'list_blocks';
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('lists_get')
 export class ListsGetBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'lists_get';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -37,13 +35,11 @@ export class ListsGetBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('lists_set')
 export class ListsSetBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'lists_set';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {

@@ -10,13 +10,11 @@ import { helpUrlBuilder } from './common';
 const colour = '#e5af00';
 const helpUrl = helpUrlBuilder('widgetsBasedAutomation');
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_wait_for')
 export class AutoWaitForBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_wait_for';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '申请并等待无障碍权限开启' }],
     previousStatement: null,
@@ -31,13 +29,11 @@ export class AutoWaitForBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_set_mode')
 export class AutoSetModeBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_set_mode';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -67,13 +63,11 @@ export class AutoSetModeBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_set_flags')
 export class AutoSetFlagsBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_set_flags';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -104,13 +98,11 @@ export class AutoSetFlagsBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_service')
 export class AutoServiceBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_service';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -128,13 +120,11 @@ export class AutoServiceBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_windows')
 export class AutoWindowsBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_windows';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '获取当前窗口' }],
     output: ['AutoWindows', 'Array'],
@@ -148,13 +138,11 @@ export class AutoWindowsBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_root')
 export class AutoRootBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_root';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '获取当前窗口根控件' }],
     output: 'UiObject',
@@ -168,13 +156,11 @@ export class AutoRootBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_root_in_active_window')
 export class AutoRootInActiveWindowBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_root_in_active_window';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
@@ -192,13 +178,11 @@ export class AutoRootInActiveWindowBlock
   }
 }
 
-@BlocklierCustomBlock.register()
+@BlocklierCustomBlock.register('auto_set_window_filter')
 export class AutoSetWindowFilterBlock
   extends BlocklierCustomBlock
   implements BlocklierCustomBlockWithJavaScript
 {
-  type = 'auto_set_window_filter';
-
   definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
