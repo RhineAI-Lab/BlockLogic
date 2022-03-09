@@ -1,17 +1,21 @@
+import { BlocklierArgumentReader } from '../models/blocklier-argument-reader.class';
 import {
-  BlocklierArgumentReader,
-  BlocklierBlockDefinition,
-  BlocklierCodeDefinition,
   BlocklierCustomBlock,
-} from '../blocklier-models';
+  BlocklierCustomBlockCode,
+  BlocklierCustomBlockDefinition,
+  BlocklierCustomBlockWithJavaScript,
+} from '../models/blocklier-custom-block.class';
 
 const style = 'list_blocks';
 
 @BlocklierCustomBlock.register()
-export class ListsGetBlock extends BlocklierCustomBlock {
+export class ListsGetBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
   type = 'lists_get';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '列表 %1 第 %2 项',
@@ -26,7 +30,7 @@ export class ListsGetBlock extends BlocklierCustomBlock {
     tooltip: '获取列表第指定项',
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const array = args.code('ARRAY');
     const index = args.code('INDEX');
     return [`${array}[${index}-1]`, 0];
@@ -34,10 +38,13 @@ export class ListsGetBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class ListsSetBlock extends BlocklierCustomBlock {
+export class ListsSetBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
   type = 'lists_set';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '设置列表 %1 第 %2 项 为 %3',
@@ -55,7 +62,7 @@ export class ListsSetBlock extends BlocklierCustomBlock {
     tooltip: '设置列表第某项的值',
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const array = args.code('ARRAY');
     const index = args.code('INDEX');
     const value = args.code('VALUE') || 'null';

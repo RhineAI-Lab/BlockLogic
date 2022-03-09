@@ -1,19 +1,23 @@
+import { BlocklierArgumentReader } from '../models/blocklier-argument-reader.class';
 import {
-  BlocklierArgumentReader,
-  BlocklierBlockDefinition,
-  BlocklierCodeDefinition,
   BlocklierCustomBlock,
-} from '../blocklier-models';
+  BlocklierCustomBlockCode,
+  BlocklierCustomBlockDefinition,
+  BlocklierCustomBlockWithJavaScript,
+} from '../models/blocklier-custom-block.class';
 import { helpUrlBuilder } from './common';
 
 const colour = '#88282a';
 const helpUrl = helpUrlBuilder('crypto');
 
 @BlocklierCustomBlock.register()
-export class CryptoDigestBlock extends BlocklierCustomBlock {
-  override type = 'crypto_digest';
+export class CryptoDigestBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_digest';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '计算 %1 摘要 原文: %2',
@@ -41,7 +45,7 @@ export class CryptoDigestBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('cryptodigestmessage-algorithm-options'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const data = args.code('DATA');
     const algorithm = args.value('ALGORITHM');
     return [`$crypto.digest(${data}, ${algorithm})`, 0];
@@ -49,10 +53,13 @@ export class CryptoDigestBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoEncryptBlock extends BlocklierCustomBlock {
-  override type = 'crypto_encrypt';
+export class CryptoEncryptBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_encrypt';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '用密钥 %1 对 %2 进行 %3 加密',
@@ -88,7 +95,7 @@ export class CryptoEncryptBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('cryptoencryptdata-key-algorithm-options'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const key = args.code('KEY');
     const checked = args.value('ENCRYPT');
     const message = args.code('MESSAGE');
@@ -97,10 +104,13 @@ export class CryptoEncryptBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoDecryptBlock extends BlocklierCustomBlock {
-  override type = 'crypto_decrypt';
+export class CryptoDecryptBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_decrypt';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '用密钥 %1 对 %2 进行 %3 解密',
@@ -136,7 +146,7 @@ export class CryptoDecryptBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('cryptoencryptdata-key-algorithm-options'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const key = args.code('KEY');
     const checked = args.value('DECRYPT');
     const message = args.code('MESSAGE');
@@ -145,10 +155,13 @@ export class CryptoDecryptBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoGenerateKeyPairBlock extends BlocklierCustomBlock {
-  override type = 'crypto_generate_key_pair';
+export class CryptoGenerateKeyPairBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_generate_key_pair';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '生成一对 %1 算法的密钥对 长度 %2',
@@ -174,7 +187,7 @@ export class CryptoGenerateKeyPairBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('cryptogeneratekeypairalgorithm-length'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const algorithm = args.value('ALGORITHM');
     const length = args.code('LENGTH');
     return [`$crypto.generateKeyPair(${algorithm}, ${length})`, 0];
@@ -182,10 +195,13 @@ export class CryptoGenerateKeyPairBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoNewKeyBlock extends BlocklierCustomBlock {
-  override type = 'new_crypto_key';
+export class CryptoNewKeyBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'new_crypto_key';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '新建密钥 %1 ',
@@ -198,17 +214,20 @@ export class CryptoNewKeyBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('new-keydata-options'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const message = args.code('MESSAGE');
     return [`new $crypto.Key(${message})`, 0];
   }
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoKeyDataBlock extends BlocklierCustomBlock {
-  override type = 'crypto_key_data';
+export class CryptoKeyDataBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_key_data';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '获取密钥 %1 的二进制数据',
@@ -221,17 +240,20 @@ export class CryptoKeyDataBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('keydata'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const key = args.code('KEY');
     return [`${key}.data`, 0];
   }
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoKeypairPublicBlock extends BlocklierCustomBlock {
-  override type = 'crypto_keypair_public';
+export class CryptoKeypairPublicBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_keypair_public';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '获取密钥对 %1 的公钥',
@@ -244,17 +266,20 @@ export class CryptoKeypairPublicBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('keydata'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const key = args.code('KEY');
     return [`${key}.publicKey`, 0];
   }
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoKeypairPrivateBlock extends BlocklierCustomBlock {
-  override type = 'crypto_keypair_private';
+export class CryptoKeypairPrivateBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'crypto_keypair_private';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '获取密钥对 %1 的私钥',
@@ -267,17 +292,20 @@ export class CryptoKeypairPrivateBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('keydata'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const key = args.code('KEY');
     return [`${key}.privateKey`, 0];
   }
 }
 
 @BlocklierCustomBlock.register()
-export class CryptoNewKeyPairBlock extends BlocklierCustomBlock {
-  override type = 'new_key_pair';
+export class CryptoNewKeyPairBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'new_key_pair';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '新建密钥对 公钥: %1  私钥: %2 ',
@@ -294,7 +322,7 @@ export class CryptoNewKeyPairBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('new-keypairpublickey-privatekey-options'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const publicKey = args.code('PUBLIC');
     const privateKey = args.code('PRIVATE');
     return `new $crypto.KeyPair(${publicKey}, ${privateKey})`;

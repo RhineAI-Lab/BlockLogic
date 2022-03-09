@@ -1,4 +1,4 @@
-<nz-layout *ngIf="!loading">
+<nz-layout>
   <nz-sider nzTheme="light">
     <ul nz-menu nzMode="inline" [nzSelectable]="false">
       <ng-container
@@ -41,11 +41,7 @@
       </ng-template>
     </ul>
   </nz-sider>
-
   <nz-content>
-    <ngx-blockly
-      [config]="config"
-      (workspaceCreate)="onWorkspaceInit($event)"
-    ></ngx-blockly>
+    <div class="container" #container></div>
   </nz-content>
 </nz-layout>

@@ -1,19 +1,23 @@
+import { BlocklierArgumentReader } from '../models/blocklier-argument-reader.class';
 import {
-  BlocklierArgumentReader,
-  BlocklierBlockDefinition,
-  BlocklierCodeDefinition,
   BlocklierCustomBlock,
-} from '../blocklier-models';
+  BlocklierCustomBlockCode,
+  BlocklierCustomBlockDefinition,
+  BlocklierCustomBlockWithJavaScript,
+} from '../models/blocklier-custom-block.class';
 import { helpUrlBuilder } from './common';
 
 const colour = 230;
 const helpUrl = helpUrlBuilder('coordinatesBasedAutomation');
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_set_screen_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_set_screen';
+export class Coordinate_coordinate_set_screen_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_set_screen';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '等比适应分辨率  宽: %1 高: %2',
@@ -31,7 +35,7 @@ export class Coordinate_coordinate_set_screen_Block extends BlocklierCustomBlock
     helpUrl: helpUrl('setscreenmetricswidth-height'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const width = args.code('W');
     const height = args.code('H');
     return `setScreenMetrics(${width}, ${height});\n`;
@@ -39,10 +43,13 @@ export class Coordinate_coordinate_set_screen_Block extends BlocklierCustomBlock
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_click_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_click';
+export class Coordinate_coordinate_click_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_click';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '点击屏幕   坐标 X: %1 Y: %2',
@@ -60,7 +67,7 @@ export class Coordinate_coordinate_click_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('clickx-y'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x = args.code('X');
     const y = args.code('Y');
     return `click(${x}, ${y});\n`;
@@ -68,10 +75,13 @@ export class Coordinate_coordinate_click_Block extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_long_click_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_long_click';
+export class Coordinate_coordinate_long_click_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_long_click';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '长按屏幕   坐标 X: %1 Y: %2',
@@ -89,7 +99,7 @@ export class Coordinate_coordinate_long_click_Block extends BlocklierCustomBlock
     helpUrl: helpUrl('longclickx-y'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x = args.code('X');
     const y = args.code('Y');
     return `longClick(${x}, ${y});\n`;
@@ -97,10 +107,13 @@ export class Coordinate_coordinate_long_click_Block extends BlocklierCustomBlock
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_press_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_press';
+export class Coordinate_coordinate_press_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_press';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '按住屏幕   坐标 X: %1 Y: %2 时长(毫秒): %3',
@@ -119,7 +132,7 @@ export class Coordinate_coordinate_press_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('pressx-y-duration'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x = args.code('X');
     const y = args.code('Y');
     const d = args.code('D');
@@ -128,10 +141,13 @@ export class Coordinate_coordinate_press_Block extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_swipe_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_swipe';
+export class Coordinate_coordinate_swipe_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_swipe';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message:
@@ -152,7 +168,7 @@ export class Coordinate_coordinate_swipe_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('swipex1-y1-x2-y2-duration'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x1 = args.code('X1');
     const y1 = args.code('Y1');
     const x2 = args.code('X2');
@@ -163,10 +179,13 @@ export class Coordinate_coordinate_swipe_Block extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_root_tap_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_root_tap';
+export class Coordinate_coordinate_root_tap_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_root_tap';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '点击屏幕(Root权限)   坐标 X: %1 Y: %2',
@@ -184,7 +203,7 @@ export class Coordinate_coordinate_root_tap_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('tapx-y'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x = args.code('X');
     const y = args.code('Y');
     return `Tap(${x}, ${y});\n`;
@@ -192,10 +211,13 @@ export class Coordinate_coordinate_root_tap_Block extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class Coordinate_coordinate_root_swipe_Block extends BlocklierCustomBlock {
-  override type = 'coordinate_root_swipe';
+export class Coordinate_coordinate_root_swipe_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'coordinate_root_swipe';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message:
@@ -217,7 +239,7 @@ export class Coordinate_coordinate_root_swipe_Block extends BlocklierCustomBlock
     helpUrl: helpUrl('swipex1-y1-x2-y2-duration-1'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x1 = args.code('X1');
     const y1 = args.code('Y1');
     const x2 = args.code('X2');

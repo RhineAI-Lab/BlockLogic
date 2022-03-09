@@ -42,12 +42,12 @@ export abstract class BlocklierCustomBlock {
       registry[instance.type] = (block) =>
         method(new BlocklierArgumentReader(generator, block));
     };
-    const i = instance as BlocklierCustomBlockWithAll;
-    register(Blockly.JavaScript, i.toJavaScript.bind(i));
-    register(Blockly.Dart, i.toDart.bind(i));
-    register(Blockly.Lua, i.toLua.bind(i));
-    register(Blockly.PHP, i.toPHP.bind(i));
-    register(Blockly.Python, i.toPython.bind(i));
+    const i = instance as Partial<BlocklierCustomBlockWithAll>;
+    if (i.toJavaScript) register(Blockly.JavaScript, i.toJavaScript.bind(i));
+    if (i.toDart) register(Blockly.Dart, i.toDart.bind(i));
+    if (i.toLua) register(Blockly.Lua, i.toLua.bind(i));
+    if (i.toPHP) register(Blockly.PHP, i.toPHP.bind(i));
+    if (i.toPython) register(Blockly.Python, i.toPython.bind(i));
   }
 
   abstract type: string;

@@ -1,19 +1,23 @@
+import { BlocklierArgumentReader } from '../models/blocklier-argument-reader.class';
 import {
-  BlocklierArgumentReader,
-  BlocklierBlockDefinition,
-  BlocklierCodeDefinition,
   BlocklierCustomBlock,
-} from '../blocklier-models';
+  BlocklierCustomBlockCode,
+  BlocklierCustomBlockDefinition,
+  BlocklierCustomBlockWithJavaScript,
+} from '../models/blocklier-custom-block.class';
 import { helpUrlBuilder } from './common';
 
 const colour = '#cc9999';
 const helpUrl = helpUrlBuilder('debug');
 
 @BlocklierCustomBlock.register()
-export class Debug_dump_hprof_Block extends BlocklierCustomBlock {
-  override type = '$debug_dump_hprof';
+export class Debug_dump_hprof_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = '$debug_dump_hprof';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '将整个脚本进程的内存dump到文件file中 %1 ',
@@ -28,17 +32,20 @@ export class Debug_dump_hprof_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('debugdumphproffile'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const file = args.code('FILE');
     return `$debug.dumpHprof(${file});\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class Debug_dump_and_send_hprof_Block extends BlocklierCustomBlock {
-  override type = '$debug_dump_and_send_hprof';
+export class Debug_dump_and_send_hprof_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = '$debug_dump_and_send_hprof';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       { message: '将整个脚本进程的内存dump到文件file中，并自动压缩为zip文件' },
     ],
@@ -48,16 +55,19 @@ export class Debug_dump_and_send_hprof_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('debugdumpandsendhproffile'),
   };
 
-  override toJS(): BlocklierCodeDefinition {
+  toJavaScript(): BlocklierCustomBlockCode {
     return [`$debug.dumpAndSendHprof()`, 0];
   }
 }
 
 @BlocklierCustomBlock.register()
-export class Debug_get_stack_trace_Block extends BlocklierCustomBlock {
-  override type = '$debug_get_stack_trace';
+export class Debug_get_stack_trace_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = '$debug_get_stack_trace';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '获取一个异常的详细堆栈并返回 %1 ',
@@ -71,17 +81,20 @@ export class Debug_get_stack_trace_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('debuggetstacktraceerror'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const error = args.code('ERROR');
     return `$debug.getStackTrace(${error});\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class Debug_set_memory_leak_detection_enabled_Block extends BlocklierCustomBlock {
-  override type = '$debug_set_memory_leak_detection_enabled';
+export class Debug_set_memory_leak_detection_enabled_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = '$debug_set_memory_leak_detection_enabled';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: ' %1 内存泄漏检测',
@@ -104,17 +117,20 @@ export class Debug_set_memory_leak_detection_enabled_Block extends BlocklierCust
     helpUrl: helpUrl('debugsetmemoryleakdetectionenabledenabled'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const enabled = args.value('ENABLED');
     return `$debug.setMemoryLeakDetectionEnabled(${enabled});\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class Debug_gc_Block extends BlocklierCustomBlock {
-  override type = '$debug_gc';
+export class Debug_gc_Block
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = '$debug_gc';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '建议JVM进行垃圾回收',
@@ -127,7 +143,7 @@ export class Debug_gc_Block extends BlocklierCustomBlock {
     helpUrl: helpUrl('debuggc'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const gc = args.code('GC');
     return `$debug.gc(${gc});\n`;
   }

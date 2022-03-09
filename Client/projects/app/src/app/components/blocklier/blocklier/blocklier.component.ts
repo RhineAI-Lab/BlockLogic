@@ -1,7 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { Blockly, NgxBlocklyConfig, NgxBlocklyGenerator } from 'ngx-blockly';
-import { finalize } from 'rxjs';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import * as Blockly from 'blockly';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
 
@@ -10,55 +15,48 @@ import { BlocklierRenderer } from '../blocklier-renderer';
   templateUrl: './blocklier.component.html',
   styleUrls: ['./blocklier.component.less'],
 })
-export class BlocklierComponent implements OnInit {
-  loading = true;
-
-  config: NgxBlocklyConfig = {
-    grid: {
-      spacing: 20,
-      length: 6,
-      colour: '#ddd',
-      snap: true,
-    },
-    zoom: {
-      controls: true,
-      wheel: true,
-      startScale: 1.0,
-      maxScale: 2,
-      minScale: 0.5,
-      scaleSpeed: 1.2,
-    },
-    generators: [NgxBlocklyGenerator.JAVASCRIPT],
-    renderer: BlocklierRenderer.name,
-    // renderer: 'geras',
-  };
-
+export class BlocklierComponent implements OnInit, AfterViewInit {
+  @ViewChild('container') container!: ElementRef<HTMLDivElement>;
+  workspace!: Blockly.WorkspaceSvg;
   categories: ToolboxCategory[] = [];
   categorySelected?: ToolboxCategory;
 
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private httpClient: HttpClient,
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    /* eslint-disable @typescript-eslint/no-non-null-assertion */
     this.httpClient
       .get('assets/toolbox.xml', { responseType: 'text' })
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe((xmlText) => {
-        this.config.toolbox = xmlText;
+      .subscribe((xml) => {
+        const $host = this.container.nativeElement;
+        this.workspace = Blockly.inject($host, {
+          grid: {
+            spacing: 20,
+            length: 6,
+            colour: '#ddd',
+            snap: true,
+          },
+          zoom: {
+            controls: true,
+            wheel: true,
+            startScale: 1.0,
+            maxScale: 2,
+            minScale: 0.5,
+            scaleSpeed: 1.2,
+          },
+          renderer: BlocklierRenderer.name,
+          toolbox: xml,
+        });
+        const toolbox = this.workspace.getToolbox();
+        toolbox.setVisible(false);
+        const flyout = toolbox.getFlyout();
+        flyout.autoClose = false;
+        const $root =
+          $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!;
+        this.categories = this.resolveToolboxCategories($root);
       });
-  }
-
-  onWorkspaceInit(workspace: Blockly.WorkspaceSvg): void {
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    const toolbox = workspace.getToolbox();
-    toolbox.setVisible(false);
-    const flyout = toolbox.getFlyout();
-    flyout.autoClose = false;
-    const $host = this.elementRef.nativeElement;
-    const $root = $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!;
-    this.categories = this.resolveToolboxCategories($root);
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
 

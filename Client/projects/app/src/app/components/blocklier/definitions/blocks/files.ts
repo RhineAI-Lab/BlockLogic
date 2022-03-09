@@ -1,4 +1,4 @@
-import { Blockly } from 'ngx-blockly';
+import * as Blockly from 'blockly';
 
 const colour = '#b9993d';
 const baseHelpUrl = 'https://pro.autojs.org/docs/#/zh-cn/files?id=';

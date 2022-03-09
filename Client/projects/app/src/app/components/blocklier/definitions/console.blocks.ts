@@ -1,21 +1,23 @@
-import { Blockly } from 'ngx-blockly';
-
+import { BlocklierArgumentReader } from '../models/blocklier-argument-reader.class';
 import {
-  BlocklierArgumentReader,
-  BlocklierBlockDefinition,
-  BlocklierCodeDefinition,
   BlocklierCustomBlock,
-} from '../blocklier-models';
+  BlocklierCustomBlockCode,
+  BlocklierCustomBlockDefinition,
+  BlocklierCustomBlockWithJavaScript,
+} from '../models/blocklier-custom-block.class';
 import { helpUrlBuilder } from './common';
 
 const colour = '#0eaf9e';
 const helpUrl = helpUrlBuilder('console');
 
 @BlocklierCustomBlock.register()
-export class ConsoleShowBlock extends BlocklierCustomBlock {
-  override type = 'console_show';
+export class ConsoleShowBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_show';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '%1 控制台 ',
@@ -38,17 +40,20 @@ export class ConsoleShowBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consoleshow'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const value = args.value('VALUE');
     return `console.${value}();\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleClearBlock extends BlocklierCustomBlock {
-  override type = 'console_clear';
+export class ConsoleClearBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_clear';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [{ message: '清空控制台' }],
     colour,
     previousStatement: null,
@@ -57,16 +62,19 @@ export class ConsoleClearBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consoleclear'),
   };
 
-  override toJS(): BlocklierCodeDefinition {
+  toJavaScript(): BlocklierCustomBlockCode {
     return `console.clear();\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleOutputBlock extends BlocklierCustomBlock {
-  override type = 'console_output';
+export class ConsoleOutputBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_output';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '输出 %1 内容 %2',
@@ -98,7 +106,7 @@ export class ConsoleOutputBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolelogdata-args'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const type = args.value('TYPE');
     const content = args.code('CONTENT');
     return `console.${type}(${content});\n`;
@@ -106,10 +114,13 @@ export class ConsoleOutputBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleTimeBlock extends BlocklierCustomBlock {
-  override type = 'console_time';
+export class ConsoleTimeBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_time';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '%1 定时器 名称 %2',
@@ -133,7 +144,7 @@ export class ConsoleTimeBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consoletimelabel'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const type = args.value('TYPE');
     const name = args.code('NAME');
     return `console.${type}(${name});\n`;
@@ -141,10 +152,13 @@ export class ConsoleTimeBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleSetSizeBlock extends BlocklierCustomBlock {
-  override type = 'console_set_size';
+export class ConsoleSetSizeBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_set_size';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '设置控制台大小  宽 %1 高 %2',
@@ -162,7 +176,7 @@ export class ConsoleSetSizeBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetsizew-h'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const width = args.code('width');
     const height = args.code('height');
     return `console.setSize(${width}, ${height});\n`;
@@ -170,10 +184,13 @@ export class ConsoleSetSizeBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleSetPositionBlock extends BlocklierCustomBlock {
-  override type = 'console_set_position';
+export class ConsoleSetPositionBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_set_position';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '设置控制台位置  X %1 Y %2',
@@ -191,7 +208,7 @@ export class ConsoleSetPositionBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetpositionx-y'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const x = args.code('X');
     const y = args.code('Y');
     return `console.setPosition(${x}, ${y});\n`;
@@ -199,10 +216,13 @@ export class ConsoleSetPositionBlock extends BlocklierCustomBlock {
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigBlock extends BlocklierCustomBlock {
-  override type = 'console_config';
+export class ConsoleConfigBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       { message: '设置控制台配置' },
       {
@@ -217,18 +237,23 @@ export class ConsoleConfigBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetgloballogconfigconfig'),
   };
 
-  override toJS(): BlocklierCodeDefinition {
-    let branch = Blockly.JavaScript.statementToCode(this.block, 'DO');
-    branch = Blockly.JavaScript.addLoopTrap(branch, this.block);
-    return `console.setGlobalLogConfig({${branch}});\n`;
+  toJavaScript(): BlocklierCustomBlockCode {
+    // TODO:
+    // let branch = Blockly.JavaScript.statementToCode(this.block, 'DO');
+    // branch = Blockly.JavaScript.addLoopTrap(branch, this.block);
+    // return `console.setGlobalLogConfig({${branch}});\n`;
+    return '';
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigPathBlock extends BlocklierCustomBlock {
-  override type = 'console_config_path';
+export class ConsoleConfigPathBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config_path';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '配置-保存路径 %1',
@@ -249,17 +274,20 @@ export class ConsoleConfigPathBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetgloballogconfigconfig'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const path = args.code('VALUE');
     return `'path': ${path},\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigFileSizeBlock extends BlocklierCustomBlock {
-  override type = 'console_config_file_size';
+export class ConsoleConfigFileSizeBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config_file_size';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '配置-文件大小 %1',
@@ -275,17 +303,20 @@ export class ConsoleConfigFileSizeBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetgloballogconfigconfig'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const value = args.code('VALUE');
     return `'maxFileSize': ${value},\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigLevelBlock extends BlocklierCustomBlock {
-  override type = 'console_config_level';
+export class ConsoleConfigLevelBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config_level';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '配置-写入级别 %1',
@@ -313,17 +344,20 @@ export class ConsoleConfigLevelBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetgloballogconfigconfig'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const value = args.value('VALUE');
     return `'rootLevel': '${value}',\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigBackupSizeBlock extends BlocklierCustomBlock {
-  override type = 'console_config_backup_size';
+export class ConsoleConfigBackupSizeBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config_backup_size';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '配置-备份数量 %1',
@@ -337,17 +371,20 @@ export class ConsoleConfigBackupSizeBlock extends BlocklierCustomBlock {
     helpUrl: helpUrl('consolesetgloballogconfigconfig'),
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const value = args.code('VALUE');
     return `'maxBackupSize': ${value},\n`;
   }
 }
 
 @BlocklierCustomBlock.register()
-export class ConsoleConfigFilePatternBlock extends BlocklierCustomBlock {
-  override type = 'console_config_file_pattern';
+export class ConsoleConfigFilePatternBlock
+  extends BlocklierCustomBlock
+  implements BlocklierCustomBlockWithJavaScript
+{
+  type = 'console_config_file_pattern';
 
-  override definition: BlocklierBlockDefinition = {
+  definition: BlocklierCustomBlockDefinition = {
     lines: [
       {
         message: '配置-写入格式 %1',
@@ -362,7 +399,7 @@ export class ConsoleConfigFilePatternBlock extends BlocklierCustomBlock {
       'http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html',
   };
 
-  override toJS(args: BlocklierArgumentReader): BlocklierCodeDefinition {
+  toJavaScript(args: BlocklierArgumentReader): BlocklierCustomBlockCode {
     const value = args.code('VALUE');
     return `'filePattern': ${value},\n`;
   }

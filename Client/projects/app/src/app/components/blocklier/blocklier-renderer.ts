@@ -1,4 +1,4 @@
-import { Blockly } from 'ngx-blockly';
+import * as Blockly from 'blockly';
 
 /**
  * @see https://github.com/google/blockly-samples/blob/master/codelabs/custom_renderer/custom_renderer.md
