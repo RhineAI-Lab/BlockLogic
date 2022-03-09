@@ -886,7 +886,7 @@
         </category>
         <category name="调试工具">
             <block type="$debug_dump_hprof">
-                <value name="HPROF">
+                <value name="FILE">
                     <shadow type="text">
                         <field name="TEXT">./dump.hprof</field>
                     </shadow>
@@ -894,7 +894,7 @@
             </block>
             <block type="$debug_dump_and_send_hprof"></block>
             <block type="$debug_get_stack_trace">
-                <value name="TRACE">
+                <value name="ERROR">
                     <shadow type="text">
                         <field name="TEXT"></field>
                     </shadow>

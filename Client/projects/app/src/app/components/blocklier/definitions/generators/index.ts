@@ -9,7 +9,6 @@ import './simple';
 import './text';
 import './ui-text';
 import './var-function';
-import './debug';
 import './dialog';
 import './global';
 import './index';
