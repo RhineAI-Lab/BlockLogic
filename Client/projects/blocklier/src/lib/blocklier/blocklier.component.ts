@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-blocklier',
-  template: ` <p>blocklier works!</p> `,
-  styles: [],
+  templateUrl: './blocklier.component.html',
+  styleUrls: ['./blocklier.component.css'],
 })
 export class BlocklierComponent implements OnInit {
   constructor() {}
