@@ -2,56 +2,77 @@ import * as Blockly from 'blockly';
 
 import { BlocklierArgumentReader } from './blocklier-argument-reader.class';
 
+const DEFINITION = Symbol('definition');
+
 /**
  * Abstraction of a Blockly Custom Block.
  */
 export abstract class BlocklierCustomBlock {
+  static registry = new Set<BlocklierCustomBlockConstructor>();
+
   static register =
-    (type: string) =>
-    (classRef: new () => BlocklierCustomBlock): void => {
-      const instance = new classRef();
-      this.registerBlock(type, instance);
-      this.registerGenerators(type, instance);
+    (definition: BlocklierCustomBlockDefinition) =>
+    (classRef: BlocklierCustomBlockConstructor): void => {
+      classRef.prototype[DEFINITION] = definition;
+      this.registry.add(classRef);
+      this.registerBlock(classRef);
+      this.registerGenerators(classRef);
     };
 
-  private static registerBlock(type: string, instance: BlocklierCustomBlock) {
-    Blockly.Blocks[type] = {
-      init(this: Blockly.Block) {
-        const { lines, ...definitions } = instance.definition;
-        const result = definitions as Record<string, unknown>;
-        lines.forEach(({ message, args }, index) => {
-          result[`message${index}`] = message;
-          if (args) result[`args${index}`] = args;
-        });
-        this.jsonInit(result);
+  static getDefinition(
+    classRef: BlocklierCustomBlockConstructor,
+  ): BlocklierCustomBlockDefinition {
+    return classRef.prototype[DEFINITION];
+  }
+
+  private static registerBlock(classRef: BlocklierCustomBlockConstructor) {
+    const definition = this.getDefinition(classRef);
+    const definitionFinal: Record<string, unknown> = { ...definition };
+    definition.lines.forEach(({ message, args }, index) => {
+      definitionFinal[`message${index}`] = message;
+      if (args) definitionFinal[`args${index}`] = args;
+    });
+    Blockly.Blocks[definition.type] = {
+      init(this: Blockly.Block & WithBlocklier) {
+        this.jsonInit(definitionFinal);
+        this.blocklier = new classRef(this);
       },
     };
   }
 
-  private static registerGenerators(
-    type: string,
-    instance: BlocklierCustomBlock,
-  ) {
+  private static registerGenerators(classRef: BlocklierCustomBlockConstructor) {
+    // TODO: safer types
+    // Here here are many unsafe types. I know. But just let it go. I'm tired. :]
+    const type = this.getDefinition(classRef).type;
     const register = (
       generator: Blockly.Generator,
-      method: (reader: BlocklierArgumentReader) => BlocklierCustomBlockCode,
+      handler: (
+        model: BlocklierCustomBlockWithAll,
+      ) => (reader: BlocklierArgumentReader) => void,
     ) => {
-      const registry = generator as unknown as Record<
-        string,
-        (block: Blockly.Block) => BlocklierCustomBlockCode
-      >;
-      registry[type] = (block) =>
-        method(new BlocklierArgumentReader(generator, block));
+      if (!generator) return;
+      const registry: Record<string, any> = generator;
+      registry[type] = (block: Blockly.Block & WithBlocklier) => {
+        const reader = new BlocklierArgumentReader(generator, block);
+        const model = block.blocklier as BlocklierCustomBlockWithAll;
+        return handler(model)?.bind(model)(reader);
+      };
     };
-    const i = instance as Partial<BlocklierCustomBlockWithAll>;
-    if (i.toJavaScript) register(Blockly.JavaScript, i.toJavaScript.bind(i));
-    if (i.toDart) register(Blockly.Dart, i.toDart.bind(i));
-    if (i.toLua) register(Blockly.Lua, i.toLua.bind(i));
-    if (i.toPHP) register(Blockly.PHP, i.toPHP.bind(i));
-    if (i.toPython) register(Blockly.Python, i.toPython.bind(i));
+    register(Blockly.JavaScript, (m) => m.toJavaScript);
+    register(Blockly.Dart, (m) => m.toDart);
+    register(Blockly.Lua, (m) => m.toLua);
+    register(Blockly.PHP, (m) => m.toPHP);
+    register(Blockly.Python, (m) => m.toPython);
   }
 
-  abstract definition: BlocklierCustomBlockDefinition;
+  [DEFINITION]: BlocklierCustomBlockDefinition;
+
+  constructor(public block: Blockly.Block & WithBlocklier) {}
+}
+
+export interface BlocklierCustomBlockConstructor {
+  new (block: Blockly.Block & WithBlocklier): BlocklierCustomBlock;
+  prototype: BlocklierCustomBlock;
 }
 
 export interface BlocklierCustomBlockWithJavaScript
@@ -78,6 +99,7 @@ export type BlocklierCustomBlockWithAll = BlocklierCustomBlockWithJavaScript &
 
 export type BlocklierCustomBlockCode = string | [string, number];
 export type BlocklierCustomBlockDefinition = {
+  type: string;
   lines: { message: string; args?: any }[];
   previousStatement?: null | string;
   nextStatement?: null | string;
@@ -88,3 +110,7 @@ export type BlocklierCustomBlockDefinition = {
   style?: string;
   helpUrl?: string;
 };
+
+interface WithBlocklier {
+  blocklier: BlocklierCustomBlock;
+}
