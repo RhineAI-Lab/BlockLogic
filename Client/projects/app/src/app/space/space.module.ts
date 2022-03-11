@@ -1,4 +1,7 @@
 import { NgModule } from '@angular/core';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { BorderOutline } from '@ant-design/icons-angular/icons';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 
@@ -9,6 +12,8 @@ import { SpaceComponent } from './space.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
 import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-editor.component';
+
+const icons: IconDefinition[] = [BorderOutline];
 
 @NgModule({
   declarations: [
@@ -23,6 +28,9 @@ import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-e
     BlocklierModule,
     NzLayoutModule,
     NzMenuModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NzIconModule.forChild(icons),
   ],
 })
 export class SpaceModule {}

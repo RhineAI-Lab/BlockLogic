@@ -19,7 +19,6 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
   categories: ToolboxCategory[] = [];
-  categorySelected?: ToolboxCategory;
 
   constructor(private httpClient: HttpClient) {}
 
