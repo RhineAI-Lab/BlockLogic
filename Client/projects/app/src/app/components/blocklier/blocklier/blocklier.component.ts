@@ -3,7 +3,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  EventEmitter,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import * as Blockly from 'blockly';
@@ -16,6 +18,7 @@ import { BlocklierRenderer } from '../blocklier-renderer';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit, AfterViewInit {
+  @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
   categories: ToolboxCategory[] = [];
@@ -30,6 +33,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       .get('assets/toolbox.xml', { responseType: 'text' })
       .subscribe((xml) => {
         const $host = this.container.nativeElement;
+
         this.workspace = Blockly.inject($host, {
           grid: {
             spacing: 20,
@@ -48,15 +52,22 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           renderer: BlocklierRenderer.name,
           toolbox: xml,
         });
+        this.workspace.addChangeListener(() => this.change.emit());
+
         const toolbox = this.workspace.getToolbox();
         toolbox.setVisible(false);
         const flyout = toolbox.getFlyout();
         flyout.autoClose = false;
-        const $root =
-          $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!;
-        this.categories = this.resolveToolboxCategories($root);
+
+        this.categories = this.resolveToolboxCategories(
+          $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
+        );
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  toCode(): string {
+    return Blockly.JavaScript.workspaceToCode(this.workspace);
   }
 
   private resolveToolboxCategories(

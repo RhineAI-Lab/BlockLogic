@@ -30,7 +30,12 @@
             "assets": [
               "projects/app/src/favicon.ico",
               "projects/app/src/assets",
-              "projects/app/src/manifest.webmanifest"
+              "projects/app/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "node_modules/monaco-editor",
+                "output": "assets/monaco-editor"
+              }
             ],
             "styles": ["projects/app/src/styles.less"],
             "scripts": [],

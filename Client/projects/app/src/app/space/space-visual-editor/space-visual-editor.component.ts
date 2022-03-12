@@ -8,6 +8,7 @@ import { BlocklierToolboxCategory } from '../../components/blocklier/models/bloc
   styleUrls: ['./space-visual-editor.component.less'],
 })
 export class SpaceVisualEditorComponent implements OnInit {
+  code = '';
   categorySelected?: BlocklierToolboxCategory;
 
   constructor() {}

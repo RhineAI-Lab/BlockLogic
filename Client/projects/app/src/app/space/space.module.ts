@@ -4,6 +4,7 @@ import { BorderOutline } from '@ant-design/icons-angular/icons';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../components/blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
@@ -31,6 +32,7 @@ const icons: IconDefinition[] = [BorderOutline];
     NzLayoutModule,
     NzMenuModule,
     NzIconModule.forChild(icons),
+    MonacoEditorModule,
   ],
 })
 export class SpaceModule {}

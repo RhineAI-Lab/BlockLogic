@@ -44,7 +44,17 @@
       </ng-template>
     </ul>
   </nz-sider>
-  <nz-content>
-    <app-blocklier #blocklier></app-blocklier>
+  <nz-content fxLayout>
+    <app-blocklier
+      fxFlex
+      (change)="code = blocklier.toCode()"
+      #blocklier
+    ></app-blocklier>
+    <ngx-monaco-editor
+      fxFlex
+      style="height: 100%"
+      [options]="{ language: 'javascript' }"
+      [(ngModel)]="code"
+    ></ngx-monaco-editor>
   </nz-content>
 </nz-layout>
