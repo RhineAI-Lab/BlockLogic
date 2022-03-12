@@ -44,17 +44,25 @@
       </ng-template>
     </ul>
   </nz-sider>
-  <nz-content fxLayout>
-    <app-blocklier
-      fxFlex
-      (change)="code = blocklier.toCode()"
-      #blocklier
-    ></app-blocklier>
-    <ngx-monaco-editor
-      fxFlex
-      style="height: 100%"
-      [options]="{ language: 'javascript' }"
-      [(ngModel)]="code"
-    ></ngx-monaco-editor>
+  <nz-content>
+    <as-split
+      direction="horizontal"
+      (dragEnd)="blocklier.resize(); editor.layout()"
+    >
+      <as-split-area>
+        <app-blocklier
+          (change)="code = blocklier.toCode()"
+          #blocklier
+        ></app-blocklier>
+      </as-split-area>
+      <as-split-area>
+        <ngx-monaco-editor
+          style="height: 100%"
+          [options]="{ language: 'javascript' }"
+          [(ngModel)]="code"
+          (onInit)="editor = $event"
+        ></ngx-monaco-editor>
+      </as-split-area>
+    </as-split>
   </nz-content>
 </nz-layout>

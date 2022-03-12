@@ -66,6 +66,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
 
+  resize(): void {
+    Blockly.svgResize(this.workspace);
+  }
+
   toCode(): string {
     return Blockly.JavaScript.workspaceToCode(this.workspace);
   }

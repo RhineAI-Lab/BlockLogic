@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as monaco from 'monaco-editor';
 
 import { BlocklierToolboxCategory } from '../../components/blocklier/models/blocklier-toolbox-category.class';
 
@@ -8,6 +9,7 @@ import { BlocklierToolboxCategory } from '../../components/blocklier/models/bloc
   styleUrls: ['./space-visual-editor.component.less'],
 })
 export class SpaceVisualEditorComponent implements OnInit {
+  editor!: monaco.editor.IStandaloneCodeEditor;
   code = '';
   categorySelected?: BlocklierToolboxCategory;
 

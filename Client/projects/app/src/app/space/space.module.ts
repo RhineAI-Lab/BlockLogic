@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline } from '@ant-design/icons-angular/icons';
+import { AngularSplitModule } from 'angular-split';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -33,6 +34,7 @@ const icons: IconDefinition[] = [BorderOutline];
     NzMenuModule,
     NzIconModule.forChild(icons),
     MonacoEditorModule,
+    AngularSplitModule,
   ],
 })
 export class SpaceModule {}
