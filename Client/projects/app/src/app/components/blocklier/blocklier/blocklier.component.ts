@@ -22,7 +22,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
-  categories: ToolboxCategory[] = [];
+  categories: BlocklierToolboxCategory[] = [];
 
   constructor(private httpClient: HttpClient) {}
 
@@ -75,12 +75,12 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   private resolveToolboxCategories(
     $root: HTMLDivElement,
     depth = 1,
-  ): ToolboxCategory[] {
+  ): BlocklierToolboxCategory[] {
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
     const $categories = $root.querySelectorAll<HTMLDivElement>(
       ':scope > .blocklyToolboxContents > .blocklyToolboxCategory',
     );
-    const results: ToolboxCategory[] = [];
+    const results: BlocklierToolboxCategory[] = [];
     for (let i = 0; i < $categories.length; i++) {
       const $host = $categories[i];
       const $row = $host.querySelector<HTMLDivElement>(
@@ -96,10 +96,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   }
 }
 
-interface ToolboxCategory {
+export interface BlocklierToolboxCategory {
   name: string;
   depth: number;
   $host: HTMLDivElement;
   $row: HTMLDivElement;
-  children: ToolboxCategory[];
+  children: BlocklierToolboxCategory[];
 }

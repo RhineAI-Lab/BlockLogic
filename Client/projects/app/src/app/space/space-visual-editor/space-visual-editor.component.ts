@@ -3,7 +3,7 @@ import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import * as monaco from 'monaco-editor';
 
-import { BlocklierToolboxCategory } from '../../components/blocklier/models/blocklier-toolbox-category.class';
+import { BlocklierToolboxCategory } from '../../components/blocklier/blocklier/blocklier.component';
 
 @Component({
   selector: 'app-space-visual-editor',
@@ -16,6 +16,10 @@ export class SpaceVisualEditorComponent implements OnInit, AfterViewInit {
   editor!: monaco.editor.IStandaloneCodeEditor;
   code = '';
   categorySelected?: BlocklierToolboxCategory;
+
+  /**Provide type safety for the toolbox menu. */
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  _categoriesType = (v: BlocklierToolboxCategory[]) => v;
 
   constructor() {}
 

@@ -8,7 +8,7 @@
         "
       ></ng-container>
       <ng-template let-categories #menuTemplate>
-        <ng-container *ngFor="let category of categories">
+        <ng-container *ngFor="let category of _categoriesType(categories)">
           <li
             nz-menu-item
             *ngIf="!category.children.length"
