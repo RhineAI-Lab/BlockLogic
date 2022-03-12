@@ -68,10 +68,6 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
 
-  toCode(): string {
-    return Blockly.JavaScript.workspaceToCode(this.workspace);
-  }
-
   private resolveToolboxCategories(
     $root: HTMLDivElement,
     depth = 1,

@@ -49,7 +49,7 @@
       <as-split-area>
         <app-blocklier
           (init)="workspace = blocklier.workspace"
-          (change)="code = blocklier.toCode()"
+          (change)="updateCode()"
           #blocklier
         ></app-blocklier>
       </as-split-area>

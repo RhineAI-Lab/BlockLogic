@@ -23,6 +23,21 @@ export class SpaceVisualEditorComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
+  updateWorkspace(): void {
+    const re = new RegExp(`^${this.directive('blocks')}(.*)$`, 'm');
+    const xmlText = re.exec(this.code)?.[1];
+    if (!xmlText) return;
+    const xmlDom = Blockly.Xml.textToDom(xmlText);
+    Blockly.Xml.domToWorkspace(xmlDom, this.workspace);
+  }
+
+  updateCode(): void {
+    const xmlDom = Blockly.Xml.workspaceToDom(this.workspace);
+    const xmlText = Blockly.Xml.domToText(xmlDom);
+    const code = Blockly.JavaScript.workspaceToCode(this.workspace);
+    this.code = this.directive('blocks') + xmlText + '\n\n' + code;
+  }
+
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
@@ -31,4 +46,10 @@ export class SpaceVisualEditorComponent implements OnInit, AfterViewInit {
       this.editor.layout();
     });
   }
+
+  private directive(name: DirectiveName): string {
+    return `//${name}// `;
+  }
 }
+
+type DirectiveName = 'blocks';
