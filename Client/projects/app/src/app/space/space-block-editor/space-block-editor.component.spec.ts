@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceVisualEditorComponent } from './space-visual-editor.component';
+import { SpaceBlockEditorComponent } from './space-block-editor.component';
 
-describe('SpaceVisualEditorComponent', () => {
-  let component: SpaceVisualEditorComponent;
-  let fixture: ComponentFixture<SpaceVisualEditorComponent>;
+describe('SpaceBlockEditorComponent', () => {
+  let component: SpaceBlockEditorComponent;
+  let fixture: ComponentFixture<SpaceBlockEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpaceVisualEditorComponent],
+      declarations: [SpaceBlockEditorComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpaceVisualEditorComponent);
+    fixture = TestBed.createComponent(SpaceBlockEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

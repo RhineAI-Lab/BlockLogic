@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 
+import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
-import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-editor.component';
 
 @Component({
   selector: 'app-space',
@@ -13,8 +13,8 @@ import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-e
 export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
 
-  @ViewChild(SpaceVisualEditorComponent)
-  blockEditor!: SpaceVisualEditorComponent;
+  @ViewChild(SpaceBlockEditorComponent)
+  blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent)
   codeEditor!: SpaceCodeEditorComponent;
 

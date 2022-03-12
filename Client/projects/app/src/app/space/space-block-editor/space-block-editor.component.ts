@@ -4,11 +4,11 @@ import * as Blockly from 'blockly';
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
 
 @Component({
-  selector: 'app-space-visual-editor',
-  templateUrl: './space-visual-editor.component.html',
-  styleUrls: ['./space-visual-editor.component.less'],
+  selector: 'app-space-block-editor',
+  templateUrl: './space-block-editor.component.html',
+  styleUrls: ['./space-block-editor.component.less'],
 })
-export class SpaceVisualEditorComponent implements OnInit {
+export class SpaceBlockEditorComponent implements OnInit {
   @Output() change = new EventEmitter();
   workspace!: Blockly.WorkspaceSvg;
   categorySelected?: BlocklierToolboxCategory;

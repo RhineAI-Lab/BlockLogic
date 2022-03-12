@@ -11,10 +11,10 @@ import { BlocklierModule } from '../blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceComponent } from './space.component';
+import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
-import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-editor.component';
 
 const icons: IconDefinition[] = [BorderOutline];
 
@@ -22,7 +22,7 @@ const icons: IconDefinition[] = [BorderOutline];
   declarations: [
     SpaceComponent,
     SpaceHeaderComponent,
-    SpaceVisualEditorComponent,
+    SpaceBlockEditorComponent,
     SpaceCodeEditorComponent,
   ],
   imports: [
