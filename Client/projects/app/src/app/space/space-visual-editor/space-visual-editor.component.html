@@ -45,12 +45,10 @@
     </ul>
   </nz-sider>
   <nz-content>
-    <as-split
-      direction="horizontal"
-      (dragEnd)="blocklier.resize(); editor.layout()"
-    >
+    <as-split direction="horizontal">
       <as-split-area>
         <app-blocklier
+          (init)="workspace = blocklier.workspace"
           (change)="code = blocklier.toCode()"
           #blocklier
         ></app-blocklier>

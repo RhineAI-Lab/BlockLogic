@@ -18,6 +18,7 @@ import { BlocklierRenderer } from '../blocklier-renderer';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit, AfterViewInit {
+  @Output() init = new EventEmitter();
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
@@ -52,6 +53,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           renderer: BlocklierRenderer.name,
           toolbox: xml,
         });
+        this.init.emit();
         this.workspace.addChangeListener(() => this.change.emit());
 
         const toolbox = this.workspace.getToolbox();
@@ -64,10 +66,6 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
         );
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
-  }
-
-  resize(): void {
-    Blockly.svgResize(this.workspace);
   }
 
   toCode(): string {
