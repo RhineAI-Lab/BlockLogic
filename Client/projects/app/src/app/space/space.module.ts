@@ -7,7 +7,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
-import { BlocklierModule } from '../components/blocklier/blocklier.module';
+import { BlocklierModule } from '../blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceComponent } from './space.component';

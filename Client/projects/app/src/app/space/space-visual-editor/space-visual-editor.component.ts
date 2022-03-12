@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Blockly from 'blockly';
 
-import { BlocklierToolboxCategory } from '../../components/blocklier/blocklier/blocklier.component';
+import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
 
 @Component({
   selector: 'app-space-visual-editor',
