@@ -2,12 +2,12 @@
   <app-space-header></app-space-header>
   <nz-content>
     <as-split>
-      <as-split-area>
+      <as-split-area [size]="70">
         <app-space-block-editor
           (change)="updateCode()"
         ></app-space-block-editor>
       </as-split-area>
-      <as-split-area>
+      <as-split-area [size]="30">
         <app-space-code-editor></app-space-code-editor>
       </as-split-area>
     </as-split>
