@@ -145,7 +145,7 @@ export class CryptoDecryptBlock
 }
 
 @BlocklierCustomBlock.register({
-  type: 'crypto_generate_key_pir',
+  type: 'crypto_generate_key_pair',
   lines: [
     {
       message: '生成一对 %1 算法的密钥对 长度 %2',
