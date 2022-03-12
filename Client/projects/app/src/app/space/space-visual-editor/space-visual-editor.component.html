@@ -45,22 +45,10 @@
     </ul>
   </nz-sider>
   <nz-content>
-    <as-split direction="horizontal">
-      <as-split-area>
-        <app-blocklier
-          (init)="workspace = blocklier.workspace"
-          (change)="updateCode()"
-          #blocklier
-        ></app-blocklier>
-      </as-split-area>
-      <as-split-area>
-        <ngx-monaco-editor
-          style="height: 100%"
-          [options]="{ language: 'javascript' }"
-          [(ngModel)]="code"
-          (onInit)="editor = $event"
-        ></ngx-monaco-editor>
-      </as-split-area>
-    </as-split>
+    <app-blocklier
+      (init)="workspace = blocklier.workspace"
+      (change)="change.emit()"
+      #blocklier
+    ></app-blocklier>
   </nz-content>
 </nz-layout>

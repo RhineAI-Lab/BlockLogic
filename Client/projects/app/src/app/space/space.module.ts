@@ -11,6 +11,7 @@ import { BlocklierModule } from '../components/blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceComponent } from './space.component';
+import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
 import { SpaceVisualEditorComponent } from './space-visual-editor/space-visual-editor.component';
@@ -22,6 +23,7 @@ const icons: IconDefinition[] = [BorderOutline];
     SpaceComponent,
     SpaceHeaderComponent,
     SpaceVisualEditorComponent,
+    SpaceCodeEditorComponent,
   ],
   imports: [
     SharedModule,
