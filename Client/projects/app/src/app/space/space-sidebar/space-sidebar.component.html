@@ -4,7 +4,7 @@
       <li
         *ngFor="let item of items"
         nz-menu-item
-        [nz-tooltip]="item.tooltip"
+        [nz-tooltip]="item.name"
         [nzSelected]="itemActive == item"
         (click)="itemActive = item"
       >
@@ -13,6 +13,6 @@
     </ul>
   </nz-sider>
   <nz-content *ngIf="itemActive">
-    <ng-template [cdkPortalOutlet]="itemActive.portal"></ng-template>
+    <ng-template [cdkPortalOutlet]="this.use(itemActive)"></ng-template>
   </nz-content>
 </nz-layout>

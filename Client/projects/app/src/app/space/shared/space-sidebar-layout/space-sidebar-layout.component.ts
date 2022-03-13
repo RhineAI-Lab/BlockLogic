@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+
+import { SpaceSidebarComponent } from '../../space-sidebar/space-sidebar.component';
 
 @Component({
   selector: 'app-space-sidebar-layout',
@@ -6,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./space-sidebar-layout.component.less'],
 })
 export class SpaceSidebarLayoutComponent implements OnInit {
-  constructor() {}
+  constructor(@Inject(SpaceSidebarComponent.ITEM_NAME) public name: string) {}
 
   ngOnInit(): void {}
 }

@@ -1,5 +1,5 @@
-import { ComponentPortal } from '@angular/cdk/portal';
-import { Component, OnInit } from '@angular/core';
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { Component, Injector, OnInit } from '@angular/core';
 
 import { SpaceSidebarFilesComponent } from '../space-sidebar-files/space-sidebar-files.component';
 
@@ -9,22 +9,37 @@ import { SpaceSidebarFilesComponent } from '../space-sidebar-files/space-sidebar
   styleUrls: ['./space-sidebar.component.less'],
 })
 export class SpaceSidebarComponent implements OnInit {
+  static readonly ITEM_NAME = Symbol();
+
   items: Item[] = [
     {
+      name: '资源管理器',
       icon: 'file',
-      tooltip: '资源管理器',
-      portal: new ComponentPortal(SpaceSidebarFilesComponent),
+      component: SpaceSidebarFilesComponent,
     },
   ];
   itemActive = this.items[0];
 
-  constructor() {}
+  constructor(private injector: Injector) {}
 
   ngOnInit(): void {}
+
+  use<Component>(item: Item<Component>): ComponentPortal<Component> {
+    if (item.portal) return item.portal;
+    const injector = Injector.create({
+      parent: this.injector,
+      providers: [
+        { provide: SpaceSidebarComponent.ITEM_NAME, useValue: item.name },
+      ],
+    });
+    item.portal = new ComponentPortal(item.component, undefined, injector);
+    return item.portal;
+  }
 }
 
-interface Item {
+interface Item<Component = unknown> {
   icon: string;
-  tooltip: string;
-  portal: ComponentPortal<unknown>;
+  name: string;
+  component: ComponentType<Component>;
+  portal?: ComponentPortal<Component>;
 }
