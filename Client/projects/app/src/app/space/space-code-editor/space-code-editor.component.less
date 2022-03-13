@@ -1,4 +1,8 @@
-ngx-monaco-editor {
-  height: 100%;
+.wrapper {
   overflow: hidden;
+  height: 100%;
+}
+
+ngx-monaco-editor {
+  height: calc(100% + 2%); // Monaco Editor uses `height: 98%` internally.
 }
