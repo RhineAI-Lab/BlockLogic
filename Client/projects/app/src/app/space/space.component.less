@@ -5,3 +5,21 @@ nz-layout {
 nz-content {
   padding: 24px;
 }
+
+nz-tabset {
+  height: 100%;
+  ::ng-deep {
+    .ant-tabs-tab:not(.ant-tabs-tab-active) {
+      background-color: transparent;
+    }
+    .ant-tabs-nav {
+      margin: 0;
+    }
+    .ant-tabs-content-holder,
+    .ant-tabs-content,
+    .ant-tabs-tabpane {
+      height: 100%;
+      background-color: #fff;
+    }
+  }
+}
