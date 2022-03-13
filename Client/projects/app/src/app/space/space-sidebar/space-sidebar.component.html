@@ -4,6 +4,7 @@
       <li
         *ngFor="let item of items"
         nz-menu-item
+        [nz-tooltip]="item.tooltip"
         [nzSelected]="itemActive == item"
         (click)="itemActive = item"
       >

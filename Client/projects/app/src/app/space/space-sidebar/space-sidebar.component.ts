@@ -12,6 +12,7 @@ export class SpaceSidebarComponent implements OnInit {
   items: Item[] = [
     {
       icon: 'file',
+      tooltip: '资源管理器',
       portal: new ComponentPortal(SpaceSidebarFilesComponent),
     },
   ];
@@ -24,5 +25,6 @@ export class SpaceSidebarComponent implements OnInit {
 
 interface Item {
   icon: string;
+  tooltip: string;
   portal: ComponentPortal<unknown>;
 }

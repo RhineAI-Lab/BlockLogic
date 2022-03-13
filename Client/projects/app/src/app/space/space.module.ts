@@ -7,6 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
@@ -45,6 +46,7 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     NzLayoutModule,
     NzSelectModule,
     NzTreeModule,
+    NzToolTipModule,
     NzIconModule.forChild(icons),
     MonacoEditorModule,
     AngularSplitModule,
