@@ -2,7 +2,11 @@ import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline } from '@ant-design/icons-angular/icons';
-import { AngularSplitModule } from 'angular-split';
+import {
+  ANGULAR_SPLIT_DEFAULT_OPTIONS,
+  AngularSplitModule,
+  IDefaultOptions as AngularSplitOptions,
+} from 'angular-split';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -52,6 +56,12 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     NzIconModule.forChild(icons),
     MonacoEditorModule,
     AngularSplitModule,
+  ],
+  providers: [
+    {
+      provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,
+      useValue: { gutterSize: 8 } as AngularSplitOptions,
+    },
   ],
 })
 export class SpaceModule {}
