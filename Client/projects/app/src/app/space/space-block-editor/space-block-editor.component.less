@@ -1,10 +1,17 @@
 nz-layout {
   height: 100%;
-
   nz-sider {
     overflow: auto;
-
+    ::ng-deep {
+      .ant-menu-item,
+      .ant-menu-submenu-title {
+        margin: 0;
+        height: 33px;
+        font-size: xx-small;
+      }
+    }
     [nz-icon] {
+      font-size: small;
       transform: translateY(0.75px);
     }
   }
