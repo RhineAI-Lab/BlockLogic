@@ -12,7 +12,7 @@
           <li
             nz-menu-item
             *ngIf="!category.children.length"
-            [nzPaddingLeft]="category.depth * 24"
+            [nzPaddingLeft]="16 + category.depth * 8"
             (click)="
               $event.stopPropagation();
               category.$row.click();
@@ -28,7 +28,7 @@
           <li
             nz-submenu
             *ngIf="category.children.length"
-            [nzPaddingLeft]="category.depth * 24"
+            [nzPaddingLeft]="16 + category.depth * 8"
             [nzTitle]="category.name"
           >
             <ul>
