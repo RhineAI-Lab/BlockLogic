@@ -1,0 +1,17 @@
+<nz-layout class="outer">
+  <nz-sider nzTheme="light" nzCollapsed [nzCollapsedWidth]="50">
+    <ul nz-menu nzMode="inline">
+      <li
+        *ngFor="let item of items"
+        nz-menu-item
+        [nzSelected]="itemActive == item"
+        (click)="itemActive = item"
+      >
+        <i nz-icon [nzType]="item.icon"></i>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-content *ngIf="itemActive">
+    <ng-template [cdkPortalOutlet]="itemActive.portal"></ng-template>
+  </nz-content>
+</nz-layout>
