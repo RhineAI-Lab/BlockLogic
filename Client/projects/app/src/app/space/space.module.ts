@@ -27,6 +27,8 @@ import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
 import { SpaceSidebarComponent } from './space-sidebar/space-sidebar.component';
 import { SpaceSidebarFilesComponent } from './space-sidebar-files/space-sidebar-files.component';
+import { SidebarHolderComponent } from './sidebar-manager/sidebar-holder/sidebar-holder.component';
+import { SidebarItemComponent } from './sidebar-manager/sidebar-item/sidebar-item.component';
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline];
 
@@ -39,6 +41,8 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     SpaceSidebarComponent,
     SpaceSidebarLayoutComponent,
     SpaceSidebarFilesComponent,
+    SidebarHolderComponent,
+    SidebarItemComponent,
   ],
   imports: [
     SharedModule,
