@@ -1,27 +1,13 @@
-<nz-layout>
-  <nz-header>
-    <app-space-header></app-space-header>
-  </nz-header>
-  <nz-layout>
-    <nz-sider nzTheme="light" nzWidth="280px">
-      <app-space-sidebar></app-space-sidebar>
-    </nz-sider>
-    <nz-content>
-      <nz-tabset nzType="card">
-        <nz-tab nzTitle="file.js">
-          <as-split>
-            <app-space-block-editor
-              as-split-area
-              [size]="70"
-              (change)="updateCode()"
-            ></app-space-block-editor>
-            <app-space-code-editor
-              as-split-area
-              [size]="30"
-            ></app-space-code-editor>
-          </as-split>
-        </nz-tab>
-      </nz-tabset>
-    </nz-content>
-  </nz-layout>
-</nz-layout>
+<div fxLayout="column" class="layout">
+  <app-space-header class="header"></app-space-header>
+  <app-space-sidebar-manager class="body" fxFlex="grow">
+    <nz-tabset nzType="card">
+      <nz-tab nzTitle="file.js">
+        <as-split>
+          <app-space-block-editor as-split-area [size]="70" (change)="updateCode()"></app-space-block-editor>
+          <app-space-code-editor as-split-area [size]="30"></app-space-code-editor>
+        </as-split>
+      </nz-tab>
+    </nz-tabset>
+  </app-space-sidebar-manager>
+</div>

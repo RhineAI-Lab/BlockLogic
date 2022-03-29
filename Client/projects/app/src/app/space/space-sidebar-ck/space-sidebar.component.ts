@@ -1,7 +1,7 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { Component, Injector, OnInit } from '@angular/core';
 
-import { SpaceSidebarFilesComponent } from '../space-sidebar-files/space-sidebar-files.component';
+import { SpaceSidebarFilesComponent } from '../space-sidebar-files-ck/space-sidebar-files.component';
 
 @Component({
   selector: 'app-space-sidebar',

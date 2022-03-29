@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
-import { SpaceSidebarComponent } from '../../space-sidebar/space-sidebar.component';
+import { SpaceSidebarComponent } from '../../space-sidebar-ck/space-sidebar.component';
 
 @Component({
   selector: 'app-space-sidebar-layout',

@@ -1,14 +1,15 @@
-<div fxLayout fxLayoutAlign="space-around center">
-  <div class="left">
-    <img class="logo-img" src="assets/logo.png" />
-    <span class="logo-text">B-Logic</span>
-  </div>
-
-  <div class="right">
-    <ul nz-menu nzMode="horizontal" nzTheme="dark">
-      <li nz-menu-item *ngFor="let link of links">
-        <a [href]="link.url">{{ link.text }}</a>
-      </li>
-    </ul>
+<div class="layout">
+  <div fxLayout fxLayoutAlign="space-around center" class="main">
+    <div fxLayout fxLayoutAlign="space-around center" class="left">
+      <img class="logo-img" src="assets/logo.png" />
+      <span class="logo-text">B-Logic</span>
+    </div>
+    <div class="right">
+      <ul nz-menu nzMode="horizontal" nzTheme="dark">
+        <li nz-menu-item *ngFor="let link of links">
+          <a [href]="link.url">{{ link.text }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

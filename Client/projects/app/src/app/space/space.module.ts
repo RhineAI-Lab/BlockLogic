@@ -25,10 +25,9 @@ import { SpaceBlockEditorComponent } from './space-block-editor/space-block-edit
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
-import { SpaceSidebarComponent } from './space-sidebar/space-sidebar.component';
-import { SpaceSidebarFilesComponent } from './space-sidebar-files/space-sidebar-files.component';
-import { SidebarHolderComponent } from './sidebar-manager/sidebar-holder/sidebar-holder.component';
-import { SidebarItemComponent } from './sidebar-manager/sidebar-item/sidebar-item.component';
+import { SpaceSidebarComponent } from './space-sidebar-ck/space-sidebar.component';
+import { SpaceSidebarFilesComponent } from './space-sidebar-files-ck/space-sidebar-files.component';
+import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-sidebar-manager.component';
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline];
 
@@ -41,8 +40,7 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     SpaceSidebarComponent,
     SpaceSidebarLayoutComponent,
     SpaceSidebarFilesComponent,
-    SidebarHolderComponent,
-    SidebarItemComponent,
+    SpaceSidebarManagerComponent,
   ],
   imports: [
     SharedModule,

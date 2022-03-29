@@ -1,7 +1,16 @@
-.left {
-  display: flex;
-  align-items: center;
+@header-height: 54px;
 
+.layout{
+  height: @header-height;
+  background-color: #212529;
+}
+
+.main{
+  min-width: 1000px;
+  height: 100%;
+}
+
+.left {
   .logo-img {
     width: 32px;
     height: 32px;
@@ -22,6 +31,8 @@
   [nz-menu-item] {
     font-size: 15px;
     a {
+      height: @header-height;
+      line-height: @header-height;
       color: #dddddd;
     }
   }
