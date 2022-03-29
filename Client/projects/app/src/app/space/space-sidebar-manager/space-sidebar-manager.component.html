@@ -1,1 +1,9 @@
-<ng-content></ng-content>
+<div class="layout" fxLayout>
+    <div class="btns btns-left"></div>
+    <app-vertical-split-line></app-vertical-split-line>
+    <div class="sidebars sidebars-left"></div>
+    <ng-content class="main"></ng-content>
+    <div class="sidebars sidebars-right"></div>
+    <app-vertical-split-line></app-vertical-split-line>
+    <div class="btns btns-right"></div>
+</div>
