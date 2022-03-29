@@ -3,72 +3,32 @@
     <div class="sider-main">
       <h1><a target="_blank" href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0">Auto.Js Pro</a></h1>
       <h2><a target="_blank" href="https://logic.autojs.org">BlockLogic</a></h2>
-    </div>
-    <ul nz-menu nzMode="inline" [nzSelectable]="false">
-<!--      <ng-container-->
-<!--        *ngTemplateOutlet="-->
-<!--          menuTemplate;-->
-<!--          context: { $implicit: blocklier.categories }-->
-<!--        "-->
-<!--      ></ng-container>-->
-<!--      <ng-template let-categories #menuTemplate>-->
-<!--        <ng-container *ngFor="let category of _categoriesType(categories)">-->
-<!--          <li-->
-<!--            nz-menu-item-->
-<!--            *ngIf="!category.children.length"-->
-<!--            (click)="-->
-<!--              $event.stopPropagation();-->
-<!--              category.$row.click();-->
-<!--              categorySelected == category-->
-<!--                ? (categorySelected = undefined)-->
-<!--                : (categorySelected = category)-->
-<!--            "-->
-<!--            [nzSelected]="categorySelected == category"-->
-<!--          >-->
-<!--            <div class="category-icon"></div>-->
-<!--            <span>{{ category.name }}</span>-->
-<!--          </li>-->
-<!--          <li-->
-<!--            nz-submenu-->
-<!--            *ngIf="category.children.length"-->
-<!--            [nzPaddingLeft]="16 + category.depth * 8"-->
-<!--            [nzTitle]="category.name"-->
-<!--          >-->
-<!--            <ul>-->
-<!--              <ng-container-->
-<!--                *ngTemplateOutlet="-->
-<!--                  menuTemplate;-->
-<!--                  context: { $implicit: category.children }-->
-<!--                "-->
-<!--              ></ng-container>-->
-<!--            </ul>-->
-<!--          </li>-->
-<!--        </ng-container>-->
-<!--      </ng-template>-->
-      <li nz-submenu
-          *ngFor="let category of _categoriesType(blocklier.categories)"
-          [nzTitle]="category.name"
-          [nzPaddingLeft]="14"
-      >
-        <ul>
-          <li nz-menu-item
-              *ngFor="let item of category.children"
-              (click)="
+      <ul nz-menu nzMode="inline" [nzSelectable]="false">
+        <li nz-submenu
+            *ngFor="let category of _categoriesType(blocklier.categories)"
+            [nzTitle]="category.name"
+            [nzPaddingLeft]="14"
+        >
+          <ul>
+            <li nz-menu-item
+                *ngFor="let item of category.children"
+                (click)="
                 $event.stopPropagation();
                 item.$row.click();
                 categorySelected == item
                   ? (categorySelected = undefined)
                   : (categorySelected = item)
               "
-              [nzPaddingLeft]="26"
-              [nzSelected]="categorySelected == item"
-          >
-            <div class="category-icon"></div>
-            <span>{{ item.name }}</span>
-          </li>
-        </ul>
-      </li>
-    </ul>
+                [nzPaddingLeft]="26"
+                [nzSelected]="categorySelected == item"
+            >
+              <div class="category-icon"></div>
+              <span>{{ item.name }}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </nz-sider>
   <nz-content>
     <app-blocklier

@@ -3,41 +3,54 @@ nz-layout {
   nz-sider {
     width: 220px;
     height: 100%;
-    overflow-y: auto;
     border-right: 1px solid #CFCFCF;
+    overflow-y: hidden;
 
-    ::ng-deep {
-      .ant-menu-item,
-      .ant-menu-submenu-title {
-        margin: 0;
-        height: 32px;
-        font-size: small;
+    .sider-main{
+      user-select:none;
+      -moz-user-select:none;
+      -webkit-user-select:none;
+      -ms-user-select:none;
+      -webkit-touch-callout: none;
+
+      height: 100%;
+      overflow-y: auto;
+
+      ::ng-deep {
+        .ant-menu-item,
+        .ant-menu-submenu-title {
+          margin: 0;
+          height: 32px;
+          font-size: small;
+        }
+        .ant-menu-submenu:hover{
+          color: #00a86b;
+        }
+        .ant-menu-submenu-selected i {
+          color: #00a86b;
+        }
+        .ant-menu-submenu-arrow{
+          color: #000000A0;
+        }
+        .ant-menu-submenu-arrow::before{
+          transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .ant-menu-submenu-arrow::after{
+          transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+        .ant-menu-item-selected{
+          color: #000000CE;
+        }
       }
-      .ant-menu-submenu:hover{
-        color: #00a86b;
-      }
-      .ant-menu-submenu-selected i {
-        color: #00a86b;
-      }
-      .ant-menu-submenu-arrow{
-        color: #000000A0;
-      }
-      .ant-menu-submenu-arrow::before{
-        transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      }
-      .ant-menu-submenu-arrow::after{
-        transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      }
-      .ant-menu-item-selected{
-        color: #000000CE;
+
+      .category-icon {
+        width: 11px;
+        height: 11px;
+        border: 2.5px solid #aaa;
+        margin: auto 4px;
       }
     }
-    .category-icon {
-      width: 11px;
-      height: 11px;
-      border: 2.5px solid #aaa;
-      margin: auto 4px;
-    }
+
   }
 }
 
