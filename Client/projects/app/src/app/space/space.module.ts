@@ -32,6 +32,8 @@ import { SpaceSidebarFilesComponent } from './space-sidebar-files-ck/space-sideb
 import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-sidebar-manager.component';
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
 import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
+import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
+import { TabComponent } from './components/tab/tab.component';
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline];
 
@@ -49,6 +51,8 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     SpaceToolsBarComponent,
     HorizontalSplitLineComponent,
     VerticalSplitLineComponent,
+    SpaceTabssetBarComponent,
+    TabComponent,
   ],
   imports: [
     SharedModule,
