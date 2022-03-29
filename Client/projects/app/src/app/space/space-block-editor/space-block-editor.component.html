@@ -48,6 +48,7 @@
       <li nz-submenu
           *ngFor="let category of _categoriesType(blocklier.categories)"
           [nzTitle]="category.name"
+          [nzPaddingLeft]="14"
       >
         <ul>
           <li nz-menu-item
@@ -59,6 +60,7 @@
                   ? (categorySelected = undefined)
                   : (categorySelected = item)
               "
+              [nzPaddingLeft]="26"
               [nzSelected]="categorySelected == item"
           >
             <div class="category-icon"></div>
