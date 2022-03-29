@@ -7,6 +7,15 @@ import * as monaco from 'monaco-editor';
   styleUrls: ['./space-code-editor.component.less'],
 })
 export class SpaceCodeEditorComponent implements OnInit {
+  editorOptions = {
+    theme: 'vs',
+    language: 'javascript',
+    scrollbar: {
+      verticalScrollbarSize: 10,
+      horizontalScrollbarSize: 10,
+    },
+  };
+
   @Output() change = new EventEmitter();
   code = '';
   workspace!: monaco.editor.IStandaloneCodeEditor;

@@ -1,6 +1,6 @@
 <div class="wrapper">
   <ngx-monaco-editor
-    [options]="{ language: 'javascript' }"
+    [options]="editorOptions"
     [(ngModel)]="code"
     (ngModelChange)="change.emit()"
     (onInit)="workspace = $event"
