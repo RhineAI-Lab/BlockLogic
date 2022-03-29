@@ -1,19 +1,49 @@
 nz-layout {
   height: 100%;
   nz-sider {
-    overflow: auto;
+    width: 220px;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid #CFCFCF;
+
     ::ng-deep {
       .ant-menu-item,
       .ant-menu-submenu-title {
         margin: 0;
-        height: 33px;
-        font-size: xx-small;
+        height: 32px;
+        font-size: small;
       }
     }
-    [nz-icon] {
-      font-size: small;
-      transform: translateY(0.75px);
+    .category-icon {
+      width: 11px;
+      height: 11px;
+      border: 2.5px solid #aaa;
+      margin: auto 4px;
     }
+  }
+}
+
+.sider-main{
+  h1{
+    margin: 20px auto 0;
+    font-size: 1.6rem;
+    font-weight: 300;
+    text-align: center;
+    color: black;
+  }
+  h2{
+    margin: 0 auto 10px;
+    font-size: 1rem;
+    font-weight: 200;
+    text-align: center;
+  }
+  h1 a{
+    text-decoration:none;
+    color: #324a5b;
+  }
+  h2 a{
+    text-decoration:none;
+    color: #324a5b;
   }
 }
 
