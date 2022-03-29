@@ -19,6 +19,8 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { BlocklierModule } from '../blocklier/blocklier.module';
 import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
+import { HorizontalSplitLineComponent } from './components/horizontal-split-line/horizontal-split-line.component';
+import { VerticalSplitLineComponent } from './components/vertical-split-line/vertical-split-line.component';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { SpaceComponent } from './space.component';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
@@ -28,6 +30,8 @@ import { SpaceRoutingModule } from './space-routing.module';
 import { SpaceSidebarComponent } from './space-sidebar-ck/space-sidebar.component';
 import { SpaceSidebarFilesComponent } from './space-sidebar-files-ck/space-sidebar-files.component';
 import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-sidebar-manager.component';
+import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
+import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline];
 
@@ -41,6 +45,10 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     SpaceSidebarLayoutComponent,
     SpaceSidebarFilesComponent,
     SpaceSidebarManagerComponent,
+    SpaceStatusBarComponent,
+    SpaceToolsBarComponent,
+    HorizontalSplitLineComponent,
+    VerticalSplitLineComponent,
   ],
   imports: [
     SharedModule,
