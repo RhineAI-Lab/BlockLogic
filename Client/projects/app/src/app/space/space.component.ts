@@ -4,6 +4,7 @@ import * as Blockly from 'blockly';
 
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
+import {SpaceStyleService} from "../services/space-style.service";
 
 @Component({
   selector: 'app-space',
@@ -12,20 +13,25 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
+  @ViewChild(SpaceBlockEditorComponent)blockEditor!: SpaceBlockEditorComponent;
+  @ViewChild(SpaceCodeEditorComponent)codeEditor!: SpaceCodeEditorComponent;
 
-  @ViewChild(SpaceBlockEditorComponent)
-  blockEditor!: SpaceBlockEditorComponent;
-  @ViewChild(SpaceCodeEditorComponent)
-  codeEditor!: SpaceCodeEditorComponent;
+  styleService: SpaceStyleService;
 
-  constructor() {}
+  constructor(styleService: SpaceStyleService) {
+    this.styleService = styleService;
+  }
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.splitter.dragProgress$.subscribe(() => {
+    this.styleService.freshMainLayout = (): boolean => {
       Blockly.svgResize(this.blockEditor.workspace);
       this.codeEditor.workspace.layout();
+      return true
+    }
+    this.splitter.dragProgress$.subscribe(() => {
+      this.styleService.freshMainLayout()
     });
   }
 

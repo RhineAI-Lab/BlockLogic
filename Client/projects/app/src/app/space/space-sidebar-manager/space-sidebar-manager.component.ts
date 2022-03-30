@@ -3,6 +3,7 @@ import {SpaceSidebarProjectsComponent} from "../space-sidebar-projects/space-sid
 import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
 import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
 import {AngularSplitModule} from "angular-split";
+import {SpaceStyleService} from "../../services/space-style.service";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -11,7 +12,11 @@ import {AngularSplitModule} from "angular-split";
 })
 export class SpaceSidebarManagerComponent implements OnInit {
 
-  constructor() {}
+  styleService: SpaceStyleService;
+
+  constructor(styleService: SpaceStyleService) {
+    this.styleService = styleService;
+  }
 
   items: Item[] = [
     new Item('项目','folder',SpaceSidebarProjectsComponent,
@@ -22,14 +27,10 @@ export class SpaceSidebarManagerComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onBtnClick(item: Item): void {
-    item.isOpen = !item.isOpen
-  }
-
   onChangeWidth(e: MouseEvent, item: Item): void {
     let startX = e.clientX;
     let startW = item.width;
-    document.onmousemove = function(e){
+    document.onmousemove = (e) => {
       let endX = e.clientX;
       let finalWidth = 0;
       if(item.position.indexOf("left")>=0){
@@ -40,17 +41,22 @@ export class SpaceSidebarManagerComponent implements OnInit {
       if(finalWidth>item.minWidth){
         item.width = finalWidth
       }
+      this.styleService.freshMainLayout()
     };
-    document.onmouseup = function(e){
+    document.onmouseup = (e) => {
       e.stopPropagation();
       document.onmousemove = null;
       document.onmouseup = null;
+      this.styleService.freshMainLayout()
     };
   }
 
-  freshSplit(): void{
-
+  async onBtnClick(item: Item): Promise<void> {
+    item.isOpen = !item.isOpen
+    await new Promise(r => setTimeout(r))
+    this.styleService.freshMainLayout()
   }
+
 }
 
 class Item<Component = unknown> {

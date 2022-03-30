@@ -35,6 +35,7 @@ import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.compon
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
 import { TabComponent } from './components/tab/tab.component';
 import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
+import {SpaceStyleService} from "../services/space-style.service";
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline];
 
@@ -78,6 +79,7 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
       provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,
       useValue: { gutterSize: 8 } as AngularSplitOptions,
     },
+    SpaceStyleService,
   ],
 })
 export class SpaceModule {}
