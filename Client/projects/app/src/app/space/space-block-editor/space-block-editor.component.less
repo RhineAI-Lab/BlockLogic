@@ -32,6 +32,9 @@ nz-layout {
         .ant-menu-submenu-arrow{
           color: #000000A0;
         }
+        .ant-menu-submenu:hover .ant-menu-submenu-arrow{
+          color: #00a86b;
+        }
         .ant-menu-submenu-arrow::before{
           transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
@@ -43,38 +46,41 @@ nz-layout {
         }
       }
 
+      h1{
+        margin: 20px auto 0;
+        font-size: 1.6rem;
+        font-weight: 300;
+        text-align: center;
+        color: black;
+      }
+      h2{
+        margin: 0 auto 10px;
+        font-size: 1rem;
+        font-weight: 200;
+        text-align: center;
+      }
+      h1 a{
+        text-decoration:none;
+        color: #324a5b;
+      }
+      h2 a{
+        text-decoration:none;
+        color: #324a5b;
+      }
+
       .category-icon {
-        width: 11px;
-        height: 11px;
-        border: 2.5px solid #aaa;
+        width: 12px;
+        height: 12px;
+        border: 3px solid #aaa;
         margin: auto 4px;
       }
+
+      .category-title{
+        // transform: translateY(1px);
+      }
+
     }
 
-  }
-}
-
-.sider-main{
-  h1{
-    margin: 20px auto 0;
-    font-size: 1.6rem;
-    font-weight: 300;
-    text-align: center;
-    color: black;
-  }
-  h2{
-    margin: 0 auto 10px;
-    font-size: 1rem;
-    font-weight: 200;
-    text-align: center;
-  }
-  h1 a{
-    text-decoration:none;
-    color: #324a5b;
-  }
-  h2 a{
-    text-decoration:none;
-    color: #324a5b;
   }
 }
 
