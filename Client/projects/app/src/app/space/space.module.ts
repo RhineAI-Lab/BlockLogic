@@ -1,7 +1,7 @@
 import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { BorderOutline, FileOutline } from '@ant-design/icons-angular/icons';
+import { BorderOutline, FileOutline, FolderOutline, CodeOutline } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
   AngularSplitModule,
@@ -34,8 +34,9 @@ import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.com
 import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
 import { TabComponent } from './components/tab/tab.component';
+import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
 
-const icons: IconDefinition[] = [BorderOutline, FileOutline];
+const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline];
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline];
     VerticalSplitLineComponent,
     SpaceTabssetBarComponent,
     TabComponent,
+    SpaceSidebarConsoleComponent,
   ],
   imports: [
     SharedModule,

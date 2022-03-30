@@ -5,6 +5,55 @@
 
 .btns{
     width: 22px;
+    background-color: #F2F2F2;
+
+    .btn{
+        position: relative;
+        width: 22px;
+        min-height: 40px;
+        background: #F2F2F2;
+        margin-bottom: 1px;
+
+        .btn-text{
+            height: 22px;
+            line-height: 22px;
+            vertical-align: middle;
+            max-lines: 1;
+            white-space: nowrap;
+            position: absolute;
+            font-size: 10px;
+            color: #111;
+        }
+        .btn-text-left{
+            bottom: 24px;
+            transform:rotate(-90deg);
+            transform-origin: 11px 11px;
+        }
+        .btn-text-right{
+            top: 32px;
+            transform:rotate(90deg);
+            transform-origin: 11px 11px;
+        }
+
+        .btn-icon{
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            font-size: 14px;
+            margin: 3px;
+        }
+        .btn-icon-left{
+            bottom: 11px;
+        }
+        .btn-icon-right{
+            top: 11px;
+        }
+    }
+
+    .btn:hover{
+        cursor: pointer;
+        background-color: #D9D9D9;
+    }
 }
 
 

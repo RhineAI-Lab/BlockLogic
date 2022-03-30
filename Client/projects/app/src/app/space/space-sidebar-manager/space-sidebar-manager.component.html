@@ -1,11 +1,35 @@
 <div class="layout" fxLayout>
     <div class="btns btns-left">
-        <div *ngFor="let item of items"></div>
+        <ng-container  *ngFor="let item of items">
+            <div *ngIf="item.showTab&&item.position.indexOf('left')>=0"
+                 class="btn"
+                 [ngStyle]="{'height':item.name.length*12+52+'px','background': item.isOpen?'#BDBDBD':'none'}"
+
+                 [nz-tooltip]="item.tooltip"
+                 [nzTooltipMouseEnterDelay]="0.4"
+            >
+                <p class="btn-text btn-text-left">{{item.name}}</p>
+                <i nz-icon class="btn-icon btn-icon-left" [nzType]="item.icon"></i>
+            </div>
+        </ng-container>
     </div>
     <app-vertical-split-line></app-vertical-split-line>
     <div class="sidebars sidebars-left"></div>
     <ng-content class="main"></ng-content>
     <div class="sidebars sidebars-right"></div>
     <app-vertical-split-line></app-vertical-split-line>
-    <div class="btns btns-right"></div>
+    <div class="btns btns-right">
+        <ng-container  *ngFor="let item of items">
+            <div *ngIf="item.showTab&&item.position.indexOf('right')>=0"
+                 class="btn"
+                 [ngStyle]="{'height':item.name.length*12+52+'px'}"
+
+                 [nz-tooltip]="item.tooltip"
+                 [nzTooltipMouseEnterDelay]="0.4"
+            >
+                <p class="btn-text btn-text-right">{{item.name}}</p>
+                <i nz-icon class="btn-icon btn-icon-right" [nzType]="item.icon"></i>
+            </div>
+        </ng-container>
+    </div>
 </div>
