@@ -1,7 +1,21 @@
 <div fxLayout class="layout no-select">
-    <div fxFlex="grow" class="main">
-        <div class="tab" *ngFor=""></div>
+    <div class="main">
+        <div class="tabs">
+            <div
+                class="tab"
+                *ngFor="let item of tabs"
+                [ngStyle]="item.selected?{'border-bottom-color':'#009561','border-top-color':'#FFFFFF','background':'#FFFFFF'}:{}"
+                (click)="onTabClick(item)"
+            >
+                <i nz-icon class="icon" [nzType]="getIcon(item.name)"></i>
+                <p>{{item.name}}</p>
+                <div class="close-btn">
+                    <i nz-icon [nzType]="'close'" (click)="onTabClose(item)"></i>
+                </div>
+            </div>
+        </div>
     </div>
+    <div fxFlex="grow"></div>
     <app-toolbar-split></app-toolbar-split>
     <nz-radio-group class="mode-selector" [(ngModel)]="mode" (ngModelChange)="onModeChange(mode)" nzSize="small">
         <label nz-radio-button nzValue="block">图形</label>

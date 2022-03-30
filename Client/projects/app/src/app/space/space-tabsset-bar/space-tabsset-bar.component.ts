@@ -9,7 +9,9 @@ export class SpaceTabssetBarComponent implements OnInit {
 
   mode: string = "split"
   tabs: TabItem[] = [
-      new TabItem("File.js","project/File.js")
+    new TabItem("file.js","project/file.js"),
+    new TabItem("main.js","project/main.js",true),
+    new TabItem("ui.xml","project/ui.xml"),
   ]
 
   constructor() {}
@@ -19,6 +21,21 @@ export class SpaceTabssetBarComponent implements OnInit {
 
   onModeChange(mode: string){
 
+  }
+
+  onTabClick(item: TabItem){
+
+  }
+  onTabClose(item: TabItem){
+
+  }
+
+  getIcon(name: string): string{
+    if(name.indexOf(".js")>=0){
+      return 'file-text'
+    }else{
+      return 'file'
+    }
   }
 
 }
