@@ -1,5 +1,5 @@
 <div class="layout" fxLayout>
-    <div class="btns btns-left">
+    <div class="btns btns-left no-select">
         <ng-container  *ngFor="let item of items">
             <div *ngIf="item.showTab&&item.position.indexOf('left')>=0"
                  class="btn"
@@ -18,7 +18,7 @@
     <ng-content class="main"></ng-content>
     <div class="sidebars sidebars-right"></div>
     <app-vertical-split-line></app-vertical-split-line>
-    <div class="btns btns-right">
+    <div class="btns btns-right no-select">
         <ng-container  *ngFor="let item of items">
             <div *ngIf="item.showTab&&item.position.indexOf('right')>=0"
                  class="btn"
