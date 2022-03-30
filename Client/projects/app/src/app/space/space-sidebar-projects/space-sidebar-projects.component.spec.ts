@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceSidebarFilesComponent } from './space-sidebar-files.component';
+import { SpaceSidebarProjectsComponent } from './space-sidebar-projects.component';
 
 describe('SpaceSidebarFilesComponent', () => {
-  let component: SpaceSidebarFilesComponent;
-  let fixture: ComponentFixture<SpaceSidebarFilesComponent>;
+  let component: SpaceSidebarProjectsComponent;
+  let fixture: ComponentFixture<SpaceSidebarProjectsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpaceSidebarFilesComponent],
+      declarations: [SpaceSidebarProjectsComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpaceSidebarFilesComponent);
+    fixture = TestBed.createComponent(SpaceSidebarProjectsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { Component, Injector, OnInit } from '@angular/core';
 
-import { SpaceSidebarFilesComponent } from '../space-sidebar-files-ck/space-sidebar-files.component';
+import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 
 @Component({
   selector: 'app-space-sidebar',
@@ -15,7 +15,9 @@ export class SpaceSidebarComponent implements OnInit {
     {
       name: '资源管理器',
       icon: 'file',
-      component: SpaceSidebarFilesComponent,
+      component: SpaceSidebarProjectsComponent,
+      position: 'left-top',
+      autoOpen: true,
     },
   ];
   itemActive = this.items[0];
@@ -41,5 +43,7 @@ interface Item<Component = unknown> {
   icon: string;
   name: string;
   component: ComponentType<Component>;
+  position: string;
+  autoOpen?: boolean;
   portal?: ComponentPortal<Component>;
 }

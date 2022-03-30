@@ -1,5 +1,7 @@
 <div class="layout" fxLayout>
-    <div class="btns btns-left"></div>
+    <div class="btns btns-left">
+        <div *ngFor="let item of items"></div>
+    </div>
     <app-vertical-split-line></app-vertical-split-line>
     <div class="sidebars sidebars-left"></div>
     <ng-content class="main"></ng-content>
