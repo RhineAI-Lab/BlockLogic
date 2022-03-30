@@ -13,8 +13,8 @@ import {SpaceStyleService} from "./services/space-style.service";
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
-  @ViewChild(SpaceBlockEditorComponent)blockEditor!: SpaceBlockEditorComponent;
-  @ViewChild(SpaceCodeEditorComponent)codeEditor!: SpaceCodeEditorComponent;
+  @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
+  @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
   styleService: SpaceStyleService;
 

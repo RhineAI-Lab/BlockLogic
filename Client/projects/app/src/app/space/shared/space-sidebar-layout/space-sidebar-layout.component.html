@@ -1,0 +1,11 @@
+<div class="layout">
+    <div fxLayout class="header">
+        <i nz-icon class="header-icon" [nzType]="icon"></i>
+        <p fxFlex="grow" class="header-text">{{title}}</p>
+        <app-btn-typea icon="minus"></app-btn-typea>
+    </div>
+    <app-horizontal-split-line class="split-line"></app-horizontal-split-line>
+    <div class="body">
+        <ng-content></ng-content>
+    </div>
+</div>

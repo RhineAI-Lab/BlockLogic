@@ -1,7 +1,7 @@
 import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { BorderOutline, FileOutline, FolderOutline, CodeOutline } from '@ant-design/icons-angular/icons';
+import { BorderOutline, FileOutline, FolderOutline, CodeOutline, MinusOutline } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
   AngularSplitModule,
@@ -26,7 +26,6 @@ import { SpaceBlockEditorComponent } from './space-block-editor/space-block-edit
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
-import { SpaceSidebarComponent } from './space-sidebar-ck/space-sidebar.component';
 import { SpaceSidebarProjectsComponent } from './space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-sidebar-manager.component';
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
@@ -34,9 +33,10 @@ import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.compon
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
 import { TabComponent } from './components/tab/tab.component';
 import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
-import {SpaceStyleService} from "./services/space-style.service";
+import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
+import { BtnTypeaComponent } from './components/btn-typea/btn-typea.component';
 
-const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline];
+const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline, MinusOutline];
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
     SpaceHeaderComponent,
     SpaceBlockEditorComponent,
     SpaceCodeEditorComponent,
-    SpaceSidebarComponent,
     SpaceSidebarProjectsComponent,
     SpaceSidebarManagerComponent,
     SpaceStatusBarComponent,
@@ -54,6 +53,8 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
     SpaceTabssetBarComponent,
     TabComponent,
     SpaceSidebarConsoleComponent,
+    SpaceSidebarLayoutComponent,
+    BtnTypeaComponent,
   ],
   imports: [
     SharedModule,

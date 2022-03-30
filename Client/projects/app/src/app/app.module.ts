@@ -15,7 +15,6 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
-import {SpaceModule} from "./space/space.module";
 
 registerLocaleData(zh);
 
