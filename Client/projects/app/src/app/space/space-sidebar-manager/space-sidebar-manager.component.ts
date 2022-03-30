@@ -13,9 +13,9 @@ export class SpaceSidebarManagerComponent implements OnInit {
 
   items: Item[] = [
     new Item('项目','folder',SpaceSidebarProjectsComponent,
-        '项目目录树状图','left-top',true,true),
+        '项目目录树状图','left-top',300,true,true),
     new Item('控制台','code',SpaceSidebarConsoleComponent,
-        '程序输出控制台','right-top',true,true),
+        '程序输出控制台','right-top',500,true,true),
   ];
 
   ngOnInit(): void {}
@@ -32,6 +32,7 @@ class Item<Component = unknown> {
   component: ComponentType<Component>;
 
   position: string;
+  width: number;
 
   isOpen: boolean;
   showTab: boolean;
@@ -41,7 +42,8 @@ class Item<Component = unknown> {
       icon: string,
       component: ComponentType<Component>,
       tooltip: string = name,
-      position: string = "left-top",
+      position: string = 'left-top',
+      width: number = 300,
       isOpen: boolean = false,
       showTab: boolean = true) {
     this.name = name;
@@ -49,6 +51,7 @@ class Item<Component = unknown> {
     this.tooltip = tooltip;
     this.component = component;
     this.position = position;
+    this.width = width;
     this.isOpen = isOpen;
     this.showTab = showTab;
   }

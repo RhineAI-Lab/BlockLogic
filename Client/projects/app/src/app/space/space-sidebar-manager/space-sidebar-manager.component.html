@@ -17,9 +17,34 @@
         </ng-container>
     </div>
     <app-vertical-split-line></app-vertical-split-line>
-    <div class="sidebars sidebars-left"></div>
+    <div fxLayout class="sidebars sidebars-left">
+        <ng-container *ngFor="let item of items">
+            <div class="sidebar-holder"
+                 *ngIf="item.position.indexOf('left')>=0"
+                 [ngStyle]="{
+                     'display':item.isOpen?'inline-block':'none',
+                     'width':item.width+'px'
+                 }"
+            >
+                <div class="sidebar sidebar-left"></div>
+                <div class="drag-split-line drag-split-line-left"></div>
+            </div>
+        </ng-container>
+    </div>
     <ng-content class="main"></ng-content>
-    <div class="sidebars sidebars-right"></div>
+    <div fxLayout class="sidebars sidebars-right">
+        <ng-container *ngFor="let item of items">
+            <div class="sidebar-holder"
+                 *ngIf="item.position.indexOf('right')>=0"
+                 [ngStyle]="{
+                     'display':item.isOpen?'inline-block':'none',
+                     'width':item.width+'px'
+                 }"
+            >
+                <div class="sidebar sidebar-right"></div>
+                <div class="drag-split-line drag-split-line-right"></div>
+            </div>
+        </ng-container>
     <app-vertical-split-line></app-vertical-split-line>
     <div class="btns btns-right no-select">
         <ng-container  *ngFor="let item of items">
