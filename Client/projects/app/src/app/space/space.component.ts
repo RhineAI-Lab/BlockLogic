@@ -43,4 +43,6 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
   }
+
+
 }

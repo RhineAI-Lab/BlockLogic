@@ -27,7 +27,10 @@
                  }"
             >
                 <div class="sidebar sidebar-left"></div>
-                <div class="drag-split-line drag-split-line-left"></div>
+                <div class="drag-split-line drag-split-line-left"
+                     (mousedown)="onChangeWidth($event,item)"
+                >
+                </div>
             </div>
         </ng-container>
     </div>

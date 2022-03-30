@@ -88,6 +88,17 @@
         .drag-split-line-right{
             left: 0;
         }
+        .drag-split-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -5px;
+            bottom: 0;
+            left: -5px;
+        }
+        .drag-split-line:hover{
+            cursor: ew-resize;
+        }
 
     }
 
