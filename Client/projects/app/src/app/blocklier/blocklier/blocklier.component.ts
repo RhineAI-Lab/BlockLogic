@@ -43,6 +43,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
         const $host = this.container.nativeElement;
 
         this.workspace = Blockly.inject($host, {
+          media: 'assets/blockly/media/',
           grid: {
             spacing: 20,
             length: 6,
