@@ -3,7 +3,10 @@
         <ng-container  *ngFor="let item of items">
             <div *ngIf="item.showTab&&item.position.indexOf('left')>=0"
                  class="btn"
-                 [ngStyle]="{'height':item.name.length*12+52+'px','background': item.isOpen?'#BDBDBD':'none'}"
+                 (click)="onBtnClick(item)"
+                 [ngStyle]="item.isOpen
+                 ?{'height':item.name.length*12+52+'px','background':'#BDBDBD'}
+                 :{'height':item.name.length*12+52+'px'}"
 
                  [nz-tooltip]="item.tooltip"
                  [nzTooltipMouseEnterDelay]="0.4"
@@ -22,7 +25,10 @@
         <ng-container  *ngFor="let item of items">
             <div *ngIf="item.showTab&&item.position.indexOf('right')>=0"
                  class="btn"
-                 [ngStyle]="{'height':item.name.length*12+52+'px'}"
+                 (click)="onBtnClick(item)"
+                 [ngStyle]="item.isOpen
+                 ?{'height':item.name.length*12+52+'px','background':'#BDBDBD'}
+                 :{'height':item.name.length*12+52+'px'}"
 
                  [nz-tooltip]="item.tooltip"
                  [nzTooltipMouseEnterDelay]="0.4"

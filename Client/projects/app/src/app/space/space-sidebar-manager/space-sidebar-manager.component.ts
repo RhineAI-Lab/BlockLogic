@@ -19,6 +19,10 @@ export class SpaceSidebarManagerComponent implements OnInit {
   ];
 
   ngOnInit(): void {}
+
+  onBtnClick(item: Item): void {
+    item.isOpen = !item.isOpen
+  }
 }
 
 class Item<Component = unknown> {
