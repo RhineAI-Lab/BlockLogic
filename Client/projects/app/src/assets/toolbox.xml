@@ -98,7 +98,7 @@
             <block type="logic_null"></block>
             <block type="logic_ternary"></block>
         </category>
-        <category name="数字" categorystyle="math_category">
+        <category name="数学" categorystyle="math_category">
             <block type="math_number" gap="32">
                 <field name="NUM">123</field>
             </block>
@@ -394,6 +394,407 @@
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
         </category>
+    </category>
+
+    <category name="脚本操作">
+        <category name="无障碍服务">
+            <block type="auto_wait_for"></block>
+            <block type="auto_set_mode"></block>
+            <block type="auto_set_flags"></block>
+            <block type="auto_service"></block>
+            <block type="auto_windows"></block>
+            <block type="auto_root"></block>
+            <block type="auto_root_in_active_window"></block>
+            <block type="auto_set_window_filter"></block>
+        </category>
+        <category name="基于坐标操作">
+            <block type="coordinate_set_screen">
+                <value name="W">
+                    <shadow type="math_number">
+                        <field name="NUM">1080</field>
+                    </shadow>
+                </value>
+                <value name="H">
+                    <shadow type="math_number">
+                        <field name="NUM">1920</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_click">
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_long_click">
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_press">
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="D">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_swipe">
+                <value name="X1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="D">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_root_tap">
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="coordinate_root_swipe">
+                <value name="X1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="D">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
+        <category name="触摸模拟对象">
+            <block type="automator_new"></block>
+            <block type="automator_tap">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_long_press">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_press">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="D">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_swipe">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y1">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y2">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="D">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_touch_down">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_touch_move">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="automator_touch_up">
+                <value name="F">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
+        <category name="基于控件操作">
+            <block type="widget_do_text">
+                <value name="VALUE">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="puzzle"></block>
+            <block type="widget_algorithm"></block>
+            <block type="widget_attr_selector">
+                <value name="VALUE">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="widget_status_selector"></block>
+            <block type="widget_selectors_join"></block>
+            <block type="widget_find_one"></block>
+            <block type="widget_find_once"></block>
+            <block type="widget_until_find"></block>
+            <block type="widget_find"></block>
+            <block type="widget_exists"></block>
+            <block type="widget_wait"></block>
+            <block type="widget_operate"></block>
+            <block type="puzzle">
+                <value name="VALUE">
+                    <block type="widget_operate">
+                        <value name="WIDGET">
+                            <block type="widget_find_one">
+                                <value name="SELECTOR">
+                                    <block type="widget_attr_selector">
+                                        <value name="VALUE">
+                                            <shadow type="text"></shadow>
+                                        </value>
+                                    </block>
+                                </value>
+                            </block>
+                        </value>
+                    </block>
+                </value>
+            </block>
+            <block type="widget_set_text">
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="widget_get_attr"></block>
+            <block type="widget_parent"></block>
+            <block type="widget_children"></block>
+        </category>
+        <category name="快捷控件操作">
+            <block type="puzzle"></block>
+            <block type="simple_click">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="simple_long_click">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="simple_scroll_up">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="simple_scroll_down">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="simple_set_text">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="simple_input">
+                <value name="I">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+        </category>
+        <category name="意图">
+            <block type="intent_intent"></block>
+            <block type="intent_start_activity"></block>
+            <block type="intent_send_broadcast"></block>
+            <block type="intent_start_service"></block>
+            <block type="intent_send_broadcast_by_name"></block>
+            <block type="intent_intent_to_shell"></block>
+            <block type="intent_parse_uri">
+                <value name="URI">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="intent_get_uri_for_file">
+                <value name="FORFILE">
+                    <shadow type="text">
+                        <field name="TEXT">/sdcard/1.txt</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="intent_get_installed_apps"></block>
+        </category>
+        <!-- TODO: repeat category App here -->
     </category>
 
     <category name="界面控制">
@@ -1295,406 +1696,5 @@
             </block>
             <block type="http_option_body"></block>
         </category>
-    </category>
-
-    <category name="脚本操作">
-        <category name="无障碍服务">
-            <block type="auto_wait_for"></block>
-            <block type="auto_set_mode"></block>
-            <block type="auto_set_flags"></block>
-            <block type="auto_service"></block>
-            <block type="auto_windows"></block>
-            <block type="auto_root"></block>
-            <block type="auto_root_in_active_window"></block>
-            <block type="auto_set_window_filter"></block>
-        </category>
-        <category name="基于坐标操作">
-            <block type="coordinate_set_screen">
-                <value name="W">
-                    <shadow type="math_number">
-                        <field name="NUM">1080</field>
-                    </shadow>
-                </value>
-                <value name="H">
-                    <shadow type="math_number">
-                        <field name="NUM">1920</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_click">
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_long_click">
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_press">
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="D">
-                    <shadow type="math_number">
-                        <field name="NUM">100</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_swipe">
-                <value name="X1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="D">
-                    <shadow type="math_number">
-                        <field name="NUM">100</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_root_tap">
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="coordinate_root_swipe">
-                <value name="X1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="D">
-                    <shadow type="math_number">
-                        <field name="NUM">100</field>
-                    </shadow>
-                </value>
-            </block>
-        </category>
-        <category name="触摸模拟对象">
-            <block type="automator_new"></block>
-            <block type="automator_tap">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_long_press">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_press">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="D">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_swipe">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y1">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y2">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="D">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_touch_down">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_touch_move">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="X">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="Y">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="automator_touch_up">
-                <value name="F">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-        </category>
-        <category name="基于控件操作">
-            <block type="widget_do_text">
-                <value name="VALUE">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="puzzle"></block>
-            <block type="widget_algorithm"></block>
-            <block type="widget_attr_selector">
-                <value name="VALUE">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="widget_status_selector"></block>
-            <block type="widget_selectors_join"></block>
-            <block type="widget_find_one"></block>
-            <block type="widget_find_once"></block>
-            <block type="widget_until_find"></block>
-            <block type="widget_find"></block>
-            <block type="widget_exists"></block>
-            <block type="widget_wait"></block>
-            <block type="widget_operate"></block>
-            <block type="puzzle">
-                <value name="VALUE">
-                    <block type="widget_operate">
-                        <value name="WIDGET">
-                            <block type="widget_find_one">
-                                <value name="SELECTOR">
-                                    <block type="widget_attr_selector">
-                                        <value name="VALUE">
-                                            <shadow type="text"></shadow>
-                                        </value>
-                                    </block>
-                                </value>
-                            </block>
-                        </value>
-                    </block>
-                </value>
-            </block>
-            <block type="widget_set_text">
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="widget_get_attr"></block>
-            <block type="widget_parent"></block>
-            <block type="widget_children"></block>
-        </category>
-        <category name="快捷控件操作">
-            <block type="puzzle"></block>
-            <block type="simple_click">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="simple_long_click">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="simple_scroll_up">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="simple_scroll_down">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="simple_set_text">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="simple_input">
-                <value name="I">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-        </category>
-        <category name="意图">
-            <block type="intent_intent"></block>
-            <block type="intent_start_activity"></block>
-            <block type="intent_send_broadcast"></block>
-            <block type="intent_start_service"></block>
-            <block type="intent_send_broadcast_by_name"></block>
-            <block type="intent_intent_to_shell"></block>
-            <block type="intent_parse_uri">
-                <value name="URI">
-                    <shadow type="text">
-                        <field name="TEXT"></field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="intent_get_uri_for_file">
-                <value name="FORFILE">
-                    <shadow type="text">
-                        <field name="TEXT">/sdcard/1.txt</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="intent_get_installed_apps"></block>
-        </category>
-        <!-- TODO: repeat category App here -->
     </category>
 </xml>

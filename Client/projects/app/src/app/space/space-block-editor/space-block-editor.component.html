@@ -22,7 +22,7 @@
                 [nzPaddingLeft]="26"
                 [nzSelected]="categorySelected == item"
             >
-              <div class="category-icon"></div>
+              <div class="category-icon" [ngStyle]="{'border-color':item.color,'background-color':colourBlend(item.color)}"></div>
               <span class="category-title">{{ item.name }}</span>
             </li>
           </ul>
