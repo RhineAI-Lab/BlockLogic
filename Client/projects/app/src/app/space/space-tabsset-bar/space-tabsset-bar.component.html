@@ -1,1 +1,11 @@
-<div class="layout"></div>
+<div fxLayout class="layout no-select">
+    <div fxFlex="grow" class="main">
+        <div class="tab" *ngFor=""></div>
+    </div>
+    <app-toolbar-split></app-toolbar-split>
+    <nz-radio-group class="mode-selector" [(ngModel)]="mode" (ngModelChange)="onModeChange(mode)" nzSize="small">
+        <label nz-radio-button nzValue="block">图形</label>
+        <label nz-radio-button nzValue="split">分割</label>
+        <label nz-radio-button nzValue="code">代码</label>
+    </nz-radio-group>
+</div>

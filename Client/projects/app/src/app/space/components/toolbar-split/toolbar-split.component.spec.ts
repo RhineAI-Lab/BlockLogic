@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabComponent } from './tab.component';
+import { ToolbarSplitComponent } from './toolbar-split.component';
 
-describe('TabComponent', () => {
-  let component: TabComponent;
-  let fixture: ComponentFixture<TabComponent>;
+describe('ToolbarSplitComponent', () => {
+  let component: ToolbarSplitComponent;
+  let fixture: ComponentFixture<ToolbarSplitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TabComponent ]
+      declarations: [ ToolbarSplitComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TabComponent);
+    fixture = TestBed.createComponent(ToolbarSplitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

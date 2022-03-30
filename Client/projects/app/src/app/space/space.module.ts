@@ -31,10 +31,11 @@ import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-side
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
 import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
-import { TabComponent } from './components/tab/tab.component';
 import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { BtnTypeaComponent } from './components/btn-typea/btn-typea.component';
+import {NzRadioModule} from "ng-zorro-antd/radio";
+import { ToolbarSplitComponent } from './components/toolbar-split/toolbar-split.component';
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline, MinusOutline];
 
@@ -51,28 +52,29 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
     HorizontalSplitLineComponent,
     VerticalSplitLineComponent,
     SpaceTabssetBarComponent,
-    TabComponent,
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
     BtnTypeaComponent,
+    ToolbarSplitComponent,
   ],
-  imports: [
-    SharedModule,
-    SpaceRoutingModule,
-    SheetModule,
-    BlocklierModule,
-    PortalModule,
-    NzLayoutModule,
-    NzMenuModule,
-    NzLayoutModule,
-    NzSelectModule,
-    NzTreeModule,
-    NzToolTipModule,
-    NzTabsModule,
-    NzIconModule.forChild(icons),
-    MonacoEditorModule,
-    AngularSplitModule,
-  ],
+    imports: [
+        SharedModule,
+        SpaceRoutingModule,
+        SheetModule,
+        BlocklierModule,
+        PortalModule,
+        NzLayoutModule,
+        NzMenuModule,
+        NzLayoutModule,
+        NzSelectModule,
+        NzTreeModule,
+        NzToolTipModule,
+        NzTabsModule,
+        NzIconModule.forChild(icons),
+        MonacoEditorModule,
+        AngularSplitModule,
+        NzRadioModule,
+    ],
   providers: [
     {
       provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,

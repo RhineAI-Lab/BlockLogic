@@ -1,3 +1,36 @@
+
+@border-color: #BBBBBB;
+
 .layout{
   height: 30px;
+
+  .main{
+    overflow-x: hidden;
+
+
+  }
+
+  .mode-selector{
+    width: 127px;
+    min-width: 127px;
+    height: 30px;
+    padding: 3px;
+
+    ::ng-deep{
+      .ant-radio-button-wrapper{
+        font-size: 12px;
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper:first-child{
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper:last-child{
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        color: #007a52;
+        border-color: #009561;
+      }
+    }
+  }
 }
