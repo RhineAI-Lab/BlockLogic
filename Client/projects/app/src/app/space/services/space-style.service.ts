@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
-import {SplitComponent} from "angular-split";
+import {Injectable} from '@angular/core';
+import {SpaceModule} from "../space.module";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SpaceStyleService {
   public freshMainLayout: Function;
 
@@ -12,6 +13,5 @@ export class SpaceStyleService {
       return false
     }
   }
-
 
 }

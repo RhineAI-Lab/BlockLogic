@@ -9,8 +9,6 @@ import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-s
   styleUrls: ['./space-sidebar.component.less'],
 })
 export class SpaceSidebarComponent implements OnInit {
-  static readonly ITEM_NAME = Symbol();
-
   items: Item[] = [
     {
       name: '资源管理器',
@@ -31,7 +29,7 @@ export class SpaceSidebarComponent implements OnInit {
     const injector = Injector.create({
       parent: this.injector,
       providers: [
-        { provide: SpaceSidebarComponent.ITEM_NAME, useValue: item.name },
+        { provide: SpaceSidebarComponent, useValue: item.name },
       ],
     });
     item.portal = new ComponentPortal(item.component, undefined, injector);

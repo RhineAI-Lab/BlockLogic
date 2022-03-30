@@ -4,7 +4,7 @@ import * as Blockly from 'blockly';
 
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
-import {SpaceStyleService} from "../services/space-style.service";
+import {SpaceStyleService} from "./services/space-style.service";
 
 @Component({
   selector: 'app-space',

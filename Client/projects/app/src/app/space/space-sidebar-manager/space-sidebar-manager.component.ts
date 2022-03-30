@@ -1,9 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Injector, OnInit, ViewChild} from '@angular/core';
 import {SpaceSidebarProjectsComponent} from "../space-sidebar-projects/space-sidebar-projects.component";
 import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
 import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
-import {AngularSplitModule} from "angular-split";
-import {SpaceStyleService} from "../../services/space-style.service";
+import {SpaceStyleService} from "../services/space-style.service";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -11,10 +10,9 @@ import {SpaceStyleService} from "../../services/space-style.service";
   styleUrls: ['./space-sidebar-manager.component.less'],
 })
 export class SpaceSidebarManagerComponent implements OnInit {
-
   styleService: SpaceStyleService;
 
-  constructor(styleService: SpaceStyleService) {
+  constructor(styleService: SpaceStyleService,private injector: Injector) {
     this.styleService = styleService;
   }
 
@@ -22,10 +20,22 @@ export class SpaceSidebarManagerComponent implements OnInit {
     new Item('项目','folder',SpaceSidebarProjectsComponent,
         '项目目录树状图','left-top',300,160,true,true),
     new Item('控制台','code',SpaceSidebarConsoleComponent,
-        '程序输出控制台','left-top',500,220,true,true),
+        '程序输出控制台','right-top',400,220,true,true),
   ];
 
   ngOnInit(): void {}
+
+  use<Component>(item: Item<Component>): ComponentPortal<Component> {
+    if (item.portal) return item.portal;
+    const injector = Injector.create({
+      parent: this.injector,
+      providers: [
+        { provide: SpaceSidebarManagerComponent, useValue: item.name },
+      ],
+    });
+    item.portal = new ComponentPortal(item.component, undefined, injector);
+    return item.portal;
+  }
 
   onChangeWidth(e: MouseEvent, item: Item): void {
     let startX = e.clientX;
@@ -64,6 +74,7 @@ class Item<Component = unknown> {
   icon: string;
   tooltip: string;
   component: ComponentType<Component>;
+  portal?: ComponentPortal<Component>;
 
   position: string;
   width: number;

@@ -21,7 +21,6 @@ import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { HorizontalSplitLineComponent } from './components/horizontal-split-line/horizontal-split-line.component';
 import { VerticalSplitLineComponent } from './components/vertical-split-line/vertical-split-line.component';
-import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { SpaceComponent } from './space.component';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
@@ -35,7 +34,7 @@ import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.compon
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
 import { TabComponent } from './components/tab/tab.component';
 import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
-import {SpaceStyleService} from "../services/space-style.service";
+import {SpaceStyleService} from "./services/space-style.service";
 
 const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, CodeOutline];
 
@@ -46,7 +45,6 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
     SpaceBlockEditorComponent,
     SpaceCodeEditorComponent,
     SpaceSidebarComponent,
-    SpaceSidebarLayoutComponent,
     SpaceSidebarProjectsComponent,
     SpaceSidebarManagerComponent,
     SpaceStatusBarComponent,
@@ -79,7 +77,6 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FolderOutline, Code
       provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,
       useValue: { gutterSize: 8 } as AngularSplitOptions,
     },
-    SpaceStyleService,
   ],
 })
 export class SpaceModule {}
