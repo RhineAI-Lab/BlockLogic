@@ -25,6 +25,22 @@ export class SpaceSidebarManagerComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngAfterViewInit(): void {
+    this.styleService.hideSidebar = async (name: string): Promise<boolean> => {
+      for (let item of this.items) {
+        if (item.name == name) {
+          if (item.isOpen) {
+            item.isOpen = false
+            await new Promise(r => setTimeout(r))
+            this.styleService.freshMainLayout()
+          }
+          return true
+        }
+      }
+      return false
+    }
+  }
+
   use<Component>(item: Item<Component>): ComponentPortal<Component> {
     if (item.portal) return item.portal;
     const injector = Injector.create({

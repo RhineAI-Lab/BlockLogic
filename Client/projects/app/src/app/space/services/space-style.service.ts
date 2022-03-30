@@ -7,9 +7,13 @@ import {SpaceModule} from "../space.module";
 
 export class SpaceStyleService {
   public freshMainLayout: Function;
+  public hideSidebar: Function;
 
   constructor() {
     this.freshMainLayout = (): boolean => {
+      return false
+    }
+    this.hideSidebar = (name: string): boolean => {
       return false
     }
   }

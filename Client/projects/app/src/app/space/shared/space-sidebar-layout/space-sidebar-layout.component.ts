@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SpaceStyleService} from "../../services/space-style.service";
 
 @Component({
   selector: 'app-space-sidebar-layout',
@@ -8,10 +9,21 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SpaceSidebarLayoutComponent implements OnInit {
   @Input() icon!: string ;
   @Input() title!: string ;
+  @Input() name!: string;
 
-  constructor() { }
+  styleService: SpaceStyleService
+
+  constructor(styleService: SpaceStyleService) {
+    this.styleService = styleService;
+  }
 
   ngOnInit(): void {
+
+  }
+
+  onHideBtn(): void {
+    console.log(this.name)
+    this.styleService.hideSidebar(this.name)
   }
 
 }

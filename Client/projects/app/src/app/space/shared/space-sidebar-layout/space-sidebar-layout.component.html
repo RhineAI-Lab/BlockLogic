@@ -1,8 +1,8 @@
 <div class="layout">
-    <div fxLayout class="header">
+    <div fxLayout class="header no-select">
         <i nz-icon class="header-icon" [nzType]="icon"></i>
         <p fxFlex="grow" class="header-text">{{title}}</p>
-        <app-btn-typea icon="minus"></app-btn-typea>
+        <app-btn-typea icon="minus" (click)="onHideBtn()"></app-btn-typea>
     </div>
     <app-horizontal-split-line class="split-line"></app-horizontal-split-line>
     <div class="body">
