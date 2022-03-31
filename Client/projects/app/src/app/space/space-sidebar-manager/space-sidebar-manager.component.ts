@@ -3,6 +3,7 @@ import {SpaceSidebarProjectsComponent} from "../space-sidebar-projects/space-sid
 import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
 import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
 import {SpaceStyleService} from "../services/space-style.service";
+import {SpaceSidebarTerminalComponent} from "../space-sidebar-terminal/space-sidebar-terminal.component";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -18,9 +19,11 @@ export class SpaceSidebarManagerComponent implements OnInit {
 
   items: Item[] = [
     new Item('项目','folder',SpaceSidebarProjectsComponent,
-        '项目目录树状图','left-top',300,160,true,true),
+        '项目目录树状图','left-top',260,160,true,true),
     new Item('控制台','code',SpaceSidebarConsoleComponent,
         '程序输出控制台','right-top',400,220,true,true),
+    new Item('终端','control',SpaceSidebarTerminalComponent,
+        '控制终端','right-top',400,220,false,true),
   ];
 
   ngOnInit(): void {}

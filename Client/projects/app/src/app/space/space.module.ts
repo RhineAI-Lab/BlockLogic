@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
     MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline
+    LeftOutline, RightOutline, ControlOutline
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -43,11 +43,12 @@ import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
+import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-sidebar-terminal.component';
 
 const icons: IconDefinition[] = [
     BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
     MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline
+    LeftOutline, RightOutline, ControlOutline
 ];
 
 @NgModule({
@@ -67,6 +68,7 @@ const icons: IconDefinition[] = [
     SpaceSidebarLayoutComponent,
     BtnIconComponent,
     ToolbarSplitComponent,
+    SpaceSidebarTerminalComponent,
   ],
     imports: [
         SharedModule,
