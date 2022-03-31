@@ -1,5 +1,6 @@
 <div class="layout hr-ant" fxLayout>
     <div class="middle-space" fxFlex="grow"></div>
+    <app-toolbar-split></app-toolbar-split>
     <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="editorModeMenu" nzSize="small">
         {{STRS_RUN_MODE[runMode]}}
         <i nz-icon nzType="down"></i>
@@ -10,6 +11,8 @@
             </ul>
         </nz-dropdown-menu>
     </button>
+    <app-btn-typea icon="icon-stop" color="#C75450"></app-btn-typea>
+    <app-toolbar-split></app-toolbar-split>
     <nz-button-group nzSize="small">
         <button nz-button (click)="save()">
             <i nz-icon nzType="save"></i>

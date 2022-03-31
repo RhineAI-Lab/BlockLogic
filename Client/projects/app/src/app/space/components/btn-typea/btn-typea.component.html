@@ -1,1 +1,10 @@
-<i nz-icon [nzType]="icon" [ngStyle]="{'color':color}"></i>
+<i nz-icon
+   *ngIf="icon.indexOf('icon-')==-1"
+   [nzType]="icon"
+   [ngStyle]="{'color':color,'font-size':size}"
+></i>
+<i nz-icon
+   *ngIf="icon.indexOf('icon-')>-1"
+   [nzIconfont]="icon"
+   [ngStyle]="{'color':color,'font-size':size}"
+></i>

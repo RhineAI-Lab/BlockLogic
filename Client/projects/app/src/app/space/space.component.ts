@@ -5,6 +5,7 @@ import * as Blockly from 'blockly';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import {SpaceStyleService} from "./services/space-style.service";
+import {NzIconService} from "ng-zorro-antd/icon";
 
 @Component({
   selector: 'app-space',
@@ -18,8 +19,11 @@ export class SpaceComponent implements OnInit, AfterViewInit {
 
   styleService: SpaceStyleService;
 
-  constructor(styleService: SpaceStyleService) {
+  constructor(styleService: SpaceStyleService, iconService: NzIconService) {
     this.styleService = styleService;
+    iconService.fetchFromIconfont({
+      scriptUrl: 'https://at.alicdn.com/t/font_3294553_oe9f2ygixes.js'
+    })
   }
 
   ngOnInit(): void {}
