@@ -1,5 +1,26 @@
 <div class="layout hr-ant" fxLayout>
     <div class="middle-space" fxFlex="grow"></div>
+    <nz-input-group
+        class="deviceIpInput"
+        [nzAddOnBefore]="deviceBeforeTemplate"
+        [nzSuffix]="deviceSuffix"
+        nzSize="small"
+    >
+        <input type="text" nz-input [(ngModel)]="deviceAddress" placeholder="设备IP地址"/>
+        <ng-template #deviceBeforeTemplate>
+            <nz-select [ngModel]="connectWay" nzSize="small">
+                <nz-option nzLabel="Ws://" nzValue="Ws://"></nz-option>
+                <nz-option nzLabel="Wss://" nzValue="Wss://"></nz-option>
+            </nz-select>
+        </ng-template>
+        <ng-template #deviceSuffix>
+            <i
+                nz-icon nzType="question" class="deviceHelp"
+                [ngStyle]="{'color':'#555555'}"
+                nz-tooltip="连接教程" nzTooltipPlacement="bottom"
+            ></i>
+        </ng-template>
+    </nz-input-group>
     <app-btn-icon icon="api" [fill]="true" color="#1890FF" nz-tooltip="连接设备" nzTooltipPlacement="bottom"></app-btn-icon>
     <app-toolbar-split></app-toolbar-split>
     <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="runModeMenu" nzSize="small">

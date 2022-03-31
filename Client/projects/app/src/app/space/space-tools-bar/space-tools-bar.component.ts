@@ -20,6 +20,9 @@ export class SpaceToolsBarComponent implements OnInit {
   saveMode: number = this.SAVE_MODE_OFFLINE;
   saveModeText: string = '本地';
 
+  deviceAddress: string = '';
+  connectWay: string = 'Ws://'
+
   constructor() {}
 
   ngOnInit(): void {}

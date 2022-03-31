@@ -2,7 +2,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline, ApiFill
+    MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -40,10 +40,11 @@ import {NzRadioModule} from "ng-zorro-antd/radio";
 import { ToolbarSplitComponent } from './components/toolbar-split/toolbar-split.component';
 import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {NzInputModule} from "ng-zorro-antd/input";
 
 const icons: IconDefinition[] = [
     BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline, ApiFill
+    MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline
 ];
 
 @NgModule({
@@ -83,6 +84,7 @@ const icons: IconDefinition[] = [
         NzRadioModule,
         NzButtonModule,
         NzDropDownModule,
+        NzInputModule,
     ],
   providers: [
     {

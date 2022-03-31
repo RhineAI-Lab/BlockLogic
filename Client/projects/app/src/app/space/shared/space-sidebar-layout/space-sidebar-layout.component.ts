@@ -7,9 +7,9 @@ import {SpaceStyleService} from "../../services/space-style.service";
   styleUrls: ['./space-sidebar-layout.component.less']
 })
 export class SpaceSidebarLayoutComponent implements OnInit {
-  @Input() icon!: string ;
-  @Input() title!: string ;
-  @Input() name!: string;
+  @Input() sidebarIcon!: string ;
+  @Input() sidebarTitle!: string ;
+  @Input() sidebarName!: string;
 
   styleService: SpaceStyleService
 
@@ -22,8 +22,8 @@ export class SpaceSidebarLayoutComponent implements OnInit {
   }
 
   onHideBtn(): void {
-    console.log(this.name)
-    this.styleService.hideSidebar(this.name)
+    console.log(this.sidebarName)
+    this.styleService.hideSidebar(this.sidebarName)
   }
 
 }
