@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BtnTypeaComponent } from './btn-typea.component';
+import { BtnIconComponent } from './btn-icon.component';
 
-describe('BtnTypeaComponent', () => {
-  let component: BtnTypeaComponent;
-  let fixture: ComponentFixture<BtnTypeaComponent>;
+describe('BtnIconComponent', () => {
+  let component: BtnIconComponent;
+  let fixture: ComponentFixture<BtnIconComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BtnTypeaComponent ]
+      declarations: [ BtnIconComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BtnTypeaComponent);
+    fixture = TestBed.createComponent(BtnIconComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

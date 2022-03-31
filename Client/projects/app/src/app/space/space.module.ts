@@ -2,7 +2,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline
+    MinusOutline, CloseOutline, SaveOutline, ApiFill
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -35,7 +35,7 @@ import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.compon
 import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
-import { BtnTypeaComponent } from './components/btn-typea/btn-typea.component';
+import { BtnIconComponent } from './components/btn-icon/btn-icon.component';
 import {NzRadioModule} from "ng-zorro-antd/radio";
 import { ToolbarSplitComponent } from './components/toolbar-split/toolbar-split.component';
 import {NzButtonModule} from "ng-zorro-antd/button";
@@ -43,7 +43,7 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
 const icons: IconDefinition[] = [
     BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline
+    MinusOutline, CloseOutline, SaveOutline, ApiFill
 ];
 
 @NgModule({
@@ -61,7 +61,7 @@ const icons: IconDefinition[] = [
     SpaceTabssetBarComponent,
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
-    BtnTypeaComponent,
+    BtnIconComponent,
     ToolbarSplitComponent,
   ],
     imports: [

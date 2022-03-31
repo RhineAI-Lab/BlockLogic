@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SpaceToolsBarComponent implements OnInit {
   readonly RUN_MODE_OFFLINE: number = 0;
   readonly RUN_MODE_DEVICE: number = 1;
-  readonly STRS_RUN_MODE: string[] = ['本地','设备'];
+  readonly STRS_RUN_MODE: string[] = ['在线运行','设备运行'];
 
   readonly SAVE_MODE_OFFLINE: number = 0;
   readonly SAVE_MODE_DEVICE: number = 1;
