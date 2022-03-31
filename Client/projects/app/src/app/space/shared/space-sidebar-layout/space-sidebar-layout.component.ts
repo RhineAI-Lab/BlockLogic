@@ -26,4 +26,8 @@ export class SpaceSidebarLayoutComponent implements OnInit {
     this.styleService.hideSidebar(this.sidebarName)
   }
 
+  onSetBtn(): void {
+
+  }
+
 }

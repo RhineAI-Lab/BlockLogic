@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class BtnIconComponent implements OnInit {
   @Input() icon!: string;
-  @Input() color: string = "#6F6F6F";
+  @Input() color: string = "#6E6E6E";
   @Input() size: number = 16;
   @Input() fill: boolean = false;
 
