@@ -1,7 +1,9 @@
 import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline, MinusOutline, CloseOutline } from '@ant-design/icons-angular/icons';
+import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
+    MinusOutline, CloseOutline, SaveOutline
+} from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
   AngularSplitModule,
@@ -36,8 +38,13 @@ import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space
 import { BtnTypeaComponent } from './components/btn-typea/btn-typea.component';
 import {NzRadioModule} from "ng-zorro-antd/radio";
 import { ToolbarSplitComponent } from './components/toolbar-split/toolbar-split.component';
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
-const icons: IconDefinition[] = [BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline, MinusOutline, CloseOutline];
+const icons: IconDefinition[] = [
+    BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
+    MinusOutline, CloseOutline, SaveOutline
+];
 
 @NgModule({
   declarations: [
@@ -74,6 +81,8 @@ const icons: IconDefinition[] = [BorderOutline, FileOutline, FileTextOutline, Fo
         MonacoEditorModule,
         AngularSplitModule,
         NzRadioModule,
+        NzButtonModule,
+        NzDropDownModule,
     ],
   providers: [
     {

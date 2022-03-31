@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpaceTabssetBarComponent implements OnInit {
 
-  mode: string = "split"
+  editorMode: string = "logic"
+  showMode: string = "split"
+  editorModeText: string = "逻辑模式"
+
   tabs: TabItem[] = [
     new TabItem("file.js","project/file.js"),
     new TabItem("main.js","project/main.js",true),
@@ -19,7 +22,10 @@ export class SpaceTabssetBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onModeChange(mode: string){
+  onEditorModeChange(mode: string){
+
+  }
+  onShowModeChange(mode: string){
 
   }
 

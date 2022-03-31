@@ -9,4 +9,8 @@ export class SpaceToolsBarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  save(){
+
+  }
 }

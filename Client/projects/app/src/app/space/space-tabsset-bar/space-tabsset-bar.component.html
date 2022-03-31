@@ -1,10 +1,10 @@
-<div fxLayout class="layout no-select">
+<div fxLayout class="layout no-select hr-ant">
     <div class="main">
         <div class="tabs">
             <div
                 class="tab"
                 *ngFor="let item of tabs"
-                [ngStyle]="item.selected?{'border-bottom-color':'#009561','border-top-color':'#FFFFFF','background':'#FFFFFF'}:{}"
+                [ngStyle]="item.selected?{'border-bottom-color':'#00A86B','border-top-color':'#FFFFFF','background':'#FFFFFF'}:{}"
                 (click)="onTabClick(item)"
             >
                 <i nz-icon class="icon" [nzType]="getIcon(item.name)"></i>
@@ -17,7 +17,17 @@
     </div>
     <div fxFlex="grow"></div>
     <app-toolbar-split></app-toolbar-split>
-    <nz-radio-group class="mode-selector" [(ngModel)]="mode" (ngModelChange)="onModeChange(mode)" nzSize="small">
+    <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="editorModeMenu" nzSize="small">
+        {{editorModeText}}
+        <i nz-icon nzType="down"></i>
+        <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item (click)="onEditorModeChange('logic')">逻辑模式</li>
+                <li nz-menu-item (click)="onEditorModeChange('design')">设计模式</li>
+            </ul>
+        </nz-dropdown-menu>
+    </button>
+    <nz-radio-group class="show-mode-selector" [(ngModel)]="showMode" (ngModelChange)="onShowModeChange(showMode)" nzSize="small">
         <label nz-radio-button nzValue="block">图形</label>
         <label nz-radio-button nzValue="split">分割</label>
         <label nz-radio-button nzValue="code">代码</label>

@@ -6,7 +6,11 @@
 // Override less variables to here
 // View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
 
-@primary-color: #00a86b;
+@primary-color: #00A86B;
+@first-background-color: #FFFFFF;
+@second-background-color: #F2F2F2;
+@border-color: #BBBBBB;
+
 @layout-header-background: #212529;
 
 /* You can add global styles to this file, and also import other style files */
@@ -36,6 +40,48 @@ html,body{
     font-size: 12px;
     padding: 2px 8px;
     min-height: 22px;
+}
+.ant-dropdown-menu-item:hover{
+    background-color: #D8D8D8;
+}
+.hr-ant{
+    .ant-btn{
+        border: 1px solid @border-color;
+    }
+    .ant-btn:hover{
+        border-color: #00A86B;
+    }
+    .ant-btn:focus{
+        border-color: #00A86B;
+    }
+    .ant-btn-sm{
+        font-size: 12px;
+    }
+    .ant-btn-group-sm .ant-btn{
+        font-size: 12px;
+    }
+
+    .ant-btn i{
+        line-height: 24px;
+    }
+    .ant-btn span{
+        margin-left: 2px;
+    }
+
+    .ant-radio-button-wrapper{
+        font-size: 12px;
+        border-color: @border-color;
+    }
+    .ant-radio-button-wrapper:first-child{
+        border-color: @border-color;
+    }
+    .ant-radio-button-wrapper:last-child{
+        border-color: @border-color;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        color: #00A86B;
+        border-color: #00A86B;
+    }
 }
 
 .no-select{

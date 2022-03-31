@@ -1,3 +1,19 @@
-<div class="layout" fxLayout>
+<div class="layout hr-ant" fxLayout>
     <div class="middle-space" fxFlex="grow"></div>
+    <nz-button-group nzSize="small">
+        <button nz-button (click)="save()">
+            <i nz-icon nzType="save"></i>
+            本地
+        </button>
+        <button nz-button nz-dropdown [nzDropdownMenu]="saveWayMenu" nzPlacement="bottomRight">
+            <i nz-icon nzType="ellipsis"></i>
+            <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item>本地保存</li>
+                    <li nz-menu-item>在线保存</li>
+                    <li nz-menu-item>设备保存</li>
+                </ul>
+            </nz-dropdown-menu>
+        </button>
+    </nz-button-group>
 </div>
