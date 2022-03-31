@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class BtnTypeaComponent implements OnInit {
   @Input() icon!: string;
   @Input() color: string = "#6F6F6F";
-  @Input() size: string = "16px";
+  @Input() size: number = 16;
 
   constructor() {}
 

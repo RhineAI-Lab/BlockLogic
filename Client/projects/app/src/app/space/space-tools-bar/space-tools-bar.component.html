@@ -1,10 +1,10 @@
 <div class="layout hr-ant" fxLayout>
     <div class="middle-space" fxFlex="grow"></div>
     <app-toolbar-split></app-toolbar-split>
-    <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="editorModeMenu" nzSize="small">
+    <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="runModeMenu" nzSize="small">
         {{STRS_RUN_MODE[runMode]}}
         <i nz-icon nzType="down"></i>
-        <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
+        <nz-dropdown-menu #runModeMenu="nzDropdownMenu">
             <ul nz-menu>
                 <li nz-menu-item (click)="onRunModeChange(RUN_MODE_OFFLINE)">本地运行</li>
                 <li nz-menu-item (click)="onRunModeChange(RUN_MODE_DEVICE)">设备运行</li>
