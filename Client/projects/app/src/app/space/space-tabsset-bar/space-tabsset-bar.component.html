@@ -18,18 +18,18 @@
     <div fxFlex="grow"></div>
     <app-toolbar-split></app-toolbar-split>
     <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="editorModeMenu" nzSize="small">
-        {{editorModeText}}
+        {{STRS_EDITOR_MODE[editorMode]}}
         <i nz-icon nzType="down"></i>
         <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
             <ul nz-menu>
-                <li nz-menu-item (click)="onEditorModeChange('logic')">逻辑模式</li>
-                <li nz-menu-item (click)="onEditorModeChange('design')">设计模式</li>
+                <li nz-menu-item (click)="onEditorModeChange(EDITOR_MODE_LOGIC)">逻辑模式</li>
+                <li nz-menu-item (click)="onEditorModeChange(EDITOR_M0DE_DESIGN)">设计模式</li>
             </ul>
         </nz-dropdown-menu>
     </button>
     <nz-radio-group class="show-mode-selector" [(ngModel)]="showMode" (ngModelChange)="onShowModeChange(showMode)" nzSize="small">
-        <label nz-radio-button nzValue="block">图形</label>
-        <label nz-radio-button nzValue="split">分割</label>
-        <label nz-radio-button nzValue="code">代码</label>
+        <label nz-radio-button [nzValue]="SHOW_MODE_BLOCK">图形</label>
+        <label nz-radio-button [nzValue]="SHOW_M0DE_SPLIT">分割</label>
+        <label nz-radio-button [nzValue]="SHOW_M0DE_CODE">代码</label>
     </nz-radio-group>
 </div>

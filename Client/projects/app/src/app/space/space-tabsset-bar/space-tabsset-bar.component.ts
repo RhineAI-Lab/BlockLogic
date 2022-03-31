@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./space-tabsset-bar.component.less']
 })
 export class SpaceTabssetBarComponent implements OnInit {
+  readonly EDITOR_MODE_LOGIC: number = 0;
+  readonly EDITOR_M0DE_DESIGN: number = 1;
+  readonly STRS_EDITOR_MODE: string[] = ['逻辑模式','设计模式']
 
-  editorMode: string = "logic"
-  showMode: string = "split"
-  editorModeText: string = "逻辑模式"
+  readonly SHOW_MODE_BLOCK: number = 0;
+  readonly SHOW_M0DE_SPLIT: number = 1;
+  readonly SHOW_M0DE_CODE: number = 2;
+
+  editorMode: number = this.EDITOR_MODE_LOGIC
+  showMode: number = this.SHOW_M0DE_SPLIT
 
   tabs: TabItem[] = [
     new TabItem("file.js","project/file.js"),
@@ -22,10 +28,10 @@ export class SpaceTabssetBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onEditorModeChange(mode: string){
-
+  onEditorModeChange(mode: number){
+    this.editorMode = mode;
   }
-  onShowModeChange(mode: string){
+  onShowModeChange(mode: number){
 
   }
 
