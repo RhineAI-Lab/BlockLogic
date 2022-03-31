@@ -1,4 +1,19 @@
 <div class="layout hr-ant" fxLayout>
+    <label nz-checkbox [(ngModel)]="holdBox">保持栏目</label>
+    <label nz-checkbox [(ngModel)]="syncCode">同步代码</label>
+    <app-toolbar-split></app-toolbar-split>
+    <span class="tip">生成: </span>
+    <nz-button-group nzSize="small">
+        <button nz-button>
+            <i nz-icon nzType="right"></i>
+            代码
+        </button>
+        <button nz-button>
+            <i nz-icon nzType="left"></i>
+            图形
+        </button>
+    </nz-button-group>
+    <br />
     <div class="middle-space" fxFlex="grow"></div>
     <nz-input-group
         class="deviceIpInput"
@@ -16,7 +31,6 @@
         <ng-template #deviceSuffix>
             <i
                 nz-icon nzType="question" class="deviceHelp"
-                [ngStyle]="{'color':'#555555'}"
                 nz-tooltip="连接教程" nzTooltipPlacement="bottom"
             ></i>
         </ng-template>

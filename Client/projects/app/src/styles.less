@@ -48,11 +48,16 @@ html,body{
     .ant-btn{
         border: 1px solid @border-color;
     }
+    .ant-btn:not(:hover):not(:focus){
+        i{
+            color: #606060;
+        }
+    }
     .ant-btn:hover{
-        border-color: #00A86B;
+        border-color: @primary-color;
     }
     .ant-btn:focus{
-        border-color: #00A86B;
+        border-color: @primary-color;
     }
     .ant-btn-sm{
         font-size: 12px;
@@ -79,8 +84,32 @@ html,body{
         border-color: @border-color;
     }
     .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
-        color: #00A86B;
-        border-color: #00A86B;
+        color: @primary-color;
+        border-color: @primary-color;
+    }
+
+    .ant-checkbox-wrapper{
+        margin-left: 6px;
+    }
+    .ant-checkbox-inner{
+        border-color: @border-color;
+    }
+    .ant-checkbox-checked .ant-checkbox-inner{
+        border-color: @primary-color;
+    }
+    .ant-checkbox + span{
+        padding-left: 4px;
+        padding-right: 2px;
+    }
+
+    .ant-input-group-addon{
+        border-color: @border-color;
+    }
+    .ant-select:not(.ant-select-disabled):hover .ant-select-selector{
+        border-color: @primary-color;
+    }
+    .ant-input-affix-wrapper{
+        border-color: @border-color;
     }
 }
 
