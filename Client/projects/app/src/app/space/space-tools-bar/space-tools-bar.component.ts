@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import {SpaceStyleService} from "../services/space-style.service";
 
 @Component({
   selector: 'app-space-tools-bar',
   templateUrl: './space-tools-bar.component.html',
   styleUrls: ['./space-tools-bar.component.less'],
 })
-export class SpaceToolsBarComponent implements OnInit {
+export class SpaceToolsBarComponent implements OnInit,AfterViewInit {
   readonly RUN_MODE_OFFLINE: number = 0;
   readonly RUN_MODE_DEVICE: number = 1;
   readonly STRS_RUN_MODE: string[] = ['在线运行','设备运行'];
@@ -37,23 +38,38 @@ export class SpaceToolsBarComponent implements OnInit {
 
   showHideHeaderBtn: boolean = false
 
-  constructor() {}
+  spaceStyleService: SpaceStyleService;
+  constructor(spaceStyleService: SpaceStyleService) {
+    this.spaceStyleService = spaceStyleService
+  }
 
   ngOnInit(): void {}
 
-  save(){
+  ngAfterViewInit(): void {
+    this.spaceStyleService.toolsBarController = {
+      changeShowHideHeaderBtn: (show: boolean): void=>{
+        this.showHideHeaderBtn = show
+      }
+    }
+  }
 
+  save(){
   }
 
   onRunModeChange(mode: number){
     this.runMode = mode
   }
-
   onSaveModeChange(mode: number){
     this.saveMode = mode
   }
-
   onOpenModeChange(mode: number){
     this.openMode = mode
   }
+  onShowHeader(){
+    this.spaceStyleService.onChangeHeaderDisplay(true)
+  }
+}
+
+export interface SpaceToolsBarController {
+  changeShowHideHeaderBtn: Function
 }

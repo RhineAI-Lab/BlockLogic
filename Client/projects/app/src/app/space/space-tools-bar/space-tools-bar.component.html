@@ -104,5 +104,6 @@
         icon="vertical-align-bottom"
         nz-tooltip="显示头部栏" nzTooltipPlacement="bottomRight"
         [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"
+        (click)="onShowHeader()"
     ></app-btn-icon>
 </div>

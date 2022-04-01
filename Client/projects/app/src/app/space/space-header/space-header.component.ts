@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import {SpaceStyleService} from "../services/space-style.service";
 
 @Component({
   selector: 'app-space-header',
   templateUrl: './space-header.component.html',
   styleUrls: ['./space-header.component.less'],
 })
-export class SpaceHeaderComponent implements OnInit {
+export class SpaceHeaderComponent implements OnInit,AfterViewInit {
   // TODO: links
   links: HeaderLink[] = [
     { text: '主页', url: '/' },
@@ -20,13 +21,29 @@ export class SpaceHeaderComponent implements OnInit {
 
   showHeader: boolean = true;
 
-  constructor() {}
+  spaceStyleService: SpaceStyleService;
+  constructor(spaceStyleService: SpaceStyleService) {
+    this.spaceStyleService = spaceStyleService
+  }
 
   ngOnInit(): void {}
 
-  onHideHeader(): void{
-    this.showHeader = false
+  ngAfterViewInit() {
+    this.spaceStyleService.headerController = {
+      changeShowHeader: (show: boolean): void => {
+        this.showHeader = show
+      }
+    }
   }
+
+  onHideHeader(): void{
+    //this.showHeader = false
+    this.spaceStyleService.onChangeHeaderDisplay(false)
+  }
+}
+
+export interface SpaceHeaderController {
+  changeShowHeader: Function
 }
 
 interface HeaderLink {
