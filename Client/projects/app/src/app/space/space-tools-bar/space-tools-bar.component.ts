@@ -35,6 +35,7 @@ export class SpaceToolsBarComponent implements OnInit {
   deviceAddress: string = '';
   connectWay: string = 'ws://'
 
+  showHideHeaderBtn: boolean = false
 
   constructor() {}
 

@@ -1,4 +1,4 @@
-<div class="layout">
+<div class="layout" [ngStyle]="{'display':showHeader?'block':'none'}">
   <div fxLayout fxLayoutAlign="space-around center" class="main">
     <div fxLayout fxLayoutAlign="space-around center" class="left">
       <img class="logo-img" src="assets/logo.png" />
@@ -12,4 +12,9 @@
       </ul>
     </div>
   </div>
+  <app-btn-icon
+      icon="up" color="#505050"
+      nz-tooltip="隐藏头部栏" nzTooltipPlacement="bottomRight"
+      (click)="onHideHeader()"
+  ></app-btn-icon>
 </div>

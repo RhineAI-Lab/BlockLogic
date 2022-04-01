@@ -9,6 +9,12 @@ export class SpaceStyleService {
   public freshMainLayout: Function;
   public hideSidebar: Function;
 
+  public showHeader: boolean = true;
+
+  public option = {
+
+  }
+
   constructor() {
     this.freshMainLayout = (): boolean => {
       return false
@@ -16,6 +22,10 @@ export class SpaceStyleService {
     this.hideSidebar = (name: string): boolean => {
       return false
     }
+  }
+
+  onChangeHeaderDisplay(show: boolean){
+    this.showHeader = show
   }
 
 }

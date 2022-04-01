@@ -18,9 +18,15 @@ export class SpaceHeaderComponent implements OnInit {
     { text: '联系我们', url: '/#contact' },
   ];
 
+  showHeader: boolean = true;
+
   constructor() {}
 
   ngOnInit(): void {}
+
+  onHideHeader(): void{
+    this.showHeader = false
+  }
 }
 
 interface HeaderLink {

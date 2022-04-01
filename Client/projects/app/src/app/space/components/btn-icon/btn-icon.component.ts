@@ -15,5 +15,4 @@ export class BtnIconComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

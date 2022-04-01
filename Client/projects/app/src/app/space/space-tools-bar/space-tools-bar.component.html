@@ -99,4 +99,10 @@
             </nz-dropdown-menu>
         </button>
     </nz-button-group>
+    <app-toolbar-split [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"></app-toolbar-split>
+    <app-btn-icon
+        icon="vertical-align-bottom"
+        nz-tooltip="显示头部栏" nzTooltipPlacement="bottomRight"
+        [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"
+    ></app-btn-icon>
 </div>
