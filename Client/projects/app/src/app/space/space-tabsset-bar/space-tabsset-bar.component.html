@@ -10,7 +10,7 @@
                 <i nz-icon class="icon" [nzType]="getIcon(item.name)"></i>
                 <p>{{item.name}}</p>
                 <div class="close-btn">
-                    <i nz-icon [nzType]="'close'" (click)="onTabClose(item)"></i>
+                    <i nz-icon [nzType]="'close'" (click)="onTabClose(item);$event.stopPropagation();"></i>
                 </div>
             </div>
         </div>

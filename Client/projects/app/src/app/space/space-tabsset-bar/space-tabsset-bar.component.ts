@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit} from '@angular/core';
+import {Component, Injector, OnInit, AfterViewInit} from '@angular/core';
 import {SpaceStyleService} from "../services/space-style.service";
 
 @Component({
@@ -6,7 +6,12 @@ import {SpaceStyleService} from "../services/space-style.service";
   templateUrl: './space-tabsset-bar.component.html',
   styleUrls: ['./space-tabsset-bar.component.less']
 })
-export class SpaceTabssetBarComponent implements OnInit {
+export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
+
+  styleService: SpaceStyleService;
+  constructor(styleService: SpaceStyleService) {
+    this.styleService = styleService;
+  }
 
   readonly STRS_EDITOR_MODE: string[] = ['逻辑模式','设计模式']
 
@@ -16,12 +21,6 @@ export class SpaceTabssetBarComponent implements OnInit {
 
   readonly EDITOR_MODE_LOGIC: number = 0;
   readonly EDITOR_M0DE_DESIGN: number = 1;
-
-  styleService: SpaceStyleService;
-  constructor(styleService: SpaceStyleService) {
-    this.styleService = styleService;
-  }
-
 
   editorMode: number = this.EDITOR_MODE_LOGIC
   showMode: number = this.SHOW_M0DE_SPLIT
@@ -34,19 +33,81 @@ export class SpaceTabssetBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  ngAfterViewInit() {
+    this.styleService.tabssetBarController = {
+      changeEditorMode: (mode: number): void => {
+        this.editorMode = mode;
+      },
+      changeShowMode: (mode: number): void => {
+        this.showMode = mode;
+      },
+
+      openFile: (file: string): void => {
+        let path: string[] = file.split('/')
+        let name = path[path.length-1]
+        this.tabs.push(
+            new TabItem(name,file,false)
+        )
+        this.styleService.changeFile(file)
+      },
+      changeFile: (file: string): boolean => {
+        let i = this.getTabIndexByFile(file)
+        if(i == -1){
+          return false
+        }else{
+          for (const tab of this.tabs) {
+            tab.selected=false
+          }
+          this.tabs[i].selected=true
+          return true
+        }
+      },
+      closeFile: (file: string): boolean => {
+        let i = this.getTabIndexByFile(file)
+        if(i == -1){
+          return false
+        }else{
+          if(this.tabs[i].selected){
+            if(this.tabs.length==1){
+              return false
+            }else{
+              if(i==0){
+                this.styleService.changeFile(this.tabs[1].file)
+              }else{
+                this.styleService.changeFile(this.tabs[i-1].file)
+              }
+            }
+          }
+          this.tabs.splice(i, 1);
+          return true
+        }
+      }
+    }
+  }
+
+  getTabIndexByFile(file: string): number{
+    let i = -1;
+    for (const tabKey in this.tabs) {
+      if(this.tabs[tabKey].file==file){
+        i = parseInt(tabKey)
+        break
+      }
+    }
+    return i
+  }
 
   onEditorModeChange(mode: number){
-    this.editorMode = mode;
+    this.styleService.changeEditorMode(mode);
   }
   onShowModeChange(mode: number){
-
+    this.styleService.changeShowMode(mode);
   }
 
   onTabClick(item: TabItem){
-
+    this.styleService.changeFile(item.file)
   }
   onTabClose(item: TabItem){
-
+    this.styleService.closeFile(item.file)
   }
 
   getIcon(name: string): string{
@@ -56,7 +117,15 @@ export class SpaceTabssetBarComponent implements OnInit {
       return 'file'
     }
   }
+}
 
+export interface SpaceTabssetBarController {
+  changeEditorMode: Function
+  changeShowMode: Function
+
+  openFile: Function
+  changeFile: Function
+  closeFile: Function
 }
 
 class TabItem{
