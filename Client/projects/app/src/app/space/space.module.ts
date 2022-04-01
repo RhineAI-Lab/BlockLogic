@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
     MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline, ControlOutline
+    LeftOutline, RightOutline, ControlOutline, FolderOpenOutline
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -48,7 +48,7 @@ import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-si
 const icons: IconDefinition[] = [
     BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
     MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline, ControlOutline
+    LeftOutline, RightOutline, ControlOutline, FolderOpenOutline
 ];
 
 @NgModule({

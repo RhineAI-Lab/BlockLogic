@@ -83,4 +83,20 @@
             </nz-dropdown-menu>
         </button>
     </nz-button-group>
+    <nz-button-group nzSize="small">
+        <button nz-button (click)="save()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
+            <i nz-icon nzType="folder-open"></i>
+            {{STRS_OPEN_MODE[openMode]}}
+        </button>
+        <button nz-button nz-dropdown [nzDropdownMenu]="openWayMenu" nzPlacement="bottomRight">
+            <i nz-icon nzType="ellipsis"></i>
+            <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
+                <ul nz-menu>
+                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE)">打开本地项目</li>
+                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">打开在线项目</li>
+                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">打开设备项目</li>
+                </ul>
+            </nz-dropdown-menu>
+        </button>
+    </nz-button-group>
 </div>

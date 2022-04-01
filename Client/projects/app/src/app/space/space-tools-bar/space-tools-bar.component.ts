@@ -15,6 +15,11 @@ export class SpaceToolsBarComponent implements OnInit {
   readonly SAVE_MODE_ONLINE: number = 2;
   readonly STRS_SAVE_MODE: string[] = ['本地','设备','在线'];
 
+  readonly OPEN_MODE_OFFLINE: number = 0;
+  readonly OPEN_MODE_DEVICE: number = 1;
+  readonly OPEN_MODE_ONLINE: number = 2;
+  readonly STRS_OPEN_MODE: string[] = ['本地','设备','在线'];
+
   holdBox: boolean = false;
   syncCode: boolean = true;
   unfoldXml: boolean = false;
@@ -24,6 +29,8 @@ export class SpaceToolsBarComponent implements OnInit {
   runModeText: string = '在线模式';
   saveMode: number = this.SAVE_MODE_OFFLINE;
   saveModeText: string = '本地';
+  openMode: number = this.SAVE_MODE_OFFLINE;
+  openModeText: string = '本地';
 
   deviceAddress: string = '';
   connectWay: string = 'ws://'
@@ -43,5 +50,9 @@ export class SpaceToolsBarComponent implements OnInit {
 
   onSaveModeChange(mode: number){
     this.saveMode = mode
+  }
+
+  onOpenModeChange(mode: number){
+    this.openMode = mode
   }
 }
