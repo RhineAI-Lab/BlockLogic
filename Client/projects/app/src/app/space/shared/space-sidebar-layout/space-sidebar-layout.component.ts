@@ -23,7 +23,7 @@ export class SpaceSidebarLayoutComponent implements OnInit {
 
   onHideBtn(): void {
     console.log(this.sidebarName)
-    this.styleService.hideSidebar(this.sidebarName)
+    this.styleService.sidebarManagerController?.hideSidebar(this.sidebarName)
   }
 
   onSetBtn(): void {

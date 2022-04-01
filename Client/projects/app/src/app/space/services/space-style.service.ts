@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {SpaceModule} from "../space.module";
 import {SpaceToolsBarController} from "../space-tools-bar/space-tools-bar.component";
 import {SpaceHeaderController} from "../space-header/space-header.component";
+import {SpaceSidebarManagerController} from "../space-sidebar-manager/space-sidebar-manager.component";
+import {SpaceMainLayoutController} from "../space.component";
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +11,34 @@ import {SpaceHeaderController} from "../space-header/space-header.component";
 
 // Space区域全局显示样式管理服务
 export class SpaceStyleService {
-  public freshMainLayout: Function;
-  public hideSidebar: Function;
-
+  public mainLayoutController? : SpaceMainLayoutController;
   public toolsBarController? : SpaceToolsBarController;
   public headerController? : SpaceHeaderController;
+  public sidebarManagerController? : SpaceSidebarManagerController;
 
   public showHeader: boolean = true;
 
-  public option = {
+  constructor() { }
 
-  }
-
-  constructor() {
-    this.freshMainLayout = (): boolean => {
-      return false
-    }
-    this.hideSidebar = (name: string): boolean => {
-      return false
-    }
-  }
-
-  onChangeHeaderDisplay(show: boolean){
+  changeHeaderDisplay(show: boolean){
     this.showHeader = show
     this.toolsBarController?.changeShowHideHeaderBtn(!show)
     this.headerController?.changeShowHeader(show)
   }
 
+  freshMainLayout(){
+    this.mainLayoutController?.freshMainLayout()
+  }
+
 }
+
+interface spaceStyleOption {
+  editorMode: number
+  showMode: number
+}
+
+class STATIC_OPTION {
+
+}
+
+

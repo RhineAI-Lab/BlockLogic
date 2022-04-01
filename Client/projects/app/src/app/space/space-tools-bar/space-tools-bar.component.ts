@@ -66,7 +66,7 @@ export class SpaceToolsBarComponent implements OnInit,AfterViewInit {
     this.openMode = mode
   }
   onShowHeader(){
-    this.spaceStyleService.onChangeHeaderDisplay(true)
+    this.spaceStyleService.changeHeaderDisplay(true)
   }
 }
 

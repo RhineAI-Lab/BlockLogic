@@ -29,10 +29,12 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.styleService.freshMainLayout = (): boolean => {
-      Blockly.svgResize(this.blockEditor.workspace);
-      this.codeEditor.workspace.layout();
-      return true
+    this.styleService.mainLayoutController = {
+      freshMainLayout : (): boolean => {
+        Blockly.svgResize(this.blockEditor.workspace);
+        this.codeEditor.workspace.layout();
+        return true
+      }
     }
     this.splitter.dragProgress$.subscribe(() => {
       this.styleService.freshMainLayout()
@@ -53,6 +55,8 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
   }
+}
 
-
+export interface SpaceMainLayoutController {
+  freshMainLayout: Function
 }

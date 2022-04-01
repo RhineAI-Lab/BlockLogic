@@ -1,4 +1,4 @@
-import {Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {Component, Injector, OnInit, AfterViewInit} from '@angular/core';
 import {SpaceSidebarProjectsComponent} from "../space-sidebar-projects/space-sidebar-projects.component";
 import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
 import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
@@ -10,9 +10,8 @@ import {SpaceSidebarTerminalComponent} from "../space-sidebar-terminal/space-sid
   templateUrl: './space-sidebar-manager.component.html',
   styleUrls: ['./space-sidebar-manager.component.less'],
 })
-export class SpaceSidebarManagerComponent implements OnInit {
+export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   styleService: SpaceStyleService;
-
   constructor(styleService: SpaceStyleService,private injector: Injector) {
     this.styleService = styleService;
   }
@@ -29,18 +28,20 @@ export class SpaceSidebarManagerComponent implements OnInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.styleService.hideSidebar = async (name: string): Promise<boolean> => {
-      for (let item of this.items) {
-        if (item.name == name) {
-          if (item.isOpen) {
-            item.isOpen = false
-            await new Promise(r => setTimeout(r))
-            this.styleService.freshMainLayout()
+    this.styleService.sidebarManagerController = {
+      hideSidebar: async (name: string): Promise<boolean> => {
+        for (let item of this.items) {
+          if (item.name == name) {
+            if (item.isOpen) {
+              item.isOpen = false
+              await new Promise(r => setTimeout(r))
+              this.styleService.freshMainLayout()
+            }
+            return true
           }
-          return true
         }
+        return false
       }
-      return false
     }
   }
 
@@ -85,7 +86,10 @@ export class SpaceSidebarManagerComponent implements OnInit {
     await new Promise(r => setTimeout(r))
     this.styleService.freshMainLayout()
   }
+}
 
+export interface SpaceSidebarManagerController {
+  hideSidebar: Function
 }
 
 class Item<Component = unknown> {

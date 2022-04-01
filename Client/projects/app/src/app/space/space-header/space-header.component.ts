@@ -38,7 +38,7 @@ export class SpaceHeaderComponent implements OnInit,AfterViewInit {
 
   onHideHeader(): void{
     //this.showHeader = false
-    this.spaceStyleService.onChangeHeaderDisplay(false)
+    this.spaceStyleService.changeHeaderDisplay(false)
   }
 }
 
