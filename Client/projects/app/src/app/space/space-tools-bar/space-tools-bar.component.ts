@@ -17,6 +17,8 @@ export class SpaceToolsBarComponent implements OnInit {
 
   holdBox: boolean = false;
   syncCode: boolean = true;
+  unfoldXml: boolean = false;
+  brightTheme: boolean = true;
 
   runMode: number = this.RUN_MODE_OFFLINE;
   runModeText: string = '在线模式';
@@ -24,7 +26,7 @@ export class SpaceToolsBarComponent implements OnInit {
   saveModeText: string = '本地';
 
   deviceAddress: string = '';
-  connectWay: string = 'Ws://'
+  connectWay: string = 'ws://'
 
 
   constructor() {}

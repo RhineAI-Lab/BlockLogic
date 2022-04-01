@@ -1,6 +1,23 @@
 <div class="layout hr-ant" fxLayout>
+    <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
     <label nz-checkbox [(ngModel)]="holdBox">保持栏目</label>
-    <label nz-checkbox [(ngModel)]="syncCode">同步代码</label>
+    <app-btn-icon
+        icon="icon-set"
+        class="moreSetting"
+        nz-dropdown
+        [nzDropdownMenu]="moreSettingMenu"
+        nzPlacement="bottomCenter"
+    ></app-btn-icon>
+    <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
+        <ul nz-menu>
+            <li nz-menu-item>
+                <label nz-checkbox [(ngModel)]="unfoldXml">展开XML</label>
+            </li>
+            <li nz-menu-item>
+                <label nz-checkbox [(ngModel)]="syncCode"> 同步代码</label>
+            </li>
+        </ul>
+    </nz-dropdown-menu>
     <app-toolbar-split></app-toolbar-split>
     <span class="tip">生成: </span>
     <nz-button-group nzSize="small">
@@ -24,8 +41,8 @@
         <input type="text" nz-input [(ngModel)]="deviceAddress" placeholder="设备IP地址"/>
         <ng-template #deviceBeforeTemplate>
             <nz-select [ngModel]="connectWay" nzSize="small">
-                <nz-option nzLabel="Ws://" nzValue="Ws://"></nz-option>
-                <nz-option nzLabel="Wss://" nzValue="Wss://"></nz-option>
+                <nz-option nzLabel="ws://" nzValue="ws://"></nz-option>
+                <nz-option nzLabel="wss://" nzValue="wss://"></nz-option>
             </nz-select>
         </ng-template>
         <ng-template #deviceSuffix>
