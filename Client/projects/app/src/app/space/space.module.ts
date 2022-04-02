@@ -55,9 +55,7 @@ const icons: IconDefinition[] = [
   FullscreenExitOutline, VerticalAlignBottomOutline, UpOutline
 ];
 
-const ngZorroConfig: NzConfig = {
-  notification: { nzPlacement: "topLeft"},
-};
+
 
 @NgModule({
   declarations: [
@@ -105,11 +103,8 @@ const ngZorroConfig: NzConfig = {
       provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,
       useValue: { gutterSize: 8 } as AngularSplitOptions,
     },{
-      provide: NZ_CONFIG,
-      useValue: ngZorroConfig,
-    },{
       provide: NzNotificationService,
-      useClass: NzNotificationService,
+      useClass: NzNotificationService
     }
   ],
 })

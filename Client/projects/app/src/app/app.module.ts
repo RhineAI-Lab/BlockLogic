@@ -15,8 +15,14 @@ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
+import {NZ_CONFIG, NzConfig} from "ng-zorro-antd/core/config";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 registerLocaleData(zh);
+
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: "bottomRight"},
+};
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +42,10 @@ registerLocaleData(zh);
     CoreModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [
+    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
