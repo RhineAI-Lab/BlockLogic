@@ -19,6 +19,9 @@
         </ul>
     </nz-dropdown-menu>
     <app-toolbar-split></app-toolbar-split>
+    <app-btn-icon icon="icon-undo" color="#5A76D4" nz-tooltip="撤销 [Ctrl+Z]" nzTooltipPlacement="bottom"></app-btn-icon>
+    <app-btn-icon icon="icon-redo" color="#5A76D4" nz-tooltip="重做 [Ctrl+Shift+Z]" nzTooltipPlacement="bottom"></app-btn-icon>
+    <app-toolbar-split></app-toolbar-split>
     <span class="tip">生成: </span>
     <nz-button-group nzSize="small">
         <button nz-button>
@@ -64,8 +67,8 @@
             </ul>
         </nz-dropdown-menu>
     </button>
-    <app-btn-icon icon="icon-play" color="#59A869" nz-tooltip="运行" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-btn-icon icon="icon-stop" color="#C75450" nz-tooltip="停止" nzTooltipPlacement="bottom"></app-btn-icon>
+    <app-btn-icon icon="icon-play" color="#59A869" nz-tooltip="运行 [Ctrl+5]" nzTooltipPlacement="bottom"></app-btn-icon>
+    <app-btn-icon icon="icon-stop" color="#C75450" nz-tooltip="停止 [Ctrl+6]" nzTooltipPlacement="bottom"></app-btn-icon>
     <app-toolbar-split></app-toolbar-split>
     <nz-button-group nzSize="small">
         <button nz-button (click)="save()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
