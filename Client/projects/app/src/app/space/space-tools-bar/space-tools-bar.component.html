@@ -71,7 +71,7 @@
     <app-btn-icon icon="icon-stop" color="#C75450" nz-tooltip="停止 [Ctrl+6]" nzTooltipPlacement="bottom"></app-btn-icon>
     <app-toolbar-split></app-toolbar-split>
     <nz-button-group nzSize="small">
-        <button nz-button (click)="save()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
+        <button nz-button (click)="onSave()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
             <i nz-icon nzType="save"></i>
             {{STRS_SAVE_MODE[saveMode]}}
         </button>
@@ -87,7 +87,7 @@
         </button>
     </nz-button-group>
     <nz-button-group nzSize="small">
-        <button nz-button (click)="save()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
+        <button nz-button (click)="onSave()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
             <i nz-icon nzType="folder-open"></i>
             {{STRS_OPEN_MODE[openMode]}}
         </button>

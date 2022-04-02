@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import {SpaceStyleService} from "../services/space-style.service";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -7,6 +8,14 @@ import {SpaceStyleService} from "../services/space-style.service";
   styleUrls: ['./space-tools-bar.component.less'],
 })
 export class SpaceToolsBarComponent implements OnInit,AfterViewInit {
+
+  spaceStyleService: SpaceStyleService;
+  notification: NzNotificationService;
+  constructor(spaceStyleService: SpaceStyleService, notification: NzNotificationService) {
+    this.spaceStyleService = spaceStyleService
+    this.notification = notification
+  }
+
   readonly RUN_MODE_OFFLINE: number = 0;
   readonly RUN_MODE_DEVICE: number = 1;
   readonly STRS_RUN_MODE: string[] = ['在线运行','设备运行'];
@@ -38,11 +47,6 @@ export class SpaceToolsBarComponent implements OnInit,AfterViewInit {
 
   showHideHeaderBtn: boolean = false
 
-  spaceStyleService: SpaceStyleService;
-  constructor(spaceStyleService: SpaceStyleService) {
-    this.spaceStyleService = spaceStyleService
-  }
-
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
@@ -53,7 +57,28 @@ export class SpaceToolsBarComponent implements OnInit,AfterViewInit {
     }
   }
 
-  save(){
+  onSave(){
+    if(this.saveMode==this.SAVE_MODE_OFFLINE){
+
+    }else if(this.saveMode==this.SAVE_MODE_ONLINE){
+      this.notification.create(
+          'error',
+          'Notification Title',
+          'This is the content of the notification',
+
+      );
+    }else if(this.saveMode==this.SAVE_MODE_DEVICE){
+
+    }
+  }
+  onOpen(){
+    if(this.saveMode==this.SAVE_MODE_OFFLINE){
+
+    }else if(this.saveMode==this.SAVE_MODE_ONLINE){
+
+    }else if(this.saveMode==this.SAVE_MODE_DEVICE){
+
+    }
   }
 
   onRunModeChange(mode: number){

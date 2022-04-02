@@ -2,9 +2,9 @@ import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline, ControlOutline, FolderOpenOutline, FullscreenOutline,
-    FullscreenExitOutline, VerticalAlignBottomOutline, UpOutline
+  MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
+  LeftOutline, RightOutline, ControlOutline, FolderOpenOutline, FullscreenOutline,
+  FullscreenExitOutline, VerticalAlignBottomOutline, UpOutline
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -45,13 +45,19 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-sidebar-terminal.component';
+import {NZ_CONFIG, NzConfig} from "ng-zorro-antd/core/config";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 const icons: IconDefinition[] = [
-    BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
-    MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
-    LeftOutline, RightOutline, ControlOutline, FolderOpenOutline, FullscreenOutline,
-    FullscreenExitOutline, VerticalAlignBottomOutline, UpOutline
+  BorderOutline, FileOutline, FileTextOutline, FolderOutline, CodeOutline,
+  MinusOutline, CloseOutline, SaveOutline, ApiFill, QuestionOutline,
+  LeftOutline, RightOutline, ControlOutline, FolderOpenOutline, FullscreenOutline,
+  FullscreenExitOutline, VerticalAlignBottomOutline, UpOutline
 ];
+
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: "topLeft"},
+};
 
 @NgModule({
   declarations: [
@@ -72,33 +78,39 @@ const icons: IconDefinition[] = [
     ToolbarSplitComponent,
     SpaceSidebarTerminalComponent,
   ],
-    imports: [
-        SharedModule,
-        SpaceRoutingModule,
-        SheetModule,
-        BlocklierModule,
-        PortalModule,
-        NzLayoutModule,
-        NzMenuModule,
-        NzLayoutModule,
-        NzSelectModule,
-        NzTreeModule,
-        NzToolTipModule,
-        NzTabsModule,
-        NzIconModule.forChild(icons),
-        MonacoEditorModule,
-        AngularSplitModule,
-        NzRadioModule,
-        NzButtonModule,
-        NzDropDownModule,
-        NzInputModule,
-        NzCheckboxModule,
-    ],
+  imports: [
+    SharedModule,
+    SpaceRoutingModule,
+    SheetModule,
+    BlocklierModule,
+    PortalModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NzLayoutModule,
+    NzSelectModule,
+    NzTreeModule,
+    NzToolTipModule,
+    NzTabsModule,
+    NzIconModule.forChild(icons),
+    MonacoEditorModule,
+    AngularSplitModule,
+    NzRadioModule,
+    NzButtonModule,
+    NzDropDownModule,
+    NzInputModule,
+    NzCheckboxModule,
+  ],
   providers: [
     {
       provide: ANGULAR_SPLIT_DEFAULT_OPTIONS,
       useValue: { gutterSize: 8 } as AngularSplitOptions,
-    },
+    },{
+      provide: NZ_CONFIG,
+      useValue: ngZorroConfig,
+    },{
+      provide: NzNotificationService,
+      useClass: NzNotificationService,
+    }
   ],
 })
 export class SpaceModule {}
