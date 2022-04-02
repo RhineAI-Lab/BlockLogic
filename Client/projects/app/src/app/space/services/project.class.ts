@@ -9,15 +9,13 @@ export class Project {
 
   type: number;
   engine: number;
-  path: string;
 
-  constructor(type: number, engine: number, path: string) {
+  constructor(type: number, engine: number) {
     this.type = type;
     this.engine = engine;
-    this.path = path;
   }
 
   static getDefaultProject(): Project {
-    return new Project(Project.TYPE_SINGLE, Project.ENGINE_BLOGIC, '');
+    return new Project(Project.TYPE_SINGLE, Project.ENGINE_BLOGIC);
   }
 }

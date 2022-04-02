@@ -5,6 +5,8 @@ import { SpaceHeaderController } from '../space-header/space-header.component';
 import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-sidebar-manager.component';
 import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
+import {BFile} from "./bfile.class";
+import {SpaceSidebarProjectsController} from "../space-sidebar-projects/space-sidebar-projects.component";
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,7 @@ export class SpaceStyleService {
   public headerController?: SpaceHeaderController;
   public sidebarManagerController?: SpaceSidebarManagerController;
   public tabssetBarController?: SpaceTabssetBarController;
+  public sidebarProjectController?: SpaceSidebarProjectsController;
 
   public showHeader = true;
 
@@ -65,11 +68,11 @@ export class SpaceStyleService {
     this.tabssetBarController?.closeFile(file);
   }
 
-  openProject(files: File[]): void{
-
+  openProject(files: BFile[]): void{
+    this.sidebarProjectController?.changeData(files)
   }
 }
-s
+
 interface SpaceStyleOption {
   editorMode: number;
   showMode: number;

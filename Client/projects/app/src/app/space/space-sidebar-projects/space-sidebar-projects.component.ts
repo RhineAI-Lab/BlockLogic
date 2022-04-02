@@ -1,16 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 
 import { IconUtils } from '../utils/icon.utils';
+import {BFile} from "../services/bfile.class";
+import {SpaceStyleService} from "../services/space-style.service";
+import {NzNotificationService} from "ng-zorro-antd/notification";
+import {NzTreeNode, NzTreeNodeOptions} from "ng-zorro-antd/tree";
 
 @Component({
   selector: 'app-space-sidebar-files',
   templateUrl: './space-sidebar-projects.component.html',
   styleUrls: ['./space-sidebar-projects.component.less'],
 })
-export class SpaceSidebarProjectsComponent implements OnInit {
-  constructor() {}
+export class SpaceSidebarProjectsComponent implements OnInit,AfterViewInit {
+  spaceStyleService: SpaceStyleService;
+  notification: NzNotificationService;
+  constructor(
+    spaceStyleService: SpaceStyleService,
+    notification: NzNotificationService,
+  ) {
+    this.spaceStyleService = spaceStyleService;
+    this.notification = notification;
+  }
 
-  data = [
+  data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
       key: '100',
@@ -56,7 +68,39 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngAfterViewInit() {
+    this.spaceStyleService.sidebarProjectController = {
+      changeData: files => {
+        if(files.length==0){
+          this.data = [
+            {
+              title: 'Project',
+              key: 'Project',
+              expanded: true,
+              children: [
+                {
+                  title: files[0].name,
+                  key: 'Project/'+files[0].name,
+                  isLeaf: true,
+                },
+              ],
+            }
+          ]
+        }else{
+          this.data = []
+          for (const file of files) {
+            let ps = file.path.split("/")
+          }
+        }
+      }
+    }
+  }
+
   getFileIcon(name: string): string {
     return IconUtils.getIconByFileName(name);
   }
+}
+
+export interface SpaceSidebarProjectsController {
+  changeData: (files: BFile[]) => void;
 }

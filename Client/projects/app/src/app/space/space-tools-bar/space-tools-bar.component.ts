@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { SpaceStyleService } from '../services/space-style.service';
+import {BFile} from "../services/bfile.class";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -105,7 +106,11 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       files = this.folderChooser.nativeElement.files
     }
     if(files.length>0){
-      this.spaceStyleService.openProject(files)
+      let bfiles: BFile[] = []
+      for (const file of files) {
+        bfiles.push(new BFile(file))
+      }
+      this.spaceStyleService.openProject(bfiles)
     }
   }
 
