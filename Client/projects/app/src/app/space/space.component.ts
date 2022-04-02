@@ -22,7 +22,7 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   constructor(styleService: SpaceStyleService, iconService: NzIconService) {
     this.styleService = styleService;
     iconService.fetchFromIconfont({
-      scriptUrl: 'https://at.alicdn.com/t/font_3294553_cz81wxdhlqt.js'
+      scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js'
     })
   }
 

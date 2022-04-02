@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {IconModule} from "../modules/icon/icon.module";
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -16,35 +17,35 @@ export class SpaceSidebarProjectsComponent implements OnInit {
       children: [
         {
           title: 'src',
-          key: '1001',
+          key: '1000',
           expanded: true,
           children: [
             {
               title: 'main.js',
-              key: '10020',
-              isLeaf: true
+              key: '10001',
+              isLeaf: true,
             },
             {
               title: 'file.js',
-              key: '10020',
-              isLeaf: true
+              key: '10002',
+              isLeaf: true,
             },
           ],
         },
         {
           title: 'res',
-          key: '1002',
+          key: '1001',
           expanded: true,
           children: [
             {
-              title: 'logo.jpg',
-              key: '10020',
-              isLeaf: true
+              title: 'logo.ico',
+              key: '10011',
+              isLeaf: true,
             },
             {
               title: 'leaf.jpg',
-              key: '10020',
-              isLeaf: true
+              key: '10012',
+              isLeaf: true,
             },
           ],
         },
@@ -53,4 +54,8 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   ]
 
   ngOnInit(): void {}
+
+  getFileIcon(name: string): string {
+    return IconModule.getIconByFileName(name)
+  }
 }

@@ -10,7 +10,7 @@ import {SpaceTabssetBarController} from "../space-tabsset-bar/space-tabsset-bar.
   providedIn: 'root'
 })
 
-// Space区域全局显示样式管理服务
+// Space区域全局外观样式管理服务
 export class SpaceStyleService {
   constructor() { }
 

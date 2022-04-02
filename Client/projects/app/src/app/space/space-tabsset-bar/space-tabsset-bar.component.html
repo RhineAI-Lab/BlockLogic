@@ -7,7 +7,7 @@
                 [ngStyle]="item.selected?{'border-bottom-color':'#00A86B','border-top-color':'#FFFFFF','background':'#FFFFFF'}:{}"
                 (click)="onTabClick(item)"
             >
-                <i nz-icon class="icon" [nzType]="getIcon(item.name)"></i>
+                <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.name)"></i>
                 <p>{{item.name}}</p>
                 <div class="close-btn">
                     <i nz-icon [nzType]="'close'" (click)="onTabClose(item);$event.stopPropagation();"></i>
