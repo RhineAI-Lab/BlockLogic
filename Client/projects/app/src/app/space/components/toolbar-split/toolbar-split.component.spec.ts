@@ -8,9 +8,8 @@ describe('ToolbarSplitComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ToolbarSplitComponent ]
-    })
-    .compileComponents();
+      declarations: [ToolbarSplitComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

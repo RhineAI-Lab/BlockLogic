@@ -8,9 +8,8 @@ describe('SpaceStatusBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceStatusBarComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceStatusBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

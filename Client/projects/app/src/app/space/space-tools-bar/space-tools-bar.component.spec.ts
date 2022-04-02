@@ -8,9 +8,8 @@ describe('SpaceToolsBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceToolsBarComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceToolsBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -8,9 +8,8 @@ describe('VerticalSplitLineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerticalSplitLineComponent ]
-    })
-    .compileComponents();
+      declarations: [VerticalSplitLineComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

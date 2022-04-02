@@ -1,76 +1,74 @@
-import {Injectable} from '@angular/core';
-import {SpaceModule} from "../space.module";
-import {SpaceToolsBarController} from "../space-tools-bar/space-tools-bar.component";
-import {SpaceHeaderController} from "../space-header/space-header.component";
-import {SpaceSidebarManagerController} from "../space-sidebar-manager/space-sidebar-manager.component";
-import {SpaceMainLayoutController} from "../space.component";
-import {SpaceTabssetBarController} from "../space-tabsset-bar/space-tabsset-bar.component";
+import { Injectable } from '@angular/core';
+
+import { SpaceMainLayoutController } from '../space.component';
+import { SpaceHeaderController } from '../space-header/space-header.component';
+import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-sidebar-manager.component';
+import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
+import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  constructor() { }
+  constructor() {}
 
-  public mainLayoutController? : SpaceMainLayoutController;
-  public toolsBarController? : SpaceToolsBarController;
-  public headerController? : SpaceHeaderController;
-  public sidebarManagerController? : SpaceSidebarManagerController;
-  public tabssetBarController? : SpaceTabssetBarController;
+  public mainLayoutController?: SpaceMainLayoutController;
+  public toolsBarController?: SpaceToolsBarController;
+  public headerController?: SpaceHeaderController;
+  public sidebarManagerController?: SpaceSidebarManagerController;
+  public tabssetBarController?: SpaceTabssetBarController;
 
-  public showHeader: boolean = true;
+  public showHeader = true;
 
   option: SpaceStyleOption = {
     editorMode: OPTION.EDITOR_MODE_LOGIC,
-    showMode: OPTION.SHOW_M0DE_SPLIT
-  }
+    showMode: OPTION.SHOW_M0DE_SPLIT,
+  };
 
-  changeHeaderDisplay(show: boolean){
-    this.showHeader = show
-    this.toolsBarController?.changeShowHideHeaderBtn(!show)
-    this.headerController?.changeShowHeader(show)
-    this.freshMainLayout(true)
+  changeHeaderDisplay(show: boolean): void {
+    this.showHeader = show;
+    this.toolsBarController?.changeShowHideHeaderBtn(!show);
+    this.headerController?.changeShowHeader(show);
+    this.freshMainLayout(true);
   }
-  async freshMainLayout(needWait: boolean = false) {
+  async freshMainLayout(needWait = false): Promise<any> {
     if (needWait) {
-      await new Promise(r => setTimeout(r))
-      this.mainLayoutController?.freshMainLayout()
+      await new Promise((r) => setTimeout(r));
+      this.mainLayoutController?.freshMainLayout();
     } else {
-      this.mainLayoutController?.freshMainLayout()
+      this.mainLayoutController?.freshMainLayout();
     }
   }
-  changeShowMode(mode: number){
-    this.tabssetBarController?.changeShowMode(mode)
+  changeShowMode(mode: number): void {
+    this.tabssetBarController?.changeShowMode(mode);
   }
-  changeEditorMode(mode: number){
-    this.tabssetBarController?.changeEditorMode(mode)
-  }
-
-  openFile(file: string){
-    this.tabssetBarController?.openFile(file)
-  }
-  changeFile(file: string){
-    this.tabssetBarController?.changeFile(file)
-  }
-  closeFile(file: string){
-    this.tabssetBarController?.closeFile(file)
+  changeEditorMode(mode: number): void {
+    this.tabssetBarController?.changeEditorMode(mode);
   }
 
-  setEditorMode(mode: number){
-    this.option.editorMode = mode
+  openFile(file: string): void {
+    this.tabssetBarController?.openFile(file);
   }
-  setShowMode(mode: number){
-    this.option.showMode = mode
+  changeFile(file: string): void {
+    this.tabssetBarController?.changeFile(file);
+  }
+  closeFile(file: string): void {
+    this.tabssetBarController?.closeFile(file);
   }
 
-
+  setEditorMode(mode: number): void {
+    this.option.editorMode = mode;
+  }
+  setShowMode(mode: number): void {
+    this.option.showMode = mode;
+  }
 }
 
 interface SpaceStyleOption {
-  editorMode: number
-  showMode: number
+  editorMode: number;
+  showMode: number;
 }
 
 //TODO 重复静态常量

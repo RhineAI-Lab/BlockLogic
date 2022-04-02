@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IconUtils} from "../utils/icon.utils";
+
+import { IconUtils } from '../utils/icon.utils';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -49,13 +50,13 @@ export class SpaceSidebarProjectsComponent implements OnInit {
             },
           ],
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ];
 
   ngOnInit(): void {}
 
   getFileIcon(name: string): string {
-    return IconUtils.getIconByFileName(name)
+    return IconUtils.getIconByFileName(name);
   }
 }

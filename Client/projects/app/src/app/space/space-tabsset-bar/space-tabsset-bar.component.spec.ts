@@ -8,9 +8,8 @@ describe('SpaceTabssetBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceTabssetBarComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceTabssetBarComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

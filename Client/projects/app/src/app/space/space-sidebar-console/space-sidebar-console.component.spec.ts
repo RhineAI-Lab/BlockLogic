@@ -8,9 +8,8 @@ describe('SpaceSidebarConsoleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceSidebarConsoleComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceSidebarConsoleComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

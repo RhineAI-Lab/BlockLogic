@@ -1,9 +1,10 @@
-import {Component, Injector, OnInit, AfterViewInit} from '@angular/core';
-import {SpaceSidebarProjectsComponent} from "../space-sidebar-projects/space-sidebar-projects.component";
-import {ComponentPortal, ComponentType} from "@angular/cdk/portal";
-import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
-import {SpaceStyleService} from "../services/space-style.service";
-import {SpaceSidebarTerminalComponent} from "../space-sidebar-terminal/space-sidebar-terminal.component";
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+
+import { SpaceStyleService } from '../services/space-style.service';
+import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
+import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
+import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -12,17 +13,44 @@ import {SpaceSidebarTerminalComponent} from "../space-sidebar-terminal/space-sid
 })
 export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   styleService: SpaceStyleService;
-  constructor(styleService: SpaceStyleService,private injector: Injector) {
+  constructor(styleService: SpaceStyleService, private injector: Injector) {
     this.styleService = styleService;
   }
 
   items: Item[] = [
-    new Item('项目','folder',SpaceSidebarProjectsComponent,
-        '项目目录树状图','left-top',260,160,true,true),
-    new Item('控制台','code',SpaceSidebarConsoleComponent,
-        '程序输出控制台','right-top',400,220,true,true),
-    new Item('终端','control',SpaceSidebarTerminalComponent,
-        '控制终端','right-top',400,220,false,true),
+    new Item(
+      '项目',
+      'folder',
+      SpaceSidebarProjectsComponent,
+      '项目目录树状图',
+      'left-top',
+      260,
+      160,
+      true,
+      true,
+    ),
+    new Item(
+      '控制台',
+      'code',
+      SpaceSidebarConsoleComponent,
+      '程序输出控制台',
+      'right-top',
+      400,
+      220,
+      true,
+      true,
+    ),
+    new Item(
+      '终端',
+      'control',
+      SpaceSidebarTerminalComponent,
+      '控制终端',
+      'right-top',
+      400,
+      220,
+      false,
+      true,
+    ),
   ];
 
   ngOnInit(): void {}
@@ -30,19 +58,19 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.styleService.sidebarManagerController = {
       hideSidebar: async (name: string): Promise<boolean> => {
-        for (let item of this.items) {
+        for (const item of this.items) {
           if (item.name == name) {
             if (item.isOpen) {
-              item.isOpen = false
-              await new Promise(r => setTimeout(r))
-              this.styleService.freshMainLayout()
+              item.isOpen = false;
+              await new Promise((r) => setTimeout(r));
+              this.styleService.freshMainLayout();
             }
-            return true
+            return true;
           }
         }
-        return false
-      }
-    }
+        return false;
+      },
+    };
   }
 
   use<Component>(item: Item<Component>): ComponentPortal<Component> {
@@ -58,37 +86,37 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   }
 
   onChangeWidth(e: MouseEvent, item: Item): void {
-    let startX = e.clientX;
-    let startW = item.width;
+    const startX = e.clientX;
+    const startW = item.width;
     document.onmousemove = (e) => {
-      let endX = e.clientX;
+      const endX = e.clientX;
       let finalWidth = 0;
-      if(item.position.indexOf("left")>=0){
-        finalWidth = startW+endX-startX
-      }else if(item.position.indexOf("right")>=0){
-        finalWidth = startW-endX+startX
+      if (item.position.indexOf('left') >= 0) {
+        finalWidth = startW + endX - startX;
+      } else if (item.position.indexOf('right') >= 0) {
+        finalWidth = startW - endX + startX;
       }
-      if(finalWidth>item.minWidth){
-        item.width = finalWidth
+      if (finalWidth > item.minWidth) {
+        item.width = finalWidth;
       }
-      this.styleService.freshMainLayout()
+      this.styleService.freshMainLayout();
     };
     document.onmouseup = (e) => {
       e.stopPropagation();
       document.onmousemove = null;
       document.onmouseup = null;
-      this.styleService.freshMainLayout()
+      this.styleService.freshMainLayout();
     };
   }
 
-  onBtnClick(item: Item) {
-    item.isOpen = !item.isOpen
-    this.styleService.freshMainLayout(true)
+  onBtnClick(item: Item): void {
+    item.isOpen = !item.isOpen;
+    this.styleService.freshMainLayout(true);
   }
 }
 
 export interface SpaceSidebarManagerController {
-  hideSidebar: Function
+  hideSidebar: (name: string) => Promise<boolean>;
 }
 
 class Item<Component = unknown> {
@@ -106,15 +134,16 @@ class Item<Component = unknown> {
   showTab: boolean;
 
   constructor(
-      name: string,
-      icon: string,
-      component: ComponentType<Component>,
-      tooltip: string = name,
-      position: string = 'left-top',
-      width: number = 300,
-      minWidth: number = 240,
-      isOpen: boolean = false,
-      showTab: boolean = true) {
+    name: string,
+    icon: string,
+    component: ComponentType<Component>,
+    tooltip: string = name,
+    position = 'left-top',
+    width = 300,
+    minWidth = 240,
+    isOpen = false,
+    showTab = true,
+  ) {
     this.name = name;
     this.icon = icon;
     this.tooltip = tooltip;

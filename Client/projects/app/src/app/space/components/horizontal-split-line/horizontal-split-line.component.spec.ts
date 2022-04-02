@@ -8,9 +8,8 @@ describe('HorizontalSplitLineComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HorizontalSplitLineComponent ]
-    })
-    .compileComponents();
+      declarations: [HorizontalSplitLineComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
