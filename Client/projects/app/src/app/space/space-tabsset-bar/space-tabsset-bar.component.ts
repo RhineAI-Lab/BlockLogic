@@ -1,6 +1,6 @@
 import {Component, Injector, OnInit, AfterViewInit} from '@angular/core';
 import {SpaceStyleService} from "../services/space-style.service";
-import {IconModule} from "../modules/icon/icon.module";
+import {IconUtils} from "../utils/icon-utils";
 
 @Component({
   selector: 'app-space-tabsset-bar',
@@ -112,7 +112,7 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
   }
 
   getFileIcon(name: string): string {
-    return IconModule.getIconByFileName(name)
+    return IconUtils.getIconByFileName(name)
   }
 }
 
