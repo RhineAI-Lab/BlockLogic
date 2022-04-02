@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Project} from "./project.class";
 
 @Injectable({
   providedIn: 'root'
@@ -8,4 +9,16 @@ import { Injectable } from '@angular/core';
 export class SpaceEditorService {
 
   constructor() {}
+
+  project: Project = Project.getDefaultProject()
+
+
+  openProject(){
+
+  }
+  saveProject(){
+
+  }
+
 }
+

@@ -1,5 +1,4 @@
 
-
 export class IconUtils {
 
     static getIconByFileName(name: string): string {

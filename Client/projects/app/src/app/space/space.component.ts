@@ -6,7 +6,7 @@ import { SpaceBlockEditorComponent } from './space-block-editor/space-block-edit
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import {SpaceStyleService} from "./services/space-style.service";
 import {NzIconService} from "ng-zorro-antd/icon";
-import {IconUtils} from "./utils/icon-utils";
+import {IconUtils} from "./utils/icon.utils";
 
 @Component({
   selector: 'app-space',
