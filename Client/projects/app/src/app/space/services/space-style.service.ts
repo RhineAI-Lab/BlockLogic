@@ -31,9 +31,15 @@ export class SpaceStyleService {
     this.showHeader = show
     this.toolsBarController?.changeShowHideHeaderBtn(!show)
     this.headerController?.changeShowHeader(show)
+    this.freshMainLayout(true)
   }
-  freshMainLayout(){
-    this.mainLayoutController?.freshMainLayout()
+  async freshMainLayout(needWait: boolean = false) {
+    if (needWait) {
+      await new Promise(r => setTimeout(r))
+      this.mainLayoutController?.freshMainLayout()
+    } else {
+      this.mainLayoutController?.freshMainLayout()
+    }
   }
   changeShowMode(mode: number){
     this.tabssetBarController?.changeShowMode(mode)

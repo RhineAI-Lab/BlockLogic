@@ -81,10 +81,9 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     };
   }
 
-  async onBtnClick(item: Item): Promise<void> {
+  onBtnClick(item: Item) {
     item.isOpen = !item.isOpen
-    await new Promise(r => setTimeout(r))
-    this.styleService.freshMainLayout()
+    this.styleService.freshMainLayout(true)
   }
 }
 
