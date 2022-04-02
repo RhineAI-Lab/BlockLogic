@@ -71,7 +71,7 @@
     <app-btn-icon icon="icon-stop" color="#C75450" nz-tooltip="停止 [Ctrl+6]" nzTooltipPlacement="bottom"></app-btn-icon>
     <app-toolbar-split></app-toolbar-split>
     <nz-button-group nzSize="small">
-        <button nz-button (click)="onSave()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
+        <button nz-button (click)="onSaveProject()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
             <i nz-icon nzType="save"></i>
             {{STRS_SAVE_MODE[saveMode]}}
         </button>
@@ -87,7 +87,7 @@
         </button>
     </nz-button-group>
     <nz-button-group nzSize="small">
-        <button nz-button (click)="onSave()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
+        <button nz-button (click)="onOpenProject()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
             <i nz-icon nzType="folder-open"></i>
             {{STRS_OPEN_MODE[openMode]}}
         </button>
@@ -95,13 +95,16 @@
             <i nz-icon nzType="ellipsis"></i>
             <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
                 <ul nz-menu>
-                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE)">打开本地项目</li>
+                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FILE)">打开本地单文件</li>
+                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FOLDER)">打开本地文件夹</li>
                     <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">打开在线项目</li>
                     <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">打开设备项目</li>
                 </ul>
             </nz-dropdown-menu>
         </button>
     </nz-button-group>
+    <input class="hide" type="file" (change)="onSelectProject()" webkitdirectory directory #folderChooser/>
+    <input class="hide" type="file" (change)="onSelectProject()" accept="text/javascript" #fileChooser/>
     <app-toolbar-split [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"></app-toolbar-split>
     <app-btn-icon
         icon="vertical-align-bottom"

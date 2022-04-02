@@ -48,6 +48,13 @@ export class SpaceStyleService {
     this.tabssetBarController?.changeEditorMode(mode);
   }
 
+  setEditorMode(mode: number): void {
+    this.option.editorMode = mode;
+  }
+  setShowMode(mode: number): void {
+    this.option.showMode = mode;
+  }
+
   openFile(file: string): void {
     this.tabssetBarController?.openFile(file);
   }
@@ -58,14 +65,11 @@ export class SpaceStyleService {
     this.tabssetBarController?.closeFile(file);
   }
 
-  setEditorMode(mode: number): void {
-    this.option.editorMode = mode;
-  }
-  setShowMode(mode: number): void {
-    this.option.showMode = mode;
+  openProject(files: File[]): void{
+
   }
 }
-
+s
 interface SpaceStyleOption {
   editorMode: number;
   showMode: number;
@@ -76,6 +80,7 @@ class OPTION {
   static readonly SHOW_MODE_BLOCK: number = 0;
   static readonly SHOW_M0DE_SPLIT: number = 1;
   static readonly SHOW_M0DE_CODE: number = 2;
+
   static readonly EDITOR_MODE_LOGIC: number = 0;
   static readonly EDITOR_M0DE_DESIGN: number = 1;
 }

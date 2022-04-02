@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { SpaceStyleService } from '../services/space-style.service';
@@ -19,6 +19,9 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     this.notification = notification;
   }
 
+  @ViewChild('folderChooser') folderChooser!: ElementRef;
+  @ViewChild('fileChooser') fileChooser!: ElementRef;
+
   readonly RUN_MODE_OFFLINE: number = 0;
   readonly RUN_MODE_DEVICE: number = 1;
   readonly STRS_RUN_MODE: string[] = ['在线运行', '设备运行'];
@@ -28,10 +31,11 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   readonly SAVE_MODE_ONLINE: number = 2;
   readonly STRS_SAVE_MODE: string[] = ['本地', '设备', '在线'];
 
-  readonly OPEN_MODE_OFFLINE: number = 0;
-  readonly OPEN_MODE_DEVICE: number = 1;
-  readonly OPEN_MODE_ONLINE: number = 2;
-  readonly STRS_OPEN_MODE: string[] = ['本地', '设备', '在线'];
+  readonly OPEN_MODE_OFFLINE_FILE: number = 0;
+  readonly OPEN_MODE_OFFLINE_FOLDER: number = 1;
+  readonly OPEN_MODE_DEVICE: number = 2;
+  readonly OPEN_MODE_ONLINE: number = 3;
+  readonly STRS_OPEN_MODE: string[] = ['本地单文件', '本地文件夹', '设备', '在线'];
 
   holdBox = false;
   syncCode = true;
@@ -39,11 +43,8 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   brightTheme = true;
 
   runMode: number = this.RUN_MODE_OFFLINE;
-  runModeText = '在线模式';
   saveMode: number = this.SAVE_MODE_OFFLINE;
-  saveModeText = '本地';
   openMode: number = this.SAVE_MODE_OFFLINE;
-  openModeText = '本地';
 
   deviceAddress = '';
   connectWay = 'ws://';
@@ -60,21 +61,51 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     };
   }
 
-  onSave(): void {
+  onSaveProject(): void {
     if (this.saveMode == this.SAVE_MODE_OFFLINE) {
     } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
       this.notification.create(
         'error',
-        'Notification Title',
-        'This is the content of the notification',
+        '暂不支持保存至在线项目',
+        '功能等待开发中...',
       );
     } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
+      this.notification.create(
+        'error',
+        '暂不支持保存至设备',
+        '功能等待开发中...',
+      );
     }
   }
-  onOpen(): void {
-    if (this.saveMode == this.SAVE_MODE_OFFLINE) {
-    } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
-    } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
+  onOpenProject(): void {
+    if (this.openMode == this.OPEN_MODE_OFFLINE_FILE) {
+      this.fileChooser.nativeElement.click()
+    } else if (this.openMode == this.OPEN_MODE_OFFLINE_FOLDER) {
+      this.folderChooser.nativeElement.click()
+    } else if (this.saveMode == this.OPEN_MODE_ONLINE) {
+      this.notification.create(
+        'error',
+        '暂不支持打开在线项目',
+        '功能等待开发中...',
+      );
+    } else if (this.saveMode == this.OPEN_MODE_DEVICE) {
+      this.notification.create(
+        'error',
+        '暂不支持打开设备中 项目',
+        '功能等待开发中...',
+      );
+    }
+  }
+
+  onSelectProject(){
+    let files: File[] = []
+    if(this.openMode==this.OPEN_MODE_OFFLINE_FILE){
+      files = this.fileChooser.nativeElement.files
+    }else if(this.openMode==this.OPEN_MODE_OFFLINE_FOLDER){
+      files = this.folderChooser.nativeElement.files
+    }
+    if(files.length>0){
+      this.spaceStyleService.openProject(files)
     }
   }
 
