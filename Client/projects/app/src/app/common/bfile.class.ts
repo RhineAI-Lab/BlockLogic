@@ -8,8 +8,7 @@ export class BFile {
   constructor(sourceFile: File) {
     this.sourceFile = sourceFile;
     this.path = sourceFile.webkitRelativePath;
-    const ps = this.path.split('/');
-    this.name = ps[ps.length - 1];
+    this.name = sourceFile.name;
     const ns = this.name.split('.');
     this.type = ns[ns.length - 1];
   }

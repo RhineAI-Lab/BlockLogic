@@ -73,7 +73,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
     this.spaceStyleService.sidebarProjectController = {
       changeData: (projects) => {
         let files = projects.files;
-        if (files.length == 0) {
+        if (files.length == 1) {
           this.data = [
             {
               title: 'Project',
@@ -91,9 +91,14 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
         } else {
           this.data = [];
           for (const file of files) {
-            // TODO: unused variable
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const ps = file.path.split('/');
+            for (const psKey in ps) {
+              if(psKey==ps.length-1+""){
+
+              }else {
+
+              }
+            }
           }
         }
       },
