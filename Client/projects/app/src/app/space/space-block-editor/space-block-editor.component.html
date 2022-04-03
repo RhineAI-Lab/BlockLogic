@@ -34,7 +34,7 @@
                 class="category-icon"
                 [ngStyle]="{
                   'border-color': item.color,
-                  'background-color': colourBlend(item.color)
+                  'background-color': getBlendColor(item.color)
                 }"
               ></div>
               <span class="category-title">{{ item.name }}</span>

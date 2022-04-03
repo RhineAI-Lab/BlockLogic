@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { IconUtils } from '../../common/icon.utils';
+import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({

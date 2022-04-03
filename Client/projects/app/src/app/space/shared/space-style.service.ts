@@ -79,6 +79,10 @@ export class SpaceStyleService {
     this.project = this.editorService.openProject(files)
     this.sidebarProjectController?.changeData(this.project);
   }
+
+  connectDevice(url: string): void{
+
+  }
 }
 
 interface SpaceStyleOption {

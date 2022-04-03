@@ -6,7 +6,7 @@ import {
   NzTreeComponent,
 } from 'ng-zorro-antd/tree';
 
-import { IconUtils } from '../../common/icon.utils';
+import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
 import { Project } from '../../common/project.class';
 
