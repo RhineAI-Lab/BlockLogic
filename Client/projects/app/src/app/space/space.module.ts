@@ -42,11 +42,11 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
+import { BtnIconModule } from '../components/btn-icon/btn-icon.module';
+import { HorizontalSplitLineModule } from '../components/horizontal-split-line/horizontal-split-line.module';
+import { ToolbarSplitModule } from '../components/toolbar-split/toolbar-split.module';
+import { VerticalSplitLineModule } from '../components/vertical-split-line/vertical-split-line.module';
 import { SharedModule } from '../shared/shared.module';
-import { BtnIconComponent } from './components/btn-icon/btn-icon.component';
-import { HorizontalSplitLineComponent } from './components/horizontal-split-line/horizontal-split-line.component';
-import { ToolbarSplitComponent } from './components/toolbar-split/toolbar-split.component';
-import { VerticalSplitLineComponent } from './components/vertical-split-line/vertical-split-line.component';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { SpaceComponent } from './space.component';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
@@ -92,13 +92,9 @@ const icons: IconDefinition[] = [
     SpaceSidebarManagerComponent,
     SpaceStatusBarComponent,
     SpaceToolsBarComponent,
-    HorizontalSplitLineComponent,
-    VerticalSplitLineComponent,
     SpaceTabssetBarComponent,
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
-    BtnIconComponent,
-    ToolbarSplitComponent,
     SpaceSidebarTerminalComponent,
   ],
   imports: [
@@ -123,6 +119,10 @@ const icons: IconDefinition[] = [
     ],
     MonacoEditorModule,
     AngularSplitModule,
+    BtnIconModule,
+    HorizontalSplitLineModule,
+    VerticalSplitLineModule,
+    ToolbarSplitModule,
   ],
   providers: [
     {
