@@ -1,10 +1,14 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzTreeNode, NzTreeNodeOptions, NzTreeComponent } from 'ng-zorro-antd/tree';
+import {
+  NzTreeNode,
+  NzTreeNodeOptions,
+  NzTreeComponent,
+} from 'ng-zorro-antd/tree';
 
 import { IconUtils } from '../../common/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
-import {Project} from "../../common/project.class";
+import { Project } from '../../common/project.class';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -22,7 +26,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
     this.notification = notification;
   }
 
-  @ViewChild("tree") tree!: NzTreeComponent;
+  @ViewChild('tree') tree!: NzTreeComponent;
 
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
@@ -90,7 +94,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             },
           ];
         } else {
-          let projectName = files[0].path.split("/")[0]
+          let projectName = files[0].path.split('/')[0];
           this.data = [
             {
               title: projectName,
@@ -98,22 +102,22 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
               expanded: true,
               children: [],
             },
-          ]
+          ];
           await new Promise((r) => setTimeout(r));
-          let rootNode = this.tree.getTreeNodeByKey(projectName)
-          if (!rootNode) return
+          let rootNode = this.tree.getTreeNodeByKey(projectName);
+          if (!rootNode) return;
           for (const file of files) {
             const ps = file.path.split('/');
             let focusNode: NzTreeNode = rootNode;
-            let focusPath: string = projectName
+            let focusPath: string = projectName;
             for (const psKey in ps) {
-              if (psKey == "0") continue
-              let name = ps[psKey]
-              focusPath = focusPath + "/" + name
-              if (psKey != ps.length - 1 + "") {
-                let node = this.tree.getTreeNodeByKey(focusPath)
+              if (psKey == '0') continue;
+              let name = ps[psKey];
+              focusPath = focusPath + '/' + name;
+              if (psKey != ps.length - 1 + '') {
+                let node = this.tree.getTreeNodeByKey(focusPath);
                 if (node) {
-                  focusNode = node
+                  focusNode = node;
                 } else {
                   focusNode.addChildren([
                     {
@@ -121,10 +125,10 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
                       key: focusPath,
                       expanded: true,
                       children: [],
-                    }
-                  ])
-                  let temp = this.tree.getTreeNodeByKey(focusPath)
-                  if (temp) focusNode = temp
+                    },
+                  ]);
+                  let temp = this.tree.getTreeNodeByKey(focusPath);
+                  if (temp) focusNode = temp;
                 }
               } else {
                 focusNode.addChildren([
@@ -132,10 +136,10 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
                     title: name,
                     key: focusPath,
                     isLeaf: true,
-                  }
-                ])
-                let temp = this.tree.getTreeNodeByKey(focusPath)
-                if (temp) focusNode = temp
+                  },
+                ]);
+                let temp = this.tree.getTreeNodeByKey(focusPath);
+                if (temp) focusNode = temp;
               }
             }
           }
@@ -144,11 +148,14 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
     };
   }
 
-  getNodeIdFromListByTitle(data: NzTreeNodeOptions[] | undefined, title: string): number{
-    if(data){
+  getNodeIdFromListByTitle(
+    data: NzTreeNodeOptions[] | undefined,
+    title: string,
+  ): number {
+    if (data) {
       for (const dataKey in data) {
-        if(data[dataKey].title==title){
-          return parseInt(dataKey,10)
+        if (data[dataKey].title == title) {
+          return parseInt(dataKey, 10);
         }
       }
     }
@@ -162,5 +169,4 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
 
 export interface SpaceSidebarProjectsController {
   changeData: (project: Project) => void;
-
 }

@@ -46,7 +46,14 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   readonly OPEN_MODE_BROWSER: number = 3;
   readonly OPEN_MODE_DEVICE: number = 4;
   readonly OPEN_MODE_ONLINE: number = 5;
-  readonly STRS_OPEN_MODE: string[] = ['单文件', '文件夹', '压缩包', '浏览器', '设备', '在线'];
+  readonly STRS_OPEN_MODE: string[] = [
+    '单文件',
+    '文件夹',
+    '压缩包',
+    '浏览器',
+    '设备',
+    '在线',
+  ];
 
   holdBox = false;
   syncCode = true;
@@ -84,6 +91,12 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       this.notification.create(
         'error',
         '暂不支持保存至设备',
+        '功能等待开发中...',
+      );
+    } else if (this.saveMode == this.SAVE_MODE_BROWSER) {
+      this.notification.create(
+        'error',
+        '暂不支持保存至浏览器',
         '功能等待开发中...',
       );
     }
