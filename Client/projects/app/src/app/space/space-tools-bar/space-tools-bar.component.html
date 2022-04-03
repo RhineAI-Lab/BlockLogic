@@ -18,7 +18,7 @@
       </li>
     </ul>
   </nz-dropdown-menu>
-  <app-toolbar-split></app-toolbar-split>
+  <app-toolbar-divider></app-toolbar-divider>
   <app-btn-icon
     icon="icon-undo"
     color="#5A76D4"
@@ -31,7 +31,7 @@
     nz-tooltip="重做 [Ctrl+Shift+Z]"
     nzTooltipPlacement="bottom"
   ></app-btn-icon>
-  <app-toolbar-split></app-toolbar-split>
+  <app-toolbar-divider></app-toolbar-divider>
   <span class="tip">生成: </span>
   <nz-button-group nzSize="small">
     <button nz-button>
@@ -80,7 +80,7 @@
     nz-tooltip="连接设备"
     nzTooltipPlacement="bottom"
   ></app-btn-icon>
-  <app-toolbar-split></app-toolbar-split>
+  <app-toolbar-divider></app-toolbar-divider>
   <button
     class="editor-mode-selector"
     nz-button
@@ -113,7 +113,7 @@
     nz-tooltip="停止 [Ctrl+6]"
     nzTooltipPlacement="bottom"
   ></app-btn-icon>
-  <app-toolbar-split></app-toolbar-split>
+  <app-toolbar-divider></app-toolbar-divider>
   <nz-button-group nzSize="small">
     <button
       nz-button
@@ -196,9 +196,9 @@
     accept="text/javascript"
     #fileChooser
   />
-  <app-toolbar-split
+  <app-toolbar-divider
     [ngStyle]="{ display: showHideHeaderBtn ? 'inline-block' : 'none' }"
-  ></app-toolbar-split>
+  ></app-toolbar-divider>
   <app-btn-icon
     icon="vertical-align-bottom"
     nz-tooltip="显示头部栏"

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToolbarSplitComponent } from './toolbar-split.component';
+import { DividerComponent } from './divider.component';
 
-describe('ToolbarSplitComponent', () => {
-  let component: ToolbarSplitComponent;
-  let fixture: ComponentFixture<ToolbarSplitComponent>;
+describe('DividerComponent', () => {
+  let component: DividerComponent;
+  let fixture: ComponentFixture<DividerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ToolbarSplitComponent],
+      declarations: [DividerComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarSplitComponent);
+    fixture = TestBed.createComponent(DividerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

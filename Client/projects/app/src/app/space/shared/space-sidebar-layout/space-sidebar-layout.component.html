@@ -2,11 +2,11 @@
   <div fxLayout class="header no-select">
     <i nz-icon class="header-icon" [nzType]="sidebarIcon"></i>
     <p fxFlex="grow" class="header-text">{{ sidebarTitle }}</p>
-    <app-toolbar-split></app-toolbar-split>
+    <app-toolbar-divider></app-toolbar-divider>
     <app-btn-icon icon="icon-set" (click)="onSetBtn()"></app-btn-icon>
     <app-btn-icon icon="minus" (click)="onHideBtn()"></app-btn-icon>
   </div>
-  <app-horizontal-split-line class="split-line"></app-horizontal-split-line>
+  <app-divider class="splitdivider"></app-divider>
   <div class="body">
     <ng-content></ng-content>
   </div>

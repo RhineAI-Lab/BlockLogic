@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VerticalSplitLineComponent } from './vertical-split-line.component';
+import { ToolbarDividerComponent } from './toolbar-divider.component';
 
-describe('VerticalSplitLineComponent', () => {
-  let component: VerticalSplitLineComponent;
-  let fixture: ComponentFixture<VerticalSplitLineComponent>;
+describe('ToolbarDividerComponent', () => {
+  let component: ToolbarDividerComponent;
+  let fixture: ComponentFixture<ToolbarDividerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [VerticalSplitLineComponent],
+      declarations: [ToolbarDividerComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VerticalSplitLineComponent);
+    fixture = TestBed.createComponent(ToolbarDividerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
