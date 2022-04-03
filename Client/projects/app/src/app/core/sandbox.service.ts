@@ -1,22 +1,27 @@
 import '../common/run-in-context.polyfill';
 
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Sandbox {
-  private $iframe = this.createIframe();
-  private context = this.createContext(this.$iframe.contentWindow);
-  private output$$ = new Subject<SandboxOutput>();
-  output$ = this.output$$.asObservable();
+  output$!: Observable<SandboxOutput>;
+  private $iframe!: HTMLIFrameElementInDom;
+  private context!: object;
+  private output$$!: Subject<SandboxOutput>;
 
-  constructor() {}
+  constructor() {
+    this.reset();
+  }
 
   reset(): void {
-    this.$iframe.remove();
+    this.$iframe?.remove();
     this.$iframe = this.createIframe();
+    this.context = this.createContext(this.$iframe.contentWindow);
+    this.output$$ = new Subject();
+    this.output$ = this.output$$.asObservable();
   }
 
   run(code: string): void {
