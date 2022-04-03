@@ -117,38 +117,6 @@
   <nz-button-group nzSize="small">
     <button
       nz-button
-      (click)="onSaveProject()"
-      nz-tooltip="保存项目"
-      nzTooltipPlacement="bottom"
-    >
-      <i nz-icon nzType="save"></i>
-      {{ STRS_SAVE_MODE[saveMode] }}
-    </button>
-    <button
-      nz-button
-      nz-dropdown
-      [nzDropdownMenu]="saveWayMenu"
-      nzPlacement="bottomRight"
-    >
-      <i nz-icon nzType="ellipsis"></i>
-      <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_OFFLINE)">
-            本地保存
-          </li>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_ONLINE)">
-            在线保存
-          </li>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_DEVICE)">
-            设备保存
-          </li>
-        </ul>
-      </nz-dropdown-menu>
-    </button>
-  </nz-button-group>
-  <nz-button-group nzSize="small">
-    <button
-      nz-button
       (click)="onOpenProject()"
       nz-tooltip="打开项目"
       nzTooltipPlacement="bottom"
@@ -165,17 +133,60 @@
       <i nz-icon nzType="ellipsis"></i>
       <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
         <ul nz-menu>
-          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FILE)">
-            打开本地单文件
-          </li>
-          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FOLDER)">
-            打开本地文件夹
+          <ul nz-submenu nzTitle="打开电脑中项目">
+            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_FILE)">
+              单文件
+            </li>
+            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_FOLDER)">
+              文件夹
+            </li>
+            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_ZIP)">
+              压缩包
+            </li>
+          </ul>
+          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_BROWSER)">
+            打开浏览器中项目
           </li>
           <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">
-            打开在线项目
+            打开账户在线项目
           </li>
           <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">
-            打开设备项目
+            打开设备中项目
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </button>
+  </nz-button-group>
+  <nz-button-group nzSize="small">
+    <button
+            nz-button
+            (click)="onSaveProject()"
+            nz-tooltip="保存项目"
+            nzTooltipPlacement="bottom"
+    >
+      <i nz-icon nzType="save"></i>
+      {{ STRS_SAVE_MODE[saveMode] }}
+    </button>
+    <button
+            nz-button
+            nz-dropdown
+            [nzDropdownMenu]="saveWayMenu"
+            nzPlacement="bottomRight"
+    >
+      <i nz-icon nzType="ellipsis"></i>
+      <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_PC)">
+            本机保存
+          </li>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_BROWSER)">
+            浏览器保存
+          </li>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_ONLINE)">
+            在线保存
+          </li>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_DEVICE)">
+            设备保存
           </li>
         </ul>
       </nz-dropdown-menu>
@@ -190,11 +201,18 @@
     #folderChooser
   />
   <input
-    class="hide"
-    type="file"
-    (change)="onSelectProject()"
-    accept="text/javascript"
-    #fileChooser
+      class="hide"
+      type="file"
+      (change)="onSelectProject()"
+      accept="text/javascript"
+      #fileChooser
+  />
+  <input
+      class="hide"
+      type="file"
+      (change)="onSelectProject()"
+      accept=".zip"
+      #zipChooser
   />
   <app-toolbar-divider
     [ngStyle]="{ display: showHideHeaderBtn ? 'inline-block' : 'none' }"
