@@ -17,12 +17,8 @@ import {NzNotificationService} from "ng-zorro-antd/notification";
 
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  spaceDevelopService: SpaceDevelopService;
   notification?: NzNotificationService;
-  constructor(spaceDevelopService: SpaceDevelopService) {
-    this.spaceDevelopService = spaceDevelopService
-    this.spaceDevelopService.spaceStyleService = this
-  }
+  constructor() {}
 
   public mainLayoutController?: SpaceMainLayoutController;
   public toolsBarController?: SpaceToolsBarController;

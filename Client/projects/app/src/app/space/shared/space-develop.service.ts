@@ -12,11 +12,12 @@ import {NzNotificationService} from "ng-zorro-antd/notification";
 
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
-  spaceStyleService?: SpaceStyleService;
+  spaceStyleService: SpaceStyleService;
   spaceDebugService: SpaceDebugService;
   notification?: NzNotificationService;
-  constructor(spaceDebugService: SpaceDebugService) {
+  constructor(spaceDebugService: SpaceDebugService, spaceStyleService: SpaceStyleService) {
     this.spaceDebugService = spaceDebugService;
+    this.spaceStyleService = spaceStyleService;
     this.project = new Project();
 
     this.spaceDebugService.onConnect = () => {
