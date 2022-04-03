@@ -9,6 +9,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { BFile } from '../../common/bfile.class';
 import { SpaceStyleService } from '../shared/space-style.service';
+import {StringUtils} from "../../common/utils/string.utils";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -82,23 +83,11 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   onSaveProject(): void {
     if (this.saveMode == this.SAVE_MODE_PC) {
     } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
-      this.notification.create(
-        'error',
-        '暂不支持保存至在线项目',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持保存至在线项目', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
-      this.notification.create(
-        'error',
-        '暂不支持保存至设备',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持保存至设备','功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_BROWSER) {
-      this.notification.create(
-        'error',
-        '暂不支持保存至浏览器',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持保存至浏览器', '功能开发中...');
     }
   }
   onOpenProject(): void {
@@ -107,29 +96,13 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     } else if (this.openMode == this.OPEN_MODE_PC_FOLDER) {
       this.folderChooser.nativeElement.click();
     } else if (this.saveMode == this.OPEN_MODE_PC_ZIP) {
-      this.notification.create(
-        'error',
-        '暂不支持打开压缩包项目',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持打开压缩包项目', '功能开发中...');
     } else if (this.saveMode == this.OPEN_MODE_ONLINE) {
-      this.notification.create(
-        'error',
-        '暂不支持打开在线项目',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持打开在线项目', '功能开发中...');
     } else if (this.saveMode == this.OPEN_MODE_DEVICE) {
-      this.notification.create(
-        'error',
-        '暂不支持打开设备中项目',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持打开设备中项目', '功能开发中...');
     } else if (this.saveMode == this.OPEN_MODE_BROWSER) {
-      this.notification.create(
-        'error',
-        '暂不支持打开浏览器中项目',
-        '功能等待开发中...',
-      );
+      this.notification.error('暂不支持打开浏览器中项目', '功能开发中...');
     }
   }
 
@@ -149,6 +122,17 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onConnectDevice(){
+    if(this.deviceAddress.length==0){
+      this.notification.error('请输入IP地址', '')
+    }else if(!StringUtils.checkIP(this.deviceAddress)){
+      this.notification.error('IP地址格式错误', '')
+    }else{
+      let url = this.connectWay+this.deviceAddress;
+      this.spaceStyleService.connectDevice(url);
+    }
+  }
+
   onRunModeChange(mode: number): void {
     this.runMode = mode;
   }
@@ -161,6 +145,7 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   onShowHeader(): void {
     this.spaceStyleService.changeHeaderDisplay(true);
   }
+
 }
 
 export interface SpaceToolsBarController {
