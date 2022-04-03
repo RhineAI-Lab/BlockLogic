@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 
-import { FlexLayoutExtensionModule } from '../components/flex-layout-extension/flex-layout-extension.module';
+import { FlexLayoutExtensionModule } from './flex-layout-extension/flex-layout-extension.module';
 
 @NgModule({
   exports: [
