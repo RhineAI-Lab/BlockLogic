@@ -42,7 +42,6 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
-import { SheetModule } from '../components/sheet/sheet.module';
 import { SharedModule } from '../shared/shared.module';
 import { BtnIconComponent } from './components/btn-icon/btn-icon.component';
 import { HorizontalSplitLineComponent } from './components/horizontal-split-line/horizontal-split-line.component';
@@ -105,7 +104,6 @@ const icons: IconDefinition[] = [
   imports: [
     SharedModule,
     SpaceRoutingModule,
-    SheetModule,
     BlocklierModule,
     PortalModule,
     NzLayoutModule,
