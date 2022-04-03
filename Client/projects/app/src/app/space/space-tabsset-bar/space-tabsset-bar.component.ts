@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { SpaceStyleService } from '../services/space-style.service';
-import { IconUtils } from '../utils/icon.utils';
+import { IconUtils } from '../../common/icon.utils';
+import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
   selector: 'app-space-tabsset-bar',

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { SpaceStyleService } from '../services/space-style.service';
+import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
   selector: 'app-space-header',

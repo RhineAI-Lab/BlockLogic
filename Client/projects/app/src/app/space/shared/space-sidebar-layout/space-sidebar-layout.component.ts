@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { SpaceStyleService } from '../../services/space-style.service';
+import { SpaceStyleService } from '../space-style.service';
 
 @Component({
   selector: 'app-space-sidebar-layout',

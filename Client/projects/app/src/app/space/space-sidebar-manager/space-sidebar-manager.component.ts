@@ -1,7 +1,7 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 
-import { SpaceStyleService } from '../services/space-style.service';
+import { SpaceStyleService } from '../shared/space-style.service';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';

@@ -3,7 +3,7 @@ import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
 
-import { SpaceStyleService } from './services/space-style.service';
+import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 

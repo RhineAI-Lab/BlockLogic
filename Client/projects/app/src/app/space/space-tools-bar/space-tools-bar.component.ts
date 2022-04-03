@@ -7,8 +7,8 @@ import {
 } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { BFile } from '../services/bfile.class';
-import { SpaceStyleService } from '../services/space-style.service';
+import { BFile } from '../../common/bfile.class';
+import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
   selector: 'app-space-tools-bar',

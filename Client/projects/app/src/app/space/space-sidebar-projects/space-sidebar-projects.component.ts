@@ -2,9 +2,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { BFile } from '../services/bfile.class';
-import { SpaceStyleService } from '../services/space-style.service';
-import { IconUtils } from '../utils/icon.utils';
+import { BFile } from '../../common/bfile.class';
+import { IconUtils } from '../../common/icon.utils';
+import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
   selector: 'app-space-sidebar-files',
