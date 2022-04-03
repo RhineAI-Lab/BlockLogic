@@ -7,7 +7,7 @@ import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-si
 import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
-import {SpaceEditorService} from "./space-editor.service";
+import {SpaceDevelopService} from "./space-develop.service";
 import {Project} from "../../common/project.class";
 
 @Injectable({
@@ -16,9 +16,9 @@ import {Project} from "../../common/project.class";
 
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  editorService: SpaceEditorService;
+  editorService: SpaceDevelopService;
   project: Project;
-  constructor(editorService: SpaceEditorService) {
+  constructor(editorService: SpaceDevelopService) {
     this.editorService = editorService
     this.project = editorService.project
   }

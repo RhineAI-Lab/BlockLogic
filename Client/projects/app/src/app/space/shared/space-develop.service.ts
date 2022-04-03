@@ -8,7 +8,7 @@ import {BFile} from "../../common/bfile.class";
 })
 
 // Space区域文件编辑相关管理服务
-export class SpaceEditorService {
+export class SpaceDevelopService {
   project: Project;
   constructor() {
     this.project = new Project()

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpaceEditorService } from './space-editor.service';
+import { SpaceDevelopService } from './space-develop.service';
 
 describe('SpaceEditorService', () => {
-  let service: SpaceEditorService;
+  let service: SpaceDevelopService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SpaceEditorService);
+    service = TestBed.inject(SpaceDevelopService);
   });
 
   it('should be created', () => {
