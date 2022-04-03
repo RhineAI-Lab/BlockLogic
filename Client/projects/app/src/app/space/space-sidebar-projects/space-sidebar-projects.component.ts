@@ -31,6 +31,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
+      isRoot: true,
       key: '100',
       expanded: true,
       children: [
@@ -83,6 +84,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             {
               title: 'Project',
               key: 'Project',
+              isRoot: true,
               expanded: true,
               children: [
                 {
@@ -99,6 +101,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             {
               title: projectName,
               key: projectName,
+              isRoot: true,
               expanded: true,
               children: [],
             },

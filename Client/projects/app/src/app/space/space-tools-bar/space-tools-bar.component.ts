@@ -95,13 +95,13 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       this.fileChooser.nativeElement.click();
     } else if (this.openMode == this.OPEN_MODE_PC_FOLDER) {
       this.folderChooser.nativeElement.click();
-    } else if (this.saveMode == this.OPEN_MODE_PC_ZIP) {
+    } else if (this.openMode == this.OPEN_MODE_PC_ZIP) {
       this.notification.error('暂不支持打开压缩包项目', '功能开发中...');
-    } else if (this.saveMode == this.OPEN_MODE_ONLINE) {
+    } else if (this.openMode == this.OPEN_MODE_ONLINE) {
       this.notification.error('暂不支持打开在线项目', '功能开发中...');
-    } else if (this.saveMode == this.OPEN_MODE_DEVICE) {
+    } else if (this.openMode == this.OPEN_MODE_DEVICE) {
       this.notification.error('暂不支持打开设备中项目', '功能开发中...');
-    } else if (this.saveMode == this.OPEN_MODE_BROWSER) {
+    } else if (this.openMode == this.OPEN_MODE_BROWSER) {
       this.notification.error('暂不支持打开浏览器中项目', '功能开发中...');
     }
   }

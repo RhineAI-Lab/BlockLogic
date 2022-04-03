@@ -31,7 +31,7 @@
               origin.isLeaf ? getFileIcon(origin.title) : 'icon-folder'
             "
             [ngStyle]="{
-              color: origin.title == 'Project' ? '#8CD3EC' : '#B6B6B6'
+              color: origin.isRoot ? '#8CD3EC' : '#B6B6B6'
             }"
           ></i>
           <span class="folder-name">{{ node.title }}</span>
