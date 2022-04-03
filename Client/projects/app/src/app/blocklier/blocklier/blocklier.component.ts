@@ -18,81 +18,6 @@ import { BlocklierRenderer } from '../blocklier-renderer';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit, AfterViewInit {
-  readonly allBlockList: string[] = [
-    '常用语句',
-    '循环',
-    '变量',
-    '函数',
-    '逻辑',
-    '数学',
-    '文本',
-    '列表',
-    '颜色',
-    '基于坐标操作',
-    '基于控件操作',
-    '无障碍服务',
-    '触摸模拟对象',
-    '快捷控件操作',
-    '自定义块',
-    '设备',
-    '设备信息',
-    '控制台',
-    'HTTP',
-    '对话框',
-    '全局',
-    '本地储存',
-    '文件系统',
-    '多媒体',
-    '应用',
-    '调试工具',
-    '意图',
-    '插件',
-    '设置',
-    '电源管理',
-    '界面',
-    '常用功能',
-    '摘要/加密',
-    '文本控件',
-    '按钮控件',
-  ];
-  readonly allBlockColor: string[] = [
-    '#AAAAAA',
-    '#5AA45A',
-    '#A45A7F',
-    '#985AA4',
-    '#5A7FA4',
-    '#5A66A4',
-    '#5AA48B',
-    '#735AA4',
-    '#A4735A',
-    '#5A66A4',
-    '#2195F1',
-    '#e5af00',
-    '#e6645c',
-    '#90b01f',
-    '#888888',
-    '#3264e1',
-    '#698a8a',
-    '#0eaf9e',
-    '#339999',
-    '#9abc86',
-    '#7476c6',
-    '#cb863a',
-    '#b9993d',
-    '#d4285c',
-    '#d56331',
-    '#cc9999',
-    '#8e30be',
-    '#e5af00',
-    '#c68a16',
-    '#52a242',
-    '#3c2eaf',
-    '#AAAAAA',
-    '#88282a',
-    '#3c2eaf',
-    '#3c2eaf',
-  ];
-
   @Output() init = new EventEmitter();
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
@@ -162,11 +87,8 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       const children = this.resolveToolboxCategories($host, depth + 1);
       if (children.length) $row.click(); // expand the child categories.
       const name = $label.innerHTML;
-      let color = '#AAAAAA';
-      if (this.allBlockList.indexOf(name)) {
-        color = this.allBlockColor[this.allBlockList.indexOf(name)];
-      }
-      results.push({ name: name, depth, $host, $row, children, color });
+      const color = colors[name] ?? '#AAAAAA';
+      results.push({ name, depth, $host, $row, children, color });
     }
     return results;
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
@@ -175,9 +97,48 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
 
 export interface BlocklierToolboxCategory {
   name: string;
+  color: string;
   depth: number;
   $host: HTMLDivElement;
   $row: HTMLDivElement;
   children: BlocklierToolboxCategory[];
-  color: string;
 }
+
+// TODO: refactor
+const colors: Record<string, string> = {
+  ['常用语句']: '#AAAAAA',
+  ['循环']: '#5AA45A',
+  ['变量']: '#A45A7F',
+  ['函数']: '#985AA4',
+  ['逻辑']: '#5A7FA4',
+  ['数学']: '#5A66A4',
+  ['文本']: '#5AA48B',
+  ['列表']: '#735AA4',
+  ['颜色']: '#A4735A',
+  ['基于坐标操作']: '#5A66A4',
+  ['基于控件操作']: '#2195F1',
+  ['无障碍服务']: '#e5af00',
+  ['触摸模拟对象']: '#e6645c',
+  ['快捷控件操作']: '#90b01f',
+  ['自定义块']: '#888888',
+  ['设备']: '#3264e1',
+  ['设备信息']: '#698a8a',
+  ['控制台']: '#0eaf9e',
+  ['HTTP']: '#339999',
+  ['对话框']: '#9abc86',
+  ['全局']: '#7476c6',
+  ['本地储存']: '#cb863a',
+  ['文件系统']: '#b9993d',
+  ['多媒体']: '#d4285c',
+  ['应用']: '#d56331',
+  ['调试工具']: '#cc9999',
+  ['意图']: '#8e30be',
+  ['插件']: '#e5af00',
+  ['设置']: '#c68a16',
+  ['电源管理']: '#52a242',
+  ['界面']: '#3c2eaf',
+  ['常用功能']: '#AAAAAA',
+  ['摘要/加密']: '#88282a',
+  ['文本控件']: '#3c2eaf',
+  ['按钮控件']: '#3c2eaf',
+};
