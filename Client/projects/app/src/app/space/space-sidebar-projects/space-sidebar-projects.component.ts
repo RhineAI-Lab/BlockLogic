@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { NzTreeNode, NzTreeNodeOptions, NzTreeComponent } from 'ng-zorro-antd/tree';
 
-import { BFile } from '../../common/bfile.class';
 import { IconUtils } from '../../common/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
 import {Project} from "../../common/project.class";
@@ -22,6 +21,8 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
     this.spaceStyleService = spaceStyleService;
     this.notification = notification;
   }
+
+  @ViewChild("tree") tree!: NzTreeComponent;
 
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
@@ -71,7 +72,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spaceStyleService.sidebarProjectController = {
-      changeData: (projects) => {
+      changeData: async (projects) => {
         let files = projects.files;
         if (files.length == 1) {
           this.data = [
@@ -89,20 +90,69 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             },
           ];
         } else {
-          this.data = [];
+          let projectName = files[0].path.split("/")[0]
+          this.data = [
+            {
+              title: projectName,
+              key: projectName,
+              expanded: true,
+              children: [],
+            },
+          ]
+          await new Promise((r) => setTimeout(r));
+          let rootNode = this.tree.getTreeNodeByKey(projectName)
+          if (!rootNode) return
           for (const file of files) {
             const ps = file.path.split('/');
+            let focusNode: NzTreeNode = rootNode;
+            let focusPath: string = projectName
             for (const psKey in ps) {
-              if(psKey==ps.length-1+""){
-
-              }else {
-
+              if (psKey == "0") continue
+              let name = ps[psKey]
+              focusPath = focusPath + "/" + name
+              if (psKey != ps.length - 1 + "") {
+                let node = this.tree.getTreeNodeByKey(focusPath)
+                if (node) {
+                  focusNode = node
+                } else {
+                  focusNode.addChildren([
+                    {
+                      title: name,
+                      key: focusPath,
+                      expanded: true,
+                      children: [],
+                    }
+                  ])
+                  let temp = this.tree.getTreeNodeByKey(focusPath)
+                  if (temp) focusNode = temp
+                }
+              } else {
+                focusNode.addChildren([
+                  {
+                    title: name,
+                    key: focusPath,
+                    isLeaf: true,
+                  }
+                ])
+                let temp = this.tree.getTreeNodeByKey(focusPath)
+                if (temp) focusNode = temp
               }
             }
           }
         }
       },
     };
+  }
+
+  getNodeIdFromListByTitle(data: NzTreeNodeOptions[] | undefined, title: string): number{
+    if(data){
+      for (const dataKey in data) {
+        if(data[dataKey].title==title){
+          return parseInt(dataKey,10)
+        }
+      }
+    }
+    return -1;
   }
 
   getFileIcon(name: string): string {
