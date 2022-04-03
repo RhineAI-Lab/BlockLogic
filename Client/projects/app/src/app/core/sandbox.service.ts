@@ -1,3 +1,5 @@
+import '../common/run-in-context.polyfill';
+
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
@@ -9,9 +11,7 @@ export class Sandbox {
   private context = this.createContext(this.$iframe.contentWindow);
   outputs$ = new ReplaySubject<SandboxOutput>();
 
-  constructor() {
-    this.initWithSyntaxPolyfill();
-  }
+  constructor() {}
 
   reset(): void {
     this.$iframe.remove();
@@ -58,21 +58,6 @@ export class Sandbox {
       info: redirector('info'),
     };
   }
-
-  /**
-   * Bypass the unavailability of the `with` syntax in JavaScript strict mode.
-   */
-  private initWithSyntaxPolyfill(): void {
-    const $script = document.createElement('script');
-    $script.innerText = `
-    function runInContext(context, code) {
-      with(context) {
-        eval(code);
-      }
-    }
-    `;
-    document.head.append($script);
-  }
 }
 
 export interface SandboxOutput {
@@ -82,8 +67,4 @@ export interface SandboxOutput {
 
 interface HTMLIFrameElementInDom extends HTMLIFrameElement {
   contentWindow: Window;
-}
-
-declare global {
-  function runInContext(context: object, code: string): void;
 }
