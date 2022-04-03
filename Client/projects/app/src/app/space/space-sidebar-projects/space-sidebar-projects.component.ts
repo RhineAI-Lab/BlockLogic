@@ -5,6 +5,7 @@ import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 import { BFile } from '../../common/bfile.class';
 import { IconUtils } from '../../common/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
+import {Project} from "../../common/project.class";
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -70,7 +71,8 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.spaceStyleService.sidebarProjectController = {
-      changeData: (files) => {
+      changeData: (projects) => {
+        let files = projects.files;
         if (files.length == 0) {
           this.data = [
             {
@@ -104,5 +106,6 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
 }
 
 export interface SpaceSidebarProjectsController {
-  changeData: (files: BFile[]) => void;
+  changeData: (project: Project) => void;
+
 }

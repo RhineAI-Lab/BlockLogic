@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Project } from '../../common/project.class';
+import {BFile} from "../../common/bfile.class";
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,14 @@ import { Project } from '../../common/project.class';
 
 // Space区域文件编辑相关管理服务
 export class SpaceEditorService {
-  constructor() {}
+  project: Project;
+  constructor() {
+    this.project = new Project()
+  }
 
-  project: Project = Project.getDefaultProject();
-
-  openProject(): void {}
+  openProject(files: BFile[]): Project {
+    this.project = new Project(files)
+    return this.project
+  }
   saveProject(): void {}
 }

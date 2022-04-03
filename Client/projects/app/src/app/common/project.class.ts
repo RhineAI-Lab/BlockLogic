@@ -1,3 +1,5 @@
+import {BFile} from "./bfile.class";
+
 export class Project {
   static readonly TYPE_SINGLE = 0;
   static readonly TYPE_FOLDER = 1;
@@ -9,13 +11,26 @@ export class Project {
 
   type: number;
   engine: number;
+  files: BFile[];
+  target: number;
 
-  constructor(type: number, engine: number) {
+  constructor(
+    files? : BFile[],
+    type: number = Project.TYPE_SINGLE,
+    engine: number = Project.ENGINE_BLOGIC,
+  ) {
     this.type = type;
     this.engine = engine;
+    if(files&&files.length!=0){
+      this.files = files;
+      this.target = 0;
+    }else{
+      this.files = [new BFile(new File([],''))]
+      this.target = 0;
+    }
   }
 
-  static getDefaultProject(): Project {
-    return new Project(Project.TYPE_SINGLE, Project.ENGINE_BLOGIC);
+  getTargetFile(): BFile{
+    return this.files[this.target]
   }
 }

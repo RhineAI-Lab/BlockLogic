@@ -7,6 +7,8 @@ import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-si
 import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
+import {SpaceEditorService} from "./space-editor.service";
+import {Project} from "../../common/project.class";
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +16,12 @@ import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.comp
 
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  constructor() {}
+  editorService: SpaceEditorService;
+  project: Project;
+  constructor(editorService: SpaceEditorService) {
+    this.editorService = editorService
+    this.project = editorService.project
+  }
 
   public mainLayoutController?: SpaceMainLayoutController;
   public toolsBarController?: SpaceToolsBarController;
@@ -69,7 +76,8 @@ export class SpaceStyleService {
   }
 
   openProject(files: BFile[]): void {
-    this.sidebarProjectController?.changeData(files);
+    this.project = this.editorService.openProject(files)
+    this.sidebarProjectController?.changeData(this.project);
   }
 }
 
