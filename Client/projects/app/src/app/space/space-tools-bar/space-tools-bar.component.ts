@@ -10,6 +10,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BFile } from '../../common/bfile.class';
 import { SpaceStyleService } from '../shared/space-style.service';
 import {StringUtils} from "../../common/utils/string.utils";
+import {SpaceDevelopService} from "../shared/space-develop.service";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -17,12 +18,15 @@ import {StringUtils} from "../../common/utils/string.utils";
   styleUrls: ['./space-tools-bar.component.less'],
 })
 export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
+  spaceDevelopService: SpaceDevelopService;
   spaceStyleService: SpaceStyleService;
   notification: NzNotificationService;
   constructor(
+    developService: SpaceDevelopService,
     spaceStyleService: SpaceStyleService,
     notification: NzNotificationService,
   ) {
+    this.spaceDevelopService = developService;
     this.spaceStyleService = spaceStyleService;
     this.notification = notification;
   }
@@ -118,7 +122,7 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       for (const file of files) {
         bfiles.push(new BFile(file));
       }
-      this.spaceStyleService.openProject(bfiles);
+      this.spaceDevelopService.openProject(bfiles);
     }
   }
 
@@ -129,7 +133,7 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       this.notification.error('IP地址格式错误', '')
     }else{
       let url = this.connectWay+this.deviceAddress;
-      this.spaceStyleService.connectDevice(url);
+      this.spaceDevelopService.connectDevice(url);
     }
   }
 

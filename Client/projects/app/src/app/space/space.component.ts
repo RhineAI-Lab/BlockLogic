@@ -17,10 +17,10 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  styleService: SpaceStyleService;
+  spaceStyleService: SpaceStyleService;
 
-  constructor(styleService: SpaceStyleService, iconService: NzIconService) {
-    this.styleService = styleService;
+  constructor(spaceStyleService: SpaceStyleService, iconService: NzIconService) {
+    this.spaceStyleService = spaceStyleService;
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
@@ -29,14 +29,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.styleService.mainLayoutController = {
+    this.spaceStyleService.mainLayoutController = {
       freshMainLayout: (): void => {
         Blockly.svgResize(this.blockEditor.workspace);
         this.codeEditor.workspace.layout();
       },
     };
     this.splitter.dragProgress$.subscribe(() => {
-      this.styleService.freshMainLayout();
+      this.spaceStyleService.freshMainLayout();
     });
   }
 

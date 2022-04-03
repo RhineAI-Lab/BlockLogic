@@ -1,22 +1,31 @@
 import { Injectable } from '@angular/core';
 
 import { Project } from '../../common/project.class';
-import {BFile} from "../../common/bfile.class";
+import { BFile } from '../../common/bfile.class';
+import { SpaceStyleService } from './space-style.service';
+import { SpaceDebugService } from './space-debug.service';
 
 @Injectable({
   providedIn: 'root',
 })
 
-// Space区域文件编辑相关管理服务
+// Space区域开发相关管理服务
 export class SpaceDevelopService {
+  spaceStyleService?: SpaceStyleService;
+  spaceDebugService: SpaceDebugService;
   project: Project;
-  constructor() {
-    this.project = new Project()
+  constructor(spaceDebugService: SpaceDebugService) {
+    this.spaceDebugService = spaceDebugService;
+    this.project = new Project();
   }
 
-  openProject(files: BFile[]): Project {
-    this.project = new Project(files)
-    return this.project
+  openProject(files: BFile[]) {
+    this.project = new Project(files);
+    this.spaceStyleService?.openProject(this.project)
   }
   saveProject(): void {}
+
+  connectDevice(url: string): void {
+
+  }
 }

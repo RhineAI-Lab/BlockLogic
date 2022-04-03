@@ -16,11 +16,10 @@ import {Project} from "../../common/project.class";
 
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  editorService: SpaceDevelopService;
-  project: Project;
-  constructor(editorService: SpaceDevelopService) {
-    this.editorService = editorService
-    this.project = editorService.project
+  spaceDevelopService: SpaceDevelopService;
+  constructor(spaceDevelopService: SpaceDevelopService) {
+    this.spaceDevelopService = spaceDevelopService
+    this.spaceDevelopService.spaceStyleService = this
   }
 
   public mainLayoutController?: SpaceMainLayoutController;
@@ -75,13 +74,8 @@ export class SpaceStyleService {
     this.tabssetBarController?.closeFile(file);
   }
 
-  openProject(files: BFile[]): void {
-    this.project = this.editorService.openProject(files)
-    this.sidebarProjectController?.changeData(this.project);
-  }
-
-  connectDevice(url: string): void{
-
+  openProject(project: Project): void {
+    this.sidebarProjectController?.changeData(project);
   }
 }
 

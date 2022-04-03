@@ -9,9 +9,9 @@ import { SpaceStyleService } from '../shared/space-style.service';
   styleUrls: ['./space-tabsset-bar.component.less'],
 })
 export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
-  styleService: SpaceStyleService;
-  constructor(styleService: SpaceStyleService) {
-    this.styleService = styleService;
+  spaceStyleService: SpaceStyleService;
+  constructor(spaceStyleService: SpaceStyleService) {
+    this.spaceStyleService = spaceStyleService;
   }
 
   readonly STRS_EDITOR_MODE: string[] = ['逻辑模式', '设计模式'];
@@ -34,7 +34,7 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    this.styleService.tabssetBarController = {
+    this.spaceStyleService.tabssetBarController = {
       changeEditorMode: (mode: number): void => {
         this.editorMode = mode;
       },
@@ -46,7 +46,7 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
         const path: string[] = file.split('/');
         const name = path[path.length - 1];
         this.tabs.push(new TabItem(name, file, false));
-        this.styleService.changeFile(file);
+        this.spaceStyleService.changeFile(file);
       },
       changeFile: (file: string): boolean => {
         const i = this.getTabIndexByFile(file);
@@ -70,9 +70,9 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
               return false;
             } else {
               if (i == 0) {
-                this.styleService.changeFile(this.tabs[1].file);
+                this.spaceStyleService.changeFile(this.tabs[1].file);
               } else {
-                this.styleService.changeFile(this.tabs[i - 1].file);
+                this.spaceStyleService.changeFile(this.tabs[i - 1].file);
               }
             }
           }
@@ -95,17 +95,17 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
   }
 
   onEditorModeChange(mode: number): void {
-    this.styleService.changeEditorMode(mode);
+    this.spaceStyleService.changeEditorMode(mode);
   }
   onShowModeChange(mode: number): void {
-    this.styleService.changeShowMode(mode);
+    this.spaceStyleService.changeShowMode(mode);
   }
 
   onTabClick(item: TabItem): void {
-    this.styleService.changeFile(item.file);
+    this.spaceStyleService.changeFile(item.file);
   }
   onTabClose(item: TabItem): void {
-    this.styleService.closeFile(item.file);
+    this.spaceStyleService.closeFile(item.file);
   }
 
   getFileIcon(name: string): string {
