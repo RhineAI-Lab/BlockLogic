@@ -1,7 +1,7 @@
 import '../common/run-in-context.polyfill';
 
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,8 @@ import { ReplaySubject } from 'rxjs';
 export class Sandbox {
   private $iframe = this.createIframe();
   private context = this.createContext(this.$iframe.contentWindow);
-  outputs$ = new ReplaySubject<SandboxOutput>();
+  private output$$ = new Subject<SandboxOutput>();
+  output$ = this.output$$.asObservable();
 
   constructor() {}
 
@@ -49,7 +50,7 @@ export class Sandbox {
     const redirector =
       (type: keyof Console) =>
       (...data: unknown[]) =>
-        this.outputs$.next({ type, data });
+        this.output$$.next({ type, data });
     return {
       log: redirector('log'),
       warn: redirector('warn'),
