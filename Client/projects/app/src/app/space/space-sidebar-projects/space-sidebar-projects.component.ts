@@ -1,17 +1,17 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzTreeNode, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
+import { BFile } from '../services/bfile.class';
+import { SpaceStyleService } from '../services/space-style.service';
 import { IconUtils } from '../utils/icon.utils';
-import {BFile} from "../services/bfile.class";
-import {SpaceStyleService} from "../services/space-style.service";
-import {NzNotificationService} from "ng-zorro-antd/notification";
-import {NzTreeNode, NzTreeNodeOptions} from "ng-zorro-antd/tree";
 
 @Component({
   selector: 'app-space-sidebar-files',
   templateUrl: './space-sidebar-projects.component.html',
   styleUrls: ['./space-sidebar-projects.component.less'],
 })
-export class SpaceSidebarProjectsComponent implements OnInit,AfterViewInit {
+export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
   spaceStyleService: SpaceStyleService;
   notification: NzNotificationService;
   constructor(
@@ -68,10 +68,10 @@ export class SpaceSidebarProjectsComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.spaceStyleService.sidebarProjectController = {
-      changeData: files => {
-        if(files.length==0){
+      changeData: (files) => {
+        if (files.length == 0) {
           this.data = [
             {
               title: 'Project',
@@ -80,20 +80,22 @@ export class SpaceSidebarProjectsComponent implements OnInit,AfterViewInit {
               children: [
                 {
                   title: files[0].name,
-                  key: 'Project/'+files[0].name,
+                  key: 'Project/' + files[0].name,
                   isLeaf: true,
                 },
               ],
-            }
-          ]
-        }else{
-          this.data = []
+            },
+          ];
+        } else {
+          this.data = [];
           for (const file of files) {
-            let ps = file.path.split("/")
+            // TODO: unused variable
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const ps = file.path.split('/');
           }
         }
-      }
-    }
+      },
+    };
   }
 
   getFileIcon(name: string): string {

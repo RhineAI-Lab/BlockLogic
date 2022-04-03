@@ -1,74 +1,89 @@
 <div class="layout" fxLayout>
-    <div class="btns btns-left no-select">
-        <ng-container  *ngFor="let item of items">
-            <div *ngIf="item.showTab&&item.position.indexOf('left')>=0"
-                 class="btn"
-                 (click)="onBtnClick(item)"
-                 [ngStyle]="item.isOpen
-                 ?{'height':item.name.length*12+52+'px','background':'#BDBDBD'}
-                 :{'height':item.name.length*12+52+'px'}"
-
-                 [nz-tooltip]="item.tooltip"
-                 [nzTooltipMouseEnterDelay]="0.4"
-            >
-                <p class="btn-text btn-text-left">{{item.name}}</p>
-                <i nz-icon class="btn-icon btn-icon-left" [nzType]="item.icon"></i>
-            </div>
-        </ng-container>
-    </div>
-    <app-vertical-split-line></app-vertical-split-line>
-    <div fxLayout class="sidebars sidebars-left">
-        <ng-container *ngFor="let item of items">
-            <div class="sidebar-holder"
-                 *ngIf="item.position.indexOf('left')>=0"
-                 [ngStyle]="{
-                     'display':item.isOpen?'inline-block':'none',
-                     'width':item.width+'px'
-                 }"
-            >
-                <div class="sidebar sidebar-left">
-                    <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
-                </div>
-                <div class="drag-split-line drag-split-line-left"
-                     (mousedown)="onChangeWidth($event,item)"
-                ></div>
-            </div>
-        </ng-container>
-    </div>
-    <ng-content class="main"></ng-content>
-    <div fxLayout class="sidebars sidebars-right">
-        <ng-container *ngFor="let item of items">
-            <div class="sidebar-holder"
-                 *ngIf="item.position.indexOf('right')>=0"
-                 [ngStyle]="{
-                     'display':item.isOpen?'inline-block':'none',
-                     'width':item.width+'px'
-                 }"
-            >
-                <div class="sidebar sidebar-right">
-                    <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
-                </div>
-                <div class="drag-split-line drag-split-line-right"
-                     (mousedown)="onChangeWidth($event,item)"
-                ></div>
-            </div>
-        </ng-container>
+  <div class="btns btns-left no-select">
+    <ng-container *ngFor="let item of items">
+      <div
+        *ngIf="item.showTab && item.position.indexOf('left') >= 0"
+        class="btn"
+        (click)="onBtnClick(item)"
+        [ngStyle]="
+          item.isOpen
+            ? {
+                height: item.name.length * 12 + 52 + 'px',
+                background: '#BDBDBD'
+              }
+            : { height: item.name.length * 12 + 52 + 'px' }
+        "
+        [nz-tooltip]="item.tooltip"
+        [nzTooltipMouseEnterDelay]="0.4"
+      >
+        <p class="btn-text btn-text-left">{{ item.name }}</p>
+        <i nz-icon class="btn-icon btn-icon-left" [nzType]="item.icon"></i>
+      </div>
+    </ng-container>
+  </div>
+  <app-vertical-split-line></app-vertical-split-line>
+  <div fxLayout class="sidebars sidebars-left">
+    <ng-container *ngFor="let item of items">
+      <div
+        class="sidebar-holder"
+        *ngIf="item.position.indexOf('left') >= 0"
+        [ngStyle]="{
+          display: item.isOpen ? 'inline-block' : 'none',
+          width: item.width + 'px'
+        }"
+      >
+        <div class="sidebar sidebar-left">
+          <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
+        </div>
+        <div
+          class="drag-split-line drag-split-line-left"
+          (mousedown)="onChangeWidth($event, item)"
+        ></div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-content class="main"></ng-content>
+  <div fxLayout class="sidebars sidebars-right">
+    <ng-container *ngFor="let item of items">
+      <div
+        class="sidebar-holder"
+        *ngIf="item.position.indexOf('right') >= 0"
+        [ngStyle]="{
+          display: item.isOpen ? 'inline-block' : 'none',
+          width: item.width + 'px'
+        }"
+      >
+        <div class="sidebar sidebar-right">
+          <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
+        </div>
+        <div
+          class="drag-split-line drag-split-line-right"
+          (mousedown)="onChangeWidth($event, item)"
+        ></div>
+      </div>
+    </ng-container>
     <app-vertical-split-line></app-vertical-split-line>
     <div class="btns btns-right no-select">
-        <ng-container  *ngFor="let item of items">
-            <div *ngIf="item.showTab&&item.position.indexOf('right')>=0"
-                 class="btn"
-                 (click)="onBtnClick(item)"
-                 [ngStyle]="item.isOpen
-                 ?{'height':item.name.length*12+52+'px','background':'#BDBDBD'}
-                 :{'height':item.name.length*12+52+'px'}"
-
-                 [nz-tooltip]="item.tooltip"
-                 [nzTooltipMouseEnterDelay]="0.4"
-            >
-                <p class="btn-text btn-text-right">{{item.name}}</p>
-                <i nz-icon class="btn-icon btn-icon-right" [nzType]="item.icon"></i>
-            </div>
-        </ng-container>
+      <ng-container *ngFor="let item of items">
+        <div
+          *ngIf="item.showTab && item.position.indexOf('right') >= 0"
+          class="btn"
+          (click)="onBtnClick(item)"
+          [ngStyle]="
+            item.isOpen
+              ? {
+                  height: item.name.length * 12 + 52 + 'px',
+                  background: '#BDBDBD'
+                }
+              : { height: item.name.length * 12 + 52 + 'px' }
+          "
+          [nz-tooltip]="item.tooltip"
+          [nzTooltipMouseEnterDelay]="0.4"
+        >
+          <p class="btn-text btn-text-right">{{ item.name }}</p>
+          <i nz-icon class="btn-icon btn-icon-right" [nzType]="item.icon"></i>
+        </div>
+      </ng-container>
     </div>
+  </div>
 </div>

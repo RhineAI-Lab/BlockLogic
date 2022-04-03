@@ -1,115 +1,209 @@
 <div class="layout hr-ant" fxLayout>
-    <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
-    <label nz-checkbox [(ngModel)]="holdBox">保持栏目</label>
-    <app-btn-icon
-        icon="icon-set"
-        class="moreSetting"
-        nz-dropdown
-        [nzDropdownMenu]="moreSettingMenu"
-        nzPlacement="bottomCenter"
-    ></app-btn-icon>
-    <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
-        <ul nz-menu>
-            <li nz-menu-item>
-                <label nz-checkbox [(ngModel)]="unfoldXml">展开XML</label>
-            </li>
-            <li nz-menu-item>
-                <label nz-checkbox [(ngModel)]="syncCode"> 同步代码</label>
-            </li>
-        </ul>
-    </nz-dropdown-menu>
-    <app-toolbar-split></app-toolbar-split>
-    <app-btn-icon icon="icon-undo" color="#5A76D4" nz-tooltip="撤销 [Ctrl+Z]" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-btn-icon icon="icon-redo" color="#5A76D4" nz-tooltip="重做 [Ctrl+Shift+Z]" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-toolbar-split></app-toolbar-split>
-    <span class="tip">生成: </span>
-    <nz-button-group nzSize="small">
-        <button nz-button>
-            <i nz-icon nzType="right"></i>
-            代码
-        </button>
-        <button nz-button>
-            <i nz-icon nzType="left"></i>
-            图形
-        </button>
-    </nz-button-group>
-    <br />
-    <div class="middle-space" fxFlex="grow"></div>
-    <nz-input-group
-        class="deviceIpInput"
-        [nzAddOnBefore]="deviceBeforeTemplate"
-        [nzSuffix]="deviceSuffix"
-        nzSize="small"
-    >
-        <input type="text" nz-input [(ngModel)]="deviceAddress" placeholder="设备IP地址"/>
-        <ng-template #deviceBeforeTemplate>
-            <nz-select [ngModel]="connectWay" nzSize="small">
-                <nz-option nzLabel="ws://" nzValue="ws://"></nz-option>
-                <nz-option nzLabel="wss://" nzValue="wss://"></nz-option>
-            </nz-select>
-        </ng-template>
-        <ng-template #deviceSuffix>
-            <i
-                nz-icon nzType="question" class="deviceHelp"
-                nz-tooltip="连接教程" nzTooltipPlacement="bottom"
-            ></i>
-        </ng-template>
-    </nz-input-group>
-    <app-btn-icon icon="api" [fill]="true" color="#1890FF" nz-tooltip="连接设备" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-toolbar-split></app-toolbar-split>
-    <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="runModeMenu" nzSize="small">
-        {{STRS_RUN_MODE[runMode]}}
-        <i nz-icon nzType="down"></i>
-        <nz-dropdown-menu #runModeMenu="nzDropdownMenu">
-            <ul nz-menu>
-                <li nz-menu-item (click)="onRunModeChange(RUN_MODE_OFFLINE)">在线运行</li>
-                <li nz-menu-item (click)="onRunModeChange(RUN_MODE_DEVICE)">设备运行</li>
-            </ul>
-        </nz-dropdown-menu>
+  <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
+  <label nz-checkbox [(ngModel)]="holdBox">保持栏目</label>
+  <app-btn-icon
+    icon="icon-set"
+    class="moreSetting"
+    nz-dropdown
+    [nzDropdownMenu]="moreSettingMenu"
+    nzPlacement="bottomCenter"
+  ></app-btn-icon>
+  <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item>
+        <label nz-checkbox [(ngModel)]="unfoldXml">展开XML</label>
+      </li>
+      <li nz-menu-item>
+        <label nz-checkbox [(ngModel)]="syncCode"> 同步代码</label>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+  <app-toolbar-split></app-toolbar-split>
+  <app-btn-icon
+    icon="icon-undo"
+    color="#5A76D4"
+    nz-tooltip="撤销 [Ctrl+Z]"
+    nzTooltipPlacement="bottom"
+  ></app-btn-icon>
+  <app-btn-icon
+    icon="icon-redo"
+    color="#5A76D4"
+    nz-tooltip="重做 [Ctrl+Shift+Z]"
+    nzTooltipPlacement="bottom"
+  ></app-btn-icon>
+  <app-toolbar-split></app-toolbar-split>
+  <span class="tip">生成: </span>
+  <nz-button-group nzSize="small">
+    <button nz-button>
+      <i nz-icon nzType="right"></i>
+      代码
     </button>
-    <app-btn-icon icon="icon-play" color="#59A869" nz-tooltip="运行 [Ctrl+5]" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-btn-icon icon="icon-stop" color="#C75450" nz-tooltip="停止 [Ctrl+6]" nzTooltipPlacement="bottom"></app-btn-icon>
-    <app-toolbar-split></app-toolbar-split>
-    <nz-button-group nzSize="small">
-        <button nz-button (click)="onSaveProject()" nz-tooltip="保存项目" nzTooltipPlacement="bottom">
-            <i nz-icon nzType="save"></i>
-            {{STRS_SAVE_MODE[saveMode]}}
-        </button>
-        <button nz-button nz-dropdown [nzDropdownMenu]="saveWayMenu" nzPlacement="bottomRight">
-            <i nz-icon nzType="ellipsis"></i>
-            <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
-                <ul nz-menu>
-                    <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_OFFLINE)">本地保存</li>
-                    <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_ONLINE)">在线保存</li>
-                    <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_DEVICE)">设备保存</li>
-                </ul>
-            </nz-dropdown-menu>
-        </button>
-    </nz-button-group>
-    <nz-button-group nzSize="small">
-        <button nz-button (click)="onOpenProject()" nz-tooltip="打开项目" nzTooltipPlacement="bottom">
-            <i nz-icon nzType="folder-open"></i>
-            {{STRS_OPEN_MODE[openMode]}}
-        </button>
-        <button nz-button nz-dropdown [nzDropdownMenu]="openWayMenu" nzPlacement="bottomRight">
-            <i nz-icon nzType="ellipsis"></i>
-            <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
-                <ul nz-menu>
-                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FILE)">打开本地单文件</li>
-                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FOLDER)">打开本地文件夹</li>
-                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">打开在线项目</li>
-                    <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">打开设备项目</li>
-                </ul>
-            </nz-dropdown-menu>
-        </button>
-    </nz-button-group>
-    <input class="hide" type="file" (change)="onSelectProject()" webkitdirectory directory #folderChooser/>
-    <input class="hide" type="file" (change)="onSelectProject()" accept="text/javascript" #fileChooser/>
-    <app-toolbar-split [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"></app-toolbar-split>
-    <app-btn-icon
-        icon="vertical-align-bottom"
-        nz-tooltip="显示头部栏" nzTooltipPlacement="bottomRight"
-        [ngStyle]="{'display':showHideHeaderBtn?'inline-block':'none'}"
-        (click)="onShowHeader()"
-    ></app-btn-icon>
+    <button nz-button>
+      <i nz-icon nzType="left"></i>
+      图形
+    </button>
+  </nz-button-group>
+  <br />
+  <div class="middle-space" fxFlex="grow"></div>
+  <nz-input-group
+    class="deviceIpInput"
+    [nzAddOnBefore]="deviceBeforeTemplate"
+    [nzSuffix]="deviceSuffix"
+    nzSize="small"
+  >
+    <input
+      type="text"
+      nz-input
+      [(ngModel)]="deviceAddress"
+      placeholder="设备IP地址"
+    />
+    <ng-template #deviceBeforeTemplate>
+      <nz-select [ngModel]="connectWay" nzSize="small">
+        <nz-option nzLabel="ws://" nzValue="ws://"></nz-option>
+        <nz-option nzLabel="wss://" nzValue="wss://"></nz-option>
+      </nz-select>
+    </ng-template>
+    <ng-template #deviceSuffix>
+      <i
+        nz-icon
+        nzType="question"
+        class="deviceHelp"
+        nz-tooltip="连接教程"
+        nzTooltipPlacement="bottom"
+      ></i>
+    </ng-template>
+  </nz-input-group>
+  <app-btn-icon
+    icon="api"
+    [fill]="true"
+    color="#1890FF"
+    nz-tooltip="连接设备"
+    nzTooltipPlacement="bottom"
+  ></app-btn-icon>
+  <app-toolbar-split></app-toolbar-split>
+  <button
+    class="editor-mode-selector"
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="runModeMenu"
+    nzSize="small"
+  >
+    {{ STRS_RUN_MODE[runMode] }}
+    <i nz-icon nzType="down"></i>
+    <nz-dropdown-menu #runModeMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="onRunModeChange(RUN_MODE_OFFLINE)">
+          在线运行
+        </li>
+        <li nz-menu-item (click)="onRunModeChange(RUN_MODE_DEVICE)">
+          设备运行
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </button>
+  <app-btn-icon
+    icon="icon-play"
+    color="#59A869"
+    nz-tooltip="运行 [Ctrl+5]"
+    nzTooltipPlacement="bottom"
+  ></app-btn-icon>
+  <app-btn-icon
+    icon="icon-stop"
+    color="#C75450"
+    nz-tooltip="停止 [Ctrl+6]"
+    nzTooltipPlacement="bottom"
+  ></app-btn-icon>
+  <app-toolbar-split></app-toolbar-split>
+  <nz-button-group nzSize="small">
+    <button
+      nz-button
+      (click)="onSaveProject()"
+      nz-tooltip="保存项目"
+      nzTooltipPlacement="bottom"
+    >
+      <i nz-icon nzType="save"></i>
+      {{ STRS_SAVE_MODE[saveMode] }}
+    </button>
+    <button
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="saveWayMenu"
+      nzPlacement="bottomRight"
+    >
+      <i nz-icon nzType="ellipsis"></i>
+      <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_OFFLINE)">
+            本地保存
+          </li>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_ONLINE)">
+            在线保存
+          </li>
+          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_DEVICE)">
+            设备保存
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </button>
+  </nz-button-group>
+  <nz-button-group nzSize="small">
+    <button
+      nz-button
+      (click)="onOpenProject()"
+      nz-tooltip="打开项目"
+      nzTooltipPlacement="bottom"
+    >
+      <i nz-icon nzType="folder-open"></i>
+      {{ STRS_OPEN_MODE[openMode] }}
+    </button>
+    <button
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="openWayMenu"
+      nzPlacement="bottomRight"
+    >
+      <i nz-icon nzType="ellipsis"></i>
+      <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FILE)">
+            打开本地单文件
+          </li>
+          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_OFFLINE_FOLDER)">
+            打开本地文件夹
+          </li>
+          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">
+            打开在线项目
+          </li>
+          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">
+            打开设备项目
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </button>
+  </nz-button-group>
+  <input
+    class="hide"
+    type="file"
+    (change)="onSelectProject()"
+    webkitdirectory
+    directory
+    #folderChooser
+  />
+  <input
+    class="hide"
+    type="file"
+    (change)="onSelectProject()"
+    accept="text/javascript"
+    #fileChooser
+  />
+  <app-toolbar-split
+    [ngStyle]="{ display: showHideHeaderBtn ? 'inline-block' : 'none' }"
+  ></app-toolbar-split>
+  <app-btn-icon
+    icon="vertical-align-bottom"
+    nz-tooltip="显示头部栏"
+    nzTooltipPlacement="bottomRight"
+    [ngStyle]="{ display: showHideHeaderBtn ? 'inline-block' : 'none' }"
+    (click)="onShowHeader()"
+  ></app-btn-icon>
 </div>

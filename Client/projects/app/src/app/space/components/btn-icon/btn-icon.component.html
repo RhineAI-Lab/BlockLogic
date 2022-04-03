@@ -1,13 +1,15 @@
 <div class="layout">
-    <i nz-icon
-       *ngIf="icon.indexOf('icon-')==-1"
-       [nzType]="icon"
-       [ngStyle]="{'color':color,'font-size':size+'px'}"
-       [nzTheme]="fill?'fill':'outline'"
-    ></i>
-    <i nz-icon
-       *ngIf="icon.indexOf('icon-')==0"
-       [nzIconfont]="icon"
-       [ngStyle]="{'color':color,'font-size':size+'px'}"
-    ></i>
+  <i
+    nz-icon
+    *ngIf="icon.indexOf('icon-') == -1"
+    [nzType]="icon"
+    [ngStyle]="{ color: color, 'font-size': size + 'px' }"
+    [nzTheme]="fill ? 'fill' : 'outline'"
+  ></i>
+  <i
+    nz-icon
+    *ngIf="icon.indexOf('icon-') == 0"
+    [nzIconfont]="icon"
+    [ngStyle]="{ color: color, 'font-size': size + 'px' }"
+  ></i>
 </div>

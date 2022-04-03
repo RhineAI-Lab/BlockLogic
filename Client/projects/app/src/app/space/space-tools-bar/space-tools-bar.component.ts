@@ -1,8 +1,14 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { BFile } from '../services/bfile.class';
 import { SpaceStyleService } from '../services/space-style.service';
-import {BFile} from "../services/bfile.class";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -36,7 +42,12 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   readonly OPEN_MODE_OFFLINE_FOLDER: number = 1;
   readonly OPEN_MODE_DEVICE: number = 2;
   readonly OPEN_MODE_ONLINE: number = 3;
-  readonly STRS_OPEN_MODE: string[] = ['本地单文件', '本地文件夹', '设备', '在线'];
+  readonly STRS_OPEN_MODE: string[] = [
+    '本地单文件',
+    '本地文件夹',
+    '设备',
+    '在线',
+  ];
 
   holdBox = false;
   syncCode = true;
@@ -80,9 +91,9 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   }
   onOpenProject(): void {
     if (this.openMode == this.OPEN_MODE_OFFLINE_FILE) {
-      this.fileChooser.nativeElement.click()
+      this.fileChooser.nativeElement.click();
     } else if (this.openMode == this.OPEN_MODE_OFFLINE_FOLDER) {
-      this.folderChooser.nativeElement.click()
+      this.folderChooser.nativeElement.click();
     } else if (this.saveMode == this.OPEN_MODE_ONLINE) {
       this.notification.create(
         'error',
@@ -98,19 +109,19 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSelectProject(){
-    let files: File[] = []
-    if(this.openMode==this.OPEN_MODE_OFFLINE_FILE){
-      files = this.fileChooser.nativeElement.files
-    }else if(this.openMode==this.OPEN_MODE_OFFLINE_FOLDER){
-      files = this.folderChooser.nativeElement.files
+  onSelectProject(): void {
+    let files: File[] = [];
+    if (this.openMode == this.OPEN_MODE_OFFLINE_FILE) {
+      files = this.fileChooser.nativeElement.files;
+    } else if (this.openMode == this.OPEN_MODE_OFFLINE_FOLDER) {
+      files = this.folderChooser.nativeElement.files;
     }
-    if(files.length>0){
-      let bfiles: BFile[] = []
+    if (files.length > 0) {
+      const bfiles: BFile[] = [];
       for (const file of files) {
-        bfiles.push(new BFile(file))
+        bfiles.push(new BFile(file));
       }
-      this.spaceStyleService.openProject(bfiles)
+      this.spaceStyleService.openProject(bfiles);
     }
   }
 

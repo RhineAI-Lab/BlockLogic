@@ -1,107 +1,101 @@
-
-.layout{
-    height: 100%;
+.layout {
+  height: 100%;
 }
 
-.btns{
+.btns {
+  width: 22px;
+  background-color: #f2f2f2;
+
+  .btn {
+    position: relative;
     width: 22px;
-    background-color: #F2F2F2;
+    min-height: 40px;
+    background: #f2f2f2;
+    margin-bottom: 1px;
 
-    .btn{
-        position: relative;
-        width: 22px;
-        min-height: 40px;
-        background: #F2F2F2;
-        margin-bottom: 1px;
-
-        .btn-text{
-            height: 22px;
-            line-height: 22px;
-            vertical-align: middle;
-            max-lines: 1;
-            white-space: nowrap;
-            position: absolute;
-            font-size: 10px;
-            color: #111;
-        }
-        .btn-text-left{
-            bottom: 24px;
-            transform:rotate(-90deg);
-            transform-origin: 11px 11px;
-        }
-        .btn-text-right{
-            top: 32px;
-            transform:rotate(90deg);
-            transform-origin: 11px 11px;
-        }
-
-        .btn-icon{
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            font-size: 14px;
-            margin: 3px;
-        }
-        .btn-icon-left{
-            bottom: 11px;
-        }
-        .btn-icon-right{
-            top: 11px;
-        }
+    .btn-text {
+      height: 22px;
+      line-height: 22px;
+      vertical-align: middle;
+      max-lines: 1;
+      white-space: nowrap;
+      position: absolute;
+      font-size: 10px;
+      color: #111;
+    }
+    .btn-text-left {
+      bottom: 24px;
+      transform: rotate(-90deg);
+      transform-origin: 11px 11px;
+    }
+    .btn-text-right {
+      top: 32px;
+      transform: rotate(90deg);
+      transform-origin: 11px 11px;
     }
 
-    .btn:hover{
-        cursor: pointer;
-        background-color: #D9D9D9;
+    .btn-icon {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      font-size: 14px;
+      margin: 3px;
     }
+    .btn-icon-left {
+      bottom: 11px;
+    }
+    .btn-icon-right {
+      top: 11px;
+    }
+  }
+
+  .btn:hover {
+    cursor: pointer;
+    background-color: #d9d9d9;
+  }
 }
 
-.sidebars{
+.sidebars {
+  .sidebar-holder {
+    position: relative;
 
-    .sidebar-holder{
-        position: relative;
-
-        .sidebar{
-            position: absolute;
-            top: 0;
-            bottom: 0;
-        }
-        .sidebar-left{
-            left: 0;
-            right: 1px;
-        }
-        .sidebar-right{
-            left: 1px;
-            right: 0;
-        }
-
-        .drag-split-line{
-            width: 1px;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            background-color: #CFCFCF;
-        }
-        .drag-split-line-left{
-            right: 0;
-        }
-        .drag-split-line-right{
-            left: 0;
-        }
-        .drag-split-line::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: -5px;
-            bottom: 0;
-            left: -5px;
-        }
-        .drag-split-line:hover{
-            cursor: ew-resize;
-        }
-
+    .sidebar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+    .sidebar-left {
+      left: 0;
+      right: 1px;
+    }
+    .sidebar-right {
+      left: 1px;
+      right: 0;
     }
 
+    .drag-split-line {
+      width: 1px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      background-color: #cfcfcf;
+    }
+    .drag-split-line-left {
+      right: 0;
+    }
+    .drag-split-line-right {
+      left: 0;
+    }
+    .drag-split-line::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -5px;
+      bottom: 0;
+      left: -5px;
+    }
+    .drag-split-line:hover {
+      cursor: ew-resize;
+    }
+  }
 }
-
-

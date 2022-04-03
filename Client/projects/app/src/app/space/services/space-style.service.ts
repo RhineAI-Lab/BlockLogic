@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { SpaceMainLayoutController } from '../space.component';
 import { SpaceHeaderController } from '../space-header/space-header.component';
 import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-sidebar-manager.component';
+import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
-import {BFile} from "./bfile.class";
-import {SpaceSidebarProjectsController} from "../space-sidebar-projects/space-sidebar-projects.component";
+import { BFile } from './bfile.class';
 
 @Injectable({
   providedIn: 'root',
@@ -68,8 +68,8 @@ export class SpaceStyleService {
     this.tabssetBarController?.closeFile(file);
   }
 
-  openProject(files: BFile[]): void{
-    this.sidebarProjectController?.changeData(files)
+  openProject(files: BFile[]): void {
+    this.sidebarProjectController?.changeData(files);
   }
 }
 

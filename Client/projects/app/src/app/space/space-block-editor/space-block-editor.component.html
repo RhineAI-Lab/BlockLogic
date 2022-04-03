@@ -1,28 +1,42 @@
 <nz-layout>
   <nz-sider nzTheme="light">
     <div class="sider-main no-select">
-      <h1><a target="_blank" href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0">Auto.Js Pro</a></h1>
+      <h1>
+        <a
+          target="_blank"
+          href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0"
+          >Auto.Js Pro</a
+        >
+      </h1>
       <h2><a target="_blank" href="https://logic.autojs.org">BlockLogic</a></h2>
       <ul nz-menu nzMode="inline" [nzSelectable]="false">
-        <li nz-submenu
-            *ngFor="let category of _categoriesType(blocklier.categories)"
-            [nzTitle]="category.name"
-            [nzPaddingLeft]="14"
+        <li
+          nz-submenu
+          *ngFor="let category of _categoriesType(blocklier.categories)"
+          [nzTitle]="category.name"
+          [nzPaddingLeft]="14"
         >
           <ul>
-            <li nz-menu-item
-                *ngFor="let item of category.children"
-                (click)="
+            <li
+              nz-menu-item
+              *ngFor="let item of category.children"
+              (click)="
                 $event.stopPropagation();
                 item.$row.click();
                 categorySelected == item
                   ? (categorySelected = undefined)
                   : (categorySelected = item)
               "
-                [nzPaddingLeft]="26"
-                [nzSelected]="categorySelected == item"
+              [nzPaddingLeft]="26"
+              [nzSelected]="categorySelected == item"
             >
-              <div class="category-icon" [ngStyle]="{'border-color':item.color,'background-color':colourBlend(item.color)}"></div>
+              <div
+                class="category-icon"
+                [ngStyle]="{
+                  'border-color': item.color,
+                  'background-color': colourBlend(item.color)
+                }"
+              ></div>
               <span class="category-title">{{ item.name }}</span>
             </li>
           </ul>
@@ -31,7 +45,8 @@
     </div>
   </nz-sider>
   <nz-content>
-    <app-blocklier class="no-select"
+    <app-blocklier
+      class="no-select"
       (init)="workspace = blocklier.workspace"
       (change)="change.emit()"
       #blocklier

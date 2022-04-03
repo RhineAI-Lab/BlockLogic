@@ -1,35 +1,62 @@
 <div fxLayout class="layout no-select hr-ant">
-    <div class="main">
-        <div class="tabs">
-            <div
-                class="tab"
-                *ngFor="let item of tabs"
-                [ngStyle]="item.selected?{'border-bottom-color':'#00A86B','border-top-color':'#FFFFFF','background':'#FFFFFF'}:{}"
-                (click)="onTabClick(item)"
-            >
-                <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.name)"></i>
-                <p>{{item.name}}</p>
-                <div class="close-btn">
-                    <i nz-icon [nzType]="'close'" (click)="onTabClose(item);$event.stopPropagation();"></i>
-                </div>
-            </div>
+  <div class="main">
+    <div class="tabs">
+      <div
+        class="tab"
+        *ngFor="let item of tabs"
+        [ngStyle]="
+          item.selected
+            ? {
+                'border-bottom-color': '#00A86B',
+                'border-top-color': '#FFFFFF',
+                background: '#FFFFFF'
+              }
+            : {}
+        "
+        (click)="onTabClick(item)"
+      >
+        <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.name)"></i>
+        <p>{{ item.name }}</p>
+        <div class="close-btn">
+          <i
+            nz-icon
+            [nzType]="'close'"
+            (click)="onTabClose(item); $event.stopPropagation()"
+          ></i>
         </div>
+      </div>
     </div>
-    <div fxFlex="grow"></div>
-    <app-toolbar-split></app-toolbar-split>
-    <button class="editor-mode-selector" nz-button nz-dropdown [nzDropdownMenu]="editorModeMenu" nzSize="small">
-        {{STRS_EDITOR_MODE[editorMode]}}
-        <i nz-icon nzType="down"></i>
-        <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
-            <ul nz-menu>
-                <li nz-menu-item (click)="onEditorModeChange(EDITOR_MODE_LOGIC)">逻辑模式</li>
-                <li nz-menu-item (click)="onEditorModeChange(EDITOR_M0DE_DESIGN)">设计模式</li>
-            </ul>
-        </nz-dropdown-menu>
-    </button>
-    <nz-radio-group class="show-mode-selector" [(ngModel)]="showMode" (ngModelChange)="onShowModeChange(showMode)" nzSize="small">
-        <label nz-radio-button [nzValue]="SHOW_MODE_BLOCK">图形</label>
-        <label nz-radio-button [nzValue]="SHOW_M0DE_SPLIT">分割</label>
-        <label nz-radio-button [nzValue]="SHOW_M0DE_CODE">代码</label>
-    </nz-radio-group>
+  </div>
+  <div fxFlex="grow"></div>
+  <app-toolbar-split></app-toolbar-split>
+  <button
+    class="editor-mode-selector"
+    nz-button
+    nz-dropdown
+    [nzDropdownMenu]="editorModeMenu"
+    nzSize="small"
+  >
+    {{ STRS_EDITOR_MODE[editorMode] }}
+    <i nz-icon nzType="down"></i>
+    <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="onEditorModeChange(EDITOR_MODE_LOGIC)">
+          逻辑模式
+        </li>
+        <li nz-menu-item (click)="onEditorModeChange(EDITOR_M0DE_DESIGN)">
+          设计模式
+        </li>
+      </ul>
+    </nz-dropdown-menu>
+  </button>
+  <nz-radio-group
+    class="show-mode-selector"
+    [(ngModel)]="showMode"
+    (ngModelChange)="onShowModeChange(showMode)"
+    nzSize="small"
+  >
+    <label nz-radio-button [nzValue]="SHOW_MODE_BLOCK">图形</label>
+    <label nz-radio-button [nzValue]="SHOW_M0DE_SPLIT">分割</label>
+    <label nz-radio-button [nzValue]="SHOW_M0DE_CODE">代码</label>
+  </nz-radio-group>
 </div>

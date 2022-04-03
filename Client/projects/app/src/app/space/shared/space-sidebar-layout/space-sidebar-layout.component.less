@@ -1,51 +1,50 @@
-
 @header-height: 30px;
 
-.layout{
+.layout {
   width: 100%;
   height: 100%;
   position: relative;
 
-  .header{
+  .header {
     height: @header-height;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
     align-items: center;
     white-space: nowrap;
     padding: 0 4px;
 
-    .header-icon{
+    .header-icon {
       width: 16px;
       height: 16px;
       font-size: 15px;
       margin: 8px 4px 6px 6px;
-      color: #1E1E1E;
+      color: #1e1e1e;
     }
-    .header-text{
+    .header-text {
       height: @header-height - 3;
       line-height: @header-height - 3;
       margin-top: 3px;
       margin-bottom: 0;
       max-lines: 1;
       font-size: 13px;
-      color: #1E1E1E;
+      color: #1e1e1e;
     }
   }
-  .split-line{
+  .split-line {
     position: absolute;
     top: @header-height;
     left: 0;
     right: 0;
   }
-  .body{
+  .body {
     position: absolute;
     top: @header-height + 1;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
   }
 }
