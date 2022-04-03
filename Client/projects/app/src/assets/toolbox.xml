@@ -1,6 +1,6 @@
 <xml>
     <category name="基础-JavaScript">
-        <category name="常用语句">
+        <category name="常用语句" colour="#aaaaaa">
             <block type="controls_if"></block>
             <block type="controls_repeat_ext">
                 <value name="TIMES">
@@ -381,7 +381,7 @@
             <block type="lists_sort"></block>
             <block type="lists_reverse"></block>
         </category>
-        <category name="自定义块">
+        <category name="自定义块" colour="#888888">
             <block type="puzzle"></block>
             <block type="explain"></block>
             <block type="explain_multi"></block>
@@ -397,7 +397,7 @@
     </category>
 
     <category name="脚本操作">
-        <category name="无障碍服务">
+        <category name="无障碍服务" colour="#e5af00">
             <block type="auto_wait_for"></block>
             <block type="auto_set_mode"></block>
             <block type="auto_set_flags"></block>
@@ -407,7 +407,7 @@
             <block type="auto_root_in_active_window"></block>
             <block type="auto_set_window_filter"></block>
         </category>
-        <category name="基于坐标操作">
+        <category name="基于坐标操作" colour="#5a66a4">
             <block type="coordinate_set_screen">
                 <value name="W">
                     <shadow type="math_number">
@@ -528,7 +528,7 @@
                 </value>
             </block>
         </category>
-        <category name="触摸模拟对象">
+        <category name="触摸模拟对象" colour="#e6645c">
             <block type="automator_new"></block>
             <block type="automator_tap">
                 <value name="F">
@@ -660,7 +660,7 @@
                 </value>
             </block>
         </category>
-        <category name="基于控件操作">
+        <category name="基于控件操作" colour="#2195f1">
             <block type="widget_do_text">
                 <value name="VALUE">
                     <shadow type="text"></shadow>
@@ -708,7 +708,7 @@
             <block type="widget_parent"></block>
             <block type="widget_children"></block>
         </category>
-        <category name="快捷控件操作">
+        <category name="快捷控件操作" colour="#90b01f">
             <block type="puzzle"></block>
             <block type="simple_click">
                 <value name="I">
@@ -771,7 +771,7 @@
                 </value>
             </block>
         </category>
-        <category name="意图">
+        <category name="意图" colour="#8e30be">
             <block type="intent_intent"></block>
             <block type="intent_start_activity"></block>
             <block type="intent_send_broadcast"></block>
@@ -798,7 +798,7 @@
     </category>
 
     <category name="界面控制">
-        <category name="界面">
+        <category name="界面" colour="#3c2eaf">
             <block type="ui_layout">
                 <value name="UI_XML">
                     <shadow type="ui_xml"></shadow>
@@ -866,7 +866,7 @@
                 </value>
             </block>
         </category>
-        <category name="文本控件">
+        <category name="文本控件" colour="#3c2eaf">
             <block type="ui_text_set_text">
                 <value name="TEXT">
                     <shadow type="text">
@@ -875,13 +875,13 @@
                 </value>
             </block>
         </category>
-        <category name="按钮控件">
+        <category name="按钮控件" colour="#3c2eaf">
             <block type="ui_btn_on_click"></block>
         </category>
     </category>
 
     <category name="一般功能">
-        <category name="常用功能">
+        <category name="常用功能" colour="#aaaaaa">
             <block type="auto_wait_for"></block>
             <block type="$settings_set_enabled"></block>
             <value name="ENABLED">
@@ -935,7 +935,7 @@
                 </value>
             </block>
         </category>
-        <category name="全局">
+        <category name="全局" colour="#7476c6">
             <block type="globals_sleep">
                 <value name="VALUE">
                     <shadow type="math_number"></shadow>
@@ -994,7 +994,7 @@
                 </value>
             </block>
         </category>
-        <category name="应用">
+        <category name="应用" colour="#d56331">
             <block type="app_version_code"></block>
             <block type="app_version_name"></block>
             <block type="app_autojs"></block>
@@ -1064,7 +1064,7 @@
                 </value>
             </block>
         </category>
-        <category name="设备">
+        <category name="设备" colour="#3264e1">
             <block type="device_get_brightness"></block>
             <block type="device_get_brightness_mode"></block>
             <block type="device_set_brightness">
@@ -1139,7 +1139,7 @@
             </block>
             <block type="cancel_vibration"></block>
         </category>
-        <category name="设备信息">
+        <category name="设备信息" colour="#698a8a">
             <block type="device_width"></block>
             <block type="device_height"></block>
             <block type="device_build_id"></block>
@@ -1162,20 +1162,20 @@
             <block type="device_get_android_id"></block>
             <block type="device_get_mac_address"></block>
         </category>
-        <category name="电源管理">
+        <category name="电源管理" colour="#52a242">
             <block type="$power_manager_request_ignore_battery_optimizations2"></block>
             <block type="$power_manager_request_ignore_battery_optimizations"></block>
             <block type="$power_manager_is_ignoring_battery_optimizations"></block>
             <block type="$power_manager_is_ignoring_battery_optimizations2"></block>
         </category>
-        <category name="设置">
+        <category name="设置" colour="#c68a16">
             <block type="$settings_set_enabled"></block>
             <block type="$settings_is_enabled"></block>
         </category>
     </category>
 
     <category name="运行交互">
-        <category name="控制台">
+        <category name="控制台" colour="0eaf9e">
             <block type="console_show"></block>
             <block type="console_clear"></block>
             <block type="console_output">
@@ -1241,7 +1241,7 @@
                 </value>
             </block>
         </category>
-        <category name="对话框">
+        <category name="对话框" colour="#9abc86">
             <block type="dialogs_alert">
                 <value name="TITLE">
                     <shadow type="text"></shadow>
@@ -1285,7 +1285,7 @@
                 </value>
             </block>
         </category>
-        <category name="调试工具">
+        <category name="调试工具" colour="#cc9999">
             <block type="$debug_dump_hprof">
                 <value name="FILE">
                     <shadow type="text">
@@ -1313,7 +1313,7 @@
     </category>
 
     <category name="通用功能">
-        <category name="文件系统">
+        <category name="文件系统" colour="#b9993d">
             <block type="files_is_file">
                 <value name="PATH">
                     <shadow type="text"></shadow>
@@ -1461,7 +1461,7 @@
                 </value>
             </block>
         </category>
-        <category name="多媒体">
+        <category name="多媒体" colour="#d4285c">
             <block type="media_scan_file">
                 <value name="PATH">
                     <shadow type="text"></shadow>
@@ -1494,7 +1494,7 @@
             <block type="media_get_music_duration"></block>
             <block type="media_get_music_current_position"></block>
         </category>
-        <category name="本地存储">
+        <category name="本地存储" colour="#cb863a">
             <block type="storages_create">
                 <value name="VALUE">
                     <shadow type="text"></shadow>
@@ -1551,7 +1551,7 @@
     </category>
 
     <category name="信息处理">
-        <category name="摘要/加密">
+        <category name="摘要/加密" colour="#88282a">
             <block type="crypto_digest">
                 <value name="DATA">
                     <shadow type="text">
@@ -1647,7 +1647,7 @@
     </category>
 
     <category name="项目">
-        <category name="插件">
+        <category name="插件" colour="#e5af00">
             <block type="$plugins_load">
                 <value name="LOAD">
                     <shadow type="text">
@@ -1659,7 +1659,7 @@
     </category>
 
     <category name="网络通信">
-        <category name="HTTP">
+        <category name="HTTP" colour="#339999">
             <block type="http_get">
                 <value name="URL">
                     <shadow type="text"></shadow>
