@@ -132,7 +132,7 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     }else if(!StringUtils.checkIP(this.deviceAddress)){
       this.notification.error('IP地址格式错误', '')
     }else{
-      let url = this.connectWay+this.deviceAddress;
+      let url = this.connectWay+this.deviceAddress+":9315";
       this.spaceDevelopService.connectDevice(url);
     }
   }

@@ -24,21 +24,22 @@ export class SpaceDebugService {
     this.ws = new WebSocket(url);
     this.url = url;
     this.ws.binaryType = 'arraybuffer';
-    let pt = this;
-    this.ws.onopen = function () {
-      pt.hello();
-      pt.connected = true;
+    this.ws.onopen = () => {
+      this.hello();
+      this.connected = true;
     };
-    this.ws.onmessage = function (evt) {
-      const data = pt.parseData(evt.data);
-      pt.onMsgBasic(data[0], data[1]);
+    this.ws.onmessage = (evt) => {
+      const data = this.parseData(evt.data);
+      this.onMsgBasic(data[0], data[1]);
     };
-    this.ws.onclose = function () {
-      pt.onClose();
-      pt.connected = false;
+    this.ws.onclose = () => {
+      if(this.connected){
+        this.onClose();
+        this.connected = false;
+      }
     };
-    this.ws.onerror = function (evt) {
-      pt.onError(evt);
+    this.ws.onerror = (evt) => {
+      this.onError(evt);
     };
   }
   onMsgBasic(type: number, data: any) {

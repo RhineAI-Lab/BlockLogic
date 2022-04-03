@@ -9,6 +9,7 @@ import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-ba
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
 import {SpaceDevelopService} from "./space-develop.service";
 import {Project} from "../../common/project.class";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ import {Project} from "../../common/project.class";
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
   spaceDevelopService: SpaceDevelopService;
+  notification?: NzNotificationService;
   constructor(spaceDevelopService: SpaceDevelopService) {
     this.spaceDevelopService = spaceDevelopService
     this.spaceDevelopService.spaceStyleService = this

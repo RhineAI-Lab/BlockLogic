@@ -19,27 +19,26 @@ var DebugPlugin = {
         this.ws = new WebSocket(url);
         this.url = url;
         this.ws.binaryType = "arraybuffer";
-        var pt = this;
         this.ws.onopen = function () {
-            pt.hello();
-            pt.connected = true;
+            this.hello();
         };
         this.ws.onmessage = function (evt) {
-            const data = pt.parseData(evt.data);
-            pt.onMsgBasic(data[0],data[1]);
+            const data = this.parseData(evt.data);
+            this.onMsgBasic(data[0],data[1]);
         };
         this.ws.onclose = function () {
-            pt.onClose();
-            pt.connected = false;
+            this.onClose();
+            this.connected = false;
         };
         this.ws.onerror = function (evt) {
-            pt.onError(evt)
+            this.onError(evt)
         }
     },
     onMsgBasic:function(type,data){
         console.oldLog("Receive",data);
         if(type===1){
             if(data.type==="hello"){
+                this.connected = true;
                 this.device = data.data.device_name;
                 this.serverVersion = data.data.server_version;
                 this.serverId = data.data.server_id;

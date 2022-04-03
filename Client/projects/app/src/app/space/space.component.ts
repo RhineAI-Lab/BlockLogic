@@ -6,6 +6,8 @@ import { NzIconService } from 'ng-zorro-antd/icon';
 import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import {SpaceDevelopService} from "./shared/space-develop.service";
 
 @Component({
   selector: 'app-space',
@@ -18,9 +20,21 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
   spaceStyleService: SpaceStyleService;
+  spaceDevelopService: SpaceDevelopService;
+  notification: NzNotificationService;
 
-  constructor(spaceStyleService: SpaceStyleService, iconService: NzIconService) {
+  constructor(
+    notification: NzNotificationService,
+    spaceStyleService: SpaceStyleService,
+    spaceDevelopService: SpaceDevelopService,
+    iconService: NzIconService,
+  ) {
+    this.notification = notification;
     this.spaceStyleService = spaceStyleService;
+    this.spaceDevelopService = spaceDevelopService;
+    this.spaceStyleService.notification = notification;
+    this.spaceDevelopService.notification = notification;
+
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
