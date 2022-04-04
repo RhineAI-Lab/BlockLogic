@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { BehaviorSubject } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
@@ -7,16 +8,14 @@ import { wait } from '../../common/promisify.utils';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
-import { SpaceStyleService } from './space-style.service';
 
 @Injectable()
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
-  private project = new Project();
+  readonly project$ = new BehaviorSubject<Project | null>(null);
 
   constructor(
     private debugService: SpaceDebugService,
-    private styleService: SpaceStyleService,
     private fileService: SpaceFileService,
     private notifier: NzNotificationService,
   ) {
@@ -34,11 +33,12 @@ export class SpaceDevelopService {
   }
 
   openProject(files: ProjectFile[]): void {
-    this.project = new Project(files);
-    this.styleService.openProject(this.project);
+    this.project$.next(new Project(files));
   }
   saveProject(mode: SpaceSaveMode): void {
-    this.fileService.saveProject(this.project, mode);
+    const project = this.project$.getValue();
+    if (!project) throw new Error();
+    this.fileService.saveProject(project, mode);
   }
 
   async connectDevice(url: string): Promise<void> {

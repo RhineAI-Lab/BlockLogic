@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Project } from '../../common/project.class';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceTabBarController } from '../space-tab-bar/space-tab-bar.component';
 
 @Injectable()
@@ -10,7 +8,6 @@ import { SpaceTabBarController } from '../space-tab-bar/space-tab-bar.component'
 export class SpaceStyleService {
   // TODO: remove
   public tabBarController?: SpaceTabBarController;
-  public sidebarProjectController?: SpaceSidebarProjectsController;
 
   private option = {
     editorMode: SpaceEditorMode.Logic,
@@ -41,9 +38,5 @@ export class SpaceStyleService {
   }
   closeFile(file: string): void {
     this.tabBarController?.closeFile(file);
-  }
-
-  openProject(project: Project): void {
-    this.sidebarProjectController?.changeData(project);
   }
 }

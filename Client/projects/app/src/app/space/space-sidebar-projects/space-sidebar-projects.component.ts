@@ -1,32 +1,22 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   NzTreeComponent,
   NzTreeNode,
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
+import { filter } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { IconUtils } from '../../common/utils/icon.utils';
-import { SpaceStyleService } from '../shared/space-style.service';
+import { SpaceDevelopService } from '../shared/space-develop.service';
 
 @Component({
   selector: 'app-space-sidebar-files',
   templateUrl: './space-sidebar-projects.component.html',
   styleUrls: ['./space-sidebar-projects.component.less'],
 })
-export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
-  spaceStyleService: SpaceStyleService;
-  notification: NzNotificationService;
-  constructor(
-    spaceStyleService: SpaceStyleService,
-    notification: NzNotificationService,
-  ) {
-    this.spaceStyleService = spaceStyleService;
-    this.notification = notification;
-  }
-
+export class SpaceSidebarProjectsComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
 
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
@@ -74,82 +64,12 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  ngOnInit(): void {}
+  constructor(private developService: SpaceDevelopService) {}
 
-  ngAfterViewInit(): void {
-    this.spaceStyleService.sidebarProjectController = {
-      changeData: async (projects) => {
-        const files = projects.files;
-        if (files.length == 1) {
-          this.data = [
-            {
-              title: 'Project',
-              key: 'Project',
-              isRoot: true,
-              expanded: true,
-              children: [
-                {
-                  title: files[0].name,
-                  key: 'Project/' + files[0].name,
-                  isLeaf: true,
-                },
-              ],
-            },
-          ];
-        } else {
-          const projectName = files[0].path.split('/')[0];
-          this.data = [
-            {
-              title: projectName,
-              key: projectName,
-              isRoot: true,
-              expanded: true,
-              children: [],
-            },
-          ];
-          await wait;
-          const rootNode = this.tree.getTreeNodeByKey(projectName);
-          if (!rootNode) return;
-          for (const file of files) {
-            const ps = file.path.split('/');
-            let focusNode: NzTreeNode = rootNode;
-            let focusPath: string = projectName;
-            for (const psKey in ps) {
-              if (psKey == '0') continue;
-              const name = ps[psKey];
-              focusPath = focusPath + '/' + name;
-              if (psKey != ps.length - 1 + '') {
-                const node = this.tree.getTreeNodeByKey(focusPath);
-                if (node) {
-                  focusNode = node;
-                } else {
-                  focusNode.addChildren([
-                    {
-                      title: name,
-                      key: focusPath,
-                      expanded: true,
-                      children: [],
-                    },
-                  ]);
-                  const temp = this.tree.getTreeNodeByKey(focusPath);
-                  if (temp) focusNode = temp;
-                }
-              } else {
-                focusNode.addChildren([
-                  {
-                    title: name,
-                    key: focusPath,
-                    isLeaf: true,
-                  },
-                ]);
-                const temp = this.tree.getTreeNodeByKey(focusPath);
-                if (temp) focusNode = temp;
-              }
-            }
-          }
-        }
-      },
-    };
+  ngOnInit(): void {
+    this.developService.project$
+      .pipe(filter((v): v is Project => !!v))
+      .subscribe((project) => this.resolve(project));
   }
 
   getNodeIdFromListByTitle(
@@ -169,8 +89,76 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
   getFileIcon(name: string): string {
     return IconUtils.getIconByFileName(name);
   }
-}
 
-export interface SpaceSidebarProjectsController {
-  changeData: (project: Project) => void;
+  private async resolve(project: Project): Promise<void> {
+    const files = project.files;
+    if (files.length == 1) {
+      this.data = [
+        {
+          title: 'Project',
+          key: 'Project',
+          isRoot: true,
+          expanded: true,
+          children: [
+            {
+              title: files[0].name,
+              key: 'Project/' + files[0].name,
+              isLeaf: true,
+            },
+          ],
+        },
+      ];
+    } else {
+      const projectName = files[0].path.split('/')[0];
+      this.data = [
+        {
+          title: projectName,
+          key: projectName,
+          isRoot: true,
+          expanded: true,
+          children: [],
+        },
+      ];
+      await wait();
+      const rootNode = this.tree.getTreeNodeByKey(projectName);
+      if (!rootNode) return;
+      for (const file of files) {
+        const ps = file.path.split('/');
+        let focusNode: NzTreeNode = rootNode;
+        let focusPath: string = projectName;
+        for (const psKey in ps) {
+          if (psKey == '0') continue;
+          const name = ps[psKey];
+          focusPath = focusPath + '/' + name;
+          if (psKey != ps.length - 1 + '') {
+            const node = this.tree.getTreeNodeByKey(focusPath);
+            if (node) {
+              focusNode = node;
+            } else {
+              focusNode.addChildren([
+                {
+                  title: name,
+                  key: focusPath,
+                  expanded: true,
+                  children: [],
+                },
+              ]);
+              const temp = this.tree.getTreeNodeByKey(focusPath);
+              if (temp) focusNode = temp;
+            }
+          } else {
+            focusNode.addChildren([
+              {
+                title: name,
+                key: focusPath,
+                isLeaf: true,
+              },
+            ]);
+            const temp = this.tree.getTreeNodeByKey(focusPath);
+            if (temp) focusNode = temp;
+          }
+        }
+      }
+    }
+  }
 }
