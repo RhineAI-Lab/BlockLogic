@@ -4,7 +4,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { wait } from '../../common/promisify.utils';
-import { SpaceSaveMode } from '../space-tools-bar/space-tools-bar.component';
+import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 import { SpaceStyleService } from './space-style.service';

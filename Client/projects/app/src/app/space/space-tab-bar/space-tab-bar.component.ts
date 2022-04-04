@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { IconUtils } from '../../common/utils/icon.utils';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
@@ -123,15 +124,4 @@ class TabItem {
     this.file = file;
     this.selected = selected;
   }
-}
-
-export enum SpaceEditorMode {
-  Logic = '逻辑模式',
-  Design = '设计模式',
-}
-
-export enum SpaceLayoutMode {
-  Visual,
-  Split,
-  Classic,
 }

@@ -3,6 +3,11 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { ProjectFile } from '../../common/project-file.class';
 import { StringUtils } from '../../common/utils/string.utils';
+import {
+  SpaceOpenMode,
+  SpaceRunMode,
+  SpaceSaveMode,
+} from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
 
@@ -103,25 +108,4 @@ export class SpaceToolsBarComponent implements OnInit {
   onOpenModeChange(mode: SpaceOpenMode): void {
     this.openMode = mode;
   }
-}
-
-export enum SpaceRunMode {
-  Browser = '在线运行',
-  Device = '设备运行',
-}
-
-export enum SpaceSaveMode {
-  Local = '本地',
-  Browser = '浏览器',
-  Device = '设备',
-  Cloud = '云端',
-}
-
-export enum SpaceOpenMode {
-  LocalFile = '本地文件',
-  LocalFolder = '本地目录',
-  LocalZip = '本地压缩包',
-  Browser = '浏览器',
-  Device = '设备',
-  Cloud = '云端',
 }

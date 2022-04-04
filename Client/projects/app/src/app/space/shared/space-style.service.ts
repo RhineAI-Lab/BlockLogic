@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { Project } from '../../common/project.class';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
-import {
-  SpaceEditorMode,
-  SpaceLayoutMode,
-  SpaceTabBarController,
-} from '../space-tab-bar/space-tab-bar.component';
+import { SpaceTabBarController } from '../space-tab-bar/space-tab-bar.component';
 
 @Injectable()
 // Space区域全局外观样式管理服务

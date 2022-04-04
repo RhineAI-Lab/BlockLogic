@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Project } from '../../common/project.class';
-import { SpaceSaveMode } from '../space-tools-bar/space-tools-bar.component';
+import { SpaceSaveMode } from '../common/space-modes.enums';
 
 @Injectable({
   providedIn: 'root',
