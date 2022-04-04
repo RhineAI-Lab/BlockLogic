@@ -36,27 +36,27 @@
     [nzDropdownMenu]="editorModeMenu"
     nzSize="small"
   >
-    {{ STRS_EDITOR_MODE[editorMode] }}
+    {{ editorMode }}
     <i nz-icon nzType="down"></i>
     <nz-dropdown-menu #editorModeMenu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="onEditorModeChange(EDITOR_MODE_LOGIC)">
+        <li nz-menu-item (click)="onEditorModeChange(EditorMode.Logic)">
           逻辑模式
         </li>
-        <li nz-menu-item (click)="onEditorModeChange(EDITOR_M0DE_DESIGN)">
+        <li nz-menu-item (click)="onEditorModeChange(EditorMode.Design)">
           设计模式
         </li>
       </ul>
     </nz-dropdown-menu>
   </button>
   <nz-radio-group
-    class="show-mode-selector"
-    [(ngModel)]="showMode"
-    (ngModelChange)="onShowModeChange(showMode)"
+    class="layout-mode-selector"
+    [(ngModel)]="layoutMode"
+    (ngModelChange)="onLayoutModeChange(layoutMode)"
     nzSize="small"
   >
-    <label nz-radio-button [nzValue]="SHOW_MODE_BLOCK">图形</label>
-    <label nz-radio-button [nzValue]="SHOW_M0DE_SPLIT">分割</label>
-    <label nz-radio-button [nzValue]="SHOW_M0DE_CODE">代码</label>
+    <label nz-radio-button [nzValue]="LayoutMode.Visual">图形</label>
+    <label nz-radio-button [nzValue]="LayoutMode.Split">分割</label>
+    <label nz-radio-button [nzValue]="LayoutMode.Classic">代码</label>
   </nz-radio-group>
 </div>

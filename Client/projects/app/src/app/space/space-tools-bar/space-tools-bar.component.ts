@@ -12,47 +12,26 @@ import { SpaceState } from '../shared/space-state.service';
   styleUrls: ['./space-tools-bar.component.less'],
 })
 export class SpaceToolsBarComponent implements OnInit {
+  RunMode = SpaceRunMode;
+  SaveMode = SpaceSaveMode;
+  OpenMode = SpaceOpenMode;
+
   @ViewChild('folderChooser') folderChooser!: ElementRef;
   @ViewChild('fileChooser') fileChooser!: ElementRef;
   @ViewChild('zipChooser') zipChooser!: ElementRef;
-
-  // TODO: use enums
-  readonly RUN_MODE_OFFLINE: number = 0;
-  readonly RUN_MODE_DEVICE: number = 1;
-  readonly STRS_RUN_MODE: string[] = ['在线运行', '设备运行'];
-
-  readonly SAVE_MODE_PC: number = 0;
-  readonly SAVE_MODE_BROWSER: number = 1;
-  readonly SAVE_MODE_DEVICE: number = 2;
-  readonly SAVE_MODE_ONLINE: number = 3;
-  readonly STRS_SAVE_MODE: string[] = ['本机', '浏览器', '设备', '在线'];
-
-  readonly OPEN_MODE_PC_FILE: number = 0;
-  readonly OPEN_MODE_PC_FOLDER: number = 1;
-  readonly OPEN_MODE_PC_ZIP: number = 2;
-  readonly OPEN_MODE_BROWSER: number = 3;
-  readonly OPEN_MODE_DEVICE: number = 4;
-  readonly OPEN_MODE_ONLINE: number = 5;
-  readonly STRS_OPEN_MODE: string[] = [
-    '单文件',
-    '文件夹',
-    '压缩包',
-    '浏览器',
-    '设备',
-    '在线',
-  ];
 
   holdBox = false;
   syncCode = true;
   unfoldXml = false;
   brightTheme = true;
 
-  runMode: number = this.RUN_MODE_OFFLINE;
-  saveMode: number = this.SAVE_MODE_PC;
-  openMode: number = this.OPEN_MODE_PC_FILE;
+  runMode = SpaceRunMode.Browser;
+  saveMode = SpaceSaveMode.Local;
+  openMode = SpaceOpenMode.LocalFile;
 
   deviceAddress = '';
-  connectWay = 'ws://';
+  connectionProtocol = 'ws://';
+
   constructor(
     public state: SpaceState,
     private developService: SpaceDevelopService,
@@ -62,37 +41,37 @@ export class SpaceToolsBarComponent implements OnInit {
   ngOnInit(): void {}
 
   onSaveProject(): void {
-    if (this.saveMode == this.SAVE_MODE_PC) {
-      this.developService.saveProject(this.saveMode)
-    } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
-      this.notifier.error('暂不支持保存至在线项目', '功能开发中...');
-    } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
+    if (this.saveMode == SpaceSaveMode.Local) {
+      this.developService.saveProject(this.saveMode);
+    } else if (this.saveMode == SpaceSaveMode.Cloud) {
+      this.notifier.error('暂不支持保存至云端', '功能开发中...');
+    } else if (this.saveMode == SpaceSaveMode.Device) {
       this.notifier.error('暂不支持保存至设备', '功能开发中...');
-    } else if (this.saveMode == this.SAVE_MODE_BROWSER) {
+    } else if (this.saveMode == SpaceSaveMode.Browser) {
       this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
     }
   }
   onOpenProject(): void {
-    if (this.openMode == this.OPEN_MODE_PC_FILE) {
+    if (this.openMode == SpaceOpenMode.LocalFile) {
       this.fileChooser.nativeElement.click();
-    } else if (this.openMode == this.OPEN_MODE_PC_FOLDER) {
+    } else if (this.openMode == SpaceOpenMode.LocalFolder) {
       this.folderChooser.nativeElement.click();
-    } else if (this.openMode == this.OPEN_MODE_PC_ZIP) {
+    } else if (this.openMode == SpaceOpenMode.LocalZip) {
       this.notifier.error('暂不支持打开压缩包项目', '功能开发中...');
-    } else if (this.openMode == this.OPEN_MODE_ONLINE) {
-      this.notifier.error('暂不支持打开在线项目', '功能开发中...');
-    } else if (this.openMode == this.OPEN_MODE_DEVICE) {
+    } else if (this.openMode == SpaceOpenMode.Cloud) {
+      this.notifier.error('暂不支持打开云端项目', '功能开发中...');
+    } else if (this.openMode == SpaceOpenMode.Device) {
       this.notifier.error('暂不支持打开设备中项目', '功能开发中...');
-    } else if (this.openMode == this.OPEN_MODE_BROWSER) {
+    } else if (this.openMode == SpaceOpenMode.Browser) {
       this.notifier.error('暂不支持打开浏览器中项目', '功能开发中...');
     }
   }
 
   onSelectProject(): void {
     let files: File[] = [];
-    if (this.openMode == this.OPEN_MODE_PC_FILE) {
+    if (this.openMode == SpaceOpenMode.LocalFile) {
       files = this.fileChooser.nativeElement.files;
-    } else if (this.openMode == this.OPEN_MODE_PC_FOLDER) {
+    } else if (this.openMode == SpaceOpenMode.LocalFolder) {
       files = this.folderChooser.nativeElement.files;
     }
     if (files.length > 0) {
@@ -110,18 +89,39 @@ export class SpaceToolsBarComponent implements OnInit {
     } else if (!StringUtils.checkIP(this.deviceAddress)) {
       this.notifier.error('IP地址格式错误', '');
     } else {
-      const url = this.connectWay + this.deviceAddress + ':9315';
+      const url = this.connectionProtocol + this.deviceAddress + ':9315';
       this.developService.connectDevice(url);
     }
   }
 
-  onRunModeChange(mode: number): void {
+  onRunModeChange(mode: SpaceRunMode): void {
     this.runMode = mode;
   }
-  onSaveModeChange(mode: number): void {
+  onSaveModeChange(mode: SpaceSaveMode): void {
     this.saveMode = mode;
   }
-  onOpenModeChange(mode: number): void {
+  onOpenModeChange(mode: SpaceOpenMode): void {
     this.openMode = mode;
   }
+}
+
+export enum SpaceRunMode {
+  Browser = '在线运行',
+  Device = '设备运行',
+}
+
+export enum SpaceSaveMode {
+  Local = '本地',
+  Browser = '浏览器',
+  Device = '设备',
+  Cloud = '云端',
+}
+
+export enum SpaceOpenMode {
+  LocalFile = '本地文件',
+  LocalFolder = '本地目录',
+  LocalZip = '本地压缩包',
+  Browser = '浏览器',
+  Device = '设备',
+  Cloud = '云端',
 }

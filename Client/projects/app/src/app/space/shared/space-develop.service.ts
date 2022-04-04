@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { ProjectFile } from '../../common/project-file.class';
 import { Project } from '../../common/project.class';
+import { ProjectFile } from '../../common/project-file.class';
 import { wait } from '../../common/promisify.utils';
+import { SpaceSaveMode } from '../space-tools-bar/space-tools-bar.component';
 import { SpaceDebugService } from './space-debug.service';
-import { SpaceStyleService } from './space-style.service';
 import { SpaceFileService } from './space-file.service';
+import { SpaceStyleService } from './space-style.service';
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -36,7 +37,7 @@ export class SpaceDevelopService {
     this.project = new Project(files);
     this.styleService.openProject(this.project);
   }
-  saveProject(mode: number): void {
+  saveProject(mode: SpaceSaveMode): void {
     this.fileService.saveProject(this.project, mode);
   }
 

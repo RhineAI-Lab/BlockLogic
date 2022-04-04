@@ -58,7 +58,7 @@
       placeholder="设备IP地址"
     />
     <ng-template #deviceBeforeTemplate>
-      <nz-select [ngModel]="connectWay" nzSize="small">
+      <nz-select [ngModel]="connectionProtocol" nzSize="small">
         <nz-option nzLabel="ws://" nzValue="ws://"></nz-option>
         <nz-option nzLabel="wss://" nzValue="wss://"></nz-option>
       </nz-select>
@@ -89,16 +89,14 @@
     [nzDropdownMenu]="runModeMenu"
     nzSize="small"
   >
-    {{ STRS_RUN_MODE[runMode] }}
+    {{ runMode }}
     <i nz-icon nzType="down"></i>
     <nz-dropdown-menu #runModeMenu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="onRunModeChange(RUN_MODE_OFFLINE)">
+        <li nz-menu-item (click)="onRunModeChange(RunMode.Browser)">
           在线运行
         </li>
-        <li nz-menu-item (click)="onRunModeChange(RUN_MODE_DEVICE)">
-          设备运行
-        </li>
+        <li nz-menu-item (click)="onRunModeChange(RunMode.Device)">设备运行</li>
       </ul>
     </nz-dropdown-menu>
   </button>
@@ -123,7 +121,7 @@
       nzTooltipPlacement="bottom"
     >
       <i nz-icon nzType="folder-open"></i>
-      {{ STRS_OPEN_MODE[openMode] }}
+      {{ openMode }}
     </button>
     <button
       nz-button
@@ -134,24 +132,24 @@
       <i nz-icon nzType="ellipsis"></i>
       <nz-dropdown-menu #openWayMenu="nzDropdownMenu">
         <ul nz-menu>
-          <ul nz-submenu nzTitle="打开电脑中项目">
-            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_FILE)">
+          <ul nz-submenu nzTitle="打开本地项目">
+            <li nz-menu-item (click)="onOpenModeChange(OpenMode.LocalFile)">
               单文件
             </li>
-            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_FOLDER)">
+            <li nz-menu-item (click)="onOpenModeChange(OpenMode.LocalFolder)">
               文件夹
             </li>
-            <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_PC_ZIP)">
+            <li nz-menu-item (click)="onOpenModeChange(OpenMode.LocalZip)">
               压缩包
             </li>
           </ul>
-          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_BROWSER)">
+          <li nz-menu-item (click)="onOpenModeChange(OpenMode.Browser)">
             打开浏览器中项目
           </li>
-          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_ONLINE)">
-            打开账户在线项目
+          <li nz-menu-item (click)="onOpenModeChange(OpenMode.Cloud)">
+            打开云端项目
           </li>
-          <li nz-menu-item (click)="onOpenModeChange(OPEN_MODE_DEVICE)">
+          <li nz-menu-item (click)="onOpenModeChange(OpenMode.Device)">
             打开设备中项目
           </li>
         </ul>
@@ -166,27 +164,27 @@
       nzTooltipPlacement="bottom"
     >
       <i nz-icon nzType="save"></i>
-      {{ STRS_SAVE_MODE[saveMode] }}
+      {{ saveMode }}
     </button>
     <button
       nz-button
       nz-dropdown
-      [nzDropdownMenu]="saveWayMenu"
+      [nzDropdownMenu]="saveModeMenu"
       nzPlacement="bottomRight"
     >
       <i nz-icon nzType="ellipsis"></i>
-      <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
+      <nz-dropdown-menu #saveModeMenu>
         <ul nz-menu>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_PC)">
-            本机保存
+          <li nz-menu-item (click)="onSaveModeChange(SaveMode.Local)">
+            本地保存
           </li>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_BROWSER)">
+          <li nz-menu-item (click)="onSaveModeChange(SaveMode.Browser)">
             浏览器保存
           </li>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_ONLINE)">
-            在线保存
+          <li nz-menu-item (click)="onSaveModeChange(SaveMode.Cloud)">
+            云端保存
           </li>
-          <li nz-menu-item (click)="onSaveModeChange(SAVE_MODE_DEVICE)">
+          <li nz-menu-item (click)="onSaveModeChange(SaveMode.Device)">
             设备保存
           </li>
         </ul>

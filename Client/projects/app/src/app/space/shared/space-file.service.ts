@@ -1,28 +1,20 @@
 import { Injectable } from '@angular/core';
-import {Project} from "../../common/project.class";
+
+import { Project } from '../../common/project.class';
+import { SpaceSaveMode } from '../space-tools-bar/space-tools-bar.component';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpaceFileService {
+  constructor() {}
 
-  constructor() { }
-
-  saveProject(project: Project,mode: number){
-    if(mode==OpenMode.Pc){
-      let files = project.files
-      if(files.length==1){
-
-      }else{
-
+  saveProject(project: Project, mode: SpaceSaveMode): void {
+    if (mode == SpaceSaveMode.Local) {
+      let files = project.files;
+      if (files.length == 1) {
+      } else {
       }
     }
   }
-}
-
-export enum OpenMode {
-  Pc,
-  Browser,
-  Device,
-  Online,
 }

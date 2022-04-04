@@ -9,22 +9,13 @@ import { SpaceStyleService } from '../shared/space-style.service';
   styleUrls: ['./space-tab-bar.component.less'],
 })
 export class SpaceTabBarComponent implements OnInit, AfterViewInit {
-  spaceStyleService: SpaceStyleService;
-  constructor(spaceStyleService: SpaceStyleService) {
-    this.spaceStyleService = spaceStyleService;
-  }
+  constructor(private styleService: SpaceStyleService) {}
 
-  readonly STRS_EDITOR_MODE: string[] = ['逻辑模式', '设计模式'];
+  editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
+  layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split;
 
-  readonly SHOW_MODE_BLOCK: number = 0;
-  readonly SHOW_M0DE_SPLIT: number = 1;
-  readonly SHOW_M0DE_CODE: number = 2;
-
-  readonly EDITOR_MODE_LOGIC: number = 0;
-  readonly EDITOR_M0DE_DESIGN: number = 1;
-
-  editorMode: number = this.EDITOR_MODE_LOGIC;
-  showMode: number = this.SHOW_M0DE_SPLIT;
+  EditorMode = SpaceEditorMode;
+  LayoutMode = SpaceLayoutMode;
 
   tabs: TabItem[] = [
     new TabItem('file.js', 'project/file.js'),
@@ -34,19 +25,19 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    this.spaceStyleService.tabBarController = {
-      changeEditorMode: (mode: number): void => {
+    this.styleService.tabBarController = {
+      changeEditorMode: (mode: SpaceEditorMode): void => {
         this.editorMode = mode;
       },
-      changeShowMode: (mode: number): void => {
-        this.showMode = mode;
+      changeLayoutMode: (mode: SpaceLayoutMode): void => {
+        this.layoutMode = mode;
       },
 
       openFile: (file: string): void => {
         const path: string[] = file.split('/');
         const name = path[path.length - 1];
         this.tabs.push(new TabItem(name, file, false));
-        this.spaceStyleService.changeFile(file);
+        this.styleService.changeFile(file);
       },
       changeFile: (file: string): boolean => {
         const i = this.getTabIndexByFile(file);
@@ -70,9 +61,9 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
               return false;
             } else {
               if (i == 0) {
-                this.spaceStyleService.changeFile(this.tabs[1].file);
+                this.styleService.changeFile(this.tabs[1].file);
               } else {
-                this.spaceStyleService.changeFile(this.tabs[i - 1].file);
+                this.styleService.changeFile(this.tabs[i - 1].file);
               }
             }
           }
@@ -94,18 +85,18 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
     return i;
   }
 
-  onEditorModeChange(mode: number): void {
-    this.spaceStyleService.changeEditorMode(mode);
+  onEditorModeChange(mode: SpaceEditorMode): void {
+    this.styleService.changeEditorMode(mode);
   }
-  onShowModeChange(mode: number): void {
-    this.spaceStyleService.changeShowMode(mode);
+  onLayoutModeChange(mode: SpaceLayoutMode): void {
+    this.styleService.changeShowMode(mode);
   }
 
   onTabClick(item: TabItem): void {
-    this.spaceStyleService.changeFile(item.file);
+    this.styleService.changeFile(item.file);
   }
   onTabClose(item: TabItem): void {
-    this.spaceStyleService.closeFile(item.file);
+    this.styleService.closeFile(item.file);
   }
 
   getFileIcon(name: string): string {
@@ -114,8 +105,8 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
 }
 
 export interface SpaceTabBarController {
-  changeEditorMode: (mode: number) => void;
-  changeShowMode: (mode: number) => void;
+  changeEditorMode: (mode: SpaceEditorMode) => void;
+  changeLayoutMode: (mode: SpaceLayoutMode) => void;
 
   openFile: (file: string) => void;
   changeFile: (file: string) => boolean;
@@ -132,4 +123,15 @@ class TabItem {
     this.file = file;
     this.selected = selected;
   }
+}
+
+export enum SpaceEditorMode {
+  Logic = '逻辑模式',
+  Design = '设计模式',
+}
+
+export enum SpaceLayoutMode {
+  Visual,
+  Split,
+  Classic,
 }
