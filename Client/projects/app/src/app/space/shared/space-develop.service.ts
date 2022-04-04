@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { BFile } from '../../common/bfile.class';
+import { ProjectFile } from '../../common/project-file.class';
 import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { SpaceDebugService } from './space-debug.service';
@@ -32,7 +32,7 @@ export class SpaceDevelopService {
     });
   }
 
-  openProject(files: BFile[]): void {
+  openProject(files: ProjectFile[]): void {
     this.project = new Project(files);
     this.styleService.openProject(this.project);
   }

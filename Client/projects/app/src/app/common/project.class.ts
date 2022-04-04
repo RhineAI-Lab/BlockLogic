@@ -1,4 +1,4 @@
-import { BFile } from './bfile.class';
+import { ProjectFile } from './project-file.class';
 
 export class Project {
   static readonly TYPE_SINGLE = 0;
@@ -11,11 +11,11 @@ export class Project {
 
   type: number;
   engine: number;
-  files: BFile[];
+  files: ProjectFile[];
   target: number;
 
   constructor(
-    files?: BFile[],
+    files?: ProjectFile[],
     type: number = Project.TYPE_SINGLE,
     engine: number = Project.ENGINE_BLOGIC,
   ) {
@@ -25,12 +25,12 @@ export class Project {
       this.files = files;
       this.target = 0;
     } else {
-      this.files = [new BFile(new File([], ''))];
+      this.files = [new ProjectFile(new File([], ''))];
       this.target = 0;
     }
   }
 
-  getTargetFile(): BFile {
+  getTargetFile(): ProjectFile {
     return this.files[this.target];
   }
 }

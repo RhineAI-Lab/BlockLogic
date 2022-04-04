@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { BFile } from '../../common/bfile.class';
+import { ProjectFile } from '../../common/project-file.class';
 import { StringUtils } from '../../common/utils/string.utils';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceStyleService } from '../shared/space-style.service';
@@ -98,9 +98,9 @@ export class SpaceToolsBarComponent implements OnInit {
       files = this.folderChooser.nativeElement.files;
     }
     if (files.length > 0) {
-      const bfiles: BFile[] = [];
+      const bfiles: ProjectFile[] = [];
       for (const file of files) {
-        bfiles.push(new BFile(file));
+        bfiles.push(new ProjectFile(file));
       }
       this.developService.openProject(bfiles);
     }
