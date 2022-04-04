@@ -13,11 +13,7 @@ export class SpaceDebugService {
   serverId = '';
   token = '';
 
-  // TODO: ?????
-  readonly message$ = new Subject<[type: number, data: string]>();
-  readonly connect$ = new Subject<void>();
-  readonly close$ = new Subject<void>();
-  readonly error$ = new Subject<Event>();
+  readonly events$ = new Subject<SpaceDebugEvent>();
 
   private ws: WebSocket | null = null;
 
@@ -34,16 +30,16 @@ export class SpaceDebugService {
     };
     this.ws.onmessage = (evt) => {
       const data = this.parseData(evt.data);
-      this.onMsgBasic(data[0], data[1]);
+      this.onMessage(...data);
     };
     this.ws.onclose = () => {
       if (this.connected) {
-        this.close$.next();
+        this.events$.next({ type: 'close' });
         this.connected = false;
       }
     };
-    this.ws.onerror = (evt) => {
-      this.error$.next(evt);
+    this.ws.onerror = (event) => {
+      this.events$.next({ type: 'error', payload: event });
     };
   }
 
@@ -114,18 +110,18 @@ export class SpaceDebugService {
 
   // TODO: type of `data`
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  private onMsgBasic(type: number, data: any): void {
+  private onMessage(type: number, data: any): void {
     if (type == 1) {
       if (data.type == 'hello') {
         this.device = data.data.device_name;
         this.serverVersion = data.data.server_version;
         this.serverId = data.data.server_id;
-        this.connect$.next();
+        this.events$.next({ type: 'connect' });
       } else if (data.type == 'response_' + this.requestTokenId) {
         this.token = data.data.token;
       }
     }
-    this.message$.next([type, data]);
+    this.events$.next({ type: 'message', payload: [type, data] });
   }
 
   // TODO: type of `data`?
@@ -144,4 +140,24 @@ export class SpaceDebugService {
       return [type, data];
     }
   }
+}
+
+export type SpaceDebugEvent =
+  | SpaceDebugEventConnect
+  | SpaceDebugEventMessage
+  | SpaceDebugEventClose
+  | SpaceDebugEventError;
+export interface SpaceDebugEventConnect {
+  type: 'connect';
+}
+export interface SpaceDebugEventMessage {
+  type: 'message';
+  payload: [type: number, data: string];
+}
+export interface SpaceDebugEventClose {
+  type: 'close';
+}
+export interface SpaceDebugEventError {
+  type: 'error';
+  payload: Event; // TODO: determine accurate type
 }

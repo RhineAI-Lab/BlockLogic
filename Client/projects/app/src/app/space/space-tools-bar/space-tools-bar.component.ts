@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { filter, race, take, tap, timer } from 'rxjs';
 
 import { ProjectFile } from '../../common/project-file.class';
 import { StringUtils } from '../../common/utils/string.utils';
@@ -96,6 +97,13 @@ export class SpaceToolsBarComponent implements OnInit {
     } else {
       const url = this.connectionProtocol + this.deviceAddress + ':9315';
       this.developService.connectDevice(url);
+      race([
+        this.developService.debugEvents.pipe(
+          filter((event) => event.type == 'connect'),
+          take(1),
+        ),
+        timer(100).pipe(tap(() => this.notifier.info('正在连接……', ''))),
+      ]).subscribe();
     }
   }
 

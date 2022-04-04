@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
-import { wait } from '../../common/promisify.utils';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
@@ -13,24 +11,15 @@ import { SpaceFileService } from './space-file.service';
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
   readonly project$ = new BehaviorSubject<Project>(new Project());
+  readonly debugEvents = this.debugService.events$;
 
   constructor(
     private debugService: SpaceDebugService,
     private fileService: SpaceFileService,
-    private notifier: NzNotificationService,
   ) {
-    this.debugService.connect$.subscribe(() => {
-      this.notifier.remove();
-      this.notifier.success('连接成功', '设备: ' + debugService.device);
-      this.runFile()
-    });
-    this.debugService.close$.subscribe(() => {
-      this.notifier.warning('连接断开', '设备: ' + debugService.device);
-    });
-    // TODO: argument type `evt`?
-    this.debugService.error$.subscribe((evt: any) => {
-      this.notifier.error('连接错误', '地址: ' + evt.target?.url);
-    });
+    this.debugEvents
+      .pipe(filter((event) => event.type == 'connect'))
+      .subscribe(() => this.runFile());
   }
 
   openProject(files: ProjectFile[]): void {
@@ -41,16 +30,9 @@ export class SpaceDevelopService {
     this.fileService.saveProject(project, mode);
   }
 
-  runFile(){
+  runFile(): void {}
 
-  }
-
-  async connectDevice(url: string): Promise<void> {
+  connectDevice(url: string): void {
     this.debugService.connect(url);
-    // TODO: extract as a utility function
-    await wait(100);
-    if (!this.debugService.connected) {
-      this.notifier?.info('正在连接...', '');
-    }
   }
 }

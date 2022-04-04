@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { delay } from 'rxjs';
 
 import { SpaceDebugService } from './shared/space-debug.service';
@@ -26,7 +27,13 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  constructor(state: SpaceState) {
+  constructor(
+    private debugService: SpaceDebugService,
+    private developService: SpaceDevelopService,
+    private notifier: NzNotificationService,
+    state: SpaceState,
+  ) {
+    this.subscribeDebugEvents();
     state.isHeaderVisible$.pipe(delay(0)).subscribe(() => this.resize());
   }
 
@@ -56,5 +63,24 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     const xmlText = Blockly.Xml.domToText(xmlDom);
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
+  }
+
+  private subscribeDebugEvents(): void {
+    this.developService.debugEvents.subscribe((event) => {
+      this.notifier.remove();
+      const device = this.debugService.device; // TODO: avoid accessing the internal service
+      if (event.type == 'connect') {
+        this.notifier.success('连接成功', `设备：${device}`);
+      }
+      if (event.type == 'close') {
+        this.notifier.warning('连接断开', `设备：${device}`);
+      }
+      if (event.type == 'error') {
+        const eventTarget = event.payload.target as
+          | (EventTarget & { url: string })
+          | undefined;
+        this.notifier.error('连接错误', `地址: ${eventTarget?.url}`);
+      }
+    });
   }
 }
