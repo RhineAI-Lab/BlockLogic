@@ -160,19 +160,19 @@
   </nz-button-group>
   <nz-button-group nzSize="small">
     <button
-            nz-button
-            (click)="onSaveProject()"
-            nz-tooltip="保存项目"
-            nzTooltipPlacement="bottom"
+      nz-button
+      (click)="onSaveProject()"
+      nz-tooltip="保存项目"
+      nzTooltipPlacement="bottom"
     >
       <i nz-icon nzType="save"></i>
       {{ STRS_SAVE_MODE[saveMode] }}
     </button>
     <button
-            nz-button
-            nz-dropdown
-            [nzDropdownMenu]="saveWayMenu"
-            nzPlacement="bottomRight"
+      nz-button
+      nz-dropdown
+      [nzDropdownMenu]="saveWayMenu"
+      nzPlacement="bottomRight"
     >
       <i nz-icon nzType="ellipsis"></i>
       <nz-dropdown-menu #saveWayMenu="nzDropdownMenu">
@@ -202,18 +202,18 @@
     #folderChooser
   />
   <input
-      class="hide"
-      type="file"
-      (change)="onSelectProject()"
-      accept="text/javascript"
-      #fileChooser
+    class="hide"
+    type="file"
+    (change)="onSelectProject()"
+    accept="text/javascript"
+    #fileChooser
   />
   <input
-      class="hide"
-      type="file"
-      (change)="onSelectProject()"
-      accept=".zip"
-      #zipChooser
+    class="hide"
+    type="file"
+    (change)="onSelectProject()"
+    accept=".zip"
+    #zipChooser
   />
   <app-toolbar-divider
     [ngStyle]="{ display: showHideHeaderBtn ? 'inline-block' : 'none' }"

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as Blockly from 'blockly';
 
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
-import {ColorUtils} from "../../common/utils/color.utils";
+import { ColorUtils } from '../../common/utils/color.utils';
 
 @Component({
   selector: 'app-space-block-editor',
@@ -22,7 +22,7 @@ export class SpaceBlockEditorComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getBlendColor(color: string){
-    return ColorUtils.colourBlend(color)
+  getBlendColor(color: string): string {
+    return ColorUtils.colourBlend(color);
   }
 }

@@ -33,7 +33,7 @@ export class SpaceDebugService {
       this.onMsgBasic(data[0], data[1]);
     };
     this.ws.onclose = () => {
-      if(this.connected){
+      if (this.connected) {
         this.onClose();
         this.connected = false;
       }
@@ -42,7 +42,10 @@ export class SpaceDebugService {
       this.onError(evt);
     };
   }
-  onMsgBasic(type: number, data: any) {
+
+  // TODO: type of `data`
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  onMsgBasic(type: number, data: any): void {
     if (type == 1) {
       if (data.type == 'hello') {
         this.device = data.data.device_name;
@@ -56,12 +59,14 @@ export class SpaceDebugService {
     this.onMsg(type, data);
   }
 
-  onMsg = (type: number, data: string) => {};
-  onConnect = () => {};
-  onClose = () => {};
-  onError = (evt: Event) => {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onMsg = (type: number, data: string): void => {};
+  onConnect = (): void => {};
+  onClose = (): void => {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onError = (evt: Event): void => {};
 
-  hello() {
+  hello(): void {
     this.sendJson({
       type: 'hello',
       data: {
@@ -69,7 +74,7 @@ export class SpaceDebugService {
       },
     });
   }
-  runFile(id: string, code: string, name: string = id) {
+  runFile(id: string, code: string, name: string = id): void {
     this.sendJson({
       id: this.sendId,
       type: 'command',
@@ -81,7 +86,7 @@ export class SpaceDebugService {
       },
     });
   }
-  saveFile(id: string, code: string, name: string = id) {
+  saveFile(id: string, code: string, name: string = id): void {
     this.sendJson({
       id: this.sendId,
       type: 'command',
@@ -93,7 +98,7 @@ export class SpaceDebugService {
       },
     });
   }
-  requestToken() {
+  requestToken(): void {
     this.requestTokenId = this.sendId;
     this.sendJson({
       id: this.sendId,
@@ -104,24 +109,30 @@ export class SpaceDebugService {
     });
   }
 
-  parseData(data: any) {
+  // TODO: type of `data`?
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  parseData(data: any): [number, object] {
     const view = new DataView(data, 0, 8);
+    // TODO: unused variable?
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const len = view.getInt32(0, false);
     const type = view.getInt32(4, false);
     if (type == 1) {
-      let td = new TextDecoder();
-      let str = td.decode(new Uint8Array(data, 8));
+      const td = new TextDecoder();
+      const str = td.decode(new Uint8Array(data, 8));
       return [type, JSON.parse(str)];
     } else {
       return [type, data];
     }
   }
+  // TODO: type of `data`?
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   sendJson(data: any): boolean {
     if (this.ws == null) {
       return false;
     }
     const json = JSON.stringify(data);
-    let te = new TextEncoder();
+    const te = new TextEncoder();
     const jsonUints = te.encode(json);
 
     const buffer = new ArrayBuffer(jsonUints.length + 8);

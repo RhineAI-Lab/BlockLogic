@@ -8,9 +8,9 @@ import {
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { BFile } from '../../common/bfile.class';
+import { StringUtils } from '../../common/utils/string.utils';
+import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceStyleService } from '../shared/space-style.service';
-import {StringUtils} from "../../common/utils/string.utils";
-import {SpaceDevelopService} from "../shared/space-develop.service";
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -89,7 +89,7 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
       this.notification.error('暂不支持保存至在线项目', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
-      this.notification.error('暂不支持保存至设备','功能开发中...');
+      this.notification.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_BROWSER) {
       this.notification.error('暂不支持保存至浏览器', '功能开发中...');
     }
@@ -126,13 +126,13 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onConnectDevice(){
-    if(this.deviceAddress.length==0){
-      this.notification.error('请输入IP地址', '')
-    }else if(!StringUtils.checkIP(this.deviceAddress)){
-      this.notification.error('IP地址格式错误', '')
-    }else{
-      let url = this.connectWay+this.deviceAddress+":9315";
+  onConnectDevice(): void {
+    if (this.deviceAddress.length == 0) {
+      this.notification.error('请输入IP地址', '');
+    } else if (!StringUtils.checkIP(this.deviceAddress)) {
+      this.notification.error('IP地址格式错误', '');
+    } else {
+      const url = this.connectWay + this.deviceAddress + ':9315';
       this.spaceDevelopService.connectDevice(url);
     }
   }
@@ -149,7 +149,6 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   onShowHeader(): void {
     this.spaceStyleService.changeHeaderDisplay(true);
   }
-
 }
 
 export interface SpaceToolsBarController {

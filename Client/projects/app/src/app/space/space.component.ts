@@ -2,12 +2,12 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { SpaceDevelopService } from './shared/space-develop.service';
 import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import {SpaceDevelopService} from "./shared/space-develop.service";
 
 @Component({
   selector: 'app-space',

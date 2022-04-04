@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import {
+  NzTreeComponent,
   NzTreeNode,
   NzTreeNodeOptions,
-  NzTreeComponent,
 } from 'ng-zorro-antd/tree';
 
+import { Project } from '../../common/project.class';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
-import { Project } from '../../common/project.class';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -78,7 +78,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.spaceStyleService.sidebarProjectController = {
       changeData: async (projects) => {
-        let files = projects.files;
+        const files = projects.files;
         if (files.length == 1) {
           this.data = [
             {
@@ -96,7 +96,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             },
           ];
         } else {
-          let projectName = files[0].path.split('/')[0];
+          const projectName = files[0].path.split('/')[0];
           this.data = [
             {
               title: projectName,
@@ -107,7 +107,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             },
           ];
           await new Promise((r) => setTimeout(r));
-          let rootNode = this.tree.getTreeNodeByKey(projectName);
+          const rootNode = this.tree.getTreeNodeByKey(projectName);
           if (!rootNode) return;
           for (const file of files) {
             const ps = file.path.split('/');
@@ -115,10 +115,10 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
             let focusPath: string = projectName;
             for (const psKey in ps) {
               if (psKey == '0') continue;
-              let name = ps[psKey];
+              const name = ps[psKey];
               focusPath = focusPath + '/' + name;
               if (psKey != ps.length - 1 + '') {
-                let node = this.tree.getTreeNodeByKey(focusPath);
+                const node = this.tree.getTreeNodeByKey(focusPath);
                 if (node) {
                   focusNode = node;
                 } else {
@@ -130,7 +130,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
                       children: [],
                     },
                   ]);
-                  let temp = this.tree.getTreeNodeByKey(focusPath);
+                  const temp = this.tree.getTreeNodeByKey(focusPath);
                   if (temp) focusNode = temp;
                 }
               } else {
@@ -141,7 +141,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
                     isLeaf: true,
                   },
                 ]);
-                let temp = this.tree.getTreeNodeByKey(focusPath);
+                const temp = this.tree.getTreeNodeByKey(focusPath);
                 if (temp) focusNode = temp;
               }
             }
