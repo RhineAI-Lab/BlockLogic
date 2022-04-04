@@ -3,6 +3,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { BFile } from '../../common/bfile.class';
 import { Project } from '../../common/project.class';
+import { wait } from '../../common/promisify.utils';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceStyleService } from './space-style.service';
 
@@ -38,7 +39,7 @@ export class SpaceDevelopService {
   async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
     // TODO: extract as a utility function
-    await new Promise((r) => setTimeout(r, 100));
+    await wait(100);
     if (!this.debugService.connected) {
       this.notifier?.info('正在连接...', '');
     }

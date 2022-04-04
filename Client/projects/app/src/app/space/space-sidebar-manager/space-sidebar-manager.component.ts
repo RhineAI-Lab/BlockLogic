@@ -1,6 +1,7 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 
+import { wait } from '../../common/promisify.utils';
 import { SpaceComponent } from '../space.component';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
@@ -59,7 +60,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       if (item.name == name) {
         if (item.isOpen) {
           item.isOpen = false;
-          await new Promise((r) => setTimeout(r));
+          await wait();
           this.layout.resize();
         }
         return true;
@@ -94,7 +95,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
 
   async onBtnClick(item: SpaceSidebarEntry): Promise<void> {
     item.isOpen = !item.isOpen;
-    await new Promise((r) => setTimeout(r));
+    await wait();
     this.layout.resize();
   }
 

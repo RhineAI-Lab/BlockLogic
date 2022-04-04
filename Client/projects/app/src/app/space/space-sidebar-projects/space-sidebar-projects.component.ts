@@ -7,6 +7,7 @@ import {
 } from 'ng-zorro-antd/tree';
 
 import { Project } from '../../common/project.class';
+import { wait } from '../../common/promisify.utils';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
 
@@ -106,7 +107,7 @@ export class SpaceSidebarProjectsComponent implements OnInit, AfterViewInit {
               children: [],
             },
           ];
-          await new Promise((r) => setTimeout(r));
+          await wait;
           const rootNode = this.tree.getTreeNodeByKey(projectName);
           if (!rootNode) return;
           for (const file of files) {
