@@ -48,30 +48,18 @@ export class SpaceFileService {
   }
 
   saveZip(files: ProjectFile[],name: string){
-
-    const file1 = new File(['file1 content'], 'streamsaver-zip-example/file1.txt')
-    const file2 = {
-      name: 'streamsaver-zip-example/file2.txt',
-      stream () {
-        return new ReadableStream({
-          start (ctrl) {
-            ctrl.enqueue(new TextEncoder().encode('file2 generated with readableStream'))
-            ctrl.close()
-          }
-        })
-      }
-    }
-    const file3 = {
-      name: 'streamsaver-zip-example/blob-example.txt',
-      stream: () => new Blob(['support blobs too']).stream()
-    }
-
     const inputStream = createWriter({
       start (ctrl: any) {
-        ctrl.enqueue(file1)
-        ctrl.enqueue(file2)
-        ctrl.enqueue(file3)
-        ctrl.enqueue({name: 'streamsaver-zip-example/empty folder', directory: true})
+        for (const file of files) {
+          if(file.code.length==0){
+            ctrl.enqueue(file.source,file.path)
+          }else{
+            ctrl.enqueue({
+              name: file.path,
+              stream: () => new Blob([file.code]).stream()
+            })
+          }
+        }
         ctrl.close()
       },
       async pull (ctrl: any) {
@@ -86,9 +74,8 @@ export class SpaceFileService {
       }
     })
 
-    const outputStream = streamSaver.createWriteStream(name)
+    const outputStream = streamSaver.createWriteStream(name+".zip")
     this.saveFianl(inputStream,outputStream)
-
   }
 
   saveFianl(inputStream: any, outputStream: any){

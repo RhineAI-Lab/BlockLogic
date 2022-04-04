@@ -61,10 +61,10 @@ function createWriter (underlyingSource) {
   }
 
   let zipWriter = {
-    enqueue (fileLike) {
+    enqueue (fileLike, name) {
       if (closed) throw new TypeError('Cannot enqueue a chunk into a readable stream that is closed or has been requested to be closed')
 
-      let name = fileLike.name.trim()
+      name = name || fileLike.name.trim()
       const date = new Date(typeof fileLike.lastModified === 'undefined' ? Date.now() : fileLike.lastModified)
 
       if (fileLike.directory && !name.endsWith('/')) name += '/'
