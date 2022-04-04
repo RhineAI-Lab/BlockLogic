@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { SpaceStyleService } from '../space-style.service';
+import { SpaceSidebarEntry } from '../../space-sidebar-manager/space-sidebar-manager.component';
 
 @Component({
   selector: 'app-space-sidebar-layout',
@@ -8,21 +8,12 @@ import { SpaceStyleService } from '../space-style.service';
   styleUrls: ['./space-sidebar-layout.component.less'],
 })
 export class SpaceSidebarLayoutComponent implements OnInit {
-  @Input() sidebarIcon!: string;
-  @Input() sidebarTitle!: string;
-  @Input() sidebarName!: string;
-
-  styleService: SpaceStyleService;
-
-  constructor(styleService: SpaceStyleService) {
-    this.styleService = styleService;
-  }
+  constructor(public entry: SpaceSidebarEntry) {}
 
   ngOnInit(): void {}
 
   onHideBtn(): void {
-    console.log(this.sidebarName);
-    this.styleService.sidebarManagerController?.hideSidebar(this.sidebarName);
+    this.entry.isOpen = false;
   }
 
   onSetBtn(): void {}

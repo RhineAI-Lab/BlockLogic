@@ -4,11 +4,11 @@ import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceStyleService } from '../shared/space-style.service';
 
 @Component({
-  selector: 'app-space-tabsset-bar',
-  templateUrl: './space-tabsset-bar.component.html',
-  styleUrls: ['./space-tabsset-bar.component.less'],
+  selector: 'app-space-tab-bar',
+  templateUrl: './space-tab-bar.component.html',
+  styleUrls: ['./space-tab-bar.component.less'],
 })
-export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
+export class SpaceTabBarComponent implements OnInit, AfterViewInit {
   spaceStyleService: SpaceStyleService;
   constructor(spaceStyleService: SpaceStyleService) {
     this.spaceStyleService = spaceStyleService;
@@ -34,7 +34,7 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    this.spaceStyleService.tabssetBarController = {
+    this.spaceStyleService.tabBarController = {
       changeEditorMode: (mode: number): void => {
         this.editorMode = mode;
       },
@@ -113,7 +113,7 @@ export class SpaceTabssetBarComponent implements OnInit, AfterViewInit {
   }
 }
 
-export interface SpaceTabssetBarController {
+export interface SpaceTabBarController {
   changeEditorMode: (mode: number) => void;
   changeShowMode: (mode: number) => void;
 

@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
 import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
@@ -13,28 +13,23 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
   selector: 'app-space',
   templateUrl: './space.component.html',
   styleUrls: ['./space.component.less'],
+  providers: [SpaceDevelopService, SpaceDebugService, SpaceStyleService],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
+  public get hasHeader(): boolean {
+    return this._hasHeader;
+  }
+  public set hasHeader(v: boolean) {
+    this._hasHeader = v;
+    new Promise((r) => setTimeout(r)).then(() => this.resize());
+  }
+  private _hasHeader = true;
+
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  spaceStyleService: SpaceStyleService;
-  spaceDevelopService: SpaceDevelopService;
-  notification: NzNotificationService;
-
-  constructor(
-    notification: NzNotificationService,
-    spaceStyleService: SpaceStyleService,
-    spaceDevelopService: SpaceDevelopService,
-    iconService: NzIconService,
-  ) {
-    this.notification = notification;
-    this.spaceStyleService = spaceStyleService;
-    this.spaceDevelopService = spaceDevelopService;
-    this.spaceStyleService.notification = notification;
-    this.spaceDevelopService.notification = notification;
-
+  constructor(iconService: NzIconService) {
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
@@ -43,15 +38,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.spaceStyleService.mainLayoutController = {
-      freshMainLayout: (): void => {
-        Blockly.svgResize(this.blockEditor.workspace);
-        this.codeEditor.workspace.layout();
-      },
-    };
     this.splitter.dragProgress$.subscribe(() => {
-      this.spaceStyleService.freshMainLayout();
+      this.resize();
     });
+  }
+
+  resize(): void {
+    Blockly.svgResize(this.blockEditor.workspace);
+    this.codeEditor.workspace.layout();
   }
 
   updateBlocks(): void {
@@ -68,8 +62,4 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
   }
-}
-
-export interface SpaceMainLayoutController {
-  freshMainLayout: () => void;
 }

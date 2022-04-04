@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceTabssetBarComponent } from './space-tabsset-bar.component';
+import { SpaceTabBarComponent } from './space-tab-bar.component';
 
-describe('SpaceTabssetBarComponent', () => {
-  let component: SpaceTabssetBarComponent;
-  let fixture: ComponentFixture<SpaceTabssetBarComponent>;
+describe('SpaceTabBarComponent', () => {
+  let component: SpaceTabBarComponent;
+  let fixture: ComponentFixture<SpaceTabBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpaceTabssetBarComponent],
+      declarations: [SpaceTabBarComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpaceTabssetBarComponent);
+    fixture = TestBed.createComponent(SpaceTabBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

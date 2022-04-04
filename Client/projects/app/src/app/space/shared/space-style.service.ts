@@ -1,73 +1,45 @@
 import { Injectable } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { Project } from '../../common/project.class';
-import { SpaceMainLayoutController } from '../space.component';
-import { SpaceHeaderController } from '../space-header/space-header.component';
-import { SpaceSidebarManagerController } from '../space-sidebar-manager/space-sidebar-manager.component';
 import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-sidebar-projects.component';
-import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
-import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
+import { SpaceTabBarController } from '../space-tab-bar/space-tab-bar.component';
 
-@Injectable({
-  providedIn: 'root',
-})
-
+@Injectable()
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  notification?: NzNotificationService;
-  constructor() {}
-
-  public mainLayoutController?: SpaceMainLayoutController;
-  public toolsBarController?: SpaceToolsBarController;
-  public headerController?: SpaceHeaderController;
-  public sidebarManagerController?: SpaceSidebarManagerController;
-  public tabssetBarController?: SpaceTabssetBarController;
+  // TODO: remove
+  public tabBarController?: SpaceTabBarController;
   public sidebarProjectController?: SpaceSidebarProjectsController;
 
-  public showHeader = true;
-
-  option: SpaceStyleOption = {
-    editorMode: OPTION.EDITOR_MODE_LOGIC,
-    showMode: OPTION.SHOW_M0DE_SPLIT,
+  private option = {
+    editorMode: SpaceStyleEditorMode.Logic,
+    showMode: SpaceStyleShowMode.Split,
   };
 
-  changeHeaderDisplay(show: boolean): void {
-    this.showHeader = show;
-    this.toolsBarController?.changeShowHideHeaderBtn(!show);
-    this.headerController?.changeShowHeader(show);
-    this.freshMainLayout(true);
+  constructor() {}
+
+  changeShowMode(mode: SpaceStyleShowMode): void {
+    this.tabBarController?.changeShowMode(mode);
   }
-  async freshMainLayout(needWait = false): Promise<any> {
-    if (needWait) {
-      await new Promise((r) => setTimeout(r));
-      this.mainLayoutController?.freshMainLayout();
-    } else {
-      this.mainLayoutController?.freshMainLayout();
-    }
-  }
-  changeShowMode(mode: number): void {
-    this.tabssetBarController?.changeShowMode(mode);
-  }
-  changeEditorMode(mode: number): void {
-    this.tabssetBarController?.changeEditorMode(mode);
+  changeEditorMode(mode: SpaceStyleEditorMode): void {
+    this.tabBarController?.changeEditorMode(mode);
   }
 
-  setEditorMode(mode: number): void {
+  setEditorMode(mode: SpaceStyleEditorMode): void {
     this.option.editorMode = mode;
   }
-  setShowMode(mode: number): void {
+  setShowMode(mode: SpaceStyleShowMode): void {
     this.option.showMode = mode;
   }
 
   openFile(file: string): void {
-    this.tabssetBarController?.openFile(file);
+    this.tabBarController?.openFile(file);
   }
   changeFile(file: string): void {
-    this.tabssetBarController?.changeFile(file);
+    this.tabBarController?.changeFile(file);
   }
   closeFile(file: string): void {
-    this.tabssetBarController?.closeFile(file);
+    this.tabBarController?.closeFile(file);
   }
 
   openProject(project: Project): void {
@@ -75,17 +47,13 @@ export class SpaceStyleService {
   }
 }
 
-interface SpaceStyleOption {
-  editorMode: number;
-  showMode: number;
+export enum SpaceStyleShowMode {
+  Block,
+  Split,
+  Code,
 }
 
-//TODO 重复静态常量
-class OPTION {
-  static readonly SHOW_MODE_BLOCK: number = 0;
-  static readonly SHOW_M0DE_SPLIT: number = 1;
-  static readonly SHOW_M0DE_CODE: number = 2;
-
-  static readonly EDITOR_MODE_LOGIC: number = 0;
-  static readonly EDITOR_M0DE_DESIGN: number = 1;
+export enum SpaceStyleEditorMode {
+  Logic,
+  Design,
 }

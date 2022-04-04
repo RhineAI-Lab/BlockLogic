@@ -56,7 +56,7 @@ import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-side
 import { SpaceSidebarProjectsComponent } from './space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-sidebar-terminal.component';
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
-import { SpaceTabssetBarComponent } from './space-tabsset-bar/space-tabsset-bar.component';
+import { SpaceTabBarComponent } from './space-tab-bar/space-tab-bar.component';
 import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
 
 const icons: IconDefinition[] = [
@@ -90,7 +90,7 @@ const icons: IconDefinition[] = [
     SpaceSidebarManagerComponent,
     SpaceStatusBarComponent,
     SpaceToolsBarComponent,
-    SpaceTabssetBarComponent,
+    SpaceTabBarComponent,
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
     SpaceSidebarTerminalComponent,

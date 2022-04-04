@@ -1,7 +1,7 @@
 <div class="layout">
   <div fxLayout class="header no-select">
-    <i nz-icon class="header-icon" [nzType]="sidebarIcon"></i>
-    <p fxFlex="grow" class="header-text">{{ sidebarTitle }}</p>
+    <i nz-icon class="header-icon" [nzType]="entry.icon"></i>
+    <p fxFlex="grow" class="header-text">{{ entry.name }}</p>
     <app-toolbar-divider></app-toolbar-divider>
     <app-btn-icon icon="icon-set" (click)="onSetBtn()"></app-btn-icon>
     <app-btn-icon icon="minus" (click)="onHideBtn()"></app-btn-icon>
