@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
@@ -17,17 +16,20 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
   providers: [SpaceDevelopService, SpaceDebugService, SpaceStyleService],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
+  public get hasHeader(): boolean {
+    return this._hasHeader;
+  }
+  public set hasHeader(v: boolean) {
+    this._hasHeader = v;
+    new Promise((r) => setTimeout(r)).then(() => this.resize());
+  }
+  private _hasHeader = true;
+
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  // TODO: unused variables?
-  constructor(
-    private notifier: NzNotificationService,
-    private styleService: SpaceStyleService,
-    private developService: SpaceDevelopService,
-    iconService: NzIconService,
-  ) {
+  constructor(iconService: NzIconService) {
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
@@ -36,15 +38,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.styleService.mainLayoutController = {
-      freshMainLayout: (): void => {
-        Blockly.svgResize(this.blockEditor.workspace);
-        this.codeEditor.workspace.layout();
-      },
-    };
     this.splitter.dragProgress$.subscribe(() => {
-      this.styleService.freshMainLayout();
+      this.resize();
     });
+  }
+
+  resize(): void {
+    Blockly.svgResize(this.blockEditor.workspace);
+    this.codeEditor.workspace.layout();
   }
 
   updateBlocks(): void {
@@ -61,8 +62,4 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
   }
-}
-
-export interface SpaceMainLayoutController {
-  freshMainLayout: () => void;
 }

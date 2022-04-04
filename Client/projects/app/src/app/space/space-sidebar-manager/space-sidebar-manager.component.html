@@ -2,7 +2,7 @@
   <div class="btns btns-left no-select">
     <ng-container *ngFor="let item of items">
       <div
-        *ngIf="item.showTab && item.position.indexOf('left') >= 0"
+        *ngIf="item.showTab && item.position.includes('left')"
         class="btn"
         (click)="onBtnClick(item)"
         [ngStyle]="
@@ -26,14 +26,14 @@
     <ng-container *ngFor="let item of items">
       <div
         class="sidebar-holder"
-        *ngIf="item.position.indexOf('left') >= 0"
+        *ngIf="item.position.includes('left')"
         [ngStyle]="{
           display: item.isOpen ? 'inline-block' : 'none',
           width: item.width + 'px'
         }"
       >
         <div class="sidebar sidebar-left">
-          <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
+          <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
         </div>
         <div
           class="drag-split-line drag-split-line-left"
@@ -47,14 +47,14 @@
     <ng-container *ngFor="let item of items">
       <div
         class="sidebar-holder"
-        *ngIf="item.position.indexOf('right') >= 0"
+        *ngIf="item.position.includes('right')"
         [ngStyle]="{
           display: item.isOpen ? 'inline-block' : 'none',
           width: item.width + 'px'
         }"
       >
         <div class="sidebar sidebar-right">
-          <ng-template [cdkPortalOutlet]="this.use(item)"></ng-template>
+          <ng-template [cdkPortalOutlet]="item.portal"></ng-template>
         </div>
         <div
           class="drag-split-line drag-split-line-right"
@@ -66,7 +66,7 @@
     <div class="btns btns-right no-select">
       <ng-container *ngFor="let item of items">
         <div
-          *ngIf="item.showTab && item.position.indexOf('right') >= 0"
+          *ngIf="item.showTab && item.position.includes('right')"
           class="btn"
           (click)="onBtnClick(item)"
           [ngStyle]="

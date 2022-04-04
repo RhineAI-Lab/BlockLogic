@@ -1,40 +1,23 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { BFile } from '../../common/bfile.class';
 import { StringUtils } from '../../common/utils/string.utils';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceStyleService } from '../shared/space-style.service';
+import { SpaceComponent } from '../space.component';
 
 @Component({
   selector: 'app-space-tools-bar',
   templateUrl: './space-tools-bar.component.html',
   styleUrls: ['./space-tools-bar.component.less'],
 })
-export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
-  spaceDevelopService: SpaceDevelopService;
-  spaceStyleService: SpaceStyleService;
-  notification: NzNotificationService;
-  constructor(
-    developService: SpaceDevelopService,
-    spaceStyleService: SpaceStyleService,
-    notification: NzNotificationService,
-  ) {
-    this.spaceDevelopService = developService;
-    this.spaceStyleService = spaceStyleService;
-    this.notification = notification;
-  }
-
+export class SpaceToolsBarComponent implements OnInit {
   @ViewChild('folderChooser') folderChooser!: ElementRef;
   @ViewChild('fileChooser') fileChooser!: ElementRef;
   @ViewChild('zipChooser') zipChooser!: ElementRef;
 
+  // TODO: use enums
   readonly RUN_MODE_OFFLINE: number = 0;
   readonly RUN_MODE_DEVICE: number = 1;
   readonly STRS_RUN_MODE: string[] = ['在线运行', '设备运行'];
@@ -71,27 +54,23 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
 
   deviceAddress = '';
   connectWay = 'ws://';
-
-  showHideHeaderBtn = false;
+  constructor(
+    public layout: SpaceComponent,
+    private developService: SpaceDevelopService,
+    private styleService: SpaceStyleService,
+    private notifier: NzNotificationService,
+  ) {}
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.spaceStyleService.toolsBarController = {
-      changeShowHideHeaderBtn: (show: boolean): void => {
-        this.showHideHeaderBtn = show;
-      },
-    };
-  }
 
   onSaveProject(): void {
     if (this.saveMode == this.SAVE_MODE_PC) {
     } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
-      this.notification.error('暂不支持保存至在线项目', '功能开发中...');
+      this.notifier.error('暂不支持保存至在线项目', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_DEVICE) {
-      this.notification.error('暂不支持保存至设备', '功能开发中...');
+      this.notifier.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_BROWSER) {
-      this.notification.error('暂不支持保存至浏览器', '功能开发中...');
+      this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
     }
   }
   onOpenProject(): void {
@@ -100,13 +79,13 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
     } else if (this.openMode == this.OPEN_MODE_PC_FOLDER) {
       this.folderChooser.nativeElement.click();
     } else if (this.openMode == this.OPEN_MODE_PC_ZIP) {
-      this.notification.error('暂不支持打开压缩包项目', '功能开发中...');
+      this.notifier.error('暂不支持打开压缩包项目', '功能开发中...');
     } else if (this.openMode == this.OPEN_MODE_ONLINE) {
-      this.notification.error('暂不支持打开在线项目', '功能开发中...');
+      this.notifier.error('暂不支持打开在线项目', '功能开发中...');
     } else if (this.openMode == this.OPEN_MODE_DEVICE) {
-      this.notification.error('暂不支持打开设备中项目', '功能开发中...');
+      this.notifier.error('暂不支持打开设备中项目', '功能开发中...');
     } else if (this.openMode == this.OPEN_MODE_BROWSER) {
-      this.notification.error('暂不支持打开浏览器中项目', '功能开发中...');
+      this.notifier.error('暂不支持打开浏览器中项目', '功能开发中...');
     }
   }
 
@@ -122,18 +101,18 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
       for (const file of files) {
         bfiles.push(new BFile(file));
       }
-      this.spaceDevelopService.openProject(bfiles);
+      this.developService.openProject(bfiles);
     }
   }
 
   onConnectDevice(): void {
     if (this.deviceAddress.length == 0) {
-      this.notification.error('请输入IP地址', '');
+      this.notifier.error('请输入IP地址', '');
     } else if (!StringUtils.checkIP(this.deviceAddress)) {
-      this.notification.error('IP地址格式错误', '');
+      this.notifier.error('IP地址格式错误', '');
     } else {
       const url = this.connectWay + this.deviceAddress + ':9315';
-      this.spaceDevelopService.connectDevice(url);
+      this.developService.connectDevice(url);
     }
   }
 
@@ -146,11 +125,4 @@ export class SpaceToolsBarComponent implements OnInit, AfterViewInit {
   onOpenModeChange(mode: number): void {
     this.openMode = mode;
   }
-  onShowHeader(): void {
-    this.spaceStyleService.changeHeaderDisplay(true);
-  }
-}
-
-export interface SpaceToolsBarController {
-  changeShowHideHeaderBtn: (show: boolean) => void;
 }
