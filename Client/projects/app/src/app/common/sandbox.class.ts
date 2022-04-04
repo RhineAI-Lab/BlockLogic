@@ -1,11 +1,7 @@
-import '../common/run-in-context.polyfill';
+import './run-in-context.polyfill';
 
-import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class Sandbox {
   output$!: Observable<SandboxOutput>;
   private $iframe!: HTMLIFrameElementInDom;
