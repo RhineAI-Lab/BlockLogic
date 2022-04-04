@@ -1,51 +1,47 @@
 import { Injectable } from '@angular/core';
+import { EMPTY, from, Observable } from 'rxjs';
+import * as streamSaver from 'streamsaver';
 
 import { Project } from '../../common/project.class';
-import { SpaceSaveMode } from '../common/space-modes.enums';
-
-import * as streamSaver from 'streamsaver';
 import { ProjectFile } from '../../common/project-file.class';
-import { Subject } from 'rxjs';
+import { SpaceSaveMode } from '../common/space-modes.enums';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceFileService {
-  readonly saveStart$ = new Subject<void>();
-  readonly saveDone$ = new Subject<void>();
-  readonly saveFail$ = new Subject<void>();
-
   constructor() {}
 
-  saveProject(project: Project, mode: SpaceSaveMode): Promise<void> | void {
+  saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     if (mode == SpaceSaveMode.Local) {
-      let files = project.files;
+      const files = project.files;
       if (files.length == 1) {
-        this.saveFile(files[0]);
+        return this.saveFile(files[0]);
       } else {
-        this.saveZip(project.files, project.name);
+        return this.saveZip(project.files, project.name);
       }
     }
+    return EMPTY;
   }
 
-  saveFile(file: ProjectFile): Promise<void> | void {
+  saveFile(file: ProjectFile): Observable<void> {
     if (file.code.length == 0) {
       const outputStream = streamSaver.createWriteStream(file.name, {
         size: file.source.size,
       });
       const inputStream = file.source.stream();
-      this.saveFianl(inputStream, outputStream);
+      return this.write(inputStream, outputStream);
     } else {
       const blob = new Blob([file.code]);
       const outputStream = streamSaver.createWriteStream(file.name, {
         size: blob.size,
       });
       const inputStream = blob.stream();
-      this.saveFianl(inputStream, outputStream);
+      return this.write(inputStream, outputStream);
     }
   }
 
-  saveZip(files: ProjectFile[], name: string) {
+  saveZip(files: ProjectFile[], name: string): Observable<void> {
     const inputStream = createWriter({
       start(ctrl: any) {
         for (const file of files) {
@@ -73,26 +69,29 @@ export class SpaceFileService {
     });
 
     const outputStream = streamSaver.createWriteStream(name + '.zip');
-    this.saveFianl(inputStream, outputStream);
+    return this.write(inputStream, outputStream);
   }
 
-  saveFianl(inputStream: any, outputStream: any) {
+  private write(
+    inputStream: ReadableStream,
+    outputStream: WritableStream,
+  ): Observable<void> {
     if (window.WritableStream && inputStream.pipeTo) {
-      return inputStream.pipeTo(outputStream).then(() => {
-        this.saveDone$.next();
-      });
+      return from(inputStream.pipeTo(outputStream));
+    } else {
+      const writer = outputStream.getWriter();
+      const reader = inputStream.getReader();
+      const pump = async () => {
+        reader.read().then((res: any) => {
+          if (!res.done) {
+            writer.write(res.value).then(pump);
+          } else {
+            writer.close();
+          }
+        });
+      };
+      return from(pump());
     }
-    let writer = outputStream.getWriter();
-    const reader = inputStream.getReader();
-    const pump = (): any => {
-      reader.read().then((res: any) => {
-        res.done ? writer.close() : writer.write(res.value).then(pump);
-        if (res.done) {
-          this.saveDone$.next();
-        }
-      });
-    };
-    pump();
   }
 }
 
