@@ -41,8 +41,6 @@ export abstract class BlocklierCustomBlock {
   }
 
   private static registerGenerators(classRef: BlocklierCustomBlockConstructor) {
-    // TODO: safer types
-    // Here here are many unsafe types. I know. But just let it go. I'm tired. :]
     const type = this.getDefinition(classRef).type;
     const register = (
       generator: Blockly.Generator,
