@@ -29,7 +29,7 @@ import {
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzIconModule, NzIconService } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -131,4 +131,10 @@ const icons: IconDefinition[] = [
     },
   ],
 })
-export class SpaceModule {}
+export class SpaceModule {
+  constructor(iconService: NzIconService) {
+    iconService.fetchFromIconfont({
+      scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
+    });
+  }
+}

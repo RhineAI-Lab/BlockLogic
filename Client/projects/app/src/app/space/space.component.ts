@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
-import { NzIconService } from 'ng-zorro-antd/icon';
 import { delay } from 'rxjs';
 
 import { SpaceDebugService } from './shared/space-debug.service';
@@ -27,10 +26,7 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  constructor(iconService: NzIconService, state: SpaceState) {
-    iconService.fetchFromIconfont({
-      scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
-    });
+  constructor(state: SpaceState) {
     state.isHeaderVisible$.pipe(delay(0)).subscribe(() => this.resize());
   }
 
