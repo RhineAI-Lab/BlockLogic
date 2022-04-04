@@ -2,9 +2,11 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
+import { delay } from 'rxjs';
 
 import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
+import { SpaceState } from './shared/space-state.service';
 import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
@@ -13,26 +15,23 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
   selector: 'app-space',
   templateUrl: './space.component.html',
   styleUrls: ['./space.component.less'],
-  providers: [SpaceDevelopService, SpaceDebugService, SpaceStyleService],
+  providers: [
+    SpaceDevelopService,
+    SpaceDebugService,
+    SpaceStyleService,
+    SpaceState,
+  ],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
-  public get hasHeader(): boolean {
-    return this._hasHeader;
-  }
-  public set hasHeader(v: boolean) {
-    this._hasHeader = v;
-    new Promise((r) => setTimeout(r)).then(() => this.resize());
-  }
-  private _hasHeader = true;
-
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  constructor(iconService: NzIconService) {
+  constructor(iconService: NzIconService, state: SpaceState) {
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
+    state.isHeaderVisible$.pipe(delay(0)).subscribe(() => this.resize());
   }
 
   ngOnInit(): void {}

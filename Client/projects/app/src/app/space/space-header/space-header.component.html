@@ -1,7 +1,4 @@
-<div
-  class="layout"
-  [ngStyle]="{ display: layout.hasHeader ? 'block' : 'none' }"
->
+<div class="layout" [fxShow]="state.isHeaderVisible$ | async">
   <div fxLayout fxLayoutAlign="space-around center" class="main">
     <div fxLayout fxLayoutAlign="space-around center" class="left">
       <img class="logo-img" src="assets/logo.png" />
@@ -20,6 +17,6 @@
     color="#505050"
     nz-tooltip="隐藏头部栏"
     nzTooltipPlacement="bottomRight"
-    (click)="layout.hasHeader = false"
+    (click)="state.isHeaderVisible$.next(false)"
   ></app-btn-icon>
 </div>

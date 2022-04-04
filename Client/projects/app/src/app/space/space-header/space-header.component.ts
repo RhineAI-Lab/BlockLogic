@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SpaceComponent } from '../space.component';
+import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-header',
@@ -20,7 +20,7 @@ export class SpaceHeaderComponent implements OnInit {
     { text: '联系我们', url: '/#contact' },
   ];
 
-  constructor(public layout: SpaceComponent) {}
+  constructor(public state: SpaceState) {}
 
   ngOnInit(): void {}
 }

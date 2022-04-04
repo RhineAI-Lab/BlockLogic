@@ -4,8 +4,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ProjectFile } from '../../common/project-file.class';
 import { StringUtils } from '../../common/utils/string.utils';
 import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceStyleService } from '../shared/space-style.service';
-import { SpaceComponent } from '../space.component';
+import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -55,9 +54,8 @@ export class SpaceToolsBarComponent implements OnInit {
   deviceAddress = '';
   connectWay = 'ws://';
   constructor(
-    public layout: SpaceComponent,
+    public state: SpaceState,
     private developService: SpaceDevelopService,
-    private styleService: SpaceStyleService,
     private notifier: NzNotificationService,
   ) {}
 

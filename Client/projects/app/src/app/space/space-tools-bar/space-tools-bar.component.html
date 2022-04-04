@@ -216,13 +216,13 @@
     #zipChooser
   />
   <app-toolbar-divider
-    [ngStyle]="{ display: !layout.hasHeader ? 'inline-block' : 'none' }"
+    [fxHide]="state.isHeaderVisible$ | async"
   ></app-toolbar-divider>
   <app-btn-icon
     icon="vertical-align-bottom"
     nz-tooltip="显示头部栏"
     nzTooltipPlacement="bottomRight"
-    [ngStyle]="{ display: !layout.hasHeader ? 'inline-block' : 'none' }"
-    (click)="layout.hasHeader = true"
+    [fxHide]="state.isHeaderVisible$ | async"
+    (click)="state.isHeaderVisible$.next(true)"
   ></app-btn-icon>
 </div>
