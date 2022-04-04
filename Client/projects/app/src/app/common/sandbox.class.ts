@@ -24,6 +24,11 @@ export class Sandbox {
     runInContext(this.context, code);
   }
 
+  destroy(): void {
+    this.$iframe?.remove();
+    this.output$$.complete();
+  }
+
   private createIframe(): HTMLIFrameElementInDom {
     const $iframe = document.createElement('iframe');
     document.body.append($iframe);
