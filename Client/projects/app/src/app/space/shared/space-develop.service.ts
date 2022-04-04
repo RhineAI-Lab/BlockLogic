@@ -12,7 +12,7 @@ import { SpaceFileService } from './space-file.service';
 @Injectable()
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
-  readonly project$ = new BehaviorSubject<Project | null>(null);
+  readonly project$ = new BehaviorSubject<Project>(new Project());
 
   constructor(
     private debugService: SpaceDebugService,
@@ -38,7 +38,6 @@ export class SpaceDevelopService {
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
-    if (!project) throw new Error();
     this.fileService.saveProject(project, mode);
   }
 
