@@ -65,6 +65,7 @@ export class SpaceToolsBarComponent implements OnInit {
 
   onSaveProject(): void {
     if (this.saveMode == this.SAVE_MODE_PC) {
+      this.developService.saveProject(this.saveMode)
     } else if (this.saveMode == this.SAVE_MODE_ONLINE) {
       this.notifier.error('暂不支持保存至在线项目', '功能开发中...');
     } else if (this.saveMode == this.SAVE_MODE_DEVICE) {

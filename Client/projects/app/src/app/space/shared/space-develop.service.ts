@@ -6,6 +6,7 @@ import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceStyleService } from './space-style.service';
+import { SpaceFileService } from './space-file.service';
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -15,6 +16,7 @@ export class SpaceDevelopService {
   constructor(
     private debugService: SpaceDebugService,
     private styleService: SpaceStyleService,
+    private fileService: SpaceFileService,
     private notifier: NzNotificationService,
   ) {
     this.debugService.connect$.subscribe(() => {
@@ -34,7 +36,9 @@ export class SpaceDevelopService {
     this.project = new Project(files);
     this.styleService.openProject(this.project);
   }
-  saveProject(): void {}
+  saveProject(mode: number): void {
+    this.fileService.saveProject(this.project, mode);
+  }
 
   async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
