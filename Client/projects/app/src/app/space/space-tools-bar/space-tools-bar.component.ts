@@ -80,11 +80,11 @@ export class SpaceToolsBarComponent implements OnInit {
       files = this.folderChooser.nativeElement.files;
     }
     if (files.length > 0) {
-      const bfiles: ProjectFile[] = [];
+      const projectFiles: ProjectFile[] = [];
       for (const file of files) {
-        bfiles.push(new ProjectFile(file));
+        projectFiles.push(new ProjectFile(file));
       }
-      this.developService.openProject(bfiles);
+      this.developService.openProject(projectFiles);
     }
   }
 

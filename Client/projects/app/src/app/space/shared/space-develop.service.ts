@@ -22,6 +22,7 @@ export class SpaceDevelopService {
     this.debugService.connect$.subscribe(() => {
       this.notifier.remove();
       this.notifier.success('连接成功', '设备: ' + debugService.device);
+      this.runFile()
     });
     this.debugService.close$.subscribe(() => {
       this.notifier.warning('连接断开', '设备: ' + debugService.device);
@@ -39,6 +40,10 @@ export class SpaceDevelopService {
     const project = this.project$.getValue();
     if (!project) throw new Error();
     this.fileService.saveProject(project, mode);
+  }
+
+  runFile(){
+
   }
 
   async connectDevice(url: string): Promise<void> {
