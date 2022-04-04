@@ -11,6 +11,7 @@ import {
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
+import { BtnIconComponent } from '../../components/btn-icon/btn-icon/btn-icon.component';
 
 @Component({
   selector: 'app-space-tools-bar',
@@ -25,6 +26,9 @@ export class SpaceToolsBarComponent implements OnInit {
   @ViewChild('folderChooser') folderChooser!: ElementRef;
   @ViewChild('fileChooser') fileChooser!: ElementRef;
   @ViewChild('zipChooser') zipChooser!: ElementRef;
+
+  @ViewChild('openProjectBtn') openProjectBtn!: ElementRef;
+  @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
   holdBox = false;
   syncCode = true;
@@ -112,8 +116,10 @@ export class SpaceToolsBarComponent implements OnInit {
   }
   onSaveModeChange(mode: SpaceSaveMode): void {
     this.saveMode = mode;
+    this.onSaveProject();
   }
   onOpenModeChange(mode: SpaceOpenMode): void {
     this.openMode = mode;
+    this.onOpenProject();
   }
 }

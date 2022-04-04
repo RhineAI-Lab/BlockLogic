@@ -1,12 +1,11 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import {Project} from '../../common/project.class';
-import {SpaceSaveMode} from '../common/space-modes.enums';
+import { Project } from '../../common/project.class';
+import { SpaceSaveMode } from '../common/space-modes.enums';
 
 import * as streamSaver from 'streamsaver';
-import {ProjectFile} from "../../common/project-file.class";
-import * as JSZip from "jszip";
-import {Subject} from "rxjs";
+import { ProjectFile } from '../../common/project-file.class';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,51 +17,50 @@ export class SpaceFileService {
 
   constructor() {}
 
-  saveProject(project: Project,mode: SpaceSaveMode): Promise<void> | void {
-    if(mode==SpaceSaveMode.Local){
-      let files = project.files
-      if(files.length==1){
-        this.saveFile(files[0])
-      }else{
-        this.saveZip(project.files, project.name)
+  saveProject(project: Project, mode: SpaceSaveMode): Promise<void> | void {
+    if (mode == SpaceSaveMode.Local) {
+      let files = project.files;
+      if (files.length == 1) {
+        this.saveFile(files[0]);
+      } else {
+        this.saveZip(project.files, project.name);
       }
-
     }
   }
 
-  saveFile(file: ProjectFile): Promise<void> | void{
-    if(file.code.length==0){
+  saveFile(file: ProjectFile): Promise<void> | void {
+    if (file.code.length == 0) {
       const outputStream = streamSaver.createWriteStream(file.name, {
-        size: file.source.size
-      })
-      const inputStream = file.source.stream()
-      this.saveFianl(inputStream,outputStream)
-    }else{
-      const blob = new Blob([file.code])
+        size: file.source.size,
+      });
+      const inputStream = file.source.stream();
+      this.saveFianl(inputStream, outputStream);
+    } else {
+      const blob = new Blob([file.code]);
       const outputStream = streamSaver.createWriteStream(file.name, {
-        size: blob.size
-      })
-      const inputStream = blob.stream()
-      this.saveFianl(inputStream,outputStream)
+        size: blob.size,
+      });
+      const inputStream = blob.stream();
+      this.saveFianl(inputStream, outputStream);
     }
   }
 
-  saveZip(files: ProjectFile[],name: string){
+  saveZip(files: ProjectFile[], name: string) {
     const inputStream = createWriter({
-      start (ctrl: any) {
+      start(ctrl: any) {
         for (const file of files) {
-          if(file.code.length==0){
-            ctrl.enqueue(file.source,file.path)
-          }else{
+          if (file.code.length == 0) {
+            ctrl.enqueue(file.source, file.path);
+          } else {
             ctrl.enqueue({
               name: file.path,
-              stream: () => new Blob([file.code]).stream()
-            })
+              stream: () => new Blob([file.code]).stream(),
+            });
           }
         }
-        ctrl.close()
+        ctrl.close();
       },
-      async pull (ctrl: any) {
+      async pull(ctrl: any) {
         // Egs: Download and zip
         // const url = 'https://d8d913s460fub.cloudfront.net/videoserver/cat-test-video-320x240.mp4'
         // const res = await fetch(url)
@@ -71,30 +69,30 @@ export class SpaceFileService {
         //
         // ctrl.enqueue({ name, stream })
         // ctrl.close()
-      }
-    })
+      },
+    });
 
-    const outputStream = streamSaver.createWriteStream(name+".zip")
-    this.saveFianl(inputStream,outputStream)
+    const outputStream = streamSaver.createWriteStream(name + '.zip');
+    this.saveFianl(inputStream, outputStream);
   }
 
-  saveFianl(inputStream: any, outputStream: any){
+  saveFianl(inputStream: any, outputStream: any) {
     if (window.WritableStream && inputStream.pipeTo) {
       return inputStream.pipeTo(outputStream).then(() => {
-        this.saveDone$.next()
-      })
+        this.saveDone$.next();
+      });
     }
-    let writer = outputStream.getWriter()
-    const reader = inputStream.getReader()
+    let writer = outputStream.getWriter();
+    const reader = inputStream.getReader();
     const pump = (): any => {
       reader.read().then((res: any) => {
-        res.done ? writer.close() : writer.write(res.value).then(pump)
-        if(res.done){
-          this.saveDone$.next()
+        res.done ? writer.close() : writer.write(res.value).then(pump);
+        if (res.done) {
+          this.saveDone$.next();
         }
-      })
-    }
-    pump()
+      });
+    };
+    pump();
   }
 }
 
