@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { SpaceSidebarEntry } from '../../space-sidebar-manager/space-sidebar-manager.component';
 
@@ -8,11 +8,7 @@ import { SpaceSidebarEntry } from '../../space-sidebar-manager/space-sidebar-man
   styleUrls: ['./space-sidebar-layout.component.less'],
 })
 export class SpaceSidebarLayoutComponent implements OnInit {
-  @Input() sidebarIcon!: string;
-  @Input() sidebarTitle!: string;
-  @Input() sidebarName!: string;
-
-  constructor(private entry: SpaceSidebarEntry) {}
+  constructor(public entry: SpaceSidebarEntry) {}
 
   ngOnInit(): void {}
 
