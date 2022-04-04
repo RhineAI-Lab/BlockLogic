@@ -9,15 +9,11 @@ import { SpaceSidebarProjectsController } from '../space-sidebar-projects/space-
 import { SpaceTabssetBarController } from '../space-tabsset-bar/space-tabsset-bar.component';
 import { SpaceToolsBarController } from '../space-tools-bar/space-tools-bar.component';
 
-@Injectable({
-  providedIn: 'root',
-})
-
+@Injectable()
+// TODO: purpose of this service?
 // Space区域全局外观样式管理服务
 export class SpaceStyleService {
-  notification?: NzNotificationService;
-  constructor() {}
-
+  // TODO: ??????
   public mainLayoutController?: SpaceMainLayoutController;
   public toolsBarController?: SpaceToolsBarController;
   public headerController?: SpaceHeaderController;
@@ -27,10 +23,13 @@ export class SpaceStyleService {
 
   public showHeader = true;
 
-  option: SpaceStyleOption = {
-    editorMode: OPTION.EDITOR_MODE_LOGIC,
-    showMode: OPTION.SHOW_M0DE_SPLIT,
+  private option = {
+    editorMode: SpaceStyleEditorMode.Logic,
+    showMode: SpaceStyleShowMode.Split,
   };
+
+  // TODO: is `notifier` required?
+  constructor(private notifier: NzNotificationService) {}
 
   changeHeaderDisplay(show: boolean): void {
     this.showHeader = show;
@@ -38,25 +37,23 @@ export class SpaceStyleService {
     this.headerController?.changeShowHeader(show);
     this.freshMainLayout(true);
   }
+
   async freshMainLayout(needWait = false): Promise<any> {
-    if (needWait) {
-      await new Promise((r) => setTimeout(r));
-      this.mainLayoutController?.freshMainLayout();
-    } else {
-      this.mainLayoutController?.freshMainLayout();
-    }
+    if (needWait) await new Promise((r) => setTimeout(r));
+    this.mainLayoutController?.freshMainLayout();
   }
-  changeShowMode(mode: number): void {
+
+  changeShowMode(mode: SpaceStyleShowMode): void {
     this.tabssetBarController?.changeShowMode(mode);
   }
-  changeEditorMode(mode: number): void {
+  changeEditorMode(mode: SpaceStyleEditorMode): void {
     this.tabssetBarController?.changeEditorMode(mode);
   }
 
-  setEditorMode(mode: number): void {
+  setEditorMode(mode: SpaceStyleEditorMode): void {
     this.option.editorMode = mode;
   }
-  setShowMode(mode: number): void {
+  setShowMode(mode: SpaceStyleShowMode): void {
     this.option.showMode = mode;
   }
 
@@ -75,17 +72,13 @@ export class SpaceStyleService {
   }
 }
 
-interface SpaceStyleOption {
-  editorMode: number;
-  showMode: number;
+export enum SpaceStyleShowMode {
+  Block,
+  Split,
+  Code,
 }
 
-//TODO 重复静态常量
-class OPTION {
-  static readonly SHOW_MODE_BLOCK: number = 0;
-  static readonly SHOW_M0DE_SPLIT: number = 1;
-  static readonly SHOW_M0DE_CODE: number = 2;
-
-  static readonly EDITOR_MODE_LOGIC: number = 0;
-  static readonly EDITOR_M0DE_DESIGN: number = 1;
+export enum SpaceStyleEditorMode {
+  Logic,
+  Design,
 }

@@ -1,13 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+// TODO:clarify the data stream
+@Injectable()
 export class SpaceDebugService {
-  constructor() {}
-
-  ws: WebSocket | null = null;
-
   sendId = 0;
   connected = false;
   requestTokenId = -1;
@@ -17,10 +13,18 @@ export class SpaceDebugService {
   serverId = '';
   token = '';
 
+  // TODO: ?????
+  readonly message$ = new Subject<[type: number, data: string]>();
+  readonly connect$ = new Subject<void>();
+  readonly close$ = new Subject<void>();
+  readonly error$ = new Subject<Event>();
+
+  private ws: WebSocket | null = null;
+
+  constructor() {}
+
   connect(url: string): void {
-    if (this.ws != null) {
-      this.ws.close();
-    }
+    this.ws?.close();
     this.ws = new WebSocket(url);
     this.url = url;
     this.ws.binaryType = 'arraybuffer';
@@ -34,37 +38,14 @@ export class SpaceDebugService {
     };
     this.ws.onclose = () => {
       if (this.connected) {
-        this.onClose();
+        this.close$.next();
         this.connected = false;
       }
     };
     this.ws.onerror = (evt) => {
-      this.onError(evt);
+      this.error$.next(evt);
     };
   }
-
-  // TODO: type of `data`
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onMsgBasic(type: number, data: any): void {
-    if (type == 1) {
-      if (data.type == 'hello') {
-        this.device = data.data.device_name;
-        this.serverVersion = data.data.server_version;
-        this.serverId = data.data.server_id;
-        this.onConnect();
-      } else if (data.type == 'response_' + this.requestTokenId) {
-        this.token = data.data.token;
-      }
-    }
-    this.onMsg(type, data);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onMsg = (type: number, data: string): void => {};
-  onConnect = (): void => {};
-  onClose = (): void => {};
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onError = (evt: Event): void => {};
 
   hello(): void {
     this.sendJson({
@@ -111,23 +92,7 @@ export class SpaceDebugService {
 
   // TODO: type of `data`?
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  parseData(data: any): [number, object] {
-    const view = new DataView(data, 0, 8);
-    // TODO: unused variable?
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const len = view.getInt32(0, false);
-    const type = view.getInt32(4, false);
-    if (type == 1) {
-      const td = new TextDecoder();
-      const str = td.decode(new Uint8Array(data, 8));
-      return [type, JSON.parse(str)];
-    } else {
-      return [type, data];
-    }
-  }
-  // TODO: type of `data`?
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  sendJson(data: any): boolean {
+  private sendJson(data: any): boolean {
     if (this.ws == null) {
       return false;
     }
@@ -145,5 +110,38 @@ export class SpaceDebugService {
     this.ws.send(buffer);
     this.sendId++;
     return true;
+  }
+
+  // TODO: type of `data`
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  private onMsgBasic(type: number, data: any): void {
+    if (type == 1) {
+      if (data.type == 'hello') {
+        this.device = data.data.device_name;
+        this.serverVersion = data.data.server_version;
+        this.serverId = data.data.server_id;
+        this.connect$.next();
+      } else if (data.type == 'response_' + this.requestTokenId) {
+        this.token = data.data.token;
+      }
+    }
+    this.message$.next([type, data]);
+  }
+
+  // TODO: type of `data`?
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  private parseData(data: any): [number, object] {
+    const view = new DataView(data, 0, 8);
+    // TODO: unused variable?
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const len = view.getInt32(0, false);
+    const type = view.getInt32(4, false);
+    if (type == 1) {
+      const td = new TextDecoder();
+      const str = td.decode(new Uint8Array(data, 8));
+      return [type, JSON.parse(str)];
+    } else {
+      return [type, data];
+    }
   }
 }

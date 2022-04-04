@@ -4,6 +4,7 @@ import * as Blockly from 'blockly';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
+import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
 import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
@@ -13,28 +14,20 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
   selector: 'app-space',
   templateUrl: './space.component.html',
   styleUrls: ['./space.component.less'],
+  providers: [SpaceDevelopService, SpaceDebugService, SpaceStyleService],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  spaceStyleService: SpaceStyleService;
-  spaceDevelopService: SpaceDevelopService;
-  notification: NzNotificationService;
-
+  // TODO: unused variables?
   constructor(
-    notification: NzNotificationService,
-    spaceStyleService: SpaceStyleService,
-    spaceDevelopService: SpaceDevelopService,
+    private notifier: NzNotificationService,
+    private styleService: SpaceStyleService,
+    private developService: SpaceDevelopService,
     iconService: NzIconService,
   ) {
-    this.notification = notification;
-    this.spaceStyleService = spaceStyleService;
-    this.spaceDevelopService = spaceDevelopService;
-    this.spaceStyleService.notification = notification;
-    this.spaceDevelopService.notification = notification;
-
     iconService.fetchFromIconfont({
       scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
     });
@@ -43,14 +36,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.spaceStyleService.mainLayoutController = {
+    this.styleService.mainLayoutController = {
       freshMainLayout: (): void => {
         Blockly.svgResize(this.blockEditor.workspace);
         this.codeEditor.workspace.layout();
       },
     };
     this.splitter.dragProgress$.subscribe(() => {
-      this.spaceStyleService.freshMainLayout();
+      this.styleService.freshMainLayout();
     });
   }
 
