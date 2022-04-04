@@ -67,9 +67,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   constructor(private developService: SpaceDevelopService) {}
 
   ngOnInit(): void {
-    this.developService.project$
-      .pipe(filter((v): v is Project => !!v))
-      .subscribe((project) => this.resolve(project));
+    this.developService.project$.subscribe((project) => this.resolve(project));
   }
 
   getNodeIdFromListByTitle(
