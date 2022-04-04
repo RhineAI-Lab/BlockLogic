@@ -187,5 +187,3 @@ function createWriter (underlyingSource) {
     }
   })
 }
-
-window.ZIP = createWriter

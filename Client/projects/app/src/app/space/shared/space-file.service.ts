@@ -6,11 +6,16 @@ import {SpaceSaveMode} from '../common/space-modes.enums';
 import * as streamSaver from 'streamsaver';
 import {ProjectFile} from "../../common/project-file.class";
 import * as JSZip from "jszip";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceFileService {
+  readonly saveStart$ = new Subject<void>();
+  readonly saveDone$ = new Subject<void>();
+  readonly saveFail$ = new Subject<void>();
+
   constructor() {}
 
   saveProject(project: Project,mode: SpaceSaveMode): Promise<void> | void {
@@ -19,37 +24,30 @@ export class SpaceFileService {
       if(files.length==1){
         this.saveFile(files[0])
       }else{
-        this.saveZip(files)
+        this.saveZip(project.files, project.name)
       }
 
     }
   }
 
   saveFile(file: ProjectFile): Promise<void> | void{
-    const blob = new Blob(['StreamSaver is awesome'])
-    const fileStream = streamSaver.createWriteStream('sample.txt', {
-      size: blob.size
-    })
-    const readableStream = blob.stream()
-
-    if (window.WritableStream && readableStream.pipeTo) {
-      return readableStream.pipeTo(fileStream)
-        .then(() => console.log('done writing'))
+    if(file.code.length==0){
+      const outputStream = streamSaver.createWriteStream(file.name, {
+        size: file.source.size
+      })
+      const inputStream = file.source.stream()
+      this.saveFianl(inputStream,outputStream)
+    }else{
+      const blob = new Blob([file.code])
+      const outputStream = streamSaver.createWriteStream(file.name, {
+        size: blob.size
+      })
+      const inputStream = blob.stream()
+      this.saveFianl(inputStream,outputStream)
     }
-    let writer = fileStream.getWriter()
-    const reader = readableStream.getReader()
-    const pump = (): any => {
-      reader.read().then(res => res.done
-        ? writer.close()
-        : writer.write(res.value).then(pump))
-    }
-    pump()
   }
 
-
-  saveZip(files: ProjectFile[]){
-
-    const fileStream = streamSaver.createWriteStream('archive.zip')
+  saveZip(files: ProjectFile[],name: string){
 
     const file1 = new File(['file1 content'], 'streamsaver-zip-example/file1.txt')
     const file2 = {
@@ -68,38 +66,47 @@ export class SpaceFileService {
       stream: () => new Blob(['support blobs too']).stream()
     }
 
-    const readableZipStream = createWriter({
+    const inputStream = createWriter({
       start (ctrl: any) {
         ctrl.enqueue(file1)
         ctrl.enqueue(file2)
         ctrl.enqueue(file3)
         ctrl.enqueue({name: 'streamsaver-zip-example/empty folder', directory: true})
-        // ctrl.close()
+        ctrl.close()
       },
       async pull (ctrl: any) {
-        // Gets executed everytime zip.js asks for more data
-        const url = 'https://d8d913s460fub.cloudfront.net/videoserver/cat-test-video-320x240.mp4'
-        const res = await fetch(url)
-        const stream = () => res.body
-        const name = 'streamsaver-zip-example/cat.mp4'
-
-        ctrl.enqueue({ name, stream })
-
-        // if (done adding all files)
-        ctrl.close()
+        // Egs: Download and zip
+        // const url = 'https://d8d913s460fub.cloudfront.net/videoserver/cat-test-video-320x240.mp4'
+        // const res = await fetch(url)
+        // const stream = () => res.body
+        // const name = 'streamsaver-zip-example/cat.mp4'
+        //
+        // ctrl.enqueue({ name, stream })
+        // ctrl.close()
       }
     })
 
-    // more optimized
-    if (window.WritableStream && readableZipStream.pipeTo) {
-      return readableZipStream.pipeTo(fileStream).then(() => console.log('done writing'))
-    }
+    const outputStream = streamSaver.createWriteStream(name)
+    this.saveFianl(inputStream,outputStream)
 
-    // less optimized
-    const writer = fileStream.getWriter()
-    const reader = readableZipStream.getReader()
-    const pump = () => reader.read()
-      .then((res: any) => res.done ? writer.close() : writer.write(res.value).then(pump))
+  }
+
+  saveFianl(inputStream: any, outputStream: any){
+    if (window.WritableStream && inputStream.pipeTo) {
+      return inputStream.pipeTo(outputStream).then(() => {
+        this.saveDone$.next()
+      })
+    }
+    let writer = outputStream.getWriter()
+    const reader = inputStream.getReader()
+    const pump = (): any => {
+      reader.read().then((res: any) => {
+        res.done ? writer.close() : writer.write(res.value).then(pump)
+        if(res.done){
+          this.saveDone$.next()
+        }
+      })
+    }
     pump()
   }
 }
