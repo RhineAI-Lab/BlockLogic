@@ -37,13 +37,9 @@ export class SpaceDevelopService {
   }
 
   openProjectFrom(source: string, location: string): void {
-    if(location==SpaceOpenMode.LocalFile){
-    }else if(location==SpaceOpenMode.LocalFolder){
-    }else if(location==SpaceOpenMode.LocalZip){
-    }else if(location==SpaceOpenMode.Browser){
-    }else if(location==SpaceOpenMode.Device){
-    }else if(location==SpaceOpenMode.Cloud){
-    }else if(location==SpaceOpenMode.Public||location==''){
+    if(location==SpaceLocationMode.Browser){
+    }else if(location==SpaceLocationMode.Cloud){
+    }else if(location==SpaceLocationMode.Public||location==''){
       if(source!=''){
         this.httpClient
           .get(source, { responseType: 'text' })
@@ -90,4 +86,10 @@ export class SpaceDevelopService {
   connectDevice(url: string): void {
     this.debugService.connect(url);
   }
+}
+
+export enum SpaceLocationMode {
+  Browser = 'browser',
+  Cloud = 'cloud',
+  Public = 'public',
 }

@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { EMPTY, from, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {EMPTY, from, Observable} from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import { Project } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
+import {Project, ProjectType} from '../../common/project.class';
+import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
-import { SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceSaveMode} from '../common/space-modes.enums';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,7 @@ export class SpaceFileService {
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     if (mode == SpaceSaveMode.Local) {
       const files = project.files;
-      if (files.length == 1) {
+      if (project.getType()==ProjectType.File) {
         return this.saveFile(files[0]);
       } else {
         return this.saveZip(project.files, project.name);
