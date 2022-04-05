@@ -30,7 +30,7 @@ export class SpaceDebugService {
     };
     this.ws.onmessage = (evt) => {
       const data = this.parseData(evt.data);
-      this.onMessage(...data);
+      this.onReceive(...data);
     };
     this.ws.onclose = () => {
       if (this.connected) {
@@ -110,7 +110,7 @@ export class SpaceDebugService {
 
   // TODO: type of `data`
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  private onMessage(type: number, data: any): void {
+  private onReceive(type: number, data: any): void {
     if (type == 1) {
       if (data.type == 'hello') {
         this.device = data.data.device_name;
