@@ -1,3 +1,10 @@
+/* eslint-disable */
+//@ts-nocheck
+
+// The code below is collected by HRan2004 from the Internet. Unfortunately I
+// cannot determine the original author, but I will try my best to stay the
+// code untouched.
+
 class Crc32 {
   constructor() {
     this.crc = -1;
@@ -221,4 +228,10 @@ function createWriter(underlyingSource) {
       );
     },
   });
+}
+
+/* eslint-enable */
+
+export function createZipWriter(source: UnderlyingSource): ReadableStream {
+  return createWriter(source);
 }

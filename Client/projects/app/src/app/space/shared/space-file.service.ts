@@ -4,6 +4,7 @@ import * as streamSaver from 'streamsaver';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
+import { createZipWriter } from '../../common/zip';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 
 @Injectable({
@@ -42,7 +43,7 @@ export class SpaceFileService {
   }
 
   saveZip(files: ProjectFile[], name: string): Observable<void> {
-    const inputStream = createWriter({
+    const inputStream = createZipWriter({
       start(ctrl: any) {
         for (const file of files) {
           if (file.code.length == 0) {
@@ -55,16 +56,6 @@ export class SpaceFileService {
           }
         }
         ctrl.close();
-      },
-      async pull(ctrl: any) {
-        // Egs: Download and zip
-        // const url = 'https://d8d913s460fub.cloudfront.net/videoserver/cat-test-video-320x240.mp4'
-        // const res = await fetch(url)
-        // const stream = () => res.body
-        // const name = 'streamsaver-zip-example/cat.mp4'
-        //
-        // ctrl.enqueue({ name, stream })
-        // ctrl.close()
       },
     });
 
@@ -94,5 +85,3 @@ export class SpaceFileService {
     }
   }
 }
-
-declare function createWriter(v: any): any;
