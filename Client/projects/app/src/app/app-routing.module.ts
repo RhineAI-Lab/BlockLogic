@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'space',
+    path: '',
     loadChildren: () =>
       import('./space/space.module').then((m) => m.SpaceModule),
   },
