@@ -1,6 +1,6 @@
-import './run-in-context.polyfill';
-
 import { Observable, Subject } from 'rxjs';
+
+import { runInContext } from './context';
 
 export class Sandbox {
   output$!: Observable<SandboxOutput>;
