@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { delay } from 'rxjs';
+import { delay, skip } from 'rxjs';
 
 import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
@@ -34,7 +34,9 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     state: SpaceState,
   ) {
     this.subscribeDebugEvents();
-    state.isHeaderVisible$.pipe(delay(0)).subscribe(() => this.resize());
+    state.isHeaderVisible$
+      .pipe(skip(1), delay(0))
+      .subscribe(() => this.resize());
   }
 
   ngOnInit(): void {}

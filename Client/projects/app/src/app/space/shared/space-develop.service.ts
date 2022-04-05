@@ -15,6 +15,7 @@ export class SpaceDevelopService {
   readonly project$ = new BehaviorSubject<Project>(new Project());
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
+  code = '';
 
   private sandboxOfLastRun?: Sandbox;
 
@@ -51,15 +52,13 @@ export class SpaceDevelopService {
   }
 
   runFile(): void {
-    // TODO: full implementation
-    const code = 'console.debug({ a: 1 });';
     this.sandboxOfLastRun?.destroy();
     const sandbox = new Sandbox();
     sandbox.output$.subscribe({
       next: this.output$.next.bind(this.output$),
       error: this.output$.error.bind(this.output$),
     });
-    sandbox.run(code);
+    sandbox.run(this.code);
     this.sandboxOfLastRun = sandbox;
   }
 

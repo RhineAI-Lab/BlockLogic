@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
+import { SpaceDevelopService } from '../shared/space-develop.service';
+
 @Component({
   selector: 'app-space-code-editor',
   templateUrl: './space-code-editor.component.html',
@@ -17,10 +19,16 @@ export class SpaceCodeEditorComponent implements OnInit {
   };
 
   @Output() change = new EventEmitter();
-  code = '';
   workspace!: monaco.editor.IStandaloneCodeEditor;
 
-  constructor() {}
+  get code(): string {
+    return this.developService.code;
+  }
+  set code(v: string) {
+    this.developService.code = v;
+  }
+
+  constructor(private developService: SpaceDevelopService) {}
 
   ngOnInit(): void {}
 }
