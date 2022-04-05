@@ -7,6 +7,7 @@ import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
+import {ParaUtils} from "../../common/utils/para.utils";
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -26,8 +27,26 @@ export class SpaceDevelopService {
       .subscribe(() => this.runFile());
   }
 
-  openProject(files: ProjectFile[]): void {
-    this.project$.next(new Project(files));
+  init(): void{
+    let source = ParaUtils.getUrlParameter("source")
+    let location = ParaUtils.getUrlParameter("location")
+    if(source==''){
+
+    }else if(location=='browser'){
+
+    }else if(location=='account'){
+
+    }else if(location=='public'||location==''){
+
+    }
+  }
+
+  openProject(files: ProjectFile[] | string): void {
+    if(typeof files != "string"){
+      this.project$.next(new Project(files));
+    }else{
+
+    }
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
