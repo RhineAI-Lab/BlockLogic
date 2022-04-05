@@ -13,11 +13,11 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
 
 @Component({
-  selector: 'app-space-tools-bar',
-  templateUrl: './space-tools-bar.component.html',
-  styleUrls: ['./space-tools-bar.component.less'],
+  selector: 'app-space-tool-bar',
+  templateUrl: './space-tool-bar.component.html',
+  styleUrls: ['./space-tool-bar.component.less'],
 })
-export class SpaceToolsBarComponent implements OnInit {
+export class SpaceToolBarComponent implements OnInit {
   RunMode = SpaceRunMode;
   SaveMode = SpaceSaveMode;
   OpenMode = SpaceOpenMode;

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpaceToolsBarComponent } from './space-tools-bar.component';
+import { SpaceToolBarComponent } from './space-tool-bar.component';
 
-describe('SpaceToolsBarComponent', () => {
-  let component: SpaceToolsBarComponent;
-  let fixture: ComponentFixture<SpaceToolsBarComponent>;
+describe('SpaceToolBarComponent', () => {
+  let component: SpaceToolBarComponent;
+  let fixture: ComponentFixture<SpaceToolBarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SpaceToolsBarComponent],
+      declarations: [SpaceToolBarComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SpaceToolsBarComponent);
+    fixture = TestBed.createComponent(SpaceToolBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

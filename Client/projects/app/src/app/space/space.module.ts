@@ -57,7 +57,7 @@ import { SpaceSidebarProjectsComponent } from './space-sidebar-projects/space-si
 import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-sidebar-terminal.component';
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
 import { SpaceTabBarComponent } from './space-tab-bar/space-tab-bar.component';
-import { SpaceToolsBarComponent } from './space-tools-bar/space-tools-bar.component';
+import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component';
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -89,7 +89,7 @@ const icons: IconDefinition[] = [
     SpaceSidebarProjectsComponent,
     SpaceSidebarManagerComponent,
     SpaceStatusBarComponent,
-    SpaceToolsBarComponent,
+    SpaceToolBarComponent,
     SpaceTabBarComponent,
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
