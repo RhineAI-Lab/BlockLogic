@@ -4,7 +4,7 @@ import * as streamSaver from 'streamsaver';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
-import { createZipWriter } from '../../common/zip';
+import zip from '../../common/zip';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 
 @Injectable({
@@ -43,7 +43,7 @@ export class SpaceFileService {
   }
 
   saveZip(files: ProjectFile[], name: string): Observable<void> {
-    const inputStream = createZipWriter({
+    const inputStream = zip.createWriter({
       start(ctrl: any) {
         for (const file of files) {
           if (file.code.length == 0) {

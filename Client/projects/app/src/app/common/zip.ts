@@ -232,6 +232,11 @@ function createWriter(underlyingSource) {
 
 /* eslint-enable */
 
-export function createZipWriter(source: UnderlyingSource): ReadableStream {
-  return createWriter(source);
-}
+const zip = {
+  Crc32,
+  getDataHelper,
+  pump,
+  createWriter: createWriter as (source: UnderlyingSource) => ReadableStream,
+};
+
+export default zip;
