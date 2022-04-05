@@ -42,7 +42,7 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
-import { BtnIconModule } from '../components/btn-icon/btn-icon.module';
+import { IconButtonModule } from '../components/icon-button/icon-button.module';
 import { DividerModule } from '../components/divider/divider.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
@@ -117,7 +117,7 @@ const icons: IconDefinition[] = [
     ],
     MonacoEditorModule,
     AngularSplitModule,
-    BtnIconModule,
+    IconButtonModule,
     DividerModule,
   ],
   providers: [

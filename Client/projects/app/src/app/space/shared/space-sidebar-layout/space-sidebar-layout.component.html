@@ -4,8 +4,8 @@
     <p fxFlex="grow" class="header-text">{{ entry.name }}</p>
     <ng-content select="[action]"></ng-content>
     <app-toolbar-divider></app-toolbar-divider>
-    <app-btn-icon icon="icon-set" (click)="onSetBtn()"></app-btn-icon>
-    <app-btn-icon icon="minus" (click)="onHideBtn()"></app-btn-icon>
+    <app-icon-button (click)="onSetBtn()">icon-set</app-icon-button>
+    <app-icon-button (click)="onHideBtn()">minus</app-icon-button>
   </div>
   <app-divider class="divider"></app-divider>
   <div class="body">

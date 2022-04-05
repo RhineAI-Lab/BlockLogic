@@ -1,13 +1,14 @@
 <div class="layout hr-ant" fxLayout>
   <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
   <label nz-checkbox [(ngModel)]="holdBox">保持栏目</label>
-  <app-btn-icon
-    icon="icon-set"
+  <app-icon-button
     class="moreSetting"
     nz-dropdown
     [nzDropdownMenu]="moreSettingMenu"
     nzPlacement="bottomCenter"
-  ></app-btn-icon>
+  >
+    icon-set
+  </app-icon-button>
   <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>
@@ -19,18 +20,21 @@
     </ul>
   </nz-dropdown-menu>
   <app-toolbar-divider></app-toolbar-divider>
-  <app-btn-icon
-    icon="icon-undo"
+  <app-icon-button
+    icon=""
     color="#5A76D4"
     nz-tooltip="撤销 [Ctrl+Z]"
     nzTooltipPlacement="bottom"
-  ></app-btn-icon>
-  <app-btn-icon
-    icon="icon-redo"
+  >
+    icon-undo
+  </app-icon-button>
+  <app-icon-button
     color="#5A76D4"
     nz-tooltip="重做 [Ctrl+Shift+Z]"
     nzTooltipPlacement="bottom"
-  ></app-btn-icon>
+  >
+    icon-redo
+  </app-icon-button>
   <app-toolbar-divider></app-toolbar-divider>
   <span class="tip">生成: </span>
   <nz-button-group nzSize="small">
@@ -73,14 +77,15 @@
       ></i>
     </ng-template>
   </nz-input-group>
-  <app-btn-icon
-    icon="api"
+  <app-icon-button
     [fill]="true"
     color="#1890FF"
     nz-tooltip="连接设备"
     nzTooltipPlacement="bottom"
     (click)="onConnectDevice()"
-  ></app-btn-icon>
+  >
+    api
+  </app-icon-button>
   <app-toolbar-divider></app-toolbar-divider>
   <button
     class="editor-mode-selector"
@@ -100,19 +105,21 @@
       </ul>
     </nz-dropdown-menu>
   </button>
-  <app-btn-icon
-    icon="icon-play"
+  <app-icon-button
     color="#59A869"
     nz-tooltip="运行 [Ctrl+5]"
     nzTooltipPlacement="bottom"
     (click)="run()"
-  ></app-btn-icon>
-  <app-btn-icon
-    icon="icon-stop"
+  >
+    icon-play
+  </app-icon-button>
+  <app-icon-button
     color="#C75450"
     nz-tooltip="停止 [Ctrl+6]"
     nzTooltipPlacement="bottom"
-  ></app-btn-icon>
+  >
+    icon-stop
+  </app-icon-button>
   <app-toolbar-divider></app-toolbar-divider>
   <nz-button-group nzSize="small">
     <button
@@ -219,11 +226,12 @@
   <app-toolbar-divider
     [fxHide]="state.isHeaderVisible$ | async"
   ></app-toolbar-divider>
-  <app-btn-icon
-    icon="vertical-align-bottom"
+  <app-icon-button
     nz-tooltip="显示头部栏"
     nzTooltipPlacement="bottomRight"
     [fxHide]="state.isHeaderVisible$ | async"
     (click)="state.isHeaderVisible$.next(true)"
-  ></app-btn-icon>
+  >
+    vertical-align-bottom
+  </app-icon-button>
 </div>

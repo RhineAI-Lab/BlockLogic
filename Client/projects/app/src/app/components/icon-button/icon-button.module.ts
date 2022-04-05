@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
-import { BtnIconComponent } from './btn-icon/btn-icon.component';
+import { IconButtonComponent } from './icon-button/icon-button.component';
 
 @NgModule({
-  declarations: [BtnIconComponent],
+  declarations: [IconButtonComponent],
   imports: [CommonModule, NzIconModule],
-  exports: [BtnIconComponent],
+  exports: [IconButtonComponent],
 })
-export class BtnIconModule {}
+export class IconButtonModule {}

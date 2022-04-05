@@ -12,11 +12,12 @@
       </ul>
     </div>
   </div>
-  <app-btn-icon
-    icon="icon-chevron-up"
+  <app-icon-button
     color="#505050"
     nz-tooltip="隐藏头部栏"
     nzTooltipPlacement="bottomRight"
     (click)="state.isHeaderVisible$.next(false)"
-  ></app-btn-icon>
+  >
+    icon-chevron-up
+  </app-icon-button>
 </div>
