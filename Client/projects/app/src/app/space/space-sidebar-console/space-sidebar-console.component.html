@@ -1,4 +1,5 @@
 <app-space-sidebar-layout class="layout">
+  <app-icon-button action (click)="lines = []">clear</app-icon-button>
   <div class="main">
     <div class="line" *ngFor="let line of lines">{{ line }}</div>
   </div>

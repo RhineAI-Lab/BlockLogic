@@ -4,6 +4,7 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import {
   ApiFill,
   BorderOutline,
+  ClearOutline,
   CloseOutline,
   CodeOutline,
   ControlOutline,
@@ -42,8 +43,8 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
-import { IconButtonModule } from '../components/icon-button/icon-button.module';
 import { DividerModule } from '../components/divider/divider.module';
+import { IconButtonModule } from '../components/icon-button/icon-button.module';
 import { SharedModule } from '../shared/shared.module';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { SpaceComponent } from './space.component';
@@ -62,6 +63,7 @@ import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component
 const icons: IconDefinition[] = [
   ApiFill,
   BorderOutline,
+  ClearOutline,
   CloseOutline,
   CodeOutline,
   ControlOutline,
