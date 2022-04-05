@@ -4,10 +4,10 @@ import { BehaviorSubject, filter, Subject } from 'rxjs';
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
+import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
-import {ParaUtils} from "../../common/utils/para.utils";
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -27,25 +27,22 @@ export class SpaceDevelopService {
       .subscribe(() => this.runFile());
   }
 
-  init(): void{
-    let source = ParaUtils.getUrlParameter("source")
-    let location = ParaUtils.getUrlParameter("location")
-    if(source==''){
-
-    }else if(location=='browser'){
-
-    }else if(location=='account'){
-
-    }else if(location=='public'||location==''){
-      let projectUrl = "assets/space"
+  init(): void {
+    const source = ParaUtils.getUrlParameter('source');
+    const location = ParaUtils.getUrlParameter('location');
+    if (source == '') {
+    } else if (location == 'browser') {
+    } else if (location == 'account') {
+    } else if (location == 'public' || location == '') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const projectUrl = 'assets/space';
     }
   }
 
   openProject(files: ProjectFile[] | string): void {
-    if(typeof files != "string"){
+    if (typeof files != 'string') {
       this.project$.next(new Project(files));
-    }else{
-
+    } else {
     }
   }
   saveProject(mode: SpaceSaveMode): void {

@@ -43,7 +43,7 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     this.splitter.dragProgress$.subscribe(() => {
       this.resize();
     });
-    this.developService.init()
+    this.developService.init();
   }
 
   resize(): void {
