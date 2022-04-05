@@ -11,7 +11,6 @@ import {
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
-import { BtnIconComponent } from '../../components/btn-icon/btn-icon/btn-icon.component';
 
 @Component({
   selector: 'app-space-tools-bar',

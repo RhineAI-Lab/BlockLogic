@@ -4,7 +4,6 @@ import {
   NzTreeNode,
   NzTreeNodeOptions,
 } from 'ng-zorro-antd/tree';
-import { filter } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
