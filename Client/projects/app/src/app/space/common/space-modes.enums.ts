@@ -28,4 +28,5 @@ export enum SpaceOpenMode {
   Browser = '浏览器',
   Device = '设备',
   Cloud = '云端',
+  Public = '公共',
 }

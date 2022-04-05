@@ -4,11 +4,10 @@ export class Project {
   target = 0;
   name = 'Project';
   constructor(
-    public files: ProjectFile[] = [],
+    public files: ProjectFile[],
     public type: ProjectType = ProjectType.File,
     public engine: ProjectEngine = ProjectEngine.BLogic,
   ) {
-    if (!files.length) files.push(new ProjectFile(new File([], '')));
     if (type == ProjectType.Folder) {
       this.name = files[0].path.split('/')[0];
     }
@@ -16,6 +15,17 @@ export class Project {
 
   getTargetFile(): ProjectFile {
     return this.files[this.target];
+  }
+
+  static getDefaultProject(): Project {
+    const defaultCode = '';
+    return new Project([
+      ProjectFile.makeProjectFileByCode(defaultCode,'Project/main.js')
+    ], ProjectType.File, ProjectEngine.BLogic);
+  }
+
+  static getEmptyProject(): Project {
+    return new Project([], ProjectType.File, ProjectEngine.BLogic);
   }
 }
 

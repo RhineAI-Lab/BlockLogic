@@ -5,7 +5,7 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 import {HttpClient} from "@angular/common/http";
@@ -13,7 +13,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
-  readonly project$ = new BehaviorSubject<Project>(new Project());
+  readonly project$ = new BehaviorSubject<Project>(Project.getEmptyProject());
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   code = '';
@@ -33,20 +33,43 @@ export class SpaceDevelopService {
   init(): void{
     let source = ParaUtils.getUrlParameter("source")
     let location = ParaUtils.getUrlParameter("location")
-    if(location=='browser'){
-    }else if(location=='account'){
-    }else if(location=='public'||location==''){
-      if(source.length==0){
-        source = 'example/StartScript.js'
+    this.openProjectFrom(source, location)
+  }
+
+  openProjectFrom(source: string, location: string): void {
+    if(location==SpaceOpenMode.LocalFile){
+    }else if(location==SpaceOpenMode.LocalFolder){
+    }else if(location==SpaceOpenMode.LocalZip){
+    }else if(location==SpaceOpenMode.Browser){
+    }else if(location==SpaceOpenMode.Device){
+    }else if(location==SpaceOpenMode.Cloud){
+    }else if(location==SpaceOpenMode.Public||location==''){
+      if(source!=''){
+        this.httpClient
+          .get(source, { responseType: 'text' })
+          .subscribe((code) => {
+            // TODO: 打开文件内容错误
+            console.log(source)
+            console.log(code)
+            if(source.endsWith('.js')) {
+              const ps = source.split('/')
+              const name = ps[ps.length - 1]
+              let files: ProjectFile[] = [
+                ProjectFile.makeProjectFileByCode('Project/' + name, code)
+              ]
+              this.openProject(new Project(files))
+            }else if(source.endsWith('.json')){
+              // TODO: 打开文件夹项目
+            }
+          });
+      }else{
+        this.openProject(Project.getDefaultProject())
       }
     }
   }
 
-  openProject(files: ProjectFile[] | string): void {
-    if (typeof files != 'string') {
-      this.project$.next(new Project(files));
-    } else {
-    }
+  openProject(project: Project): void {
+    this.project$.next(project);
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();

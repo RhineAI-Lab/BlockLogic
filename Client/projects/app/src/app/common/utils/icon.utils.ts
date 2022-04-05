@@ -10,11 +10,11 @@ export class IconUtils {
     const picList = 'jpg png jpeg ico logo bmp'.split(' ');
     if (name == 'project.json') {
       return 'icon-file-config';
-    } else if (hadList.indexOf(nameLast) > -1) {
+    } else if (hadList.includes(nameLast)) {
       return 'icon-file-' + nameLast;
-    } else if (zipList.indexOf(nameLast) > -1) {
+    } else if (zipList.includes(nameLast)) {
       return 'icon-file-archive';
-    } else if (picList.indexOf(nameLast) > -1) {
+    } else if (picList.includes(nameLast)) {
       return 'icon-file-pic';
     } else if (nameSp.length == 1) {
       return 'icon-file-unknown';

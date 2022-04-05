@@ -11,6 +11,7 @@ import {
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
+import {Project} from "../../common/project.class";
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -90,9 +91,9 @@ export class SpaceToolBarComponent implements OnInit {
     if (files.length > 0) {
       const projectFiles: ProjectFile[] = [];
       for (const file of files) {
-        projectFiles.push(new ProjectFile(file));
+        projectFiles.push(ProjectFile.makeProjectFileByFile(file,file.webkitRelativePath));
       }
-      this.developService.openProject(projectFiles);
+      this.developService.openProject(new Project(projectFiles));
     }
   }
 

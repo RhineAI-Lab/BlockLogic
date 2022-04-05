@@ -26,7 +26,7 @@ export class SpaceFileService {
   }
 
   saveFile(file: ProjectFile): Observable<void> {
-    if (file.code.length == 0) {
+    if (file.code.length == 0 && file.source) {
       const outputStream = streamSaver.createWriteStream(file.name, {
         size: file.source.size,
       });
