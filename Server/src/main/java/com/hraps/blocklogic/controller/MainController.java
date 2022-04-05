@@ -22,8 +22,8 @@ public class MainController {
     public String docs(Model model){
         return "docs/docs";
     }
-    @RequestMapping(value = {"/examples"})
-    public String examples(Model model){
-        return "home/examples";
+    @RequestMapping(value = {"/example"})
+    public String example(Model model){
+        return "home/example";
     }
 }

@@ -8,6 +8,7 @@ import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -22,21 +23,22 @@ export class SpaceDevelopService {
   constructor(
     private debugService: SpaceDebugService,
     private fileService: SpaceFileService,
+    private httpClient: HttpClient,
   ) {
     this.debugEvents
       .pipe(filter((event) => event.type == 'connect'))
       .subscribe(() => this.runFile());
   }
 
-  init(): void {
-    const source = ParaUtils.getUrlParameter('source');
-    const location = ParaUtils.getUrlParameter('location');
-    if (source == '') {
-    } else if (location == 'browser') {
-    } else if (location == 'account') {
-    } else if (location == 'public' || location == '') {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const projectUrl = 'assets/space';
+  init(): void{
+    let source = ParaUtils.getUrlParameter("source")
+    let location = ParaUtils.getUrlParameter("location")
+    if(location=='browser'){
+    }else if(location=='account'){
+    }else if(location=='public'||location==''){
+      if(source.length==0){
+        source = 'example/StartScript.js'
+      }
     }
   }
 
