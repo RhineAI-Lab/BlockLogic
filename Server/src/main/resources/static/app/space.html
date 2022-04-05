@@ -28,6 +28,7 @@
         <a target="view_window" href="/index#about">简介</a>
         <a target="view_window" href="/index">主页</a>
     </div>
+    <span class="view-new" onclick="window.open('/space')">体验新版编辑器</span>
 </div>
 
 <div class="tool-bar" id="toolbar">
@@ -50,7 +51,6 @@
     <custom-select class="ui-target-selector" id="ui-target-selector" ref="selectTarget" :list="list"></custom-select>
     <a class="tool-space"></a>
     <a class="tool-space"></a>
-
     <select class="tool-select" id="show-mode-selector" onchange="onShowModeChange(this.selectedIndex)">
         <option class="tool-option">图形&代码</option>
         <option class="tool-option">仅显示图形</option>

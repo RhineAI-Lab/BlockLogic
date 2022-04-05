@@ -37,7 +37,7 @@ export class SpaceDevelopService {
     }else if(location=='account'){
 
     }else if(location=='public'||location==''){
-
+      let projectUrl = "assets/space"
     }
   }
 

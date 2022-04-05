@@ -11,8 +11,8 @@ public class MainController {
     public String index(Model model){
         return "home/index";
     }
-    @RequestMapping(value = {"/space"})
-    public String space(@RequestParam(name="source",defaultValue = "") String source, Model model){
+    @RequestMapping(value = {"/last-space"})
+    public String lastSpace(@RequestParam(name="source",defaultValue = "") String source, Model model){
         if(source.length()>0){
             model.addAttribute("source",source);
         }
