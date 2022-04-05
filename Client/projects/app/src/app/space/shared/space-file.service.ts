@@ -6,12 +6,45 @@ import {Project, ProjectType} from '../../common/project.class';
 import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
 import {SpaceSaveMode} from '../common/space-modes.enums';
+import * as JSZip from "jszip";
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceFileService {
   constructor() {}
+
+  openZip(file: File): Observable<Project> {
+    return from(
+      new Promise<Project>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const zip = new JSZip();
+          zip.loadAsync(reader.result as ArrayBuffer).then(
+            (zip) => {
+              const files: ProjectFile[] = [];
+              zip.forEach((relativePath, file) => {
+                if (file.dir) {
+                  return;
+                }
+                const projectFile = ProjectFile.makeProjectFileByFile(new File([''],''),relativePath);
+                // let sourceFile = file.async("arraybuffer"); ??
+                // const projectFile = ProjectFile.makeProjectFileByFile(sourceFile,relativePath);
+                projectFile.path = relativePath;
+                files.push(projectFile);
+              });
+              resolve(new Project(files));
+            },
+            (error) => {
+              reject(error);
+            },
+          );
+        };
+        reader.readAsArrayBuffer(file);
+      }),
+    );
+  }
+
 
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     if (mode == SpaceSaveMode.Local) {

@@ -1,17 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { filter, race, take, tap, timer } from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {filter, race, take, tap, timer} from 'rxjs';
 
-import { ProjectFile } from '../../common/project-file.class';
-import { StringUtils } from '../../common/utils/string.utils';
-import {
-  SpaceOpenMode,
-  SpaceRunMode,
-  SpaceSaveMode,
-} from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceState } from '../shared/space-state.service';
+import {ProjectFile} from '../../common/project-file.class';
+import {StringUtils} from '../../common/utils/string.utils';
+import {SpaceOpenMode, SpaceRunMode, SpaceSaveMode,} from '../common/space-modes.enums';
+import {SpaceDevelopService} from '../shared/space-develop.service';
+import {SpaceState} from '../shared/space-state.service';
 import {Project} from "../../common/project.class";
+import {SpaceFileService} from "../shared/space-file.service";
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -71,7 +68,7 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.openMode == SpaceOpenMode.LocalFolder) {
       this.folderChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.LocalZip) {
-      this.notifier.error('暂不支持打开压缩包项目', '功能开发中...');
+      this.zipChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.Cloud) {
       this.notifier.error('暂不支持打开云端项目', '功能开发中...');
     } else if (this.openMode == SpaceOpenMode.Device) {
@@ -82,18 +79,22 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   onSelectProject(): void {
-    let files: File[] = [];
-    if (this.openMode == SpaceOpenMode.LocalFile) {
-      files = this.fileChooser.nativeElement.files;
-    } else if (this.openMode == SpaceOpenMode.LocalFolder) {
-      files = this.folderChooser.nativeElement.files;
-    }
-    if (files.length > 0) {
-      const projectFiles: ProjectFile[] = [];
-      for (const file of files) {
-        projectFiles.push(ProjectFile.makeProjectFileByFile(file,file.webkitRelativePath));
+    if (this.openMode == SpaceOpenMode.LocalZip){
+      this.developService.openZipFile(this.fileChooser.nativeElement.files[0])
+    }else{
+      let files: File[] = [];
+      if (this.openMode == SpaceOpenMode.LocalFile) {
+        files = this.fileChooser.nativeElement.files;
+      } else if (this.openMode == SpaceOpenMode.LocalFolder) {
+        files = this.folderChooser.nativeElement.files;
       }
-      this.developService.openProject(new Project(projectFiles));
+      if (files.length > 0) {
+        const projectFiles: ProjectFile[] = [];
+        for (const file of files) {
+          projectFiles.push(ProjectFile.makeProjectFileByFile(file,file.webkitRelativePath));
+        }
+        this.developService.openProject(new Project(projectFiles));
+      }
     }
   }
 

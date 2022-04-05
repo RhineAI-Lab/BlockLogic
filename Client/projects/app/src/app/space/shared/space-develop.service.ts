@@ -63,6 +63,11 @@ export class SpaceDevelopService {
       }
     }
   }
+  openZipFile(file: File): void {
+    this.fileService.openZip(file).subscribe((project: Project) => {
+      this.openProject(project);
+    });
+  }
 
   openProject(project: Project): void {
     this.project$.next(project);
