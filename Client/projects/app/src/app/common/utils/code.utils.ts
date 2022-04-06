@@ -3,7 +3,6 @@ export class CodeUtils {
 
   static getBlockXml(code: string): string {
     let i = code.indexOf(CodeUtils.blockStartStr);
-    console.log(i);
     if (i == -1) {
       return '';
     } else {

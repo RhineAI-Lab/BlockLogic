@@ -64,7 +64,7 @@ export class SpaceDevelopService {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
               const files: ProjectFile[] = [
-                ProjectFile.makeProjectFileByCode('Project/' + name, code),
+                ProjectFile.makeProjectFileByCode(code, 'Project/' + name),
               ];
               this.openProject(new Project(files));
             } else if (source.endsWith('.json')) {
