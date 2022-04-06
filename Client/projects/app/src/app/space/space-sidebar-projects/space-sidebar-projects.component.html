@@ -8,6 +8,7 @@
       nzShowLine
       [nzExpandedIcon]="multiExpandedIconTpl"
       [nzTreeTemplate]="nzTreeTpl"
+      (nzDblClick)="onDoubleClick($event)"
     >
       <ng-template #multiExpandedIconTpl let-node let-origin="origin">
         <i

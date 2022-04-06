@@ -74,6 +74,7 @@ export class SpaceDevelopService {
 
   openProject(project: Project): void {
     this.project$.next(project);
+    this.changeFile(project.getTargetFile().path);
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();

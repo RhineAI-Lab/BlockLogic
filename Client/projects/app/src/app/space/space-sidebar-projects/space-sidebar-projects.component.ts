@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
+  NzFormatEmitEvent,
   NzTreeComponent,
   NzTreeNode,
   NzTreeNodeOptions,
@@ -85,6 +86,12 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   getFileIcon(name: string): string {
     return IconUtils.getIconByFileName(name);
+  }
+
+  onDoubleClick(event: NzFormatEmitEvent): void {
+    if(event.node){
+      this.developService.changeFile(event.node.origin.key);
+    }
   }
 
   private async resolve(project: Project): Promise<void> {
