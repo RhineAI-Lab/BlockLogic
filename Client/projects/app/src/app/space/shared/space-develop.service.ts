@@ -118,7 +118,7 @@ export class SpaceDevelopService {
   async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
     await new Promise((r) => setTimeout(r, 100));
-    if (!this.debugService.connected) {
+    if (!this.debugService.closed&&!this.debugService.connected) {
       // 连接时间长时提示
       this.notifier$.next({type:'info', title:'正在连接...'})
     }

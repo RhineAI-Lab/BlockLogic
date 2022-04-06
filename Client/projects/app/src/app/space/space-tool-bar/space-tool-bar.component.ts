@@ -110,7 +110,6 @@ export class SpaceToolBarComponent implements OnInit {
           filter((event) => event.type == 'connect'),
           take(1),
         ),
-        timer(100).pipe(tap(() => this.notifier.info('正在连接……', ''))),
       ]).subscribe();
     }
   }

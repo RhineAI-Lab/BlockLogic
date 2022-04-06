@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 export class SpaceDebugService {
   sendId = 0;
   connected = false;
+  closed = false;
   requestTokenId = -1;
   url = '';
   device = '';
@@ -21,6 +22,8 @@ export class SpaceDebugService {
 
   connect(url: string): void {
     this.ws?.close();
+    this.connected = false;
+    this.closed = false;
     this.ws = new WebSocket(url);
     this.url = url;
     this.ws.binaryType = 'arraybuffer';
@@ -34,15 +37,15 @@ export class SpaceDebugService {
     };
     this.ws.onclose = () => {
       if (this.connected) {
+        this.closed = true
         this.events$.next({ type: 'close' });
-        this.connected = false;
       }
     };
     this.ws.onerror = (event) => {
+      this.closed = true
       this.events$.next({ type: 'error', payload: event });
     };
   }
-
   hello(): void {
     this.sendJson({
       type: 'hello',
@@ -51,6 +54,7 @@ export class SpaceDebugService {
       },
     });
   }
+
   runFile(id: string, code: string, name: string = id): void {
     this.sendJson({
       id: this.sendId,
