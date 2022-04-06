@@ -15,9 +15,12 @@ export class SpaceState {
   );
   readonly needResize$ = new Subject<boolean>();
 
+  readonly toolbarButtonEvent$ = new Subject<number>();
+
   constructor() {
     this.layoutMode$.subscribe( () => {
       this.needResize$.next(true);
     });
   }
 }
+

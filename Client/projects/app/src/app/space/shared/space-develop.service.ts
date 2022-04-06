@@ -19,7 +19,7 @@ export class SpaceDevelopService {
   );
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
-  readonly notifier$ = new Subject<Notification>();
+  readonly notification$ = new Subject<Notification>();
 
   holdBox = false;
   syncCode = true;
@@ -104,7 +104,7 @@ export class SpaceDevelopService {
             }
           },
           error: (err) => {
-            this.notifier$.next({
+            this.notification$.next({
               type: 'error',
               title: '文件打开错误',
               content: '',
@@ -112,7 +112,7 @@ export class SpaceDevelopService {
           },
         });
       } else {
-        this.notifier$.next({
+        this.notification$.next({
           type: 'error',
           title: '不支持打开该文件类型',
           content: '',
@@ -137,7 +137,7 @@ export class SpaceDevelopService {
     await new Promise((r) => setTimeout(r, 100));
     if (!this.debugService.closed && !this.debugService.connected) {
       // 连接时间长时提示
-      this.notifier$.next({ type: 'info', title: '正在连接...' });
+      this.notification$.next({ type: 'info', title: '正在连接...' });
     }
   }
 
@@ -146,15 +146,15 @@ export class SpaceDevelopService {
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
         // 连接成功时清空消息，防止上次连接强制断开时提示错误
-        this.notifier$.next({ type: 'remove' });
-        this.notifier$.next({
+        this.notification$.next({ type: 'remove' });
+        this.notification$.next({
           type: 'success',
           title: '连接成功',
           content: `设备：${device}`,
         });
       }
       if (event.type == 'close') {
-        this.notifier$.next({
+        this.notification$.next({
           type: 'warning',
           title: '连接断开',
           content: `设备：${device}`,
@@ -164,7 +164,7 @@ export class SpaceDevelopService {
         const eventTarget = event.payload.target as
           | (EventTarget & { url: string })
           | undefined;
-        this.notifier$.next({
+        this.notification$.next({
           type: 'error',
           title: '连接错误',
           content: `地址: ${eventTarget?.url}`,

@@ -9,6 +9,7 @@ import { SpaceState } from '../shared/space-state.service';
 import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 import { wait } from '../../common/promisify.utils';
+import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
 
 @Component({
   selector: 'app-space-center',
@@ -44,10 +45,25 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
+
   ngAfterViewInit(): void {
     this.developService.targetFile$.subscribe((file) => {
       this.codeEditor.code = file.code;
       this.updateBlocks();
+    });
+    this.state.toolbarButtonEvent$.subscribe((btnId) => {
+      switch (btnId) {
+        case SpaceToolBarButtonType.ToCode:
+          this.updateCode();
+          break;
+        case SpaceToolBarButtonType.ToBlock:
+          this.updateBlocks();
+          break;
+        case SpaceToolBarButtonType.Undo:
+          break;
+        case SpaceToolBarButtonType.Redo:
+          break;
+      }
     });
   }
 

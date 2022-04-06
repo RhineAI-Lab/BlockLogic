@@ -141,4 +141,24 @@ export class SpaceToolBarComponent implements OnInit {
     this.openMode = mode;
     this.onOpenProject();
   }
+
+  onUndo(): void {
+    this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.Undo);
+  }
+  onRedo(): void {
+    this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.Redo);
+  }
+  onToBlock(): void {
+    this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.ToBlock);
+  }
+  onToCode(): void {
+    this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.ToCode);
+  }
+}
+
+export enum SpaceToolBarButtonType {
+  Undo,
+  Redo,
+  ToBlock,
+  ToCode,
 }

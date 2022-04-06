@@ -27,7 +27,7 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   }
 
   private subscribeNotifier(): void {
-    this.developService.notifier$.subscribe({
+    this.developService.notification$.subscribe({
       next: (notification) => {
         if (notification.type == 'remove') {
           this.notifier.remove();
