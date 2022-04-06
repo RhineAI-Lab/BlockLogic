@@ -75,9 +75,9 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     document.onmousemove = (e) => {
       const endX = e.clientX;
       let finalWidth = 0;
-      if (item.position.indexOf('left') >= 0) {
+      if (item.position.includes('left')) {
         finalWidth = startW + endX - startX;
-      } else if (item.position.indexOf('right') >= 0) {
+      } else if (item.position.includes('right')) {
         finalWidth = startW - endX + startX;
       }
       if (finalWidth > item.minWidth) {

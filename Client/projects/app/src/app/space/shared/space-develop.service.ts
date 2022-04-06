@@ -5,7 +5,7 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceOpenMode, SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceEditorMode, SpaceLayoutMode, SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 import { HttpClient } from '@angular/common/http';
@@ -17,6 +17,8 @@ export class SpaceDevelopService {
   readonly targetFile$ = new BehaviorSubject<ProjectFile>(
     this.project$.getValue().getTargetFile(),
   );
+  readonly editorMode$ = new BehaviorSubject<string>(SpaceEditorMode.Logic);
+  readonly layoutMode$ = new BehaviorSubject<number>(SpaceLayoutMode.Split);
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   code = '';

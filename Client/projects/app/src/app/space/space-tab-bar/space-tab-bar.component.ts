@@ -59,10 +59,12 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   onEditorModeChange(mode: SpaceEditorMode): void {
-    //this.styleService.changeEditorMode(mode);
+    this.editorMode = mode;
+    this.developService.editorMode$.next(mode);
   }
   onLayoutModeChange(mode: SpaceLayoutMode): void {
-    //this.styleService.changeShowMode(mode);
+    this.layoutMode = mode;
+    this.developService.layoutMode$.next(mode);
   }
 
   onTabClick(item: TabItem): void {
@@ -86,15 +88,6 @@ export class SpaceTabBarComponent implements OnInit {
   getFileIcon(name: string): string {
     return IconUtils.getIconByFileName(name);
   }
-}
-
-export interface SpaceTabBarController {
-  changeEditorMode: (mode: SpaceEditorMode) => void;
-  changeLayoutMode: (mode: SpaceLayoutMode) => void;
-
-  openFile: (file: string) => void;
-  changeFile: (file: string) => boolean;
-  closeFile: (file: string) => boolean;
 }
 
 class TabItem {

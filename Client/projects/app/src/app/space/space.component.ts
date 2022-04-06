@@ -7,7 +7,6 @@ import { delay, skip } from 'rxjs';
 import { SpaceDebugService } from './shared/space-debug.service';
 import { SpaceDevelopService } from './shared/space-develop.service';
 import { SpaceState } from './shared/space-state.service';
-import { SpaceStyleService } from './shared/space-style.service';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 
@@ -18,7 +17,6 @@ import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.
   providers: [
     SpaceDevelopService,
     SpaceDebugService,
-    SpaceStyleService,
     SpaceState,
   ],
 })
