@@ -55,7 +55,17 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           toolbox: xml,
         });
         this.init.emit();
-        this.workspace.addChangeListener(() => this.change.emit());
+        this.workspace.addChangeListener((event: Event) => {
+          let changeType = [
+            Blockly.Events.BLOCK_CREATE,
+            Blockly.Events.BLOCK_DELETE,
+            Blockly.Events.BLOCK_CHANGE,
+            Blockly.Events.BLOCK_MOVE,
+          ];
+          if(changeType.includes(event.type)){
+            this.change.emit();
+          }
+        });
 
         const toolbox = this.workspace.getToolbox();
         toolbox.setVisible(false);

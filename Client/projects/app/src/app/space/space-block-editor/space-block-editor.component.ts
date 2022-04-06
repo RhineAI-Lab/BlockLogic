@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as Blockly from 'blockly';
 
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';

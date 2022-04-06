@@ -41,6 +41,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       }
       this.resize()
     });
+
+    developService.targetFile$.subscribe( (file) => {
+      this.codeEditor.code = file.code;
+      this.updateBlocks();
+    });
   }
 
   ngOnInit(): void {}
@@ -57,8 +62,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updateBlocks(): void {
-    const xmlText = CodeUtils.getBlockXml(this.codeEditor.code);
+  updateBlocks(code?: string): void {
+    if(!code){
+      code = this.codeEditor.code
+    }
+    const xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) return;
     const xmlDom = Blockly.Xml.textToDom(xmlText);
     Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);

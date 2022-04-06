@@ -20,7 +20,6 @@ export class SpaceDevelopService {
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly notifier$ = new Subject<Notification>();
-  readonly code$ = new BehaviorSubject<string>('');
 
   holdBox = false;
   syncCode = true;
@@ -42,6 +41,16 @@ export class SpaceDevelopService {
     this.openProjectFrom(source, location);
   }
 
+  get targetCode(): string {
+    if(this.targetFile$.getValue().code) {
+      return this.targetFile$.getValue().code;
+    }
+    return '';
+  }
+  set targetCode(v: string) {
+    this.targetFile$.getValue().code = v;
+  }
+
   openProjectFrom(source: string, location: string): void {
     if (location == SpaceLocationMode.Browser) {
     } else if (location == SpaceLocationMode.Cloud) {
@@ -51,9 +60,6 @@ export class SpaceDevelopService {
         this.httpClient
           .get(url, { responseType: 'text' })
           .subscribe((code) => {
-            // TODO: 打开文件内容错误
-            console.log(source);
-            console.log(code);
             if (source.endsWith('.js')) {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
@@ -93,7 +99,6 @@ export class SpaceDevelopService {
       if (supportType.includes(file.type)) {
         file.open(this.httpClient).subscribe({
           next: (code) => {
-            this.code$.next(code);
             if (this.project$.getValue().changeTargetFile(filePath)) {
               this.targetFile$.next(this.project$.getValue().getTargetFile());
             }
@@ -123,7 +128,7 @@ export class SpaceDevelopService {
       next: this.output$.next.bind(this.output$),
       error: this.output$.error.bind(this.output$),
     });
-    sandbox.run(this.code$.getValue());
+    sandbox.run(this.targetFile$.getValue().code);
     this.sandboxOfLastRun = sandbox;
   }
 
