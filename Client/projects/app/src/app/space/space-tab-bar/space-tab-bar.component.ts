@@ -44,13 +44,6 @@ export class SpaceTabBarComponent implements OnInit {
     });
   }
 
-  changeEditorMode(mode: SpaceEditorMode): void {
-    this.editorMode = mode;
-  }
-  changeLayoutMode(mode: SpaceLayoutMode): void {
-    this.layoutMode = mode;
-  }
-
   getTabIndexByFile(file: string): number {
     let i = -1;
     for (const tabKey in this.tabs) {

@@ -7,6 +7,7 @@ import * as Blockly from "blockly";
 import {delay, skip} from "rxjs";
 import {SpaceState} from "../shared/space-state.service";
 import {CodeUtils} from "../../common/utils/code.utils";
+import {SpaceLayoutMode} from "../common/space-modes.enums";
 
 @Component({
   selector: 'app-space-center',
@@ -60,6 +61,19 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     const xmlText = Blockly.Xml.domToText(xmlDom);
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = CodeUtils.connectBlockXml(code,xmlText)
+  }
+
+  showClassic(): boolean {
+    return [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(this.state.layoutMode$.getValue());
+  }
+  showVisual(): boolean {
+    return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(this.state.layoutMode$.getValue());
+  }
+  showSplitLine(): boolean {
+    return this.state.layoutMode$.getValue()==SpaceLayoutMode.Split;
+  }
+  onlyClassic(): boolean {
+    return this.state.layoutMode$.getValue()==SpaceLayoutMode.Classic;
   }
 
 }
