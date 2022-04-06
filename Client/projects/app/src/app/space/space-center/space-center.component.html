@@ -1,0 +1,11 @@
+<as-split fxFlex="grow">
+    <app-space-block-editor
+            as-split-area
+            [size]="60"
+            (change)="updateCode()"
+    ></app-space-block-editor>
+    <app-space-code-editor
+            as-split-area
+            [size]="40"
+    ></app-space-code-editor>
+</as-split>

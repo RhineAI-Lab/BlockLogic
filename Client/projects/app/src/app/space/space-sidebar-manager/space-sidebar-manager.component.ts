@@ -6,6 +6,7 @@ import { SpaceComponent } from '../space.component';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
+import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -13,7 +14,10 @@ import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-s
   styleUrls: ['./space-sidebar-manager.component.less'],
 })
 export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
-  constructor(private layout: SpaceComponent, private injector: Injector) {}
+  constructor(
+    private layout: SpaceComponent,
+    private spaceState: SpaceState,
+    private injector: Injector,) {}
 
   items: SpaceSidebarEntry[] = [
     this.use({
@@ -61,7 +65,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
         if (item.isOpen) {
           item.isOpen = false;
           await wait();
-          this.layout.resize();
+          this.spaceState.needResize$.next();
         }
         return true;
       }
@@ -83,20 +87,20 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       if (finalWidth > item.minWidth) {
         item.width = finalWidth;
       }
-      this.layout.resize();
+      this.spaceState.needResize$.next();
     };
     document.onmouseup = (e) => {
       e.stopPropagation();
       document.onmousemove = null;
       document.onmouseup = null;
-      this.layout.resize();
+      this.spaceState.needResize$.next();
     };
   }
 
   async onBtnClick(item: SpaceSidebarEntry): Promise<void> {
     item.isOpen = !item.isOpen;
     await wait();
-    this.layout.resize();
+    this.spaceState.needResize$.next();
   }
 
   private use<Component>(
