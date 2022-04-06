@@ -90,11 +90,20 @@ export class SpaceDevelopService {
       const supportType =
         'js ts jsx tsx html css vue json java cpp php python'.split(' ');
       if (supportType.includes(file.type)) {
-        file.open().subscribe((code) => {
-          this.code$.next(code);
-          if (this.project$.getValue().changeTargetFile(filePath)) {
-            this.targetFile$.next(this.project$.getValue().getTargetFile());
-          }
+        file.open().subscribe({
+          next: (code) => {
+            this.code$.next(code);
+            if (this.project$.getValue().changeTargetFile(filePath)) {
+              this.targetFile$.next(this.project$.getValue().getTargetFile());
+            }
+          },
+          error: (err) => {
+            this.notifier$.next({
+              type: 'error',
+              title: '文件打开错误',
+              content: '',
+            });
+          },
         });
       } else {
         this.notifier$.next({

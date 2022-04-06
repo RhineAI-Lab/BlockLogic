@@ -24,35 +24,33 @@ export class ProjectFile {
   }
 
   open(httpClient?: HttpClient): Observable<string> {
-    return from(
-      new Promise<string>((resolve, reject) => {
-        if (this.code.length == 0) {
-          if (this.source) {
-            const fr = new FileReader();
-            fr.onloadend = () => {
-              this.code = fr.result as string;
-              resolve(this.code);
-            };
-            fr.readAsText(this.source);
-          } else if (this.url) {
-            if (!httpClient) {
-              reject('HttpClient is not provided');
-              return;
-            }
-            httpClient
-              .get(this.url, { responseType: 'text' })
-              .subscribe((code: string) => {
-                this.code = code;
-                resolve(code);
-              });
-          } else {
-            reject('No one source is provided');
+    return new Observable(observer => {
+      if (this.code.length == 0) {
+        if (this.source) {
+          const fr = new FileReader();
+          fr.onloadend = () => {
+            this.code = fr.result as string;
+            observer.next(this.code);
+          };
+          fr.readAsText(this.source);
+        } else if (this.url) {
+          if (!httpClient) {
+            observer.error('HttpClient is not provided');
+            return;
           }
+          httpClient
+            .get(this.url, {responseType: 'text'})
+            .subscribe((code: string) => {
+              this.code = code;
+              observer.next(code);
+            });
         } else {
-          resolve(this.code);
+          observer.error('No one source is provided');
         }
-      }),
-    );
+      } else {
+        observer.next(this.code);
+      }
+    });
   }
 
   static makeProjectFileByFile(file: File, path: string): ProjectFile {
