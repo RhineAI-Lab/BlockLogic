@@ -578,6 +578,7 @@ function changeEditorMode(i) {
 }
 
 function openSource(source) {
+    source = "example/"+source;
     let name = StringUtils.getFileName(source);
     let xmlhttp;
     if (window.XMLHttpRequest) {
