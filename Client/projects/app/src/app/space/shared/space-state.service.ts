@@ -3,6 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 import { wait } from '../../common/promisify.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
+import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
 
 @Injectable()
 export class SpaceState {
@@ -15,7 +16,7 @@ export class SpaceState {
   );
   readonly needResize$ = new Subject<boolean>();
 
-  readonly toolbarButtonEvent$ = new Subject<number>();
+  readonly toolbarButtonEvent$ = new Subject<SpaceToolBarButtonType>();
 
   constructor() {
     this.layoutMode$.subscribe( () => {

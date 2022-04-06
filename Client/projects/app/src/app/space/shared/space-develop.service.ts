@@ -6,7 +6,7 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceRunMode, SpaceSaveMode} from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 
@@ -17,6 +17,7 @@ export class SpaceDevelopService {
   readonly targetFile$ = new BehaviorSubject<ProjectFile>(
     this.project$.getValue().getTargetFile(),
   );
+  readonly runMode$ = new BehaviorSubject<SpaceRunMode>(SpaceRunMode.Browser);
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly notification$ = new Subject<Notification>();
@@ -122,14 +123,18 @@ export class SpaceDevelopService {
   }
 
   runFile(): void {
-    this.sandboxOfLastRun?.destroy();
-    const sandbox = new Sandbox();
-    sandbox.output$.subscribe({
-      next: this.output$.next.bind(this.output$),
-      error: this.output$.error.bind(this.output$),
-    });
-    sandbox.run(this.targetFile$.getValue().code);
-    this.sandboxOfLastRun = sandbox;
+    if(this.runMode$.getValue() == SpaceRunMode.Browser) {
+      this.sandboxOfLastRun?.destroy();
+      const sandbox = new Sandbox();
+      sandbox.output$.subscribe({
+        next: this.output$.next.bind(this.output$),
+        error: this.output$.error.bind(this.output$),
+      });
+      sandbox.run(this.targetFile$.getValue().code);
+      this.sandboxOfLastRun = sandbox;
+    }else if(this.runMode$.getValue() == SpaceRunMode.Device) {
+      // this.debugService.runFile();
+    }
   }
 
   async connectDevice(url: string): Promise<void> {

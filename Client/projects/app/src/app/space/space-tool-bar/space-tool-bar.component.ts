@@ -50,10 +50,9 @@ export class SpaceToolBarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  run(): void {
+  onRun(): void {
     this.developService.runFile();
   }
-
   onSaveProject(): void {
     if (this.saveMode == SpaceSaveMode.Local) {
       this.developService.saveProject(this.saveMode);
@@ -132,6 +131,7 @@ export class SpaceToolBarComponent implements OnInit {
 
   onRunModeChange(mode: SpaceRunMode): void {
     this.runMode = mode;
+    this.developService.runMode$.next(mode);
   }
   onSaveModeChange(mode: SpaceSaveMode): void {
     this.saveMode = mode;
