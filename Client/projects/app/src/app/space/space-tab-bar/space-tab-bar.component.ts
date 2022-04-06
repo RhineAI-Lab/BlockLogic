@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceStyleService } from '../shared/space-style.service';
+import { SpaceDevelopService } from '../shared/space-develop.service';
 
 @Component({
   selector: 'app-space-tab-bar',
   templateUrl: './space-tab-bar.component.html',
   styleUrls: ['./space-tab-bar.component.less'],
 })
-export class SpaceTabBarComponent implements OnInit, AfterViewInit {
-  constructor(private styleService: SpaceStyleService) {}
+export class SpaceTabBarComponent implements OnInit {
+  constructor(private developService: SpaceDevelopService) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
   layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split;
@@ -24,55 +24,27 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
     new TabItem('ui.xml', 'project/ui.xml'),
   ];
 
-  ngOnInit(): void {}
-  ngAfterViewInit(): void {
-    this.styleService.tabBarController = {
-      changeEditorMode: (mode: SpaceEditorMode): void => {
-        this.editorMode = mode;
-      },
-      changeLayoutMode: (mode: SpaceLayoutMode): void => {
-        this.layoutMode = mode;
-      },
+  ngOnInit(): void {
+    this.developService.project$.subscribe(project => {
+      // this.tabs = project.files.map(file => new TabItem(file.name, file.path));
+      this.tabs.splice(0, this.tabs.length);
+    });
+    this.developService.targetFile$.subscribe(file => {
+      const tab = this.tabs.find(t => t.file == file.path);
+      this.tabs.forEach(t => (t.selected = false));
+      if (tab) {
+        tab.selected = true;
+      } else {
+        this.tabs.push(new TabItem(file.name, file.path, true));
+      }
+    });
+  }
 
-      openFile: (file: string): void => {
-        const path: string[] = file.split('/');
-        const name = path[path.length - 1];
-        this.tabs.push(new TabItem(name, file, false));
-        this.styleService.changeFile(file);
-      },
-      changeFile: (file: string): boolean => {
-        const i = this.getTabIndexByFile(file);
-        if (i == -1) {
-          return false;
-        } else {
-          for (const tab of this.tabs) {
-            tab.selected = false;
-          }
-          this.tabs[i].selected = true;
-          return true;
-        }
-      },
-      closeFile: (file: string): boolean => {
-        const i = this.getTabIndexByFile(file);
-        if (i == -1) {
-          return false;
-        } else {
-          if (this.tabs[i].selected) {
-            if (this.tabs.length == 1) {
-              return false;
-            } else {
-              if (i == 0) {
-                this.styleService.changeFile(this.tabs[1].file);
-              } else {
-                this.styleService.changeFile(this.tabs[i - 1].file);
-              }
-            }
-          }
-          this.tabs.splice(i, 1);
-          return true;
-        }
-      },
-    };
+  changeEditorMode(mode: SpaceEditorMode): void {
+    this.editorMode = mode;
+  }
+  changeLayoutMode(mode: SpaceLayoutMode): void {
+    this.layoutMode = mode;
   }
 
   getTabIndexByFile(file: string): number {
@@ -87,17 +59,28 @@ export class SpaceTabBarComponent implements OnInit, AfterViewInit {
   }
 
   onEditorModeChange(mode: SpaceEditorMode): void {
-    this.styleService.changeEditorMode(mode);
+    //this.styleService.changeEditorMode(mode);
   }
   onLayoutModeChange(mode: SpaceLayoutMode): void {
-    this.styleService.changeShowMode(mode);
+    //this.styleService.changeShowMode(mode);
   }
 
   onTabClick(item: TabItem): void {
-    this.styleService.changeFile(item.file);
+    this.developService.changeFile(item.file);
   }
   onTabClose(item: TabItem): void {
-    this.styleService.closeFile(item.file);
+    const index = this.getTabIndexByFile(item.file);
+    if(this.tabs.length>1&&index>=0){
+      if(item.selected){
+        this.tabs.forEach(t => (t.selected = false));
+        if(index>0){
+          this.tabs[index-1].selected = true;
+        }else{
+          this.tabs[index+1].selected = true;
+        }
+      }
+      this.tabs.splice(index,1);
+    }
   }
 
   getFileIcon(name: string): string {
