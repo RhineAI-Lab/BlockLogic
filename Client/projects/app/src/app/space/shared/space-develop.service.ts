@@ -19,7 +19,7 @@ export class SpaceDevelopService {
   );
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
-  readonly notifier$ = new Subject<[string,string,string]>();
+  readonly notifier$ = new Subject<Notification>();
   readonly code$ = new BehaviorSubject<string>('');
 
   holdBox: boolean = false
@@ -98,7 +98,7 @@ export class SpaceDevelopService {
           }
         });
       }else{
-        this.notifier$.next(['error','不支持打开该类型的文件','']);
+        this.notifier$.next({type:'error',title:'不支持打开该文件类型',content:''});
       }
     }
   }
@@ -123,4 +123,10 @@ export enum SpaceLocationMode {
   Browser = 'browser',
   Cloud = 'cloud',
   Public = 'public',
+}
+
+export interface Notification {
+  type: string;
+  title: string;
+  content: string;
 }

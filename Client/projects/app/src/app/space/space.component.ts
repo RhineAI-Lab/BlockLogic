@@ -23,6 +23,7 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     private notifier: NzNotificationService,
   ) {
     this.subscribeDebugEvents();
+    this.subscribeNotifier();
   }
 
   ngOnInit(): void {}
@@ -33,9 +34,9 @@ export class SpaceComponent implements OnInit, AfterViewInit {
 
   private subscribeDebugEvents(): void {
     this.developService.debugEvents.subscribe((event) => {
-      this.notifier.remove();
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
+        this.notifier.remove();
         this.notifier.success('连接成功', `设备：${device}`);
       }
       if (event.type == 'close') {
@@ -47,6 +48,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
           | undefined;
         this.notifier.error('连接错误', `地址: ${eventTarget?.url}`);
       }
+    });
+  }
+
+  private subscribeNotifier(): void {
+    this.developService.notifier$.subscribe({
+      next: (notification) => {
+        this.notifier.create(notification.type,notification.title,notification.content)
+      },
     });
   }
 }
