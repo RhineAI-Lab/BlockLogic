@@ -6,6 +6,7 @@ import {SpaceCodeEditorComponent} from "../space-code-editor/space-code-editor.c
 import * as Blockly from "blockly";
 import {delay, skip} from "rxjs";
 import {SpaceState} from "../shared/space-state.service";
+import {CodeUtils} from "../../common/utils/code.utils";
 
 @Component({
   selector: 'app-space-center',
@@ -43,18 +44,16 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   updateBlocks(): void {
-    const re = new RegExp(`^//blocks// (.*)$`, 'm');
-    const xmlText = re.exec(this.codeEditor.code)?.[1];
-    if (!xmlText) return;
+    const xmlText = CodeUtils.getBlockXml(this.codeEditor.code)
+    if (xmlText.length==0) return;
     const xmlDom = Blockly.Xml.textToDom(xmlText);
     Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
   }
-
   updateCode(): void {
     const xmlDom = Blockly.Xml.workspaceToDom(this.blockEditor.workspace);
     const xmlText = Blockly.Xml.domToText(xmlDom);
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
-    this.codeEditor.code = `//blocks// ${xmlText}` + '\n\n' + code;
+    this.codeEditor.code = CodeUtils.connectBlockXml(code,xmlText)
   }
 
 }
