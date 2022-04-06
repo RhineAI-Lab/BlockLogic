@@ -39,7 +39,7 @@ export class ProjectFile {
             return;
           }
           httpClient
-            .get(this.url, {responseType: 'text'})
+            .get('assets/example/'+this.url, {responseType: 'text'})
             .subscribe((code: string) => {
               this.code = code;
               observer.next(code);

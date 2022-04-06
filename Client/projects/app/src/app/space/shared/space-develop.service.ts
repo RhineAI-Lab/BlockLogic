@@ -47,8 +47,9 @@ export class SpaceDevelopService {
     } else if (location == SpaceLocationMode.Cloud) {
     } else if (location == SpaceLocationMode.Public || location == '') {
       if (source != '') {
+        const url = 'assets/example/' + source;
         this.httpClient
-          .get(source, { responseType: 'text' })
+          .get(url, { responseType: 'text' })
           .subscribe((code) => {
             // TODO: 打开文件内容错误
             console.log(source);
@@ -90,7 +91,7 @@ export class SpaceDevelopService {
       const supportType =
         'js ts jsx tsx html css vue json java cpp php python'.split(' ');
       if (supportType.includes(file.type)) {
-        file.open().subscribe({
+        file.open(this.httpClient).subscribe({
           next: (code) => {
             this.code$.next(code);
             if (this.project$.getValue().changeTargetFile(filePath)) {

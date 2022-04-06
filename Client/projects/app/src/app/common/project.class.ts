@@ -7,7 +7,7 @@ export class Project {
     public files: ProjectFile[],
     public engine: ProjectEngine = ProjectEngine.BLogic,
   ) {
-    if (files.length > 1) {
+    if (files.length >= 1) {
       this.name = files[0].path.split('/')[0];
       this.target = this.getDefaultTarget();
     }
@@ -54,9 +54,8 @@ export class Project {
   }
 
   static getDefaultProject(): Project {
-    const defaultCode = '';
     return new Project(
-      [ProjectFile.makeProjectFileByCode(defaultCode, 'Project/main.js')],
+      [ProjectFile.makeProjectFileByUrl('default-code.js', 'Project/main.js')],
       ProjectEngine.BLogic,
     );
   }
