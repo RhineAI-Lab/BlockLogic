@@ -41,15 +41,15 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       }
       this.resize()
     });
+  }
 
-    developService.targetFile$.subscribe( (file) => {
+  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    this.developService.targetFile$.subscribe( (file) => {
       this.codeEditor.code = file.code;
       this.updateBlocks();
     });
   }
-
-  ngOnInit(): void {}
-  ngAfterViewInit(): void {}
 
   resize(): void {
     Blockly.svgResize(this.blockEditor.workspace);
@@ -63,9 +63,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   updateBlocks(code?: string): void {
-    if(!code){
-      code = this.codeEditor.code
-    }
+    if (!code) code = this.codeEditor.code
     const xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) return;
     const xmlDom = Blockly.Xml.textToDom(xmlText);
