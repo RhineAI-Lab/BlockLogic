@@ -22,7 +22,6 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     private developService: SpaceDevelopService,
     private notifier: NzNotificationService,
   ) {
-    this.subscribeDebugEvents();
     this.subscribeNotifier();
   }
 
@@ -32,29 +31,18 @@ export class SpaceComponent implements OnInit, AfterViewInit {
     this.developService.init();
   }
 
-  private subscribeDebugEvents(): void {
-    this.developService.debugEvents.subscribe((event) => {
-      const device = this.debugService.device; // TODO: avoid accessing the internal service
-      if (event.type == 'connect') {
-        this.notifier.remove();
-        this.notifier.success('连接成功', `设备：${device}`);
-      }
-      if (event.type == 'close') {
-        this.notifier.warning('连接断开', `设备：${device}`);
-      }
-      if (event.type == 'error') {
-        const eventTarget = event.payload.target as
-          | (EventTarget & { url: string })
-          | undefined;
-        this.notifier.error('连接错误', `地址: ${eventTarget?.url}`);
-      }
-    });
-  }
-
   private subscribeNotifier(): void {
     this.developService.notifier$.subscribe({
       next: (notification) => {
-        this.notifier.create(notification.type,notification.title,notification.content)
+        if(notification.type=='remove'){
+          this.notifier.remove()
+        }else{
+          this.notifier.create(
+            notification.type,
+            notification.title?notification.title:'',
+            notification.content?notification.content:'',
+          )
+        }
       },
     });
   }

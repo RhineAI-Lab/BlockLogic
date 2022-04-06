@@ -33,9 +33,10 @@ export class SpaceDevelopService {
     private fileService: SpaceFileService,
     private httpClient: HttpClient,
   ) {
-    this.debugEvents
-      .pipe(filter((event) => event.type == 'connect'))
-      .subscribe(() => this.runFile());
+    // this.debugEvents
+    //   .pipe(filter((event) => event.type == 'connect'))
+    //   .subscribe(() => this.runFile());
+    this.subscribeDebugEvents()
   }
 
   init(): void {
@@ -114,8 +115,33 @@ export class SpaceDevelopService {
     this.sandboxOfLastRun = sandbox;
   }
 
-  connectDevice(url: string): void {
+  async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
+    await new Promise((r) => setTimeout(r, 100));
+    if (!this.debugService.connected) {
+      // 连接时间长时提示
+      this.notifier$.next({type:'info', title:'正在连接...'})
+    }
+  }
+
+  private subscribeDebugEvents(): void {
+    this.debugEvents.subscribe((event) => {
+      const device = this.debugService.device; // TODO: avoid accessing the internal service
+      if (event.type == 'connect') {
+        // 连接成功时清空消息，防止上次连接强制断开时提示错误
+        this.notifier$.next({type:'remove'})
+        this.notifier$.next({type:'success', title:'连接成功', content:`设备：${device}`});
+      }
+      if (event.type == 'close') {
+        this.notifier$.next({type:'warning', title:'连接断开', content:`设备：${device}`});
+      }
+      if (event.type == 'error') {
+        const eventTarget = event.payload.target as
+          | (EventTarget & { url: string })
+          | undefined;
+        this.notifier$.next({type:'error', title:'连接错误', content:`地址: ${eventTarget?.url}`});
+      }
+    });
   }
 }
 
@@ -127,6 +153,6 @@ export enum SpaceLocationMode {
 
 export interface Notification {
   type: string;
-  title: string;
-  content: string;
+  title?: string;
+  content?: string;
 }
