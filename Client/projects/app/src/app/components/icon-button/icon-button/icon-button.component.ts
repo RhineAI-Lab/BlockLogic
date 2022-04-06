@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-icon-button',
@@ -14,9 +14,10 @@ export class IconButtonComponent implements OnInit {
   @ViewChild('iconWrapper')
   set iconWrapper(elementRef: ElementRef<HTMLDivElement>) {
     this.icon = elementRef.nativeElement.innerText.trim();
+    this.cd.detectChanges();
   }
 
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 }
