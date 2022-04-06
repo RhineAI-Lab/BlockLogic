@@ -33,9 +33,6 @@ export class SpaceDevelopService {
     private fileService: SpaceFileService,
     private httpClient: HttpClient,
   ) {
-    // this.debugEvents
-    //   .pipe(filter((event) => event.type == 'connect'))
-    //   .subscribe(() => this.runFile());
     this.subscribeDebugEvents();
   }
 
@@ -169,7 +166,7 @@ export enum SpaceLocationMode {
 }
 
 export interface Notification {
-  type: string;
+  type: 'info' | 'success' | 'error' | 'warning' | 'remove';
   title?: string;
   content?: string;
 }
