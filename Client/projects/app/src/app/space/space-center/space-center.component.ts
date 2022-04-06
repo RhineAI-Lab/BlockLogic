@@ -44,11 +44,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
-  ngAfterViewInit(): void {
-    this.splitter.dragProgress$.subscribe(() => {
-      this.resize();
-    });
-  }
+  ngAfterViewInit(): void {}
 
   resize(): void {
     Blockly.svgResize(this.blockEditor.workspace);

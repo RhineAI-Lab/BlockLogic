@@ -16,6 +16,6 @@ export class CodeUtils {
       'xmlns="https://developers.google.com/blockly/xml"',
       'xmlns="https://logic.autojs.org/xml"',
     );
-    return code + '\n\n\n\n' + CodeUtils.blockStartStr + xml + '*/\n';
+    return code + '\n\n\n' + CodeUtils.blockStartStr + xml + '*/\n';
   }
 }

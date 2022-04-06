@@ -7,15 +7,15 @@
     <app-space-block-editor (change)="onBlockChange()"></app-space-block-editor>
   </div>
   <div
-    class="splitLine"
+    class="split-line"
     [ngStyle]="{ display: showSplitLine() ? 'inline-block' : 'none' }"
     (mousedown)="onChangeWidth($event)"
   ></div>
   <app-space-code-editor
-    [ngStyle]="onlyClassic()
-    ?{
-      width: '100%',
-      height: '100%'
+    [ngStyle]="onlyClassic()?{
+      position: 'absolute',
+      left: '0',
+      right: '0'
     }:{
       display: showClassic() ? 'inline-block' : 'none',
       width: codeAreaWidth+'px'
