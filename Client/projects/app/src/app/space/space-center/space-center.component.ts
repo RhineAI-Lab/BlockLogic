@@ -8,7 +8,7 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
 import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
-import {wait} from "../../common/promisify.utils";
+import { wait } from '../../common/promisify.utils';
 
 @Component({
   selector: 'app-space-center',
@@ -27,25 +27,25 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     private developService: SpaceDevelopService,
     private state: SpaceState,
   ) {
-    state.isHeaderVisible$.subscribe( () => {
+    state.isHeaderVisible$.subscribe(() => {
       state.needResize$.next(true);
     });
     this.layoutMode = state.layoutMode$.getValue();
-    state.layoutMode$.subscribe( (mode) => {
+    state.layoutMode$.subscribe((mode) => {
       this.layoutMode = mode;
       state.needResize$.next(true);
     });
     state.needResize$.subscribe(async (v: boolean) => {
-      if(v){
+      if (v) {
         await wait();
       }
-      this.resize()
+      this.resize();
     });
   }
 
   ngOnInit(): void {}
   ngAfterViewInit(): void {
-    this.developService.targetFile$.subscribe( (file) => {
+    this.developService.targetFile$.subscribe((file) => {
       this.codeEditor.code = file.code;
       this.updateBlocks();
     });
@@ -63,7 +63,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   updateBlocks(code?: string): void {
-    if (!code) code = this.codeEditor.code
+    if (!code) code = this.codeEditor.code;
     const xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) return;
     const xmlDom = Blockly.Xml.textToDom(xmlText);

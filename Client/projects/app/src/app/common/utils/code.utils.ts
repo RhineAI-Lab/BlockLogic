@@ -1,8 +1,9 @@
 export class CodeUtils {
-  static blockStartStr = '//------ 图形块结构记录 请勿随意修改 ------\n/*';
+  static blockStartStr = '//------ 图形块结构记录 请勿随意修改 ------\r\n/*';
 
   static getBlockXml(code: string): string {
     let i = code.indexOf(CodeUtils.blockStartStr);
+    console.log(i);
     if (i == -1) {
       return '';
     } else {
