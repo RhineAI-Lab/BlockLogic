@@ -13,7 +13,7 @@ import { SpaceState } from '../shared/space-state.service';
 export class SpaceTabBarComponent implements OnInit {
   constructor(
     private developService: SpaceDevelopService,
-    private stateService: SpaceState,
+    private state: SpaceState,
   ) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
@@ -57,11 +57,11 @@ export class SpaceTabBarComponent implements OnInit {
 
   onEditorModeChange(mode: SpaceEditorMode): void {
     this.editorMode = mode;
-    this.stateService.editorMode$.next(mode);
+    this.state.editorMode$.next(mode);
   }
   onLayoutModeChange(mode: SpaceLayoutMode): void {
     this.layoutMode = mode;
-    this.stateService.layoutMode$.next(mode);
+    this.state.layoutMode$.next(mode);
   }
 
   onTabClick(item: TabItem): void {

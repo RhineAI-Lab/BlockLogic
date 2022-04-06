@@ -5,7 +5,6 @@ import { wait } from '../../common/promisify.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 
 @Injectable()
-// Why not it named SpaceStateService?
 export class SpaceState {
   readonly isHeaderVisible$ = new BehaviorSubject(true);
   readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
