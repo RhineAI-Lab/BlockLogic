@@ -43,6 +43,12 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     this.codeEditor.workspace.layout();
   }
 
+  onBlockChange(): void{
+    if(this.developService.syncCode){
+      this.updateCode();
+    }
+  }
+
   updateBlocks(): void {
     const xmlText = CodeUtils.getBlockXml(this.codeEditor.code)
     if (xmlText.length==0) return;

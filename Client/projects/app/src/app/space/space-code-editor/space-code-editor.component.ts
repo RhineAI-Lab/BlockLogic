@@ -22,10 +22,10 @@ export class SpaceCodeEditorComponent implements OnInit {
   workspace!: monaco.editor.IStandaloneCodeEditor;
 
   get code(): string {
-    return this.developService.code;
+    return this.developService.code$.getValue();
   }
   set code(v: string) {
-    this.developService.code = v;
+    this.developService.code$.next(v);
   }
 
   constructor(private developService: SpaceDevelopService) {}

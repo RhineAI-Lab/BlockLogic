@@ -20,7 +20,11 @@ export class SpaceDevelopService {
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly notifier$ = new Subject<[string,string,string]>();
-  code = '';
+  readonly code$ = new BehaviorSubject<string>('');
+
+  holdBox: boolean = false
+  syncCode: boolean = true
+  unfoldXml: boolean = false
 
   private sandboxOfLastRun?: Sandbox;
 
@@ -88,7 +92,7 @@ export class SpaceDevelopService {
       const supportType = 'js ts jsx tsx html css vue json java cpp php python'.split(' ');
       if(supportType.includes(file.type)){
         file.open().subscribe((code) => {
-          this.code = code;
+          this.code$.next(code);
           if (this.project$.getValue().changeTargetFile(filePath)) {
             this.targetFile$.next(this.project$.getValue().getTargetFile());
           }
@@ -106,7 +110,7 @@ export class SpaceDevelopService {
       next: this.output$.next.bind(this.output$),
       error: this.output$.error.bind(this.output$),
     });
-    sandbox.run(this.code);
+    sandbox.run(this.code$.getValue());
     this.sandboxOfLastRun = sandbox;
   }
 

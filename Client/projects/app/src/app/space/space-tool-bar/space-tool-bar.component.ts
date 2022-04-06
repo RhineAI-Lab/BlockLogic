@@ -26,10 +26,10 @@ export class SpaceToolBarComponent implements OnInit {
   @ViewChild('openProjectBtn') openProjectBtn!: ElementRef;
   @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
-  holdBox = false;
-  syncCode = true;
-  unfoldXml = false;
   brightTheme = true;
+  holdBox: boolean = this.developService.holdBox;
+  syncCode: boolean = this.developService.syncCode;
+  unfoldXml: boolean = this.developService.unfoldXml;
 
   runMode = SpaceRunMode.Browser;
   saveMode = SpaceSaveMode.Local;
@@ -113,6 +113,16 @@ export class SpaceToolBarComponent implements OnInit {
         timer(100).pipe(tap(() => this.notifier.info('正在连接……', ''))),
       ]).subscribe();
     }
+  }
+
+  onChangeSyncCode(): void {
+    this.developService.syncCode = this.syncCode;
+  }
+  onChangeHoldBox(): void {
+    this.developService.holdBox = this.holdBox;
+  }
+  onChangeUnfoldXml(): void {
+    this.developService.unfoldXml = this.unfoldXml;
   }
 
   onRunModeChange(mode: SpaceRunMode): void {
