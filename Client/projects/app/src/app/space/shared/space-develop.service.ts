@@ -5,7 +5,7 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import {SpaceEditorMode, SpaceLayoutMode, SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
+import { SpaceSaveMode} from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 import { HttpClient } from '@angular/common/http';
@@ -19,6 +19,7 @@ export class SpaceDevelopService {
   );
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
+  readonly notifier$ = new Subject<[string,string,string]>();
   code = '';
 
   private sandboxOfLastRun?: Sandbox;
@@ -74,16 +75,27 @@ export class SpaceDevelopService {
 
   openProject(project: Project): void {
     this.project$.next(project);
-    this.changeFile(project.getTargetFile().path);
+    this.openFile(project.getTargetFile().path);
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
     this.fileService.saveProject(project, mode);
   }
 
-  changeFile(filePath: string): void {
-    if (this.project$.getValue().changeTargetFile(filePath)) {
-      this.targetFile$.next(this.project$.getValue().getTargetFile());
+  openFile(filePath: string): void {
+    const file = this.project$.getValue().getFileByPath(filePath);
+    if(file){
+      const supportType = 'js ts jsx tsx html css vue json java cpp php python'.split(' ');
+      if(supportType.includes(file.type)){
+        file.open().subscribe((code) => {
+          this.code = code;
+          if (this.project$.getValue().changeTargetFile(filePath)) {
+            this.targetFile$.next(this.project$.getValue().getTargetFile());
+          }
+        });
+      }else{
+        this.notifier$.next(['error','不支持打开该类型的文件','']);
+      }
     }
   }
 

@@ -17,17 +17,26 @@ export class Project {
     return this.files[this.target];
   }
   changeTargetFile(filePath: string): boolean {
-    for (let i = 0; i < this.files.length; i++) {
-      if (this.files[i].path === filePath) {
-        this.target = i;
-        return true;
-      }
+    const file = this.getFileByPath(filePath);
+    if(file){
+      this.target = this.files.indexOf(file);
+      return true;
+    }else {
+      return false;
     }
-    return false;
   }
 
   getType(){
     return this.files.length==1 ? ProjectType.File : ProjectType.Folder;
+  }
+
+  getFileByPath(path: string): ProjectFile | null {
+    for (let i = 0; i < this.files.length; i++) {
+      if (this.files[i].path === path) {
+        return this.files[i];
+      }
+    }
+    return null;
   }
 
   getDefaultTarget(): number {

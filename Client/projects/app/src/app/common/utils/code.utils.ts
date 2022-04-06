@@ -13,6 +13,10 @@ export class CodeUtils {
     }
   };
   static connectBlockXml(code: string, xml: string): string {
+    xml = xml.replace(
+      'xmlns=\"https://developers.google.com/blockly/xml\"',
+      'xmlns=\"https://logic.autojs.org/xml\"',
+    );
     return code+'\n\n\n\n'+CodeUtils.blockStartStr+xml+'*/\n';
   }
 }

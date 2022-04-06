@@ -72,7 +72,7 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   onTabClick(item: TabItem): void {
-    this.developService.changeFile(item.file);
+    this.developService.openFile(item.file);
   }
   onTabClose(item: TabItem): void {
     const index = this.getTabIndexByFile(item.file);

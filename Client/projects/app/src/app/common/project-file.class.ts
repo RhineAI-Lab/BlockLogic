@@ -1,3 +1,5 @@
+import {from, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 export class ProjectFile {
   source?: File;
@@ -13,6 +15,38 @@ export class ProjectFile {
     this.type = type;
     this.url = url;
     this.code = code;
+  }
+  
+  open(httpClient?: HttpClient): Observable<string>{
+    return from(
+      new Promise<string>((resolve, reject) => {
+        if(this.code.length==0){
+          if(this.source){
+            const fr = new FileReader();
+            fr.onloadend = (e) => {
+              this.code = fr.result as string;
+              resolve(this.code);
+            };
+            fr.readAsText(this.source);
+          }else if(this.url){
+            if(!httpClient){
+              reject("HttpClient is not provided");
+              return;
+            }
+            httpClient
+              .get(this.url, { responseType: 'text' })
+              .subscribe((code: string) => {
+                this.code = code;
+                resolve(code);
+              });
+          }else{
+            reject("No one source is provided");
+          }
+        }else{
+          resolve(this.code);
+        }
+      }),
+    );
   }
 
   static makeProjectFileByFile(file: File, path: string): ProjectFile {
