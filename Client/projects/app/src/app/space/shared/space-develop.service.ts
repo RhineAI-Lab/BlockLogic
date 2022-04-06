@@ -5,16 +5,18 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import {SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
+import { SpaceOpenMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
   readonly project$ = new BehaviorSubject<Project>(Project.getDefaultProject());
-  readonly targetFile$ = new BehaviorSubject<ProjectFile>(this.project$.getValue().getTargetFile());
+  readonly targetFile$ = new BehaviorSubject<ProjectFile>(
+    this.project$.getValue().getTargetFile(),
+  );
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   code = '';
@@ -31,36 +33,36 @@ export class SpaceDevelopService {
       .subscribe(() => this.runFile());
   }
 
-  init(): void{
-    let source = ParaUtils.getUrlParameter("source")
-    let location = ParaUtils.getUrlParameter("location")
-    this.openProjectFrom(source, location)
+  init(): void {
+    let source = ParaUtils.getUrlParameter('source');
+    let location = ParaUtils.getUrlParameter('location');
+    this.openProjectFrom(source, location);
   }
 
   openProjectFrom(source: string, location: string): void {
-    if(location==SpaceLocationMode.Browser){
-    }else if(location==SpaceLocationMode.Cloud){
-    }else if(location==SpaceLocationMode.Public||location==''){
-      if(source!=''){
+    if (location == SpaceLocationMode.Browser) {
+    } else if (location == SpaceLocationMode.Cloud) {
+    } else if (location == SpaceLocationMode.Public || location == '') {
+      if (source != '') {
         this.httpClient
           .get(source, { responseType: 'text' })
           .subscribe((code) => {
             // TODO: 打开文件内容错误
-            console.log(source)
-            console.log(code)
-            if(source.endsWith('.js')) {
-              const ps = source.split('/')
-              const name = ps[ps.length - 1]
+            console.log(source);
+            console.log(code);
+            if (source.endsWith('.js')) {
+              const ps = source.split('/');
+              const name = ps[ps.length - 1];
               let files: ProjectFile[] = [
-                ProjectFile.makeProjectFileByCode('Project/' + name, code)
-              ]
-              this.openProject(new Project(files))
-            }else if(source.endsWith('.json')){
+                ProjectFile.makeProjectFileByCode('Project/' + name, code),
+              ];
+              this.openProject(new Project(files));
+            } else if (source.endsWith('.json')) {
               // TODO: 打开文件夹项目
             }
           });
-      }else{
-        this.openProject(Project.getDefaultProject())
+      } else {
+        this.openProject(Project.getDefaultProject());
       }
     }
   }
@@ -79,7 +81,7 @@ export class SpaceDevelopService {
   }
 
   changeFile(filePath: string): void {
-    if(this.project$.getValue().changeTargetFile(filePath)){
+    if (this.project$.getValue().changeTargetFile(filePath)) {
       this.targetFile$.next(this.project$.getValue().getTargetFile());
     }
   }
