@@ -16,7 +16,7 @@ import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-s
 export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   constructor(
     private layout: SpaceComponent,
-    private spaceState: SpaceState,
+    private state: SpaceState,
     private injector: Injector,
   ) {}
 
@@ -60,20 +60,6 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {}
 
-  async hide(name: string): Promise<boolean> {
-    for (const item of this.items) {
-      if (item.name == name) {
-        if (item.isOpen) {
-          item.isOpen = false;
-          await wait();
-          this.spaceState.needResize$.next();
-        }
-        return true;
-      }
-    }
-    return false;
-  }
-
   onChangeWidth(e: MouseEvent, item: SpaceSidebarEntry): void {
     const startX = e.clientX;
     const startW = item.width;
@@ -88,20 +74,19 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       if (finalWidth > item.minWidth) {
         item.width = finalWidth;
       }
-      this.spaceState.needResize$.next();
+      this.state.needResize$.next(false);
     };
     document.onmouseup = (e) => {
       e.stopPropagation();
       document.onmousemove = null;
       document.onmouseup = null;
-      this.spaceState.needResize$.next();
+      this.state.needResize$.next(true);
     };
   }
 
-  async onBtnClick(item: SpaceSidebarEntry): Promise<void> {
+  onBtnClick(item: SpaceSidebarEntry): void {
     item.isOpen = !item.isOpen;
-    await wait();
-    this.spaceState.needResize$.next();
+    this.state.needResize$.next(true);
   }
 
   private use<Component>(

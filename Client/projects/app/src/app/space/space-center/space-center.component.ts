@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
-import { delay, skip } from 'rxjs';
 
 import { CodeUtils } from '../../common/utils/code.utils';
 import { SpaceLayoutMode } from '../common/space-modes.enums';
@@ -9,6 +8,7 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
 import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
+import {wait} from "../../common/promisify.utils";
 
 @Component({
   selector: 'app-space-center',
@@ -20,14 +20,27 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
+  codeAreaWidth = 400;
+  layoutMode = SpaceLayoutMode.Split;
+
   constructor(
     private developService: SpaceDevelopService,
     private state: SpaceState,
   ) {
-    state.isHeaderVisible$.subscribe(() => {
-      state.needResize$.next();
+    state.isHeaderVisible$.subscribe( () => {
+      state.needResize$.next(true);
     });
-    state.needResize$.pipe(skip(1), delay(0)).subscribe(() => this.resize());
+    this.layoutMode = state.layoutMode$.getValue();
+    state.layoutMode$.subscribe( (mode) => {
+      this.layoutMode = mode;
+      state.needResize$.next(true);
+    });
+    state.needResize$.subscribe(async (v: boolean) => {
+      if(v){
+        await wait();
+      }
+      this.resize()
+    });
   }
 
   ngOnInit(): void {}
@@ -63,18 +76,37 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   showClassic(): boolean {
     return [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(
-      this.state.layoutMode$.getValue(),
+      this.layoutMode,
     );
   }
   showVisual(): boolean {
     return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(
-      this.state.layoutMode$.getValue(),
+      this.layoutMode,
     );
   }
   showSplitLine(): boolean {
-    return this.state.layoutMode$.getValue() == SpaceLayoutMode.Split;
+    return this.layoutMode == SpaceLayoutMode.Split;
   }
   onlyClassic(): boolean {
-    return this.state.layoutMode$.getValue() == SpaceLayoutMode.Classic;
+    return this.layoutMode == SpaceLayoutMode.Classic;
+  }
+
+  onChangeWidth(e: MouseEvent): void {
+    const startX = e.clientX;
+    const startW = this.codeAreaWidth;
+    document.onmousemove = (e) => {
+      const endX = e.clientX;
+      let finalWidth = startW - endX + startX;
+      if (finalWidth > 200) {
+        this.codeAreaWidth = finalWidth;
+      }
+      this.state.needResize$.next(false);
+    };
+    document.onmouseup = (e) => {
+      e.stopPropagation();
+      document.onmousemove = null;
+      document.onmouseup = null;
+      this.state.needResize$.next(true);
+    };
   }
 }

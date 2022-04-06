@@ -13,12 +13,11 @@ export class SpaceState {
   readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
     SpaceLayoutMode.Split,
   );
-  readonly needResize$ = new Subject<void>();
+  readonly needResize$ = new Subject<boolean>();
 
   constructor() {
-    this.layoutMode$.subscribe(async () => {
-      await wait();
-      this.needResize$.next();
+    this.layoutMode$.subscribe( () => {
+      this.needResize$.next(true);
     });
   }
 }
