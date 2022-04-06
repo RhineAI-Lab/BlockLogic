@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
+import {SpaceState} from "../shared/space-state.service";
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -10,7 +11,10 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
   styleUrls: ['./space-tab-bar.component.less'],
 })
 export class SpaceTabBarComponent implements OnInit {
-  constructor(private developService: SpaceDevelopService) {}
+  constructor(
+    private developService: SpaceDevelopService,
+    private stateService: SpaceState,
+  ) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
   layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split;
@@ -60,11 +64,11 @@ export class SpaceTabBarComponent implements OnInit {
 
   onEditorModeChange(mode: SpaceEditorMode): void {
     this.editorMode = mode;
-    this.developService.editorMode$.next(mode);
+    this.stateService.editorMode$.next(mode);
   }
   onLayoutModeChange(mode: SpaceLayoutMode): void {
     this.layoutMode = mode;
-    this.developService.layoutMode$.next(mode);
+    this.stateService.layoutMode$.next(mode);
   }
 
   onTabClick(item: TabItem): void {

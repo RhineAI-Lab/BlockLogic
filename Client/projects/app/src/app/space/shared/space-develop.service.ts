@@ -17,8 +17,6 @@ export class SpaceDevelopService {
   readonly targetFile$ = new BehaviorSubject<ProjectFile>(
     this.project$.getValue().getTargetFile(),
   );
-  readonly editorMode$ = new BehaviorSubject<string>(SpaceEditorMode.Logic);
-  readonly layoutMode$ = new BehaviorSubject<number>(SpaceLayoutMode.Split);
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   code = '';
