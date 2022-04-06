@@ -1,20 +1,18 @@
-<div
-    class="layout"
-    fxLayout
->
-    <div
-        [ngStyle]="{'display':showVisual()?'inline-block':'none'}"
-        class="shape-area"
-        fxFlex="grow"
-    >
-        <app-space-block-editor (change)="onBlockChange()"></app-space-block-editor>
-    </div>
-    <div class="splitLine"
-         [ngStyle]="{'display':showSplitLine()?'inline-block':'none'}"
-    ></div>
-    <app-space-code-editor
-        [ngStyle]="{'display':showClassic()?'inline-block':'none'}"
-        class="code-area"
-        [fxFlex]="onlyClassic()?'grow':''"
-    ></app-space-code-editor>
+<div class="layout" fxLayout>
+  <div
+    [ngStyle]="{ display: showVisual() ? 'inline-block' : 'none' }"
+    class="shape-area"
+    fxFlex="grow"
+  >
+    <app-space-block-editor (change)="onBlockChange()"></app-space-block-editor>
+  </div>
+  <div
+    class="splitLine"
+    [ngStyle]="{ display: showSplitLine() ? 'inline-block' : 'none' }"
+  ></div>
+  <app-space-code-editor
+    [ngStyle]="{ display: showClassic() ? 'inline-block' : 'none' }"
+    class="code-area"
+    [fxFlex]="onlyClassic() ? 'grow' : ''"
+  ></app-space-code-editor>
 </div>

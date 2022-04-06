@@ -1,14 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, filter, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceSaveMode} from '../common/space-modes.enums';
+import { SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -22,9 +22,9 @@ export class SpaceDevelopService {
   readonly notifier$ = new Subject<Notification>();
   readonly code$ = new BehaviorSubject<string>('');
 
-  holdBox: boolean = false
-  syncCode: boolean = true
-  unfoldXml: boolean = false
+  holdBox = false;
+  syncCode = true;
+  unfoldXml = false;
 
   private sandboxOfLastRun?: Sandbox;
 
@@ -36,12 +36,12 @@ export class SpaceDevelopService {
     // this.debugEvents
     //   .pipe(filter((event) => event.type == 'connect'))
     //   .subscribe(() => this.runFile());
-    this.subscribeDebugEvents()
+    this.subscribeDebugEvents();
   }
 
   init(): void {
-    let source = ParaUtils.getUrlParameter('source');
-    let location = ParaUtils.getUrlParameter('location');
+    const source = ParaUtils.getUrlParameter('source');
+    const location = ParaUtils.getUrlParameter('location');
     this.openProjectFrom(source, location);
   }
 
@@ -59,7 +59,7 @@ export class SpaceDevelopService {
             if (source.endsWith('.js')) {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
-              let files: ProjectFile[] = [
+              const files: ProjectFile[] = [
                 ProjectFile.makeProjectFileByCode('Project/' + name, code),
               ];
               this.openProject(new Project(files));
@@ -89,17 +89,22 @@ export class SpaceDevelopService {
 
   openFile(filePath: string): void {
     const file = this.project$.getValue().getFileByPath(filePath);
-    if(file){
-      const supportType = 'js ts jsx tsx html css vue json java cpp php python'.split(' ');
-      if(supportType.includes(file.type)){
+    if (file) {
+      const supportType =
+        'js ts jsx tsx html css vue json java cpp php python'.split(' ');
+      if (supportType.includes(file.type)) {
         file.open().subscribe((code) => {
           this.code$.next(code);
           if (this.project$.getValue().changeTargetFile(filePath)) {
             this.targetFile$.next(this.project$.getValue().getTargetFile());
           }
         });
-      }else{
-        this.notifier$.next({type:'error',title:'不支持打开该文件类型',content:''});
+      } else {
+        this.notifier$.next({
+          type: 'error',
+          title: '不支持打开该文件类型',
+          content: '',
+        });
       }
     }
   }
@@ -118,9 +123,9 @@ export class SpaceDevelopService {
   async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
     await new Promise((r) => setTimeout(r, 100));
-    if (!this.debugService.closed&&!this.debugService.connected) {
+    if (!this.debugService.closed && !this.debugService.connected) {
       // 连接时间长时提示
-      this.notifier$.next({type:'info', title:'正在连接...'})
+      this.notifier$.next({ type: 'info', title: '正在连接...' });
     }
   }
 
@@ -129,17 +134,29 @@ export class SpaceDevelopService {
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
         // 连接成功时清空消息，防止上次连接强制断开时提示错误
-        this.notifier$.next({type:'remove'})
-        this.notifier$.next({type:'success', title:'连接成功', content:`设备：${device}`});
+        this.notifier$.next({ type: 'remove' });
+        this.notifier$.next({
+          type: 'success',
+          title: '连接成功',
+          content: `设备：${device}`,
+        });
       }
       if (event.type == 'close') {
-        this.notifier$.next({type:'warning', title:'连接断开', content:`设备：${device}`});
+        this.notifier$.next({
+          type: 'warning',
+          title: '连接断开',
+          content: `设备：${device}`,
+        });
       }
       if (event.type == 'error') {
         const eventTarget = event.payload.target as
           | (EventTarget & { url: string })
           | undefined;
-        this.notifier$.next({type:'error', title:'连接错误', content:`地址: ${eventTarget?.url}`});
+        this.notifier$.next({
+          type: 'error',
+          title: '连接错误',
+          content: `地址: ${eventTarget?.url}`,
+        });
       }
     });
   }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as JSZip from 'jszip';
 import { EMPTY, from, Observable } from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
@@ -6,7 +7,6 @@ import { Project, ProjectType } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import zip from '../../common/zip';
 import { SpaceSaveMode } from '../common/space-modes.enums';
-import * as JSZip from 'jszip';
 
 @Injectable({
   providedIn: 'root',

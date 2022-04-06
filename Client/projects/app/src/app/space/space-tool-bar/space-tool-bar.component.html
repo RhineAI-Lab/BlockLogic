@@ -1,6 +1,8 @@
 <div class="layout hr-ant" fxLayout>
   <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
-  <label nz-checkbox [(ngModel)]="holdBox" (ngModelChange)="onChangeHoldBox()">保持栏目</label>
+  <label nz-checkbox [(ngModel)]="holdBox" (ngModelChange)="onChangeHoldBox()"
+    >保持栏目</label
+  >
   <app-icon-button
     class="moreSetting"
     nz-dropdown
@@ -12,10 +14,21 @@
   <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>
-        <label nz-checkbox [(ngModel)]="unfoldXml" (ngModelChange)="onChangeUnfoldXml()">展开XML</label>
+        <label
+          nz-checkbox
+          [(ngModel)]="unfoldXml"
+          (ngModelChange)="onChangeUnfoldXml()"
+          >展开XML</label
+        >
       </li>
       <li nz-menu-item>
-        <label nz-checkbox [(ngModel)]="syncCode" (ngModelChange)="onChangeSyncCode()"> 同步代码</label>
+        <label
+          nz-checkbox
+          [(ngModel)]="syncCode"
+          (ngModelChange)="onChangeSyncCode()"
+        >
+          同步代码</label
+        >
       </li>
     </ul>
   </nz-dropdown-menu>

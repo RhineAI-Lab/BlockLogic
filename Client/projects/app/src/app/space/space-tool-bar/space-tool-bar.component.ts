@@ -1,13 +1,17 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {filter, race, take, tap, timer} from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { filter, race, take } from 'rxjs';
 
-import {ProjectFile} from '../../common/project-file.class';
-import {StringUtils} from '../../common/utils/string.utils';
-import {SpaceOpenMode, SpaceRunMode, SpaceSaveMode,} from '../common/space-modes.enums';
-import {SpaceDevelopService} from '../shared/space-develop.service';
-import {SpaceState} from '../shared/space-state.service';
-import {Project} from "../../common/project.class";
+import { Project } from '../../common/project.class';
+import { ProjectFile } from '../../common/project-file.class';
+import { StringUtils } from '../../common/utils/string.utils';
+import {
+  SpaceOpenMode,
+  SpaceRunMode,
+  SpaceSaveMode,
+} from '../common/space-modes.enums';
+import { SpaceDevelopService } from '../shared/space-develop.service';
+import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -78,9 +82,9 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   onSelectProject(): void {
-    if (this.openMode == SpaceOpenMode.LocalZip){
-      this.developService.openZipFile(this.fileChooser.nativeElement.files[0])
-    }else{
+    if (this.openMode == SpaceOpenMode.LocalZip) {
+      this.developService.openZipFile(this.fileChooser.nativeElement.files[0]);
+    } else {
       let files: File[] = [];
       if (this.openMode == SpaceOpenMode.LocalFile) {
         files = this.fileChooser.nativeElement.files;
@@ -90,7 +94,9 @@ export class SpaceToolBarComponent implements OnInit {
       if (files.length > 0) {
         const projectFiles: ProjectFile[] = [];
         for (const file of files) {
-          projectFiles.push(ProjectFile.makeProjectFileByFile(file,file.webkitRelativePath));
+          projectFiles.push(
+            ProjectFile.makeProjectFileByFile(file, file.webkitRelativePath),
+          );
         }
         this.developService.openProject(new Project(projectFiles));
       }

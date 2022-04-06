@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 import { SpaceDebugService } from './shared/space-debug.service';
@@ -9,14 +9,9 @@ import { SpaceState } from './shared/space-state.service';
   selector: 'app-space',
   templateUrl: './space.component.html',
   styleUrls: ['./space.component.less'],
-  providers: [
-    SpaceDevelopService,
-    SpaceDebugService,
-    SpaceState,
-  ],
+  providers: [SpaceDevelopService, SpaceDebugService, SpaceState],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
-
   constructor(
     private debugService: SpaceDebugService,
     private developService: SpaceDevelopService,
@@ -34,14 +29,14 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   private subscribeNotifier(): void {
     this.developService.notifier$.subscribe({
       next: (notification) => {
-        if(notification.type=='remove'){
-          this.notifier.remove()
-        }else{
+        if (notification.type == 'remove') {
+          this.notifier.remove();
+        } else {
           this.notifier.create(
             notification.type,
-            notification.title?notification.title:'',
-            notification.content?notification.content:'',
-          )
+            notification.title ? notification.title : '',
+            notification.content ? notification.content : '',
+          );
         }
       },
     });

@@ -49,6 +49,7 @@ import { SharedModule } from '../shared/shared.module';
 import { SpaceSidebarLayoutComponent } from './shared/space-sidebar-layout/space-sidebar-layout.component';
 import { SpaceComponent } from './space.component';
 import { SpaceBlockEditorComponent } from './space-block-editor/space-block-editor.component';
+import { SpaceCenterComponent } from './space-center/space-center.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
@@ -59,7 +60,6 @@ import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-si
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
 import { SpaceTabBarComponent } from './space-tab-bar/space-tab-bar.component';
 import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component';
-import { SpaceCenterComponent } from './space-center/space-center.component';
 
 const icons: IconDefinition[] = [
   ApiFill,

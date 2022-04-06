@@ -8,9 +8,8 @@ describe('SpaceCenterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpaceCenterComponent ]
-    })
-    .compileComponents();
+      declarations: [SpaceCenterComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

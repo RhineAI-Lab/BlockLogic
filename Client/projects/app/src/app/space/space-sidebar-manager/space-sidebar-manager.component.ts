@@ -2,11 +2,11 @@ import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 
 import { wait } from '../../common/promisify.utils';
+import { SpaceState } from '../shared/space-state.service';
 import { SpaceComponent } from '../space.component';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
-import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -17,7 +17,8 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   constructor(
     private layout: SpaceComponent,
     private spaceState: SpaceState,
-    private injector: Injector,) {}
+    private injector: Injector,
+  ) {}
 
   items: SpaceSidebarEntry[] = [
     this.use({

@@ -89,7 +89,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   }
 
   onDoubleClick(event: NzFormatEmitEvent): void {
-    if(event.node){
+    if (event.node) {
       this.developService.openFile(event.node.origin.key);
     }
   }

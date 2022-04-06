@@ -7,7 +7,7 @@ export class Project {
     public files: ProjectFile[],
     public engine: ProjectEngine = ProjectEngine.BLogic,
   ) {
-    if (files.length>1) {
+    if (files.length > 1) {
       this.name = files[0].path.split('/')[0];
       this.target = this.getDefaultTarget();
     }
@@ -18,16 +18,16 @@ export class Project {
   }
   changeTargetFile(filePath: string): boolean {
     const file = this.getFileByPath(filePath);
-    if(file){
+    if (file) {
       this.target = this.files.indexOf(file);
       return true;
-    }else {
+    } else {
       return false;
     }
   }
 
-  getType(){
-    return this.files.length==1 ? ProjectType.File : ProjectType.Folder;
+  getType(): ProjectType {
+    return this.files.length == 1 ? ProjectType.File : ProjectType.Folder;
   }
 
   getFileByPath(path: string): ProjectFile | null {
@@ -40,14 +40,14 @@ export class Project {
   }
 
   getDefaultTarget(): number {
-    const mainFileList = 'main.js index.js'.split(' ')
-    let jsFile: number = -1;
+    const mainFileList = 'main.js index.js'.split(' ');
+    let jsFile = -1;
     for (const filesKey in this.files) {
-      const file = this.files[filesKey]
-      if(mainFileList.includes(file.name)){
-        return parseInt(filesKey,10);
-      }else if(file.type=='js'){
-        jsFile = parseInt(filesKey,10);
+      const file = this.files[filesKey];
+      if (mainFileList.includes(file.name)) {
+        return parseInt(filesKey, 10);
+      } else if (file.type == 'js') {
+        jsFile = parseInt(filesKey, 10);
       }
     }
     return jsFile;
@@ -55,9 +55,10 @@ export class Project {
 
   static getDefaultProject(): Project {
     const defaultCode = '';
-    return new Project([
-      ProjectFile.makeProjectFileByCode(defaultCode,'Project/main.js')
-    ], ProjectEngine.BLogic);
+    return new Project(
+      [ProjectFile.makeProjectFileByCode(defaultCode, 'Project/main.js')],
+      ProjectEngine.BLogic,
+    );
   }
 }
 

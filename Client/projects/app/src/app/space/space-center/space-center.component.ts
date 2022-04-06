@@ -1,18 +1,19 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {SpaceDevelopService} from "../shared/space-develop.service";
-import {SplitComponent} from "angular-split";
-import {SpaceBlockEditorComponent} from "../space-block-editor/space-block-editor.component";
-import {SpaceCodeEditorComponent} from "../space-code-editor/space-code-editor.component";
-import * as Blockly from "blockly";
-import {delay, skip} from "rxjs";
-import {SpaceState} from "../shared/space-state.service";
-import {CodeUtils} from "../../common/utils/code.utils";
-import {SpaceLayoutMode} from "../common/space-modes.enums";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { SplitComponent } from 'angular-split';
+import * as Blockly from 'blockly';
+import { delay, skip } from 'rxjs';
+
+import { CodeUtils } from '../../common/utils/code.utils';
+import { SpaceLayoutMode } from '../common/space-modes.enums';
+import { SpaceDevelopService } from '../shared/space-develop.service';
+import { SpaceState } from '../shared/space-state.service';
+import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
+import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 
 @Component({
   selector: 'app-space-center',
   templateUrl: './space-center.component.html',
-  styleUrls: ['./space-center.component.less']
+  styleUrls: ['./space-center.component.less'],
 })
 export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
@@ -21,18 +22,15 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   constructor(
     private developService: SpaceDevelopService,
-    private state: SpaceState
+    private state: SpaceState,
   ) {
-    state.isHeaderVisible$.subscribe(isVisible => {
+    state.isHeaderVisible$.subscribe(() => {
       state.needResize$.next();
     });
-    state.needResize$
-      .pipe(skip(1), delay(0))
-      .subscribe(() => this.resize());
+    state.needResize$.pipe(skip(1), delay(0)).subscribe(() => this.resize());
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   ngAfterViewInit(): void {
     this.splitter.dragProgress$.subscribe(() => {
       this.resize();
@@ -44,15 +42,15 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     this.codeEditor.workspace.layout();
   }
 
-  onBlockChange(): void{
-    if(this.developService.syncCode){
+  onBlockChange(): void {
+    if (this.developService.syncCode) {
       this.updateCode();
     }
   }
 
   updateBlocks(): void {
-    const xmlText = CodeUtils.getBlockXml(this.codeEditor.code)
-    if (xmlText.length==0) return;
+    const xmlText = CodeUtils.getBlockXml(this.codeEditor.code);
+    if (xmlText.length == 0) return;
     const xmlDom = Blockly.Xml.textToDom(xmlText);
     Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
   }
@@ -60,20 +58,23 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     const xmlDom = Blockly.Xml.workspaceToDom(this.blockEditor.workspace);
     const xmlText = Blockly.Xml.domToText(xmlDom);
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
-    this.codeEditor.code = CodeUtils.connectBlockXml(code,xmlText)
+    this.codeEditor.code = CodeUtils.connectBlockXml(code, xmlText);
   }
 
   showClassic(): boolean {
-    return [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(this.state.layoutMode$.getValue());
+    return [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(
+      this.state.layoutMode$.getValue(),
+    );
   }
   showVisual(): boolean {
-    return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(this.state.layoutMode$.getValue());
+    return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(
+      this.state.layoutMode$.getValue(),
+    );
   }
   showSplitLine(): boolean {
-    return this.state.layoutMode$.getValue()==SpaceLayoutMode.Split;
+    return this.state.layoutMode$.getValue() == SpaceLayoutMode.Split;
   }
   onlyClassic(): boolean {
-    return this.state.layoutMode$.getValue()==SpaceLayoutMode.Classic;
+    return this.state.layoutMode$.getValue() == SpaceLayoutMode.Classic;
   }
-
 }

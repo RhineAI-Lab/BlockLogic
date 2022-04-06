@@ -37,12 +37,12 @@ export class SpaceDebugService {
     };
     this.ws.onclose = () => {
       if (this.connected) {
-        this.closed = true
+        this.closed = true;
         this.events$.next({ type: 'close' });
       }
     };
     this.ws.onerror = (event) => {
-      this.closed = true
+      this.closed = true;
       this.events$.next({ type: 'error', payload: event });
     };
   }

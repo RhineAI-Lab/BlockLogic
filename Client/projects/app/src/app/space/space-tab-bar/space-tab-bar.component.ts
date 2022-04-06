@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
-import {SpaceState} from "../shared/space-state.service";
+import { SpaceState } from '../shared/space-state.service';
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -29,13 +29,13 @@ export class SpaceTabBarComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.developService.project$.subscribe(project => {
+    this.developService.project$.subscribe(() => {
       // this.tabs = project.files.map(file => new TabItem(file.name, file.path));
       this.tabs.splice(0, this.tabs.length);
     });
-    this.developService.targetFile$.subscribe(file => {
-      const tab = this.tabs.find(t => t.file == file.path);
-      this.tabs.forEach(t => (t.selected = false));
+    this.developService.targetFile$.subscribe((file) => {
+      const tab = this.tabs.find((t) => t.file == file.path);
+      this.tabs.forEach((t) => (t.selected = false));
       if (tab) {
         tab.selected = true;
       } else {
@@ -69,16 +69,16 @@ export class SpaceTabBarComponent implements OnInit {
   }
   onTabClose(item: TabItem): void {
     const index = this.getTabIndexByFile(item.file);
-    if(this.tabs.length>1&&index>=0){
-      if(item.selected){
-        this.tabs.forEach(t => (t.selected = false));
-        if(index>0){
-          this.tabs[index-1].selected = true;
-        }else{
-          this.tabs[index+1].selected = true;
+    if (this.tabs.length > 1 && index >= 0) {
+      if (item.selected) {
+        this.tabs.forEach((t) => (t.selected = false));
+        if (index > 0) {
+          this.tabs[index - 1].selected = true;
+        } else {
+          this.tabs[index + 1].selected = true;
         }
       }
-      this.tabs.splice(index,1);
+      this.tabs.splice(index, 1);
     }
   }
 

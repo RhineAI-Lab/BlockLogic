@@ -1,5 +1,5 @@
-import {from, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
+import { from, Observable } from 'rxjs';
 
 export class ProjectFile {
   source?: File;
@@ -9,28 +9,34 @@ export class ProjectFile {
   url: string;
   code: string;
 
-  constructor(path: string, name: string, type: string, url: string, code: string) {
+  constructor(
+    path: string,
+    name: string,
+    type: string,
+    url: string,
+    code: string,
+  ) {
     this.path = path;
     this.name = name;
     this.type = type;
     this.url = url;
     this.code = code;
   }
-  
-  open(httpClient?: HttpClient): Observable<string>{
+
+  open(httpClient?: HttpClient): Observable<string> {
     return from(
       new Promise<string>((resolve, reject) => {
-        if(this.code.length==0){
-          if(this.source){
+        if (this.code.length == 0) {
+          if (this.source) {
             const fr = new FileReader();
-            fr.onloadend = (e) => {
+            fr.onloadend = () => {
               this.code = fr.result as string;
               resolve(this.code);
             };
             fr.readAsText(this.source);
-          }else if(this.url){
-            if(!httpClient){
-              reject("HttpClient is not provided");
+          } else if (this.url) {
+            if (!httpClient) {
+              reject('HttpClient is not provided');
               return;
             }
             httpClient
@@ -39,10 +45,10 @@ export class ProjectFile {
                 this.code = code;
                 resolve(code);
               });
-          }else{
-            reject("No one source is provided");
+          } else {
+            reject('No one source is provided');
           }
-        }else{
+        } else {
           resolve(this.code);
         }
       }),
@@ -68,9 +74,9 @@ export class ProjectFile {
   }
 
   private static makeProjectFileByPath(path: string): ProjectFile {
-    let ps = path.split('/');
-    let name = ps[ps.length-1];
-    let ns = name.split('.');
-    return new ProjectFile(path, name, ns[ns.length-1], '', '');
+    const ps = path.split('/');
+    const name = ps[ps.length - 1];
+    const ns = name.split('.');
+    return new ProjectFile(path, name, ns[ns.length - 1], '', '');
   }
 }
