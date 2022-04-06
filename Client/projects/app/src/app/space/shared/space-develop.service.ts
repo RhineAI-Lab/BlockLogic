@@ -13,7 +13,8 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 // Space区域开发相关管理服务
 export class SpaceDevelopService {
-  readonly project$ = new BehaviorSubject<Project>(Project.getEmptyProject());
+  readonly project$ = new BehaviorSubject<Project>(Project.getDefaultProject());
+  readonly targetFile$ = new BehaviorSubject<ProjectFile>(this.project$.getValue().getTargetFile());
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   code = '';
@@ -75,6 +76,12 @@ export class SpaceDevelopService {
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
     this.fileService.saveProject(project, mode);
+  }
+
+  changeFile(filePath: string): void {
+    if(this.project$.getValue().changeTargetFile(filePath)){
+      this.targetFile$.next(this.project$.getValue().getTargetFile());
+    }
   }
 
   runFile(): void {

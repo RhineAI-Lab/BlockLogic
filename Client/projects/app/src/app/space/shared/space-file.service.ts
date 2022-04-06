@@ -24,9 +24,7 @@ export class SpaceFileService {
             (zip) => {
               const files: ProjectFile[] = [];
               zip.forEach((relativePath, file) => {
-                if (file.dir) {
-                  return;
-                }
+                if (file.dir) return;
                 const projectFile = ProjectFile.makeProjectFileByFile(new File([''],''),relativePath);
                 // let sourceFile = file.async("arraybuffer"); ??
                 // const projectFile = ProjectFile.makeProjectFileByFile(sourceFile,relativePath);

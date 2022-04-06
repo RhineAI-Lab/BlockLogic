@@ -8,7 +8,6 @@ import {SpaceOpenMode, SpaceRunMode, SpaceSaveMode,} from '../common/space-modes
 import {SpaceDevelopService} from '../shared/space-develop.service';
 import {SpaceState} from '../shared/space-state.service';
 import {Project} from "../../common/project.class";
-import {SpaceFileService} from "../shared/space-file.service";
 
 @Component({
   selector: 'app-space-tool-bar',
