@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 
@@ -20,6 +20,10 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.developService.output$.subscribe((output) => {
       this.resolveOutput(output);
+    });
+    this.resolveOutput({
+      type: 'debug',
+      data: ['控制台初始化完成'],
     });
   }
 
