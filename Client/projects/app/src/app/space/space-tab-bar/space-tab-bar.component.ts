@@ -72,11 +72,9 @@ export class SpaceTabBarComponent implements OnInit {
     if (this.tabs.length > 1 && index >= 0) {
       if (item.selected) {
         this.tabs.forEach((t) => (t.selected = false));
-        if (index > 0) {
-          this.tabs[index - 1].selected = true;
-        } else {
-          this.tabs[index + 1].selected = true;
-        }
+        let next = index>0 ? this.tabs[index - 1] : this.tabs[index + 1]
+        next.selected = true;
+        this.developService.openFile(next.file)
       }
       this.tabs.splice(index, 1);
     }
