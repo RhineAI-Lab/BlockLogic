@@ -1,4 +1,5 @@
 import { ProjectFile } from './project-file.class';
+import {Observable} from "rxjs";
 
 export class Project {
   target = -1;
@@ -37,6 +38,31 @@ export class Project {
       }
     }
     return null;
+  }
+
+  initAll(): Observable<void>{
+    return new Observable<void>(observer => {
+      let initialized: string[] = [];
+      this.files.forEach(file => {
+        if(file.gotCode||file.source){
+          observer.next();
+          initialized.push(file.path)
+          if(initialized.length== this.files.length){
+            observer.complete();
+          }
+        }else{
+          file.init().subscribe({
+            complete: () => {
+              initialized.push(file.path)
+              if (initialized.length == this.files.length) {
+                observer.next();
+                observer.complete();
+              }
+            },
+          });
+        }
+      });
+    });
   }
 
   findDefaultTarget(): number {

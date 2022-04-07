@@ -65,31 +65,40 @@ export class SpaceDevelopService {
         if (url.endsWith('/')) {
           url = url + 'files.txt';
         }
-        this.httpClient.get(url, { responseType: 'text' }).subscribe((text) => {
-          if (!source.endsWith('/')) {
-            const ps = source.split('/');
-            const name = ps[ps.length - 1];
-            const files: ProjectFile[] = [
-              ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
-            ];
-            this.openProject(new Project(files));
-          } else {
-            const lines = text.split('\n');
-            const files: ProjectFile[] = [];
-            const name = lines[0];
-            for (let i = 1; i < lines.length; i++) {
-              if (lines[i] == '') {
-                continue;
+        this.httpClient.get(url, { responseType: 'text' }).subscribe({
+          next:(text) => {
+            if (!source.endsWith('/')) {
+              const ps = source.split('/');
+              const name = ps[ps.length - 1];
+              const files: ProjectFile[] = [
+                ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
+              ];
+              this.openProject(new Project(files));
+            } else {
+              const lines = text.split('\n');
+              const files: ProjectFile[] = [];
+              const name = lines[0];
+              for (let i = 1; i < lines.length; i++) {
+                if (lines[i] == '') {
+                  continue;
+                }
+                files.push(
+                  ProjectFile.makeProjectFileByUrl(
+                    source + lines[i],
+                    name + '/' + lines[i],
+                  ),
+                );
               }
-              files.push(
-                ProjectFile.makeProjectFileByUrl(
-                  source + lines[i],
-                  name + '/' + lines[i],
-                ),
-              );
+              this.openProject(new Project(files));
             }
-            this.openProject(new Project(files));
-          }
+          },
+          error:(err) => {
+            this.notification$.next({
+              type: 'error',
+              title: '打开项目失败',
+              content: '服务器资源不存在',
+            });
+          },
         });
       } else {
         this.openProject(Project.getDefaultProject());
@@ -117,12 +126,25 @@ export class SpaceDevelopService {
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
+    this.notification$.next({
+      type: 'info',
+      title: '保存中...',
+    });
     this.fileService.saveProject(project, mode).subscribe({
       complete: (() => {
         this.projectState$.next('项目保存成功');
+        this.notification$.next({
+          type: 'success',
+          title: '保存成功',
+        });
       }),
-      error: (() => {
+      error: (err => {
         this.projectState$.next('项目保存失败');
+        this.notification$.next({
+          type: 'error',
+          title: '保存失败',
+          content: err,
+        });
       }),
     });
   }
@@ -130,30 +152,27 @@ export class SpaceDevelopService {
   openFile(filePath: string): void {
     const file = this.project$.getValue().getFileByPath(filePath);
     if (file) {
-      const supportType =
-        'js ts jsx tsx html css vue json java cpp php python'.split(' ');
-      if (supportType.includes(file.type)) {
-        file.open(this.httpClient).subscribe({
-          next: (code) => {
-            if (this.project$.getValue().changeTargetFile(filePath)) {
-              this.targetFile$.next(this.project$.getValue().getTargetFile());
-            }
-          },
-          error: (err) => {
-            this.notification$.next({
-              type: 'error',
-              title: '文件打开错误',
-              content: '',
-            });
-          },
-        });
-      } else {
-        this.notification$.next({
-          type: 'error',
-          title: '不支持打开该文件类型',
-          content: '',
-        });
-      }
+      file.open(this.httpClient).subscribe({
+        next: (code) => {
+          if (this.project$.getValue().changeTargetFile(filePath)) {
+            this.targetFile$.next(this.project$.getValue().getTargetFile());
+          }
+        },
+        error: (err) => {
+          if(err=='Unsupported file type') err='该文件类型不支持打开';
+          this.notification$.next({
+            type: 'error',
+            title: '文件打开失败',
+            content: err,
+          });
+        },
+      });
+    } else {
+      this.notification$.next({
+        type: 'error',
+        title: '文件打开失败',
+        content: '文件不存在',
+      });
     }
   }
 
