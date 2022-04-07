@@ -31,7 +31,7 @@ export class SpaceToolBarComponent implements OnInit {
   @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
   brightTheme = true;
-  holdBox: boolean = this.developService.holdBox;
+  holdBox: boolean = this.state.holdBox$.getValue();
   syncCode: boolean = this.developService.syncCode;
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();
 

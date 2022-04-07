@@ -21,9 +21,18 @@ export class SpaceBlockEditorComponent implements OnInit {
 
   constructor(public state: SpaceState) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.state.holdBox$.subscribe((v) => {
+      this.workspace.getToolbox().getFlyout().autoClose = !v;
+    });
+  }
 
   onChange(event: Event): void {
+    if(!this.state.holdBox$.getValue()){
+      if(event.type==Blockly.Events.CREATE){
+        this.categorySelected = undefined;
+      }
+    }
     this.change.emit(event);
   }
 

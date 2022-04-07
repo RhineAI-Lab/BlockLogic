@@ -27,7 +27,6 @@ export class SpaceDevelopService {
   readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
   readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
 
-  holdBox = false;
   syncCode = true;
 
   private sandboxOfLastRun?: Sandbox;
