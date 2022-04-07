@@ -115,6 +115,7 @@ export class SpaceDebugService {
   // TODO: type of `data`
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   private onReceive(type: number, data: any): void {
+    console.log(data)
     if (type == 1) {
       if (data.type == 'hello') {
         this.device = data.data.device_name;
@@ -123,9 +124,10 @@ export class SpaceDebugService {
         this.events$.next({ type: 'connect' });
       } else if (data.type == 'response_' + this.requestTokenId) {
         this.token = data.data.token;
+      } else {
+        this.events$.next({ type: 'message', message: data.data.log });
       }
     }
-    this.events$.next({ type: 'message', payload: [type, data] });
   }
 
   // TODO: type of `data`?
@@ -156,7 +158,7 @@ export interface SpaceDebugEventConnect {
 }
 export interface SpaceDebugEventMessage {
   type: 'message';
-  payload: [type: number, data: string];
+  message: string;
 }
 export interface SpaceDebugEventClose {
   type: 'close';

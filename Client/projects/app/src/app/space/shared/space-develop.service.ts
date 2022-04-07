@@ -24,6 +24,9 @@ export class SpaceDevelopService {
   readonly notification$ = new Subject<Notification>();
   readonly showConsole$ = new Subject<void>();
 
+  readonly editorState$ = new BehaviorSubject<string>("编辑器初始化中...");
+  readonly projectState$ = new BehaviorSubject<string>("项目打开中...");
+
   holdBox = false;
   syncCode = true;
 
@@ -135,7 +138,15 @@ export class SpaceDevelopService {
       sandbox.run(this.targetFile$.getValue().code);
       this.sandboxOfLastRun = sandbox;
     }else if(this.runMode$.getValue() == SpaceRunMode.Device) {
-      // this.debugService.runFile();
+      if(this.debugService.connected){
+        this.debugService.runFile("BLogic: "+this.targetFile$.getValue().name,this.targetCode);
+      }else{
+        this.notification$.next({
+          type: 'error',
+          title: '设备未连接',
+          content: '使用设备运行模式运行，请先连接设备。',
+        });
+      }
     }
   }
 
@@ -143,7 +154,6 @@ export class SpaceDevelopService {
     this.debugService.connect(url);
     await new Promise((r) => setTimeout(r, 100));
     if (!this.debugService.closed && !this.debugService.connected) {
-      // 连接时间长时提示
       this.notification$.next({ type: 'info', title: '正在连接...' });
     }
   }
@@ -152,7 +162,6 @@ export class SpaceDevelopService {
     this.debugEvents.subscribe((event) => {
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
-        // 连接成功时清空消息，防止上次连接强制断开时提示错误
         this.notification$.next({ type: 'remove' });
         this.notification$.next({
           type: 'success',
@@ -176,6 +185,10 @@ export class SpaceDevelopService {
           title: '连接错误',
           content: `地址: ${eventTarget?.url}`,
         });
+      }
+      if (event.type == 'message') {
+        // event.message Example: 04-07 10:29:36.126 Script-11 Main [remote://BLogic: main.js]/I: HelloWorld
+        // this.output$.next();
       }
     });
   }
