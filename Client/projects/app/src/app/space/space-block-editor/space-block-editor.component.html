@@ -1,6 +1,6 @@
 <nz-layout>
   <nz-sider nzTheme="light">
-    <div class="sider-main no-select">
+    <div class="sidebar-main no-select">
       <h1>
         <a
           target="_blank"
@@ -9,7 +9,7 @@
         >
       </h1>
       <h2><a target="_blank" href="https://logic.autojs.org">BlockLogic</a></h2>
-      <ul nz-menu nzMode="inline" [nzSelectable]="false">
+      <ul class="categories" nz-menu nzMode="inline" [nzSelectable]="false">
         <li
           nz-submenu
           *ngFor="let category of _categoriesType(blocklier.categories)"
