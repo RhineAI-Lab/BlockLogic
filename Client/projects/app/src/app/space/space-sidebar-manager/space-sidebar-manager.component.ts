@@ -7,6 +7,7 @@ import { SpaceComponent } from '../space.component';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
+import { SpaceDevelopService } from '../shared/space-develop.service';
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -16,6 +17,7 @@ import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-s
 export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   constructor(
     private layout: SpaceComponent,
+    private developService: SpaceDevelopService,
     private state: SpaceState,
     private injector: Injector,
   ) {}
@@ -58,7 +60,14 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.developService.showConsole$.subscribe(() => {
+      const consoleItem: SpaceSidebarEntry | undefined = this.items.find(
+        (item) => item.name === '控制台',
+      );
+      if (consoleItem) consoleItem.isOpen = true;
+    });
+  }
 
   onChangeWidth(e: MouseEvent, item: SpaceSidebarEntry): void {
     const startX = e.clientX;

@@ -22,6 +22,7 @@ export class SpaceDevelopService {
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly notification$ = new Subject<Notification>();
+  readonly showConsole$ = new Subject<void>();
 
   holdBox = false;
   syncCode = true;
@@ -123,6 +124,7 @@ export class SpaceDevelopService {
   }
 
   runFile(): void {
+    this.showConsole$.next();
     if(this.runMode$.getValue() == SpaceRunMode.Browser) {
       this.sandboxOfLastRun?.destroy();
       const sandbox = new Sandbox();
