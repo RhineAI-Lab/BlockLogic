@@ -13,7 +13,7 @@
 
 如最简单的含有软件页面的项目是下图这个“单文件-UI页面显示”。
 
-<img src="docs/images/first_0.jpg" width="700"/>
+<img src="docs/source/images/first_0.jpg" width="700"/>
 
 ### 3.打开后即可看到如下编辑器页面
 
@@ -21,8 +21,8 @@
 
 设计模式: 
 
-<img src="docs/images/first_1.jpg" width="700"/>
+<img src="docs/source/images/first_1.jpg" width="700"/>
 
 逻辑模式:
 
-<img src="docs/images/first_2.jpg" width="700"/>
+<img src="docs/source/images/first_2.jpg" width="700"/>

@@ -2,7 +2,7 @@
 
 ### 整体区分
 
-<img src="docs/images/page_1.jpg" width="700"/>
+<img src="docs/source/images/page_1.jpg" width="700"/>
 
 上方为工具栏，提供各种操作功能按键。  
 左右方为侧边栏，可展开各种功能区。  
@@ -10,21 +10,21 @@
 
 ### 视图模式切换
 
-<img src="docs/images/page_2.jpg" width="700"/>
+<img src="docs/source/images/page_2.jpg" width="700"/>
 
 中间为主栏目，有图形区和代码区两部分组成。  
 通过视图模式切换按钮，可显示和隐藏图形区。
 
 ### 编辑模式切换
 
-<img src="docs/images/page_5.jpg" width="700"/>
+<img src="docs/source/images/page_5.jpg" width="700"/>
 
 当程序中含有页面显示功能块时，可以切换至设计页面。  
 如上图方式可以添加页面显示块。
 
 ### 工具栏
 
-<img src="docs/images/page_6.jpg" width="700"/>
+<img src="docs/source/images/page_6.jpg" width="700"/>
 
 左侧三键，用于电脑端文件操作，可打开保存文件至电脑。  
 左侧运行，通过浏览器本地运行程序，部分安卓功能不支持，便于学习JS基础语法使用。
@@ -37,14 +37,14 @@
 
 ### 逻辑模式侧栏
 
-<img src="docs/images/page_7.jpg" width="700"/>
+<img src="docs/source/images/page_7.jpg" width="700"/>
 
 项目栏，用于查看编辑项目结构，单文件项目可以修改文件名。  
 控制台，用于查看运行结果，后期会更新动态调试功能。
 
 ### 设计模式侧栏
 
-<img src="docs/images/page_8.jpg" width="700"/>
+<img src="docs/source/images/page_8.jpg" width="700"/>
 
 控件树，树状显示控件结构，便于简便查看控件之间的层级关系。  
 结构图，直观的查看控件结构，并显示了控件属性。  

@@ -69,7 +69,8 @@ export class SpaceTabBarComponent implements OnInit {
   }
   onTabClose(item: TabItem): void {
     const index = this.getTabIndexByFile(item.file);
-    if (this.tabs.length > 1 && index >= 0) {
+    if(index==-1) return;
+    if (this.tabs.length > 1) {
       if (item.selected) {
         this.tabs.forEach((t) => (t.selected = false));
         let next = index>0 ? this.tabs[index - 1] : this.tabs[index + 1]
@@ -77,6 +78,11 @@ export class SpaceTabBarComponent implements OnInit {
         this.developService.openFile(next.file)
       }
       this.tabs.splice(index, 1);
+    }else{
+      this.developService.notification$.next({
+        type: 'info',
+        title: '至少保留一个文件',
+      });
     }
   }
 

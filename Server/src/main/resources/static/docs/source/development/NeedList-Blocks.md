@@ -3,7 +3,7 @@
 
 ## 图形块分类
 
-<img src="docs/images/blocks.png" width="700"/>
+<img src="docs/source/images/blocks.png" width="700"/>
 
 
 

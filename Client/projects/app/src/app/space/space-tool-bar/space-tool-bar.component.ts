@@ -154,6 +154,10 @@ export class SpaceToolBarComponent implements OnInit {
   onToCode(): void {
     this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.ToCode);
   }
+
+  openConnectionHelp(): void {
+    window.open('docs#/start/Connect')
+  }
 }
 
 export enum SpaceToolBarButtonType {
