@@ -21,6 +21,7 @@ export class SpaceDevelopService {
   readonly unfoldXml$ = new BehaviorSubject<boolean>(false);
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
+  readonly debugOutput$ = new Subject<string>();
   readonly notification$ = new Subject<Notification>();
   readonly showConsole$ = new Subject<void>();
 
@@ -160,12 +161,13 @@ export class SpaceDevelopService {
         next: this.output$.next.bind(this.output$),
         error: this.output$.error.bind(this.output$),
       });
+      this.debugOutput$.next(this.targetFile$.getValue().path+' 开始运行');
       sandbox.run(this.targetFile$.getValue().code);
       this.sandboxOfLastRun = sandbox;
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
       if (this.debugService.connected) {
         this.debugService.runFile(
-          'BLogic: ' + this.targetFile$.getValue().name,
+          this.targetFile$.getValue().name,
           this.targetCode,
         );
       } else {
@@ -216,7 +218,16 @@ export class SpaceDevelopService {
       }
       if (event.type == 'message') {
         // event.message Example: 04-07 10:29:36.126 Script-11 Main [remote://BLogic: main.js]/I: HelloWorld
-        // this.output$.next();
+        let text = event.message;
+        let spaceNum = 0;
+        for (const t in text.split('')) {
+          if(text[parseInt(t)] == ' ') spaceNum++;
+          if(spaceNum==4){
+            text = text.substring(parseInt(t)+1);
+            break;
+          }
+        }
+        this.debugOutput$.next(text);
       }
     });
   }

@@ -21,10 +21,11 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     this.subscription = this.developService.output$.subscribe((output) => {
       this.resolveOutput(output);
     });
-    this.resolveOutput({
-      type: 'debug',
-      data: ['控制台初始化完成'],
+    this.developService.debugOutput$.subscribe((output) => {
+      this.resolveStringWithTime(output);
     });
+    this.resolveStringWithTime("控制台初始化完成")
+
   }
 
   ngOnDestroy(): void {
@@ -32,13 +33,25 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   }
 
   resolveOutput(output: SandboxOutput): void {
-    const time = dayjs().format('HH:mm:ss');
     const content = output.data.map((data) => this.stringify(data)).join(' ');
-    this.lines.push(`OnLine  ${time}: ${content}`);
+    this.lines.push(`${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}: ${content}`);
   }
-
+  resolveStringWithTime(text: string): void {
+    this.lines.push(this.getTime()+' '+text);
+  }
   resolveString(text: string): void {
     this.lines.push(text);
+  }
+
+  getTime(): string {
+    return dayjs().format('HH:mm:ss');
+  }
+  getSingleType(type: string): string {
+    if(type=='info')return 'I';
+    if(type=='warn')return 'W';
+    if(type=='error')return 'E';
+    if(type=='debug')return 'V';
+    return 'D';
   }
 
   private stringify(data: unknown): string {
