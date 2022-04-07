@@ -13,6 +13,7 @@ export class SpaceState {
   readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
     SpaceLayoutMode.Split,
   );
+  readonly holdBox$ = new BehaviorSubject<boolean>(false);
   readonly needResize$ = new Subject<boolean>();
 
   readonly toolbarButtonEvent$ = new Subject<SpaceToolBarButtonType>();

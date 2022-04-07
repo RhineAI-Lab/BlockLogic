@@ -21,7 +21,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
-  codeAreaWidth = 400;
+  codeAreaWidth = 480;
   layoutMode = SpaceLayoutMode.Split;
 
   constructor(
@@ -72,9 +72,17 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     this.codeEditor.workspace.layout();
   }
 
-  onBlockChange(): void {
-    if (this.developService.syncCode) {
-      this.updateCode();
+  onBlockChange(event: Event): void {
+    let changeType = [
+      Blockly.Events.BLOCK_CREATE,
+      Blockly.Events.BLOCK_DELETE,
+      Blockly.Events.BLOCK_CHANGE,
+      Blockly.Events.BLOCK_MOVE,
+    ];
+    if(changeType.includes(event.type)){
+      if (this.developService.syncCode) {
+        this.updateCode();
+      }
     }
   }
 

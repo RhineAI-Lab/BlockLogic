@@ -56,21 +56,13 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
         });
         this.init.emit();
         this.workspace.addChangeListener((event: Event) => {
-          let changeType = [
-            Blockly.Events.BLOCK_CREATE,
-            Blockly.Events.BLOCK_DELETE,
-            Blockly.Events.BLOCK_CHANGE,
-            Blockly.Events.BLOCK_MOVE,
-          ];
-          if(changeType.includes(event.type)){
-            this.change.emit();
-          }
+          this.change.emit(event);
         });
 
         const toolbox = this.workspace.getToolbox();
         toolbox.setVisible(false);
         const flyout = toolbox.getFlyout();
-        flyout.autoClose = false;
+        flyout.autoClose = true;
 
         this.categories = this.resolveToolboxCategories(
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,

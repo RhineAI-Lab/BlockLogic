@@ -20,13 +20,7 @@
             <li
               nz-menu-item
               *ngFor="let item of category.children"
-              (click)="
-                $event.stopPropagation();
-                item.$row.click();
-                categorySelected == item
-                  ? (categorySelected = undefined)
-                  : (categorySelected = item)
-              "
+              (click)="onClickLine(item, $event)"
               [nzPaddingLeft]="26"
               [nzSelected]="categorySelected == item"
             >
@@ -48,7 +42,7 @@
     <app-blocklier
       class="no-select"
       (init)="workspace = blocklier.workspace"
-      (change)="change.emit()"
+      (change)="onChange($event)"
       #blocklier
     ></app-blocklier>
   </nz-content>

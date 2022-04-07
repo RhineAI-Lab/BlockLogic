@@ -123,7 +123,7 @@ export class SpaceToolBarComponent implements OnInit {
     this.developService.syncCode = this.syncCode;
   }
   onChangeHoldBox(): void {
-    this.developService.holdBox = this.holdBox;
+    this.state.holdBox$.next(this.holdBox);
   }
   onChangeUnfoldXml(): void {
     this.developService.unfoldXml = this.unfoldXml;
