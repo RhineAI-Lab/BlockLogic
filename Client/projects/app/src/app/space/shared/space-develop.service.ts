@@ -66,7 +66,7 @@ export class SpaceDevelopService {
           url = url + 'files.txt';
         }
         this.httpClient.get(url, { responseType: 'text' }).subscribe({
-          next:(text) => {
+          next: (text) => {
             if (!source.endsWith('/')) {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
@@ -92,12 +92,8 @@ export class SpaceDevelopService {
               this.openProject(new Project(files));
             }
           },
-          error:(err) => {
-            this.notification$.next({
-              type: 'error',
-              title: '打开项目失败',
-              content: '服务器资源不存在',
-            });
+          error: (err) => {
+            this.notifiy('打开项目失败', 'error', '服务器资源不存在');
           },
         });
       } else {
@@ -106,7 +102,7 @@ export class SpaceDevelopService {
     }
   }
   openZipFile(file: File): void {
-    if(file==undefined) return;
+    if (file == undefined) return;
     this.fileService.openZip(file).subscribe((project: Project) => {
       this.openProject(project);
     });
@@ -115,37 +111,24 @@ export class SpaceDevelopService {
   openProject(project: Project): void {
     this.project$.next(project);
     this.projectState$.next('项目打开完成');
-    if(project.target==-1){
-      this.notification$.next({
-        type: 'info',
-        title: '项目中无可打开的文件',
-      })
-    }else{
+    if (project.target == -1) {
+      this.notifiy('项目中无可打开的文件', 'error');
+    } else {
       this.openFile(project.getTargetFile().path);
     }
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
-    this.notification$.next({
-      type: 'info',
-      title: '保存中...',
-    });
+    this.notifiy('保存中...');
     this.fileService.saveProject(project, mode).subscribe({
-      complete: (() => {
+      complete: () => {
         this.projectState$.next('项目保存成功');
-        this.notification$.next({
-          type: 'success',
-          title: '保存成功',
-        });
-      }),
-      error: (err => {
+        this.notifiy('保存成功', 'success');
+      },
+      error: (err) => {
         this.projectState$.next('项目保存失败');
-        this.notification$.next({
-          type: 'error',
-          title: '保存失败',
-          content: err,
-        });
-      }),
+        this.notifiy('保存失败', 'error');
+      },
     });
   }
 
@@ -159,20 +142,12 @@ export class SpaceDevelopService {
           }
         },
         error: (err) => {
-          if(err=='Unsupported file type') err='该文件类型不支持打开';
-          this.notification$.next({
-            type: 'error',
-            title: '文件打开失败',
-            content: err,
-          });
+          if (err == 'Unsupported file type') err = '该文件类型不支持打开';
+          this.notifiy('文件打开失败', 'error', err);
         },
       });
     } else {
-      this.notification$.next({
-        type: 'error',
-        title: '文件打开失败',
-        content: '文件不存在',
-      });
+      this.notifiy('文件打开失败', 'error', '文件不存在');
     }
   }
 
@@ -194,20 +169,32 @@ export class SpaceDevelopService {
           this.targetCode,
         );
       } else {
-        this.notification$.next({
-          type: 'error',
-          title: '设备未连接',
-          content: '使用设备运行模式运行，请先连接设备。',
-        });
+        this.notifiy(
+          '设备未连接',
+          'error',
+          '使用设备运行模式运行，请先连接设备。',
+        );
       }
     }
+  }
+
+  notifiy(
+    title: string,
+    type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
+    content: string = '',
+  ): void {
+    this.notification$.next({
+      type: type,
+      title: title,
+      content: content,
+    });
   }
 
   async connectDevice(url: string): Promise<void> {
     this.debugService.connect(url);
     await new Promise((r) => setTimeout(r, 100));
     if (!this.debugService.closed && !this.debugService.connected) {
-      this.notification$.next({ type: 'info', title: '正在连接...' });
+      this.notifiy('正在连接...', 'info');
     }
   }
 
@@ -215,29 +202,17 @@ export class SpaceDevelopService {
     this.debugEvents.subscribe((event) => {
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
-        this.notification$.next({ type: 'remove' });
-        this.notification$.next({
-          type: 'success',
-          title: '连接成功',
-          content: `设备：${device}`,
-        });
+        this.notifiy('', 'remove');
+        this.notifiy('设备连接成功', 'success', `设备：${device}`);
       }
       if (event.type == 'close') {
-        this.notification$.next({
-          type: 'warning',
-          title: '连接断开',
-          content: `设备：${device}`,
-        });
+        this.notifiy('设备断开连接', 'warning', `设备：${device}`);
       }
       if (event.type == 'error') {
         const eventTarget = event.payload.target as
           | (EventTarget & { url: string })
           | undefined;
-        this.notification$.next({
-          type: 'error',
-          title: '连接错误',
-          content: `地址: ${eventTarget?.url}`,
-        });
+        this.notifiy('连接错误', 'error', `地址：${eventTarget?.url}`);
       }
       if (event.type == 'message') {
         // event.message Example: 04-07 10:29:36.126 Script-11 Main [remote://BLogic: main.js]/I: HelloWorld

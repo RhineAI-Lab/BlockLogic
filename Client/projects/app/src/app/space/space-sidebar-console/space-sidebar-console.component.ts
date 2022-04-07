@@ -31,11 +31,14 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  private resolveOutput(output: SandboxOutput): void {
-    const index = this.lines.length + 1;
+  resolveOutput(output: SandboxOutput): void {
     const time = dayjs().format('HH:mm:ss');
     const content = output.data.map((data) => this.stringify(data)).join(' ');
-    this.lines.push(`[${index}] ${time}: ${content}`);
+    this.lines.push(`OnLine  ${time}: ${content}`);
+  }
+
+  resolveString(text: string): void {
+    this.lines.push(text);
   }
 
   private stringify(data: unknown): string {

@@ -95,10 +95,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     if (!code) code = this.codeEditor.code;
     let xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) {
-      xmlText = "<xml xmlns='https://logic.autojs.org/xml'></xml>";
+      this.blockEditor.workspace.clear();
+    }else{
+      const xmlDom = Blockly.Xml.textToDom(xmlText);
+      Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
     }
-    const xmlDom = Blockly.Xml.textToDom(xmlText);
-    Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
   }
   updateCode(): void {
     const xmlDom = Blockly.Xml.workspaceToDom(this.blockEditor.workspace);
