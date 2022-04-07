@@ -6,7 +6,7 @@ import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { ParaUtils } from '../../common/utils/para.utils';
-import {SpaceRunMode, SpaceSaveMode} from '../common/space-modes.enums';
+import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
 
@@ -24,8 +24,8 @@ export class SpaceDevelopService {
   readonly notification$ = new Subject<Notification>();
   readonly showConsole$ = new Subject<void>();
 
-  readonly editorState$ = new BehaviorSubject<string>("编辑器初始化中...");
-  readonly projectState$ = new BehaviorSubject<string>("项目打开中...");
+  readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
+  readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
 
   holdBox = false;
   syncCode = true;
@@ -41,13 +41,14 @@ export class SpaceDevelopService {
   }
 
   init(): void {
+    this.editorState$.next('编辑器初始化完成');
     const source = ParaUtils.getUrlParameter('source');
     const location = ParaUtils.getUrlParameter('location');
     this.openProjectFrom(source, location);
   }
 
   get targetCode(): string {
-    if(this.targetFile$.getValue().code) {
+    if (this.targetFile$.getValue().code) {
       return this.targetFile$.getValue().code;
     }
     return '';
@@ -61,21 +62,36 @@ export class SpaceDevelopService {
     } else if (location == SpaceLocationMode.Cloud) {
     } else if (location == SpaceLocationMode.Public || location == '') {
       if (source != '') {
-        const url = 'assets/example/' + source;
-        this.httpClient
-          .get(url, { responseType: 'text' })
-          .subscribe((code) => {
-            if (source.endsWith('.js')) {
-              const ps = source.split('/');
-              const name = ps[ps.length - 1];
-              const files: ProjectFile[] = [
-                ProjectFile.makeProjectFileByCode(code, 'Project/' + name),
-              ];
-              this.openProject(new Project(files));
-            } else if (source.endsWith('.json')) {
-              // TODO: 打开文件夹项目
+        let url = 'assets/example/' + source;
+        if (url.endsWith('/')) {
+          url = url + 'files.txt';
+        }
+        this.httpClient.get(url, { responseType: 'text' }).subscribe((text) => {
+          if (!source.endsWith('/')) {
+            const ps = source.split('/');
+            const name = ps[ps.length - 1];
+            const files: ProjectFile[] = [
+              ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
+            ];
+            this.openProject(new Project(files));
+          } else {
+            const lines = text.split('\n');
+            const files: ProjectFile[] = [];
+            const name = lines[0];
+            for (let i = 1; i < lines.length; i++) {
+              if (lines[i] == '') {
+                continue;
+              }
+              files.push(
+                ProjectFile.makeProjectFileByUrl(
+                  source + lines[i],
+                  name + '/' + lines[i],
+                ),
+              );
             }
-          });
+            this.openProject(new Project(files));
+          }
+        });
       } else {
         this.openProject(Project.getDefaultProject());
       }
@@ -89,6 +105,7 @@ export class SpaceDevelopService {
 
   openProject(project: Project): void {
     this.project$.next(project);
+    this.projectState$.next('项目打开完成');
     this.openFile(project.getTargetFile().path);
   }
   saveProject(mode: SpaceSaveMode): void {
@@ -128,7 +145,7 @@ export class SpaceDevelopService {
 
   runFile(): void {
     this.showConsole$.next();
-    if(this.runMode$.getValue() == SpaceRunMode.Browser) {
+    if (this.runMode$.getValue() == SpaceRunMode.Browser) {
       this.sandboxOfLastRun?.destroy();
       const sandbox = new Sandbox();
       sandbox.output$.subscribe({
@@ -137,10 +154,13 @@ export class SpaceDevelopService {
       });
       sandbox.run(this.targetFile$.getValue().code);
       this.sandboxOfLastRun = sandbox;
-    }else if(this.runMode$.getValue() == SpaceRunMode.Device) {
-      if(this.debugService.connected){
-        this.debugService.runFile("BLogic: "+this.targetFile$.getValue().name,this.targetCode);
-      }else{
+    } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
+      if (this.debugService.connected) {
+        this.debugService.runFile(
+          'BLogic: ' + this.targetFile$.getValue().name,
+          this.targetCode,
+        );
+      } else {
         this.notification$.next({
           type: 'error',
           title: '设备未连接',

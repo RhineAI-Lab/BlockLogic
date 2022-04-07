@@ -1,0 +1,4 @@
+CounterApp
+project.json
+main.js
+icons/logo_icon.png
