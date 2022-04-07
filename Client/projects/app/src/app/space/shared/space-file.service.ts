@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as JSZip from 'jszip';
-import { EMPTY, from, Observable } from 'rxjs';
+import {EMPTY, from, Observable, Subscriber} from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
 import { Project, ProjectType } from '../../common/project.class';
@@ -14,40 +14,10 @@ import { SpaceSaveMode } from '../common/space-modes.enums';
 export class SpaceFileService {
   constructor() {}
 
-  openZip(file: File): Observable<Project> {
-    return new Observable<Project>((observer) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const zip = new JSZip();
-        zip.loadAsync(reader.result as ArrayBuffer).then(
-          (zip) => {
-            const files: ProjectFile[] = [];
-            zip.forEach((relativePath, file) => {
-              if (file.dir) return;
-              const projectFile = ProjectFile.makeProjectFileByFile(
-                new File([''], ''),
-                relativePath,
-              );
-              // let sourceFile = file.async("arraybuffer"); ??
-              // const projectFile = ProjectFile.makeProjectFileByFile(sourceFile,relativePath);
-              projectFile.path = relativePath;
-              files.push(projectFile);
-            });
-            observer.next(new Project(files));
-          },
-          (error) => {
-            observer.error(error);
-          },
-        );
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }
-
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     if (mode == SpaceSaveMode.Local) {
       const files = project.files;
-      if (project.getType() == ProjectType.File) {
+      if (project.type == ProjectType.File) {
         return this.saveFile(files[0]);
       } else {
         return this.saveZip(project.files, project.name);
@@ -57,20 +27,69 @@ export class SpaceFileService {
   }
 
   saveFile(file: ProjectFile): Observable<void> {
-    if (file.code.length == 0 && file.source) {
-      const outputStream = streamSaver.createWriteStream(file.name, {
-        size: file.source.size,
+    const observable = new Observable<void>(subscriber => {
+      let write = (inputStream: ReadableStream, outputStream: WritableStream) => {
+        this.write(inputStream, outputStream).subscribe({
+          next: () => {
+            subscriber.next();
+          },
+          complete: () => {
+            subscriber.complete();
+          },
+          error: err => {
+            subscriber.error(err);
+          },
+        });
+      };
+      if (file.code.length == 0 && file.source) {
+        let fileEnd = (source: File) => {
+          const outputStream = streamSaver.createWriteStream(file.name, {
+            size: source.size,
+          });
+          const inputStream = source.stream();
+          write(inputStream, outputStream);
+        }
+        if (file.source instanceof File) {
+          fileEnd(file.source);
+        }else{
+          file.source.async('arraybuffer').then(buffer => {
+            file.source = new File([buffer], file.name);
+            fileEnd(file.source);
+          });
+        }
+      } else {
+        const blob = new Blob([file.code]);
+        const outputStream = streamSaver.createWriteStream(file.name, {
+          size: blob.size,
+        });
+        const inputStream = blob.stream();
+        write(inputStream, outputStream);
+      }
+    });
+    return observable;
+  }
+
+  openZip(file: File): Observable<Project> {
+    return new Observable<Project>((observer) => {
+      file.arrayBuffer().then((buffer) => {
+        new JSZip().loadAsync(buffer).then(
+          (zip) => {
+            const files: ProjectFile[] = [];
+            zip.forEach((relativePath, file) => {
+              if (file.dir) return;
+              const projectFile = ProjectFile.makeProjectFileByFile(
+                file, relativePath,
+              );
+              files.push(projectFile);
+            });
+            observer.next(new Project(files));
+          },
+          (error) => {
+            observer.error(error);
+          },
+        );
       });
-      const inputStream = file.source.stream();
-      return this.write(inputStream, outputStream);
-    } else {
-      const blob = new Blob([file.code]);
-      const outputStream = streamSaver.createWriteStream(file.name, {
-        size: blob.size,
-      });
-      const inputStream = blob.stream();
-      return this.write(inputStream, outputStream);
-    }
+    });
   }
 
   saveZip(files: ProjectFile[], name: string): Observable<void> {

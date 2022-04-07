@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
+import {JSZipObject} from "jszip";
 
 export class ProjectFile {
-  source?: File;
+  source?: File | JSZipObject;
+  zipSource?: JSZipObject;
   path: string;
   name: string;
   type: string;
@@ -27,12 +29,21 @@ export class ProjectFile {
     return new Observable(observer => {
       if (this.code.length == 0) {
         if (this.source) {
-          const fr = new FileReader();
-          fr.onloadend = () => {
-            this.code = fr.result as string;
-            observer.next(this.code);
-          };
-          fr.readAsText(this.source);
+          if(this.source instanceof File) {
+            const fr = new FileReader();
+            fr.onloadend = () => {
+              this.code = fr.result as string;
+              observer.next(this.code);
+              observer.complete();
+            };
+            fr.readAsText(this.source);
+          } else {
+            this.source.async('string').then(content => {
+              this.code = content;
+              observer.next(content);
+              observer.complete();
+            });
+          }
         } else if (this.url) {
           if (!httpClient) {
             observer.error('HttpClient is not provided');
@@ -40,20 +51,27 @@ export class ProjectFile {
           }
           httpClient
             .get('assets/example/'+this.url, {responseType: 'text'})
-            .subscribe((code: string) => {
-              this.code = code;
-              observer.next(code);
+            .subscribe({
+              next:(code: string) => {
+                this.code = code;
+                observer.next(code);
+                observer.complete();
+              },
+              error:(err) => {
+                observer.error(err);
+              }
             });
         } else {
           observer.error('No one source is provided');
         }
       } else {
         observer.next(this.code);
+        observer.complete();
       }
     });
   }
 
-  static makeProjectFileByFile(file: File, path: string): ProjectFile {
+  static makeProjectFileByFile(file: File | JSZipObject, path: string): ProjectFile {
     const projectFile = ProjectFile.makeProjectFileByPath(path);
     projectFile.source = file;
     return projectFile;
@@ -77,4 +95,6 @@ export class ProjectFile {
     const ns = name.split('.');
     return new ProjectFile(path, name, ns[ns.length - 1], '', '');
   }
+
+  public static SUPPORT_OPEN_LIST = 'js ts jsx tsx html css vue json java cpp php python'.split(' ');
 }

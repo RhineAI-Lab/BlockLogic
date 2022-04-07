@@ -1,7 +1,7 @@
 import { ProjectFile } from './project-file.class';
 
 export class Project {
-  target = 0;
+  target = -1;
   name = 'Project';
   constructor(
     public files: ProjectFile[],
@@ -9,7 +9,7 @@ export class Project {
   ) {
     if (files.length >= 1) {
       this.name = files[0].path.split('/')[0];
-      this.target = this.getDefaultTarget();
+      this.target = this.findDefaultTarget();
     }
   }
 
@@ -26,7 +26,7 @@ export class Project {
     }
   }
 
-  getType(): ProjectType {
+  get type(): ProjectType {
     return this.files.length == 1 ? ProjectType.File : ProjectType.Folder;
   }
 
@@ -39,7 +39,7 @@ export class Project {
     return null;
   }
 
-  getDefaultTarget(): number {
+  findDefaultTarget(): number {
     const mainFileList = 'main.js index.js'.split(' ');
     let jsFile = -1;
     for (const filesKey in this.files) {
@@ -49,6 +49,11 @@ export class Project {
       } else if (file.type == 'js') {
         jsFile = parseInt(filesKey, 10);
       }
+    }
+    if(jsFile !== -1) return jsFile;
+    for (const filesKey in this.files) {
+      if(ProjectFile.SUPPORT_OPEN_LIST.includes(this.files[filesKey].type))
+        return parseInt(filesKey, 10);
     }
     return jsFile;
   }

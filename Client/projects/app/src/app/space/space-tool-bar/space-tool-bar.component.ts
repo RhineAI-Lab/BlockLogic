@@ -82,7 +82,7 @@ export class SpaceToolBarComponent implements OnInit {
 
   onSelectProject(): void {
     if (this.openMode == SpaceOpenMode.LocalZip) {
-      this.developService.openZipFile(this.fileChooser.nativeElement.files[0]);
+      this.developService.openZipFile(this.zipChooser.nativeElement.files[0]);
     } else {
       let files: File[] = [];
       if (this.openMode == SpaceOpenMode.LocalFile) {

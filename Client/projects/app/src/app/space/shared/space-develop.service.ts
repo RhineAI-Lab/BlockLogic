@@ -97,6 +97,7 @@ export class SpaceDevelopService {
     }
   }
   openZipFile(file: File): void {
+    if(file==undefined) return;
     this.fileService.openZip(file).subscribe((project: Project) => {
       this.openProject(project);
     });
@@ -105,11 +106,25 @@ export class SpaceDevelopService {
   openProject(project: Project): void {
     this.project$.next(project);
     this.projectState$.next('项目打开完成');
-    this.openFile(project.getTargetFile().path);
+    if(project.target==-1){
+      this.notification$.next({
+        type: 'info',
+        title: '项目中无可打开的文件',
+      })
+    }else{
+      this.openFile(project.getTargetFile().path);
+    }
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
-    this.fileService.saveProject(project, mode);
+    this.fileService.saveProject(project, mode).subscribe({
+      complete: (() => {
+        this.projectState$.next('项目保存成功');
+      }),
+      error: (() => {
+        this.projectState$.next('项目保存失败');
+      }),
+    });
   }
 
   openFile(filePath: string): void {
