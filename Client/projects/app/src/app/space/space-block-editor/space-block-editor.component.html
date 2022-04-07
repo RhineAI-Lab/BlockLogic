@@ -20,7 +20,7 @@
             <li
               nz-menu-item
               *ngFor="let item of category.children"
-              (click)="onClickLine(item, $event)"
+              (click)="onClick(item, $event)"
               [nzPaddingLeft]="26"
               [nzSelected]="categorySelected == item"
             >

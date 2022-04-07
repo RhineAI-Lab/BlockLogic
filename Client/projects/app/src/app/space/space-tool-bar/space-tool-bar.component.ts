@@ -33,7 +33,7 @@ export class SpaceToolBarComponent implements OnInit {
   brightTheme = true;
   holdBox: boolean = this.developService.holdBox;
   syncCode: boolean = this.developService.syncCode;
-  unfoldXml: boolean = this.developService.unfoldXml;
+  unfoldXml: boolean = this.developService.unfoldXml$.getValue();
 
   runMode = SpaceRunMode.Browser;
   saveMode = SpaceSaveMode.Local;
@@ -126,7 +126,7 @@ export class SpaceToolBarComponent implements OnInit {
     this.state.holdBox$.next(this.holdBox);
   }
   onChangeUnfoldXml(): void {
-    this.developService.unfoldXml = this.unfoldXml;
+    this.developService.unfoldXml$.next(this.unfoldXml);
   }
 
   onRunModeChange(mode: SpaceRunMode): void {

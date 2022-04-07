@@ -51,6 +51,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       this.codeEditor.code = file.code;
       this.updateBlocks();
     });
+    this.developService.unfoldXml$.subscribe((v)=>{
+      if(this.blockEditor.workspace){
+        this.updateCode();
+      }
+    })
     this.state.toolbarButtonEvent$.subscribe((btnId) => {
       switch (btnId) {
         case SpaceToolBarButtonType.ToCode:
@@ -95,7 +100,12 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
   updateCode(): void {
     const xmlDom = Blockly.Xml.workspaceToDom(this.blockEditor.workspace);
-    const xmlText = Blockly.Xml.domToText(xmlDom);
+    let xmlText = '';
+    if(this.developService.unfoldXml$.getValue()){
+      xmlText = "\n"+Blockly.Xml.domToPrettyText(xmlDom)+"\n";
+    }else{
+      xmlText = Blockly.Xml.domToText(xmlDom);
+    }
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
     this.codeEditor.code = CodeUtils.connectBlockXml(code, xmlText);
   }

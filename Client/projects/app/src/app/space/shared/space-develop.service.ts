@@ -18,13 +18,13 @@ export class SpaceDevelopService {
     this.project$.getValue().getTargetFile(),
   );
   readonly runMode$ = new BehaviorSubject<SpaceRunMode>(SpaceRunMode.Browser);
+  readonly unfoldXml$ = new BehaviorSubject<boolean>(false);
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly notification$ = new Subject<Notification>();
 
   holdBox = false;
   syncCode = true;
-  unfoldXml = false;
 
   private sandboxOfLastRun?: Sandbox;
 
