@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SpaceDevelopService} from "../shared/space-develop.service";
 
 @Component({
   selector: 'app-space-status-bar',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./space-status-bar.component.less'],
 })
 export class SpaceStatusBarComponent implements OnInit {
-  leftTipText = '编辑器初始化完成';
-  rightTipText = '项目打开成功';
+  leftTipText = '';
+  rightTipText = '';
 
-  constructor() {}
+  constructor(developService: SpaceDevelopService) {
+    developService.editorState$.subscribe(state => {
+      this.leftTipText = state;
+    });
+    developService.projectState$.subscribe(state => {
+      this.rightTipText = state;
+    });
+  }
 
   ngOnInit(): void {}
 }
