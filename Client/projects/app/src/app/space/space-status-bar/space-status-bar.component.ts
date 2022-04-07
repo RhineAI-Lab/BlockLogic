@@ -15,15 +15,15 @@ export class SpaceStatusBarComponent implements OnInit {
     private cd: ChangeDetectorRef,
   ) {}
 
-  ngOnInit(): void {}
-
-  ngOnAfterViewInit() {
+  ngOnInit(): void {
+    // TODO: 校验错误提示
     this.developService.editorState$.subscribe((state) => {
       this.leftTipText = state;
     });
     this.developService.projectState$.subscribe((state) => {
       this.rightTipText = state;
     });
-    this.cd.detach();
   }
+
+  ngOnAfterViewInit() {}
 }

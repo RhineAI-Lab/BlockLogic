@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as Blockly from 'blockly';
 
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
@@ -10,7 +10,7 @@ import { SpaceState } from '../shared/space-state.service';
   templateUrl: './space-block-editor.component.html',
   styleUrls: ['./space-block-editor.component.less'],
 })
-export class SpaceBlockEditorComponent implements OnInit {
+export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   workspace!: Blockly.WorkspaceSvg;
   categorySelected?: BlocklierToolboxCategory;
@@ -21,7 +21,9 @@ export class SpaceBlockEditorComponent implements OnInit {
 
   constructor(public state: SpaceState) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
     this.state.holdBox$.subscribe((v) => {
       this.workspace.getToolbox().getFlyout().autoClose = !v;
     });
