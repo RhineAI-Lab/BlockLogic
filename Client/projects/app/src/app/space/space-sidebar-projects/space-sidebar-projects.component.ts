@@ -97,6 +97,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   }
   onDelete(node: NzTreeNode): void {
     this.deleteTargetPath = node.origin.key;
+    this.deleteNode = node;
     this.deleteTitle = '确认要删除 '+node.origin.title+' 吗？';
     this.deleteModalVisible = true;
   }
@@ -152,15 +153,31 @@ console.log('HelloWorld');
   onDeleteOk(): void {
     this.deleteModalVisible = false;
     const project = this.developService.project$.getValue();
-    for (const file of project.files) {
-      if (file.path == this.deleteTargetPath) {
-        project.files.splice(project.files.indexOf(file), 1);
-        this.resolve(project);
-        this.developService.deleteEvent$.next(this.deleteTargetPath);
-        this.developService.notifiy('文件已删除', 'success');
-        break;
+    if(this.deleteNode!.origin.isLeaf){
+      for (const file of project.files) {
+        if (file.path == this.deleteTargetPath) {
+          project.files.splice(project.files.indexOf(file), 1);
+          this.developService.deleteEvent$.next(this.deleteTargetPath);
+          this.developService.notifiy('文件已删除', 'success');
+          break;
+        }
       }
+    }else{
+      const deleteFolder = this.deleteTargetPath+'/';
+      for (const file of project.files) {
+        if (file.path.startsWith(deleteFolder)) {
+          this.developService.deleteEvent$.next(file.path);
+          project.files.splice(project.files.indexOf(file), 1);
+        }
+      }
+      for (const folder of project.folders) {
+        if (folder.startsWith(deleteFolder) || folder == this.deleteTargetPath) {
+          project.folders.splice(project.folders.indexOf(folder), 1);
+        }
+      }
+      this.developService.notifiy('文件夹已删除', 'success');
     }
+    this.resolve(project);
   }
   onRenameOk(): void {
     if(this.existsList.includes(this.renameValue)) return;
