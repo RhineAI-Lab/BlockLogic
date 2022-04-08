@@ -21,17 +21,34 @@
         ></i>
       </ng-template>
       <ng-template #nzTreeTpl let-node let-origin="origin">
-        <span class="tree-node">
+        <span class="tree-node" (contextmenu)="contextMenu($event, menu)">
           <i
             nz-icon
             [nzIconfont]="
               origin.isLeaf ? getFileIcon(origin.title) : 'icon-folder'
             "
             [ngStyle]="{
-              color: origin.isRoot ? '#8CD3EC' : '#B6B6B6'
+              color: origin.isRoot ? '#86d4ef' : '#B6B6B6'
             }"
           ></i>
           <span class="folder-name">{{ node.title }}</span>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu *ngIf="origin.isLeaf">
+              <li nz-menu-item (click)="onRename(node)">重命名</li>
+              <li nz-menu-item (click)="onDelete(node)">删除文件</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item (click)="onCopyName(origin)">复制文件名</li>
+              <li nz-menu-item (click)="onCopyPath(origin)">复制路径</li>
+            </ul>
+            <ul nz-menu *ngIf="!origin.isLeaf">
+              <li nz-menu-item>新建文件</li>
+              <li nz-menu-item (click)="onRename(node)">重命名</li>
+              <li nz-menu-item (click)="onDelete(node)" *ngIf="!origin.isRoot">删除文件夹</li>
+              <li nz-menu-divider></li>
+              <li nz-menu-item (click)="onCopyName(origin)">复制文件夹名</li>
+              <li nz-menu-item (click)="onCopyPath(origin)">复制路径</li>
+            </ul>
+          </nz-dropdown-menu>
         </span>
       </ng-template>
     </nz-tree>

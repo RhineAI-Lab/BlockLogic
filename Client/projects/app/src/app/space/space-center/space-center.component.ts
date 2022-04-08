@@ -101,7 +101,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     const code = this.codeEditor.code;
     let xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) {
-      console.warn('XmlText is empty');
+      // console.warn('XmlText is empty');
     } else {
       const xmlDom = Blockly.Xml.textToDom(xmlText);
       // console.log(xmlDom);

@@ -10,6 +10,8 @@ import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceDevelopService } from '../shared/space-develop.service';
+import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {Clipboard} from "@angular/cdk/clipboard";
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -25,46 +27,15 @@ export class SpaceSidebarProjectsComponent implements OnInit {
       isRoot: true,
       key: '100',
       expanded: true,
-      children: [
-        {
-          title: 'src',
-          key: '1000',
-          expanded: true,
-          children: [
-            {
-              title: 'main.js',
-              key: '10001',
-              isLeaf: true,
-            },
-            {
-              title: 'file.js',
-              key: '10002',
-              isLeaf: true,
-            },
-          ],
-        },
-        {
-          title: 'res',
-          key: '1001',
-          expanded: true,
-          children: [
-            {
-              title: 'logo.ico',
-              key: '10011',
-              isLeaf: true,
-            },
-            {
-              title: 'leaf.jpg',
-              key: '10012',
-              isLeaf: true,
-            },
-          ],
-        },
-      ],
+      children: [],
     },
   ];
 
-  constructor(private developService: SpaceDevelopService) {}
+  constructor(
+    private developService: SpaceDevelopService,
+    private nzContextMenuService: NzContextMenuService,
+    private clipboard: Clipboard,
+  ) {}
 
   ngOnInit(): void {
     this.developService.project$.subscribe((project) => this.resolve(project));
@@ -92,6 +63,37 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     if (event.node) {
       this.developService.openFile(event.node.origin.key);
     }
+  }
+
+  onRename(node: NzTreeNode): void {
+    const origin = node.origin;
+    const exist_list: string[] = [];
+    node.getParentNode()?.children.forEach(item => {
+      if(item.origin.isLeaf == origin.isLeaf && item.origin.title != origin.title){
+        exist_list.push(item.origin.title);
+      }
+    });
+    if(origin.isLeaf){
+    }else{
+    }
+  }
+  onDelete(node: NzTreeNode): void {
+
+  }
+  onNew(): void {
+
+  }
+  onMove(): void {
+
+  }
+
+  onCopyName(origin: NzTreeNodeOptions): void {
+    this.clipboard.copy(origin.title);
+    this.developService.notifiy('复制成功 '+origin.title, 'success');
+  }
+  onCopyPath(origin: NzTreeNodeOptions): void {
+    this.clipboard.copy(origin.key);
+    this.developService.notifiy('复制成功 '+origin.key, 'success');
   }
 
   private async resolve(project: Project): Promise<void> {
@@ -164,5 +166,11 @@ export class SpaceSidebarProjectsComponent implements OnInit {
         }
       }
     }
+  }
+
+  do(): void{}
+
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
   }
 }
