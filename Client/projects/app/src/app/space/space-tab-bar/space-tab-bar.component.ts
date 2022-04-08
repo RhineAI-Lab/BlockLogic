@@ -57,6 +57,24 @@ export class SpaceTabBarComponent implements OnInit {
         }
       }
     })
+    this.developService.deleteEvent$.subscribe(v=>{
+      for (const tabKey in this.tabs) {
+        const tab = this.tabs[tabKey];
+        if(tab.file == v){
+          const index = parseInt(tabKey);
+          if(tab.selected){
+            if(this.tabs.length > 1) {
+              let next = index > 0 ? this.tabs[index - 1] : this.tabs[index + 1]
+              next.selected = true;
+              this.developService.openFile(next.file)
+            }else{
+              this.state.emptyCenter$.next();
+            }
+          }
+          this.tabs.splice(index, 1);
+        }
+      }
+    })
   }
 
   getTabIndexByFile(file: string): number {

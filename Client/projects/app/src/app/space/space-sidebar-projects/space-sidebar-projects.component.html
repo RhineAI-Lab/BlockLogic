@@ -60,6 +60,12 @@
                 <p class="modal-tip" *ngIf="existsList.includes(renameValue)">有重名文件，不可修改。</p>
               </ng-container>
             </nz-modal>
+            <nz-modal
+              [(nzVisible)]="deleteModalVisible"
+              [nzTitle]="deleteTitle"
+              (nzOnOk)="onDeleteOk()"
+              (nzOnCancel)="deleteModalVisible=false"
+            ></nz-modal>
         </span>
       </ng-template>
     </nz-tree>

@@ -26,6 +26,10 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   existsList: string[] = [];
   renameValue = '';
 
+  deleteTitle = '';
+  deleteModalVisible = false;
+  deleteTargetPath = '';
+
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
@@ -83,7 +87,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     this.renameModalVisible = true;
   }
   onDelete(node: NzTreeNode): void {
-
+    this.deleteTargetPath = node.origin.key;
+    this.deleteTitle = '确认要删除 '+node.origin.title+' 吗？';
+    this.deleteModalVisible = true;
   }
   onNew(): void {
 
@@ -92,6 +98,19 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   }
 
+  onDeleteOk(): void {
+    this.deleteModalVisible = false;
+    const project = this.developService.project$.getValue();
+    for (const file of project.files) {
+      if (file.path == this.deleteTargetPath) {
+        project.files.splice(project.files.indexOf(file), 1);
+        this.resolve(project);
+        this.developService.deleteEvent$.next(this.deleteTargetPath);
+        this.developService.notifiy('文件已删除', 'success');
+        break;
+      }
+    }
+  }
   onRenameOk(): void {
     if(this.existsList.includes(this.renameValue)) return;
     this.renameModalVisible = false;
@@ -108,8 +127,6 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     }else{
       const oldPath = origin.key+'/';
       const newPath = origin.key.substring(0, origin.key.length-old.length)+name+'/';
-      console.log(oldPath);
-      console.log(newPath);
       for (const file of project.files) {
         if(file.path.startsWith(oldPath)){
           const oldFilePath = file.path;
