@@ -114,8 +114,9 @@ export class SpaceDevelopService {
 
   openProject(project: Project): void {
     this.project$.next(project);
-    this.projectState$.next(`项目${project.name} 打开完成`);
-    this.notifiy(`项目${project.name} 打开成功`,'success')
+    const tip = `项目${project.files.length==1?project.files[0].name:project.name} 打开完成`
+    this.projectState$.next(tip);
+    this.notifiy(tip,'success')
     if (project.target == -1) {
       this.notifiy('项目中无可打开的文件', 'error');
     } else {

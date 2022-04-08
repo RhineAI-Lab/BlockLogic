@@ -103,6 +103,13 @@ export class SpaceToolBarComponent implements OnInit {
         this.developService.openProject(new Project([projectFile]));
       }
     }
+    if(this.openMode == SpaceOpenMode.LocalFile) {
+      this.fileChooser.nativeElement.value = '';
+    }else if(this.openMode == SpaceOpenMode.LocalFolder) {
+      this.folderChooser.nativeElement.value = '';
+    }else if(this.openMode == SpaceOpenMode.LocalZip) {
+      this.zipChooser.nativeElement.value = '';
+    }
   }
 
   onConnectDevice(): void {
