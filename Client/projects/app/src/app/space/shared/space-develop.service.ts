@@ -150,6 +150,9 @@ export class SpaceDevelopService {
       complete: () => {
         this.projectState$.next('项目保存成功');
         this.notifiy('保存成功', 'success');
+        if(mode == SpaceSaveMode.Browser){
+          this.notifiy('注意', 'warning','浏览器只保存单一项目，重复操作将覆盖！');
+        }
       },
       error: (err) => {
         this.projectState$.next('项目保存失败');

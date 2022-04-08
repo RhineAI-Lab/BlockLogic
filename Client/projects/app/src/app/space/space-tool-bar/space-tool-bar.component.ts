@@ -43,6 +43,8 @@ export class SpaceToolBarComponent implements OnInit {
   deviceAddress = '';
   connectionProtocol = 'ws://';
 
+  modalVisible = false;
+
   constructor(
     public state: SpaceState,
     private developService: SpaceDevelopService,
@@ -72,6 +74,10 @@ export class SpaceToolBarComponent implements OnInit {
     }
   }
   onOpenProject(): void {
+    this.modalVisible = true;
+  }
+  openProject(): void {
+    this.modalVisible = false;
     if (this.openMode == SpaceOpenMode.LocalFile) {
       this.fileChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.LocalFolder) {

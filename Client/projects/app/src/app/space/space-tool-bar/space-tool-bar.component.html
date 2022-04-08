@@ -208,7 +208,7 @@
             本地保存
           </li>
           <li nz-menu-item (click)="onSaveModeChange(SaveMode.Browser)">
-            浏览器保存
+            浏览器缓存
           </li>
           <li nz-menu-item (click)="onSaveModeChange(SaveMode.Cloud)">
             云端保存
@@ -253,4 +253,11 @@
   >
     vertical-align-bottom
   </app-icon-button>
+  <nz-modal
+    [(nzVisible)]="modalVisible"
+    nzTitle="打开新项目将覆盖当前项目，请确认是否已经保存。是否继续打开？"
+    (nzOnCancel)="modalVisible = false"
+    (nzOnOk)="openProject()"
+  >
+  </nz-modal>
 </div>
