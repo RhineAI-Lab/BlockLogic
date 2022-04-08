@@ -22,6 +22,8 @@ export class SpaceTabBarComponent implements OnInit {
   EditorMode = SpaceEditorMode;
   LayoutMode = SpaceLayoutMode;
 
+  logicFile = false;
+
   tabs: TabItem[] = [
     new TabItem('file.js', 'project/file.js'),
     new TabItem('main.js', 'project/main.js', true),
@@ -41,6 +43,7 @@ export class SpaceTabBarComponent implements OnInit {
       } else {
         this.tabs.push(new TabItem(file.name, file.path, true));
       }
+      this.logicFile = file.isLogicFile();
     });
   }
 
@@ -88,6 +91,12 @@ export class SpaceTabBarComponent implements OnInit {
 
   getFileIcon(name: string): string {
     return IconUtils.getIconByFileName(name);
+  }
+
+  onGotoLogicMode(): void{
+    if(this.developService.targetFile$.getValue().toLogicFile()){
+      this.developService.openFile(this.developService.targetFile$.getValue().path);
+    }
   }
 }
 

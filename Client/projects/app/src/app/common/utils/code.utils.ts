@@ -3,6 +3,10 @@ export class CodeUtils {
 
   static getBlockXml(code: string): string {
     let i = code.indexOf(CodeUtils.blockStartStr);
+    if(i == -1){
+      i = code.indexOf(CodeUtils.blockStartStr.replace('\r\n', '\n'));
+      i--;
+    }
     if (i == -1) {
       return '';
     } else {
@@ -17,5 +21,9 @@ export class CodeUtils {
       'xmlns="https://logic.autojs.org/xml"',
     );
     return code + '\n\n\n' + CodeUtils.blockStartStr + xml + '*/\n';
+  }
+  static toLogicFile(code: string): string {
+    return code+'\n\n\n'+CodeUtils.blockStartStr +
+      "<xml xmlns=\"https://logic.autojs.org/xml\"></xml>*/\n";
   }
 }

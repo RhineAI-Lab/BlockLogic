@@ -9,6 +9,8 @@ import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
+import {stringify} from "querystring";
+import {SpaceState} from "./space-state.service";
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -33,6 +35,7 @@ export class SpaceDevelopService {
   private sandboxOfLastRun?: Sandbox;
 
   constructor(
+    private state: SpaceState,
     private debugService: SpaceDebugService,
     private fileService: SpaceFileService,
     private httpClient: HttpClient,
@@ -111,7 +114,8 @@ export class SpaceDevelopService {
 
   openProject(project: Project): void {
     this.project$.next(project);
-    this.projectState$.next('项目打开完成');
+    this.projectState$.next(`项目${project.name} 打开完成`);
+    this.notifiy(`项目${project.name} 打开成功`,'success')
     if (project.target == -1) {
       this.notifiy('项目中无可打开的文件', 'error');
     } else {
@@ -137,9 +141,11 @@ export class SpaceDevelopService {
     const file = this.project$.getValue().getFileByPath(filePath);
     if (file) {
       file.open(this.httpClient).subscribe({
-        next: (code) => {
+        complete: () => {
           if (this.project$.getValue().changeTargetFile(filePath)) {
-            this.targetFile$.next(this.project$.getValue().getTargetFile());
+            const targetFile = this.project$.getValue().getTargetFile();
+            this.state.logicMode$.next(targetFile.isLogicFile());
+            this.targetFile$.next(targetFile);
           }
         },
         error: (err) => {

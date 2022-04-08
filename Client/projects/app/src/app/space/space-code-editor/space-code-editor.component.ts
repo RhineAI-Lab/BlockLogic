@@ -28,6 +28,13 @@ export class SpaceCodeEditorComponent implements OnInit {
     this.developService.targetCode = v;
   }
 
+  undo() {
+    this.workspace.trigger('undo', 'id', this.workspace);
+  }
+  redo() {
+    this.workspace.trigger('redo', 'id', this.workspace);
+  }
+
   constructor(private developService: SpaceDevelopService) {}
 
   ngOnInit(): void {}

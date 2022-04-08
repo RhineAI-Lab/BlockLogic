@@ -9,7 +9,7 @@ import { SpaceState } from '../shared/space-state.service';
 import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 import { wait } from '../../common/promisify.utils';
-import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
+import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 
 @Component({
   selector: 'app-space-center',
@@ -22,24 +22,29 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
 
   codeAreaWidth = 480;
-  layoutMode = SpaceLayoutMode.Split;
+  layoutMode;
+  isLogicMode;
 
   constructor(
     private developService: SpaceDevelopService,
     private state: SpaceState,
   ) {
-    state.isHeaderVisible$.subscribe(() => {
-      state.needResize$.next(true);
-    });
     this.layoutMode = state.layoutMode$.getValue();
+    this.isLogicMode = state.logicMode$.getValue();
     state.layoutMode$.subscribe((mode) => {
       this.layoutMode = mode;
       state.needResize$.next(true);
     });
+    state.logicMode$.subscribe((mode) => {
+      this.isLogicMode = mode;
+      state.needResize$.next(true);
+    });
+
+    state.isHeaderVisible$.subscribe(() => {
+      state.needResize$.next(true);
+    });
     state.needResize$.subscribe(async (v: boolean) => {
-      if (v) {
-        await wait();
-      }
+      if (v) await wait();
       this.resize();
     });
   }
@@ -50,12 +55,13 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     this.developService.targetFile$.subscribe((file) => {
       this.codeEditor.code = file.code;
       this.updateBlocks();
+      this.state.needResize$.next(true);
     });
-    this.developService.unfoldXml$.subscribe((v)=>{
-      if(this.blockEditor.workspace){
+    this.developService.unfoldXml$.subscribe((v) => {
+      if (this.blockEditor.workspace) {
         this.updateCode();
       }
-    })
+    });
     this.state.toolbarButtonEvent$.subscribe((btnId) => {
       switch (btnId) {
         case SpaceToolBarButtonType.ToCode:
@@ -73,8 +79,12 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   resize(): void {
-    Blockly.svgResize(this.blockEditor.workspace);
-    this.codeEditor.workspace.layout();
+    try{
+      Blockly.svgResize(this.blockEditor.workspace);
+      this.codeEditor.workspace.layout();
+    }catch (e){
+      // console.log(e);
+    }
   }
 
   onBlockChange(event: Event): void {
@@ -84,29 +94,33 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       Blockly.Events.BLOCK_CHANGE,
       Blockly.Events.BLOCK_MOVE,
     ];
-    if(changeType.includes(event.type)){
+    if (changeType.includes(event.type)) {
       if (this.developService.syncCode) {
         this.updateCode();
       }
     }
   }
 
-  updateBlocks(code?: string): void {
-    if (!code) code = this.codeEditor.code;
+  updateBlocks(): void {
+    if (!this.isLogicMode) return;
+    const code = this.codeEditor.code;
     let xmlText = CodeUtils.getBlockXml(code);
     if (xmlText.length == 0) {
-      this.blockEditor.workspace.clear();
-    }else{
+      console.warn('XmlText is empty');
+    } else {
       const xmlDom = Blockly.Xml.textToDom(xmlText);
+      // console.log(xmlDom);
+      this.blockEditor.workspace.clear();
       Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
     }
   }
   updateCode(): void {
+    if (!this.isLogicMode) return;
     const xmlDom = Blockly.Xml.workspaceToDom(this.blockEditor.workspace);
     let xmlText = '';
-    if(this.developService.unfoldXml$.getValue()){
-      xmlText = "\n"+Blockly.Xml.domToPrettyText(xmlDom)+"\n";
-    }else{
+    if (this.developService.unfoldXml$.getValue()) {
+      xmlText = '\n' + Blockly.Xml.domToPrettyText(xmlDom) + '\n';
+    } else {
       xmlText = Blockly.Xml.domToText(xmlDom);
     }
     const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
@@ -114,20 +128,22 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   showClassic(): boolean {
-    return [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(
-      this.layoutMode,
+    return (
+      !this.isLogicMode ||
+      [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(this.layoutMode)
     );
   }
   showVisual(): boolean {
-    return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(
-      this.layoutMode,
+    return (
+      this.isLogicMode &&
+      [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(this.layoutMode)
     );
   }
   showSplitLine(): boolean {
-    return this.layoutMode == SpaceLayoutMode.Split;
+    return this.isLogicMode && this.layoutMode == SpaceLayoutMode.Split;
   }
   onlyClassic(): boolean {
-    return this.layoutMode == SpaceLayoutMode.Classic;
+    return !this.isLogicMode || this.layoutMode == SpaceLayoutMode.Classic;
   }
 
   onChangeWidth(e: MouseEvent): void {

@@ -90,7 +90,7 @@ export class SpaceToolBarComponent implements OnInit {
       } else if (this.openMode == SpaceOpenMode.LocalFolder) {
         files = this.folderChooser.nativeElement.files;
       }
-      if (files.length > 0) {
+      if (files.length > 1) {
         const projectFiles: ProjectFile[] = [];
         for (const file of files) {
           projectFiles.push(
@@ -98,6 +98,9 @@ export class SpaceToolBarComponent implements OnInit {
           );
         }
         this.developService.openProject(new Project(projectFiles));
+      }else if(files.length == 1){
+        const projectFile = ProjectFile.makeProjectFileByFile(files[0], 'Project/' + files[0].name);
+        this.developService.openProject(new Project([projectFile]));
       }
     }
   }

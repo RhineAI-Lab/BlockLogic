@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { from, Observable } from 'rxjs';
 import {JSZipObject} from "jszip";
+import {CodeUtils} from "./utils/code.utils";
 
 export class ProjectFile {
   zipSource?: JSZipObject; // Uninitialized
@@ -88,6 +89,24 @@ export class ProjectFile {
         }
       });
     });
+  }
+
+  isLogicFile(): boolean {
+    if(this.gotCode){
+      if(this.type=='js'){
+        if(CodeUtils.getBlockXml(this.code).length>0){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  toLogicFile(): boolean {
+    if(this.gotCode&&!this.isLogicFile()){
+      this.code = CodeUtils.toLogicFile(this.code);
+      return true;
+    }
+    return false;
   }
 
   static makeProjectFileByFile(file: File | JSZipObject, path: string): ProjectFile {
