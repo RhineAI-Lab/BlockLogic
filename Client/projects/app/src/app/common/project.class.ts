@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 export class Project {
   target = -1;
   name = 'Project';
+  folders: string[] = [];
   constructor(
     public files: ProjectFile[],
     public engine: ProjectEngine = ProjectEngine.BLogic,

@@ -41,7 +41,15 @@
               <li nz-menu-item (click)="onCopyPath(origin)">复制路径</li>
             </ul>
             <ul nz-menu *ngIf="!origin.isLeaf">
-              <li nz-menu-item>新建文件</li>
+              <li nz-submenu nzTitle="新建">
+                <ul>
+                  <li nz-menu-item (click)="onNew(NewFileType.Folder,node)">文件夹</li>
+                  <li nz-menu-item (click)="onNew(NewFileType.File,node)">文件</li>
+                  <li nz-menu-item (click)="onNew(NewFileType.BlockLogic,node)">JS图形块文件</li>
+                  <li nz-menu-item (click)="onNew(NewFileType.JavaScript,node)">JavaScript文件</li>
+                  <li nz-menu-item (click)="onNew(NewFileType.Python,node)">Python文件</li>
+                </ul>
+              </li>
               <li nz-menu-item (click)="onRename(node)">重命名</li>
               <li nz-menu-item (click)="onDelete(node)" *ngIf="!origin.isRoot">删除文件夹</li>
               <li nz-menu-divider></li>
@@ -66,6 +74,17 @@
               (nzOnOk)="onDeleteOk()"
               (nzOnCancel)="deleteModalVisible=false"
             ></nz-modal>
+            <nz-modal
+               [(nzVisible)]="newModalVisible"
+               nzTitle="请输入名称"
+               (nzOnOk)="onNewOk()"
+               (nzOnCancel)="newModalVisible=false"
+            >
+              <ng-container *nzModalContent>
+                <input nz-input placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />
+                <p class="modal-tip" *ngIf="existsList.includes(newValue)">该文件名已存在。</p>
+              </ng-container>
+            </nz-modal>
         </span>
       </ng-template>
     </nz-tree>

@@ -12,6 +12,7 @@ import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {Clipboard} from "@angular/cdk/clipboard";
+import {ProjectFile} from "../../common/project-file.class";
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -21,14 +22,22 @@ import {Clipboard} from "@angular/cdk/clipboard";
 export class SpaceSidebarProjectsComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
 
+  existsList: string[] = [];
+
   renameNode: NzTreeNode | null = null;
   renameModalVisible = false;
-  existsList: string[] = [];
   renameValue = '';
 
   deleteTitle = '';
+  deleteNode: NzTreeNode | null = null;
   deleteModalVisible = false;
   deleteTargetPath = '';
+
+  NewFileType = NewType;
+  newNode: NzTreeNode | null = null;
+  newType = NewType.File;
+  newModalVisible = false;
+  newValue = '';
 
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
@@ -91,13 +100,55 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     this.deleteTitle = '确认要删除 '+node.origin.title+' 吗？';
     this.deleteModalVisible = true;
   }
-  onNew(): void {
-
+  onNew(type: NewType,node: NzTreeNode): void {
+    this.existsList = [];
+    node.children.forEach(item => {
+      if(item.origin.isLeaf && type!=NewType.Folder){
+        this.existsList.push(item.origin.title);
+      }else if(item.origin.isLeaf==undefined && type==NewType.Folder){
+        this.existsList.push(item.origin.title);
+      }
+    });
+    this.newNode = node;
+    this.newType = type;
+    this.newValue = '';
+    if(type == NewType.BlockLogic || type == NewType.JavaScript) {
+      this.newValue = '.js';
+    }else if(type == NewType.Python){
+      this.newValue = '.py';
+    }
+    this.newModalVisible = true;
   }
   onMove(): void {
 
   }
 
+  onNewOk(): void {
+    const project = this.developService.project$.getValue()
+    if(this.newType == NewType.Folder) {
+      project.folders.push(this.newNode!.origin.key+'/'+this.newValue);
+    }else{
+      let defaultCode = '';
+      if(this.newType== NewType.BlockLogic) {
+        defaultCode = `
+console.log('HelloWorld');
+
+
+
+//------ 图形块结构记录 请勿随意修改 ------
+/*<xml xmlns="https://logic.autojs.org/xml"><block type="console_output" id="+=3+{]OC^:(lSk.2D}{C" x="70" y="150"><field name="TYPE">log</field><value name="CONTENT"><shadow type="text" id="UuJldUNi}cp6]}gp3Ldr"><field name="TEXT">HelloWorld</field></shadow></value></block></xml>*/
+`;
+      }else if(this.newType == NewType.JavaScript) {
+        defaultCode = 'console.log("HelloWorld");';
+      }else if(this.newType == NewType.Python){
+        defaultCode = 'print("HelloWorld");';
+      }
+      const file = ProjectFile.makeProjectFileByCode(defaultCode,this.newNode!.origin.key+'/'+this.newValue);
+      project.files.push(file);
+      this.developService.openFile(file.path);
+    }
+    this.resolve(project);
+  }
   onDeleteOk(): void {
     this.deleteModalVisible = false;
     const project = this.developService.project$.getValue();
@@ -181,6 +232,31 @@ export class SpaceSidebarProjectsComponent implements OnInit {
       await wait();
       const rootNode = this.tree.getTreeNodeByKey(projectName);
       if (!rootNode) return;
+      for (const folder of project.folders) {
+        const ps = folder.split('/');
+        let focusNode: NzTreeNode = rootNode;
+        let focusPath: string = projectName;
+        for (const psKey in ps) {
+          if (psKey == '0') continue;
+          const name = ps[psKey];
+          focusPath = focusPath + '/' + name;
+          const node = this.tree.getTreeNodeByKey(focusPath);
+          if (node) {
+            focusNode = node;
+          } else {
+            focusNode.addChildren([
+              {
+                title: name,
+                key: focusPath,
+                expanded: true,
+                children: [],
+              },
+            ]);
+            const temp = this.tree.getTreeNodeByKey(focusPath);
+            if (temp) focusNode = temp;
+          }
+        }
+      }
       for (const file of files) {
         const ps = file.path.split('/');
         let focusNode: NzTreeNode = rootNode;
@@ -221,9 +297,15 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     }
   }
 
-  do(): void{}
-
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
     this.nzContextMenuService.create($event, menu);
   }
+}
+
+enum NewType {
+  File,
+  Folder,
+  BlockLogic,
+  JavaScript,
+  Python,
 }
