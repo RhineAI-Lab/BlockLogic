@@ -25,6 +25,8 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   layoutMode;
   isLogicMode;
 
+  isEmpty = false;
+
   constructor(
     private developService: SpaceDevelopService,
     private state: SpaceState,
@@ -37,7 +39,9 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     state.logicMode$.subscribe((mode) => {
       this.isLogicMode = mode;
     });
-
+    state.emptyCenter$.subscribe(() => {
+      this.isEmpty = true;
+    });
     state.needResize$.subscribe(async (v: boolean) => {
       if (v) await wait();
       this.resize();
@@ -48,6 +52,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.developService.targetFile$.subscribe((file) => {
+      this.isEmpty = false;
       this.codeEditor.code = file.code;
       this.updateBlocks();
       this.state.needResize$.next(true);
@@ -74,10 +79,10 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   resize(): void {
-    try{
+    try {
       Blockly.svgResize(this.blockEditor.workspace);
       this.codeEditor.workspace.layout();
-    }catch (e){
+    } catch (e) {
       // console.log(e);
     }
   }

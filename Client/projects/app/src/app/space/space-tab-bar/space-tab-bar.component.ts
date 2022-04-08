@@ -94,10 +94,13 @@ export class SpaceTabBarComponent implements OnInit {
       }
       this.tabs.splice(index, 1);
     }else{
-      this.developService.notification$.next({
-        type: 'info',
-        title: '至少保留一个文件',
-      });
+      // this.developService.notification$.next({
+      //   type: 'info',
+      //   title: '至少保留一个文件',
+      // });
+      this.state.emptyCenter$.next();
+      this.developService.project$.getValue().target = -1;
+      this.tabs.splice(index, 1);
     }
   }
   onCloseOther(item: TabItem): void {

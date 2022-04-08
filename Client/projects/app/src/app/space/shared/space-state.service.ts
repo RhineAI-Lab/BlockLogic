@@ -16,6 +16,7 @@ export class SpaceState {
   readonly logicMode$ = new BehaviorSubject<boolean>(true);
   readonly holdBox$ = new BehaviorSubject<boolean>(false);
   readonly needResize$ = new Subject<boolean>();
+  readonly emptyCenter$ = new Subject<void>();
 
   readonly toolbarButtonEvent$ = new Subject<SpaceToolBarButtonType>();
 

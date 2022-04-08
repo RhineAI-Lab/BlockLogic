@@ -62,6 +62,7 @@ import { SpaceTabBarComponent } from './space-tab-bar/space-tab-bar.component';
 import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component';
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzModalModule} from "ng-zorro-antd/modal";
+import {NzEmptyModule} from "ng-zorro-antd/empty";
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -127,6 +128,7 @@ const icons: IconDefinition[] = [
     DividerModule,
     NzPopconfirmModule,
     NzModalModule,
+    NzEmptyModule,
   ],
   providers: [
     {
