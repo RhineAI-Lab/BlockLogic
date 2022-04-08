@@ -18,7 +18,7 @@ export class SpaceFileService {
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     return new Observable<void>(subscriber => {
       if (mode == SpaceSaveMode.Local) {
-        project.initAll().subscribe({
+        project.initAll(this.httpClient).subscribe({
           complete: () => {
             const files = project.files;
             if (project.type == ProjectType.File) {

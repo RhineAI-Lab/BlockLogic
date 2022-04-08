@@ -1,5 +1,6 @@
 import { ProjectFile } from './project-file.class';
 import {Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 export class Project {
   target = -1;
@@ -40,7 +41,7 @@ export class Project {
     return null;
   }
 
-  initAll(): Observable<void>{
+  initAll(httpClient?: HttpClient): Observable<void>{
     return new Observable<void>(observer => {
       let initialized: string[] = [];
       this.files.forEach(file => {
@@ -51,7 +52,7 @@ export class Project {
             observer.complete();
           }
         }else{
-          file.init().subscribe({
+          file.init(httpClient).subscribe({
             complete: () => {
               initialized.push(file.path)
               if (initialized.length == this.files.length) {

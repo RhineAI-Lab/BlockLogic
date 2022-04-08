@@ -1,12 +1,9 @@
 export class CodeUtils {
-  static blockStartStr = '//------ 图形块结构记录 请勿随意修改 ------\r\n/*';
+  static blockStartStr = '//------ 图形块结构记录 请勿随意修改 ------\n/*';
 
   static getBlockXml(code: string): string {
+    code = code.replace(/\r\n/g, '\n');
     let i = code.indexOf(CodeUtils.blockStartStr);
-    if(i == -1){
-      i = code.indexOf(CodeUtils.blockStartStr.replace('\r\n', '\n'));
-      i--;
-    }
     if (i == -1) {
       return '';
     } else {
