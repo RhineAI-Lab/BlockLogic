@@ -23,5 +23,11 @@ export class SpaceState {
     this.layoutMode$.subscribe(() => {
       this.needResize$.next(true);
     });
+    this.logicMode$.subscribe(() => {
+      this.needResize$.next(true);
+    });
+    this.isHeaderVisible$.subscribe(() => {
+      this.needResize$.next(true);
+    });
   }
 }

@@ -33,16 +33,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     this.isLogicMode = state.logicMode$.getValue();
     state.layoutMode$.subscribe((mode) => {
       this.layoutMode = mode;
-      state.needResize$.next(true);
     });
     state.logicMode$.subscribe((mode) => {
       this.isLogicMode = mode;
-      state.needResize$.next(true);
     });
 
-    state.isHeaderVisible$.subscribe(() => {
-      state.needResize$.next(true);
-    });
     state.needResize$.subscribe(async (v: boolean) => {
       if (v) await wait();
       this.resize();
