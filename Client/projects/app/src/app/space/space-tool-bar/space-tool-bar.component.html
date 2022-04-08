@@ -1,16 +1,16 @@
 <div class="layout hr-ant" fxLayout>
   <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
-  <label nz-checkbox [(ngModel)]="holdBox" (ngModelChange)="onChangeHoldBox()"
-    >保持栏目</label
-  >
+  <label nz-checkbox *ngIf="logicMode"
+    [(ngModel)]="holdBox"
+    (ngModelChange)="onChangeHoldBox()"
+  >保持栏目</label>
   <app-icon-button
     class="moreSetting"
     nz-dropdown
     [nzDropdownMenu]="moreSettingMenu"
+    [nzClickHide]="false"
     nzPlacement="bottomCenter"
-  >
-    icon-set
-  </app-icon-button>
+  >icon-set</app-icon-button>
   <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>
@@ -18,23 +18,19 @@
           nz-checkbox
           [(ngModel)]="unfoldXml"
           (ngModelChange)="onChangeUnfoldXml()"
-          >展开XML</label
-        >
+        >展开XML</label>
       </li>
-      <li nz-menu-item>
+      <li nz-menu-item *ngIf="logicMode">
         <label
           nz-checkbox
           [(ngModel)]="syncCode"
           (ngModelChange)="onChangeSyncCode()"
-        >
-          同步代码</label
-        >
+        >同步代码</label>
       </li>
     </ul>
   </nz-dropdown-menu>
   <app-toolbar-divider></app-toolbar-divider>
   <app-icon-button
-    icon=""
     color="#5A76D4"
     nz-tooltip="撤销 [Ctrl+Z]"
     nzTooltipPlacement="bottom"
@@ -50,9 +46,9 @@
   >
     icon-redo
   </app-icon-button>
-  <app-toolbar-divider></app-toolbar-divider>
-  <span class="tip">生成: </span>
-  <nz-button-group nzSize="small">
+  <app-toolbar-divider *ngIf="logicMode"></app-toolbar-divider>
+  <span class="tip" *ngIf="logicMode">生成: </span>
+  <nz-button-group nzSize="small" *ngIf="logicMode">
     <button nz-button (click)="onToCode()">
       <i nz-icon nzType="right"></i>
       代码
@@ -63,6 +59,13 @@
     </button>
   </nz-button-group>
   <br />
+  <app-toolbar-divider></app-toolbar-divider>
+  <app-icon-button
+      color="#663366"
+      nz-tooltip="分享"
+      nzTooltipPlacement="bottom"
+      (click)="onShare()"
+  >icon-share</app-icon-button>
   <div class="middle-space" fxFlex="grow"></div>
   <nz-input-group
     class="deviceIpInput"

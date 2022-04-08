@@ -22,6 +22,7 @@ export class SpaceToolBarComponent implements OnInit {
   RunMode = SpaceRunMode;
   SaveMode = SpaceSaveMode;
   OpenMode = SpaceOpenMode;
+  logicMode;
 
   @ViewChild('folderChooser') folderChooser!: ElementRef;
   @ViewChild('fileChooser') fileChooser!: ElementRef;
@@ -46,7 +47,12 @@ export class SpaceToolBarComponent implements OnInit {
     public state: SpaceState,
     private developService: SpaceDevelopService,
     private notifier: NzNotificationService,
-  ) {}
+  ) {
+    this.logicMode = this.state.logicMode$.getValue();
+    this.state.logicMode$.subscribe((mode) => {
+      this.logicMode = mode;
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -163,6 +169,10 @@ export class SpaceToolBarComponent implements OnInit {
   }
   onToCode(): void {
     this.state.toolbarButtonEvent$.next(SpaceToolBarButtonType.ToCode);
+  }
+
+  onShare(): void {
+    this.developService.notifiy('暂不支持分享项目','info','您可以将网址分享给他人，并打开你的项目。')
   }
 
   openConnectionHelp(): void {

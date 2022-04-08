@@ -140,7 +140,7 @@ const icons: IconDefinition[] = [
 export class SpaceModule {
   constructor(iconService: NzIconService) {
     iconService.fetchFromIconfont({
-      scriptUrl: 'http://at.alicdn.com/t/font_3294553_hbxby7ngwwu.js',
+      scriptUrl: 'http://at.alicdn.com/t/font_3294553_frhir9wah3s.js',
     });
   }
 }
