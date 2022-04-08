@@ -4,6 +4,8 @@ import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
+import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
+import {Clipboard} from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -13,7 +15,9 @@ import { SpaceState } from '../shared/space-state.service';
 export class SpaceTabBarComponent implements OnInit {
   constructor(
     private developService: SpaceDevelopService,
+    private nzContextMenuService: NzContextMenuService,
     private state: SpaceState,
+    private clipboard: Clipboard,
   ) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
@@ -87,6 +91,29 @@ export class SpaceTabBarComponent implements OnInit {
         title: '至少保留一个文件',
       });
     }
+  }
+  onCloseOther(item: TabItem): void {
+    for (const tabsKey in this.tabs) {
+      if (this.tabs[tabsKey].file != item.file) {
+        this.tabs.splice(parseInt(tabsKey), 1);
+      }
+    }
+    if(!item.selected){
+      item.selected = true;
+      this.developService.openFile(item.file);
+    }
+  }
+  onCopyName(item: TabItem): void {
+    this.clipboard.copy(item.name);
+    this.developService.notifiy('复制成功 '+item.name, 'success');
+  }
+  onCopyPath(item: TabItem): void {
+    this.clipboard.copy(item.file);
+    this.developService.notifiy('复制成功 '+item.file,'success')
+  }
+
+  contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
+    this.nzContextMenuService.create($event, menu);
   }
 
   getFileIcon(name: string): string {

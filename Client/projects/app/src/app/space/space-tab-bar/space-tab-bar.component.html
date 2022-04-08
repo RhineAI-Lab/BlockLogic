@@ -14,6 +14,7 @@
             : {}
         "
         (click)="onTabClick(item)"
+        (contextmenu)="contextMenu($event, menu)"
       >
         <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.name)"></i>
         <p>{{ item.name }}</p>
@@ -24,6 +25,15 @@
             (click)="onTabClose(item); $event.stopPropagation()"
           ></i>
         </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="onCloseOther(item)">关闭其他标签</li>
+            <li nz-menu-item (click)="onTabClose(item)">关闭标签</li>
+            <li nz-menu-divider></li>
+            <li nz-menu-item (click)="onCopyName(item)">复制文件名</li>
+            <li nz-menu-item (click)="onCopyPath(item)">复制路径</li>
+          </ul>
+        </nz-dropdown-menu>
       </div>
     </div>
   </div>
