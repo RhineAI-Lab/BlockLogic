@@ -21,6 +21,11 @@ import {Clipboard} from "@angular/cdk/clipboard";
 export class SpaceSidebarProjectsComponent implements OnInit {
   @ViewChild('tree') tree!: NzTreeComponent;
 
+  renameNode: NzTreeNode | null = null;
+  renameModalVisible = false;
+  existsList: string[] = [];
+  renameValue = '';
+
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
@@ -67,15 +72,15 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   onRename(node: NzTreeNode): void {
     const origin = node.origin;
-    const exist_list: string[] = [];
+    this.existsList = [];
     node.getParentNode()?.children.forEach(item => {
       if(item.origin.isLeaf == origin.isLeaf && item.origin.title != origin.title){
-        exist_list.push(item.origin.title);
+        this.existsList.push(item.origin.title);
       }
     });
-    if(origin.isLeaf){
-    }else{
-    }
+    this.renameNode = node;
+    this.renameValue = origin.title;
+    this.renameModalVisible = true;
   }
   onDelete(node: NzTreeNode): void {
 
@@ -85,6 +90,37 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   }
   onMove(): void {
 
+  }
+
+  onRenameOk(): void {
+    if(this.existsList.includes(this.renameValue)) return;
+    this.renameModalVisible = false;
+    if(this.renameValue==this.renameNode?.title) return;
+
+    const origin = this.renameNode!.origin;
+    const name = this.renameValue.trim();
+    const project = this.developService.project$.getValue();
+    let old = origin.title;
+    if(origin.isLeaf){
+      const path = origin.key.substring(0, origin.key.length-old.length)+name;
+      project.getFileByPath(origin.key)?.renamePath(path);
+      this.developService.renameEvent$.next([origin.key, path]);
+    }else{
+      const oldPath = origin.key+'/';
+      const newPath = origin.key.substring(0, origin.key.length-old.length)+name+'/';
+      console.log(oldPath);
+      console.log(newPath);
+      for (const file of project.files) {
+        if(file.path.startsWith(oldPath)){
+          const oldFilePath = file.path;
+          const newFilePath = newPath+file.path.substring(oldPath.length);
+          file.renamePath(newFilePath);
+          this.developService.renameEvent$.next([oldFilePath, newFilePath]);
+        }
+      }
+    }
+    this.resolve(project);
+    this.developService.notifiy('重命名成功', 'success', old+' -> '+name);
   }
 
   onCopyName(origin: NzTreeNodeOptions): void {

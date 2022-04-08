@@ -36,7 +36,6 @@ export class SpaceTabBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.developService.project$.subscribe(() => {
-      // this.tabs = project.files.map(file => new TabItem(file.name, file.path));
       this.tabs.splice(0, this.tabs.length);
     });
     this.developService.targetFile$.subscribe((file) => {
@@ -49,6 +48,15 @@ export class SpaceTabBarComponent implements OnInit {
       }
       this.logicFile = file.isLogicFile();
     });
+    this.developService.renameEvent$.subscribe(v =>{
+      for (const tab of this.tabs) {
+        if(tab.file == v[0]){
+          tab.file = v[1];
+          const ns = v[1].split('/');
+          tab.name = ns[ns.length - 1];
+        }
+      }
+    })
   }
 
   getTabIndexByFile(file: string): number {

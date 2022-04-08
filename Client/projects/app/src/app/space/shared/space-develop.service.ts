@@ -27,6 +27,9 @@ export class SpaceDevelopService {
   readonly notification$ = new Subject<Notification>();
   readonly showConsole$ = new Subject<void>();
 
+  readonly renameEvent$ = new Subject<string[]>();
+  readonly deleteEvent$ = new Subject<string>();
+
   readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
   readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
 

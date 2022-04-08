@@ -48,7 +48,18 @@
               <li nz-menu-item (click)="onCopyName(origin)">复制文件夹名</li>
               <li nz-menu-item (click)="onCopyPath(origin)">复制路径</li>
             </ul>
-          </nz-dropdown-menu>
+            </nz-dropdown-menu>
+            <nz-modal
+              [(nzVisible)]="renameModalVisible"
+              nzTitle="请输入新名称"
+              (nzOnOk)="onRenameOk()"
+              (nzOnCancel)="renameModalVisible=false"
+            >
+              <ng-container *nzModalContent>
+                <input nz-input placeholder="新名称" spellcheck="false" [(ngModel)]="renameValue" />
+                <p class="modal-tip" *ngIf="existsList.includes(renameValue)">有重名文件，不可修改。</p>
+              </ng-container>
+            </nz-modal>
         </span>
       </ng-template>
     </nz-tree>

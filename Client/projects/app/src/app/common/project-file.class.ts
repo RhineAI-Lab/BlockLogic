@@ -109,6 +109,14 @@ export class ProjectFile {
     return false;
   }
 
+  renamePath(newPath: string): void {
+    this.path = newPath;
+    const ps = this.path.split('/');
+    this.name = ps[ps.length - 1];
+    const ns = this.name.split('.');
+    this.type = ns[ns.length - 1];
+  }
+
   static makeProjectFileByFile(file: File | JSZipObject, path: string): ProjectFile {
     const projectFile = ProjectFile.makeProjectFileByPath(path);
     if(file instanceof File) {
