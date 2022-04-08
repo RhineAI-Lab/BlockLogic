@@ -114,6 +114,23 @@ export class SpaceDevelopService {
       this.openProject(project);
     });
   }
+  openBrowserProject(): void{
+    const filesStr = localStorage.getItem('Project');
+    if(filesStr){
+      const projectFiles: ProjectFile[] = [];
+      const files = JSON.parse(filesStr);
+      for (const file of files) {
+        if(file.content.length > 0){
+          projectFiles.push(ProjectFile.makeProjectFileByCode(file.content, file.path));
+        }else{
+          projectFiles.push(ProjectFile.makeProjectFileByFile(dataToFile(file.file, ''), file.path));
+        }
+      }
+      this.openProject(new Project(projectFiles));
+    }else{
+      this.notifiy('浏览器中无项目', 'error');
+    }
+  }
 
   openProject(project: Project): void {
     this.project$.next(project);
@@ -136,7 +153,7 @@ export class SpaceDevelopService {
       },
       error: (err) => {
         this.projectState$.next('项目保存失败');
-        this.notifiy('保存失败', 'error');
+        this.notifiy('保存失败', 'error', err);
       },
     });
   }
@@ -242,6 +259,8 @@ export class SpaceDevelopService {
     });
   }
 }
+
+declare function dataToFile(dataUrl: string, fileName: string): File;
 
 export enum SpaceLocationMode {
   Browser = 'browser',

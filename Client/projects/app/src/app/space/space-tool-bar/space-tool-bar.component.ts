@@ -67,7 +67,8 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.saveMode == SpaceSaveMode.Device) {
       this.notifier.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Browser) {
-      this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
+      // this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
+      this.developService.saveProject(this.saveMode);
     }
   }
   onOpenProject(): void {
@@ -82,7 +83,8 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.openMode == SpaceOpenMode.Device) {
       this.notifier.error('暂不支持打开设备中项目', '功能开发中...');
     } else if (this.openMode == SpaceOpenMode.Browser) {
-      this.notifier.error('暂不支持打开浏览器中项目', '功能开发中...');
+      // this.notifier.error('暂不支持打开浏览器中项目', '功能开发中...');
+      this.developService.openBrowserProject();
     }
   }
 

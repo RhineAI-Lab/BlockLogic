@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as JSZip from 'jszip';
-import {EMPTY, from, Observable, Subscriber} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import { Project, ProjectType } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
+import {Project, ProjectType} from '../../common/project.class';
+import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
-import { SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceSaveMode} from '../common/space-modes.enums';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -17,10 +17,10 @@ export class SpaceFileService {
 
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     return new Observable<void>(subscriber => {
-      if (mode == SpaceSaveMode.Local) {
-        project.initAll(this.httpClient).subscribe({
-          complete: () => {
-            const files = project.files;
+      project.initAll(this.httpClient).subscribe({
+        complete: () => {
+          const files = project.files;
+          if(mode==SpaceSaveMode.Local){
             if (project.type == ProjectType.File) {
               this.saveFile(files[0]).subscribe({
                 complete: () => subscriber.complete(),
@@ -32,9 +32,33 @@ export class SpaceFileService {
                 error: err => subscriber.error(err),
               });
             }
+          }else if(mode==SpaceSaveMode.Browser){
+            const saveFiles: BrowserFile[] = [];
+            function end(){
+              if(saveFiles.length==files.length){
+                localStorage.setItem('Project', JSON.stringify(saveFiles));
+                subscriber.complete();
+              }
+            }
+            for (const file of files) {
+              if(file.gotCode){
+                saveFiles.push({path: file.path, content: file.code, file: ''});
+                end();
+              }else{
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                  saveFiles.push({path: file.path, content: '', file: reader.result as string});
+                  end();
+                };
+                reader.readAsDataURL(file.source!);
+
+              }
+            }
+          }else{
+            subscriber.error("Save mode unsupported");
           }
-        })
-      }
+        }
+      })
     })
   }
 
@@ -142,4 +166,12 @@ export class SpaceFileService {
       return from(pump());
     }
   }
+
+
+}
+
+interface BrowserFile {
+  path: string;
+  content: string;
+  file: string;
 }
