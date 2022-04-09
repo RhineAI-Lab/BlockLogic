@@ -7,17 +7,22 @@ import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.compone
 @Injectable()
 export class SpaceState {
   readonly isHeaderVisible$ = new BehaviorSubject(true);
+
+  readonly logicMode$ = new BehaviorSubject<boolean>(true);
   readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
     SpaceEditorMode.Logic,
   );
   readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
     SpaceLayoutMode.Split,
   );
-  readonly logicMode$ = new BehaviorSubject<boolean>(true);
+
+  readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
+  readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
+
   readonly holdBox$ = new BehaviorSubject<boolean>(false);
-  readonly needResize$ = new Subject<boolean>();
   readonly emptyCenter$ = new Subject<void>();
 
+  readonly needResize$ = new Subject<boolean>();
   readonly toolbarButtonEvent$ = new Subject<SpaceToolBarButtonType>();
 
   constructor() {

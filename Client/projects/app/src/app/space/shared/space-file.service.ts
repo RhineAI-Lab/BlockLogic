@@ -12,12 +12,14 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { SpaceLocationMode } from './space-develop.service';
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceDevelopService } from './space-develop.service';
+import {SpaceState} from "./space-state.service";
 
 @Injectable()
 export class SpaceFileService {
   constructor(
     private httpClient: HttpClient,
     private notification: NzNotificationService,
+    private state: SpaceState,
     private developService: SpaceDevelopService,
   ) {}
 
@@ -137,7 +139,7 @@ export class SpaceFileService {
     this.notify('保存中...');
     this.saveProjectDo(project, mode).subscribe({
       complete: () => {
-        this.developService.projectState$.next('项目保存成功');
+        this.state.projectState$.next('项目保存成功');
         this.notify('保存成功', 'success');
         if (mode == SpaceSaveMode.Browser) {
           this.notify(
@@ -148,7 +150,7 @@ export class SpaceFileService {
         }
       },
       error: (err) => {
-        this.developService.projectState$.next('项目保存失败');
+        this.state.projectState$.next('项目保存失败');
         this.notify('保存失败', 'error', err);
       },
     });

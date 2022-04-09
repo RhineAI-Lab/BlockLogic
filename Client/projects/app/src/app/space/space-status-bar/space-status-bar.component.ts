@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SpaceDevelopService } from '../shared/space-develop.service';
+import {SpaceState} from "../shared/space-state.service";
 
 @Component({
   selector: 'app-space-status-bar',
@@ -11,16 +11,16 @@ export class SpaceStatusBarComponent implements OnInit {
   rightTipText = '';
 
   constructor(
-    private developService: SpaceDevelopService,
+    private state: SpaceState,
     private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     // TODO: 校验错误提示
-    this.developService.editorState$.subscribe((state) => {
+    this.state.editorState$.subscribe((state) => {
       this.leftTipText = state;
     });
-    this.developService.projectState$.subscribe((state) => {
+    this.state.projectState$.subscribe((state) => {
       this.rightTipText = state;
     });
   }

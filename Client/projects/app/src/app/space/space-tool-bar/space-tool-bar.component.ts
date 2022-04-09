@@ -71,7 +71,6 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.saveMode == SpaceSaveMode.Device) {
       this.notifier.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Browser) {
-      // this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
       this.fileService.saveProject(this.saveMode);
     }
   }

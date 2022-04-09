@@ -28,9 +28,6 @@ export class SpaceDevelopService {
   readonly renameEvent$ = new Subject<string[]>();
   readonly deleteEvent$ = new Subject<string>();
 
-  readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
-  readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
-
   syncCode = true;
 
   private sandboxOfLastRun?: Sandbox;
@@ -44,7 +41,7 @@ export class SpaceDevelopService {
   }
 
   init(): void {
-    this.editorState$.next('编辑器初始化完成');
+    this.state.editorState$.next('编辑器初始化完成');
   }
 
   get targetCode(): string {
@@ -62,7 +59,7 @@ export class SpaceDevelopService {
     const tip = `项目${
       project.files.length == 1 ? project.files[0].name : project.name
     } 打开完成`;
-    this.projectState$.next(tip);
+    this.state.projectState$.next(tip);
     this.notify(tip, 'success');
     if (project.target == -1) {
       this.notify('项目中无可打开的文件', 'error');
