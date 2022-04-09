@@ -86,7 +86,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   resize(): void {
     try {
       Blockly.svgResize(this.blockEditor.workspace);
-      this.codeEditor.workspace.layout();
+      this.codeEditor.editor.layout();
     } catch (e) {
       // console.log(e);
     }

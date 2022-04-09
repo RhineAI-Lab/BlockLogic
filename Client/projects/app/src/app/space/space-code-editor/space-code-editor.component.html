@@ -3,6 +3,6 @@
     [options]="editorOptions"
     [(ngModel)]="code"
     (ngModelChange)="change.emit()"
-    (onInit)="workspace = $event"
+    (onInit)="editor = $event"
   ></ngx-monaco-editor>
 </div>

@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
 import { SpaceDevelopService } from '../shared/space-develop.service';
+import {SpaceState} from "../shared/space-state.service";
+import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
 
 @Component({
   selector: 'app-space-code-editor',
@@ -19,7 +21,7 @@ export class SpaceCodeEditorComponent implements OnInit {
   };
 
   @Output() change = new EventEmitter();
-  workspace!: monaco.editor.IStandaloneCodeEditor;
+  editor!: monaco.editor.IStandaloneCodeEditor;
 
   get code(): string {
     return this.developService.targetCode;
@@ -28,14 +30,27 @@ export class SpaceCodeEditorComponent implements OnInit {
     this.developService.targetCode = v;
   }
 
-  undo() {
-    this.workspace.trigger('undo', 'id', this.workspace);
-  }
-  redo() {
-    this.workspace.trigger('redo', 'id', this.workspace);
+  constructor(
+    private developService: SpaceDevelopService,
+    private state: SpaceState,
+  ) {
+    state.toolbarButtonEvent$.subscribe((v) => {
+      if(!state.logicMode$.getValue()){
+        if(v==SpaceToolBarButtonType.Undo){
+          this.undo();
+        }else if (v==SpaceToolBarButtonType.Redo) {
+          this.redo();
+        }
+      }
+    });
   }
 
-  constructor(private developService: SpaceDevelopService) {}
+  undo() {
+    this.editor.trigger('undo','undo',this.editor);
+  }
+  redo() {
+    this.editor.trigger('redo', 'redo', this.editor);
+  }
 
   ngOnInit(): void {}
 }
