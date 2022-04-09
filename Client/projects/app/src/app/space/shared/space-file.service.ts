@@ -39,7 +39,6 @@ export class SpaceFileService {
         if (url.endsWith('/')) {
           url = url + 'files.txt';
         }
-        console.log(url)
         this.httpClient.get(url, { responseType: 'text' }).subscribe({
           next: (text) => {
             if (!source.endsWith('/')) {
