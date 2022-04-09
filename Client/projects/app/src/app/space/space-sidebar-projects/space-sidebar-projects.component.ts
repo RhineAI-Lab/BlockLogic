@@ -40,6 +40,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   newModalVisible = false;
   newValue = '';
 
+  showSearchBox = false;
+  searchValue = '';
+
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
@@ -122,7 +125,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     }
     this.newModalVisible = true;
   }
-  onMove(): void {
+  onMove(event: NzFormatEmitEvent): void {
 
   }
 
@@ -218,6 +221,9 @@ console.log('HelloWorld');
   onCopyPath(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.key);
     this.notification.success('复制成功 '+origin.key, '');
+  }
+
+  onSearchChange(event: NzFormatEmitEvent): void {
   }
 
   private async resolve(project: Project): Promise<void> {

@@ -1,5 +1,21 @@
 <app-space-sidebar-layout class="layout hr-ant">
+  <app-icon-button
+          action
+          [nz-tooltip]="(showSearchBox?'隐藏':'显示')+'搜索框'"
+          nzTooltipPlacement="bottom"
+          (click)="showSearchBox = !showSearchBox"
+  >
+    search
+  </app-icon-button>
   <div class="main">
+    <div class="search-holder" [ngStyle]="{display: showSearchBox?'block':'none'}">
+      <nz-input-group class="search" [nzSuffix]="suffixIconSearch" nzSize="small">
+        <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
     <nz-tree
       #tree
       class="tree"
@@ -8,7 +24,11 @@
       nzShowLine
       [nzExpandedIcon]="multiExpandedIconTpl"
       [nzTreeTemplate]="nzTreeTpl"
+      [nzDraggable]="false"
+      [nzSearchValue]="searchValue"
+      (nzSearchValueChange)="onSearchChange($event)"
       (nzDblClick)="onDoubleClick($event)"
+      (nzOnDrop)="onMove($event)"
     >
       <ng-template #multiExpandedIconTpl let-node let-origin="origin">
         <i

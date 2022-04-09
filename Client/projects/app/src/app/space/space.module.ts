@@ -21,6 +21,7 @@ import {
   SaveOutline,
   UpOutline,
   VerticalAlignBottomOutline,
+  SearchOutline,
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -84,6 +85,7 @@ const icons: IconDefinition[] = [
   SaveOutline,
   UpOutline,
   VerticalAlignBottomOutline,
+  SearchOutline,
 ];
 
 @NgModule({
