@@ -8,12 +8,14 @@ import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
 import {SpaceSaveMode} from '../common/space-modes.enums';
 import {HttpClient} from "@angular/common/http";
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class SpaceFileService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private notification: NzNotificationService,
+  ) {}
 
   saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
     return new Observable<void>(subscriber => {
