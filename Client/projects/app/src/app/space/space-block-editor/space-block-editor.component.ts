@@ -25,7 +25,9 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.state.holdBox$.subscribe((v) => {
-      this.workspace.getToolbox().getFlyout().autoClose = !v;
+      if(this.workspace){
+        this.workspace.getToolbox().getFlyout().autoClose = !v;
+      }
     });
   }
 
