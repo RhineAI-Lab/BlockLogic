@@ -159,7 +159,7 @@ console.log('HelloWorld');
       for (const file of project.files) {
         if (file.path == this.deleteTargetPath) {
           project.files.splice(project.files.indexOf(file), 1);
-          this.developService.deleteEvent$.next(this.deleteTargetPath);
+          this.developService.deleteEvent$.next({last: this.deleteTargetPath});
           this.notification.success('文件已删除', '');
           break;
         }
@@ -168,7 +168,7 @@ console.log('HelloWorld');
       const deleteFolder = this.deleteTargetPath+'/';
       for (const file of project.files) {
         if (file.path.startsWith(deleteFolder)) {
-          this.developService.deleteEvent$.next(file.path);
+          this.developService.deleteEvent$.next({last: file.path});
           project.files.splice(project.files.indexOf(file), 1);
         }
       }
@@ -192,8 +192,9 @@ console.log('HelloWorld');
     let old = origin.title;
     if(origin.isLeaf){
       const path = origin.key.substring(0, origin.key.length-old.length)+name;
-      project.getFileByPath(origin.key)?.renamePath(path);
-      this.developService.renameEvent$.next([origin.key, path]);
+      const file = project.getFileByPath(origin.key)!;
+      file.renamePath(path);
+      this.developService.renameEvent$.next({last: origin.key, file: file});
     }else{
       const oldPath = origin.key+'/';
       const newPath = origin.key.substring(0, origin.key.length-old.length)+name+'/';
@@ -202,7 +203,7 @@ console.log('HelloWorld');
           const oldFilePath = file.path;
           const newFilePath = newPath+file.path.substring(oldPath.length);
           file.renamePath(newFilePath);
-          this.developService.renameEvent$.next([oldFilePath, newFilePath]);
+          this.developService.renameEvent$.next({last: oldFilePath, file: file});
         }
       }
     }

@@ -23,8 +23,8 @@ export class SpaceDevelopService {
   readonly debugOutput$ = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
 
-  readonly renameEvent$ = new Subject<string[]>();
-  readonly deleteEvent$ = new Subject<string>();
+  readonly renameEvent$ = new Subject<ProjectEvent>();
+  readonly deleteEvent$ = new Subject<ProjectEvent>();
 
   syncCode = true;
 
@@ -177,4 +177,9 @@ export interface Notification {
   type: 'info' | 'success' | 'error' | 'warning' | 'remove';
   title?: string;
   content?: string;
+}
+
+export interface ProjectEvent {
+  last: string;
+  file?: ProjectFile;
 }

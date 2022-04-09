@@ -52,9 +52,9 @@ export class SpaceTabBarComponent implements OnInit {
     });
     this.developService.renameEvent$.subscribe(v =>{
       for (const tab of this.tabs) {
-        if(tab.file == v[0]){
-          tab.file = v[1];
-          const ns = v[1].split('/');
+        if(tab.file == v.last){
+          tab.file = v.file!.path;
+          const ns = tab.file.split('/');
           tab.name = ns[ns.length - 1];
         }
       }
@@ -62,7 +62,7 @@ export class SpaceTabBarComponent implements OnInit {
     this.developService.deleteEvent$.subscribe(v=>{
       for (const tabKey in this.tabs) {
         const tab = this.tabs[tabKey];
-        if(tab.file == v){
+        if(tab.file == v.last){
           const index = parseInt(tabKey);
           if(tab.selected){
             if(this.tabs.length > 1) {
