@@ -12,8 +12,22 @@ import { SpaceState } from '../shared/space-state.service';
 })
 export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
-  workspace!: Blockly.WorkspaceSvg;
   categorySelected?: BlocklierToolboxCategory;
+  _workspace!: Blockly.WorkspaceSvg;
+  @Output() init = new EventEmitter();
+  initialized = false;
+
+  get workspace(): Blockly.WorkspaceSvg {
+    return this._workspace;
+  }
+  set workspace(value: Blockly.WorkspaceSvg) {
+    this._workspace = value;
+    if(!this.initialized){
+      this.initialized = true;
+      this.init.emit();
+      this.afterBlocklyInit();
+    }
+  }
 
   /**Provide type safety for the toolbox menu. */
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -23,7 +37,9 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {}
+
+  afterBlocklyInit() {
     this.state.holdBox$.subscribe((v) => {
       if(this.workspace){
         this.workspace.getToolbox().getFlyout().autoClose = !v;

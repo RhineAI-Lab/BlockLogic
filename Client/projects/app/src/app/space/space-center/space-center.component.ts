@@ -53,12 +53,6 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.developService.targetFile$.subscribe((file) => {
-      this.isEmpty = false;
-      this.codeEditor.code = file.code;
-      this.updateBlocks();
-      this.state.needResize$.next(true);
-    });
     this.developService.unfoldXml$.subscribe((v) => {
       if (this.blockEditor.workspace) {
         this.updateCode();
@@ -78,7 +72,15 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
           break;
       }
     });
+  }
 
+  init() {
+    this.developService.targetFile$.subscribe((file) => {
+      this.isEmpty = false;
+      this.codeEditor.code = file.code;
+      this.updateBlocks();
+      this.state.needResize$.next(true);
+    });
     this.developService.init();
     this.fileService.init();
   }
