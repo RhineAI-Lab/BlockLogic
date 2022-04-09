@@ -12,7 +12,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { SpaceLocationMode } from './space-develop.service';
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceDevelopService } from './space-develop.service';
-import {SpaceState} from "./space-state.service";
+import { SpaceState } from './space-state.service';
 
 @Injectable()
 export class SpaceFileService {
@@ -133,6 +133,25 @@ export class SpaceFileService {
     }
   }
 
+  // OPEN-3  LocalFiles
+  openLocalFiles(files: File[]): void {
+    if (files.length > 1) {
+      const projectFiles: ProjectFile[] = [];
+      for (const file of files) {
+        projectFiles.push(
+          ProjectFile.makeProjectFileByFile(file, file.webkitRelativePath),
+        );
+      }
+      this.developService.openProject(new Project(projectFiles));
+    } else if (files.length == 1) {
+      const projectFile = ProjectFile.makeProjectFileByFile(
+        files[0],
+        'Project/' + files[0].name,
+      );
+      this.developService.openProject(new Project([projectFile]));
+    }
+  }
+
   // SAVE
   saveProject(mode: SpaceSaveMode): void {
     const project = this.developService.project$.getValue();
@@ -142,9 +161,7 @@ export class SpaceFileService {
         this.state.projectState$.next('项目保存成功');
         this.notify('保存成功', 'success');
         if (mode == SpaceSaveMode.Browser) {
-          this.notify(
-            '注意',
-            'warning',
+          this.notify('注意', 'warning',
             '浏览器只保存单一项目，重复操作将覆盖！',
           );
         }
@@ -162,7 +179,7 @@ export class SpaceFileService {
           const files = project.files;
           if (mode == SpaceSaveMode.Local) {
             if (project.type == ProjectType.File) {
-              this.saveFile(files[0]).subscribe({
+              this.saveSingleFile(files[0]).subscribe({
                 complete: () => subscriber.complete(),
                 error: (err) => subscriber.error(err),
               });
@@ -173,34 +190,10 @@ export class SpaceFileService {
               });
             }
           } else if (mode == SpaceSaveMode.Browser) {
-            const saveFiles: BrowserFile[] = [];
-            function end() {
-              if (saveFiles.length == files.length) {
-                localStorage.setItem('Project', JSON.stringify(saveFiles));
-                subscriber.complete();
-              }
-            }
-            for (const file of files) {
-              if (file.gotCode) {
-                saveFiles.push({
-                  path: file.path,
-                  content: file.code,
-                  file: '',
-                });
-                end();
-              } else {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                  saveFiles.push({
-                    path: file.path,
-                    content: '',
-                    file: reader.result as string,
-                  });
-                  end();
-                };
-                reader.readAsDataURL(file.source!);
-              }
-            }
+            this.saveBrowser(files).subscribe({
+              complete: () => subscriber.complete(),
+              error: (err) => subscriber.error(err),
+            });
           } else {
             subscriber.error('Save mode unsupported');
           }
@@ -209,8 +202,8 @@ export class SpaceFileService {
     });
   }
 
-  // SAVE-1  File
-  saveFile(file: ProjectFile): Observable<void> {
+  // SAVE-1  SingleFile
+  saveSingleFile(file: ProjectFile): Observable<void> {
     return new Observable<void>((subscriber) => {
       let write = (
         inputStream: ReadableStream,
@@ -271,6 +264,40 @@ export class SpaceFileService {
         error: (err) => subscriber.error(err),
       });
     });
+  }
+
+  // SAVE-3  Browser
+  saveBrowser(files: ProjectFile[]): Observable<void> {
+    return new Observable<void>(subscriber => {
+      const saveFiles: BrowserFile[] = [];
+      function end() {
+        if (saveFiles.length == files.length) {
+          localStorage.setItem('Project', JSON.stringify(saveFiles));
+          subscriber.complete();
+        }
+      }
+      for (const file of files) {
+        if (file.gotCode) {
+          saveFiles.push({
+            path: file.path,
+            content: file.code,
+            file: '',
+          });
+          end();
+        } else {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            saveFiles.push({
+              path: file.path,
+              content: '',
+              file: reader.result as string,
+            });
+            end();
+          };
+          reader.readAsDataURL(file.source!);
+        }
+      }
+    })
   }
 
   private write(

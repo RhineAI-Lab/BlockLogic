@@ -10,6 +10,7 @@ import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-edi
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 import { wait } from '../../common/promisify.utils';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
+import {SpaceFileService} from "../shared/space-file.service";
 
 @Component({
   selector: 'app-space-center',
@@ -29,6 +30,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   constructor(
     private developService: SpaceDevelopService,
+    private fileService: SpaceFileService,
     private state: SpaceState,
   ) {
     this.layoutMode = state.layoutMode$.getValue();
@@ -76,6 +78,9 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
           break;
       }
     });
+
+    this.developService.init();
+    this.fileService.init();
   }
 
   resize(): void {

@@ -7,11 +7,9 @@ import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
-import { SpaceFileService } from './space-file.service';
 import { SpaceState } from './space-state.service';
 
 @Injectable()
-// Space区域开发相关管理服务
 export class SpaceDevelopService {
   readonly project$ = new BehaviorSubject<Project>(Project.getDefaultProject());
   readonly targetFile$ = new BehaviorSubject<ProjectFile>(
