@@ -180,7 +180,7 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   onShare(): void {
-    this.developService.notifiy('暂不支持分享项目','info','您可以将网址分享给他人，并打开你的项目。')
+    this.developService.notify('暂不支持分享项目','info','您可以将网址分享给他人，并打开你的项目。')
   }
 
   openConnectionHelp(): void {

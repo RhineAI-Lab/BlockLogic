@@ -100,7 +100,7 @@ export class SpaceDevelopService {
             }
           },
           error: (err) => {
-            this.notifiy('打开项目失败', 'error', '服务器资源不存在');
+            this.notify('打开项目失败', 'error', '服务器资源不存在');
           },
         });
       } else {
@@ -128,7 +128,7 @@ export class SpaceDevelopService {
       }
       this.openProject(new Project(projectFiles));
     }else{
-      this.notifiy('浏览器中无项目', 'error');
+      this.notify('浏览器中无项目', 'error');
     }
   }
 
@@ -136,27 +136,27 @@ export class SpaceDevelopService {
     this.project$.next(project);
     const tip = `项目${project.files.length==1?project.files[0].name:project.name} 打开完成`
     this.projectState$.next(tip);
-    this.notifiy(tip,'success')
+    this.notify(tip,'success')
     if (project.target == -1) {
-      this.notifiy('项目中无可打开的文件', 'error');
+      this.notify('项目中无可打开的文件', 'error');
     } else {
       this.openFile(project.getTargetFile().path);
     }
   }
   saveProject(mode: SpaceSaveMode): void {
     const project = this.project$.getValue();
-    this.notifiy('保存中...');
+    this.notify('保存中...');
     this.fileService.saveProject(project, mode).subscribe({
       complete: () => {
         this.projectState$.next('项目保存成功');
-        this.notifiy('保存成功', 'success');
+        this.notify('保存成功', 'success');
         if(mode == SpaceSaveMode.Browser){
-          this.notifiy('注意', 'warning','浏览器只保存单一项目，重复操作将覆盖！');
+          this.notify('注意', 'warning','浏览器只保存单一项目，重复操作将覆盖！');
         }
       },
       error: (err) => {
         this.projectState$.next('项目保存失败');
-        this.notifiy('保存失败', 'error', err);
+        this.notify('保存失败', 'error', err);
       },
     });
   }
@@ -174,11 +174,11 @@ export class SpaceDevelopService {
         },
         error: (err) => {
           if (err == 'Unsupported file type') err = '该文件类型不支持打开';
-          this.notifiy('文件打开失败', 'error', err);
+          this.notify('文件打开失败', 'error', err);
         },
       });
     } else {
-      this.notifiy('文件打开失败', 'error', '文件不存在');
+      this.notify('文件打开失败', 'error', '文件不存在');
     }
   }
 
@@ -201,7 +201,7 @@ export class SpaceDevelopService {
           this.targetCode,
         );
       } else {
-        this.notifiy(
+        this.notify(
           '设备未连接',
           'error',
           '使用设备运行模式运行，请先连接设备。',
@@ -210,7 +210,7 @@ export class SpaceDevelopService {
     }
   }
 
-  notifiy(
+  notify(
     title: string,
     type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
     content: string = '',
@@ -226,7 +226,7 @@ export class SpaceDevelopService {
     this.debugService.connect(url);
     await new Promise((r) => setTimeout(r, 100));
     if (!this.debugService.closed && !this.debugService.connected) {
-      this.notifiy('正在连接...', 'info');
+      this.notify('正在连接...', 'info');
     }
   }
 
@@ -234,17 +234,17 @@ export class SpaceDevelopService {
     this.debugEvents.subscribe((event) => {
       const device = this.debugService.device; // TODO: avoid accessing the internal service
       if (event.type == 'connect') {
-        this.notifiy('', 'remove');
-        this.notifiy('设备连接成功', 'success', `设备：${device}`);
+        this.notify('', 'remove');
+        this.notify('设备连接成功', 'success', `设备：${device}`);
       }
       if (event.type == 'close') {
-        this.notifiy('设备断开连接', 'warning', `设备：${device}`);
+        this.notify('设备断开连接', 'warning', `设备：${device}`);
       }
       if (event.type == 'error') {
         const eventTarget = event.payload.target as
           | (EventTarget & { url: string })
           | undefined;
-        this.notifiy('连接错误', 'error', `地址：${eventTarget?.url}`);
+        this.notify('连接错误', 'error', `地址：${eventTarget?.url}`);
       }
       if (event.type == 'message') {
         // event.message Example: 04-07 10:29:36.126 Script-11 Main [remote://BLogic: main.js]/I: HelloWorld

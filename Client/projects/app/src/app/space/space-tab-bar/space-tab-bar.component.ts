@@ -134,11 +134,11 @@ export class SpaceTabBarComponent implements OnInit {
   }
   onCopyName(item: TabItem): void {
     this.clipboard.copy(item.name);
-    this.developService.notifiy('复制成功 '+item.name, 'success');
+    this.developService.notify('复制成功 '+item.name, 'success');
   }
   onCopyPath(item: TabItem): void {
     this.clipboard.copy(item.file);
-    this.developService.notifiy('复制成功 '+item.file,'success')
+    this.developService.notify('复制成功 '+item.file,'success')
   }
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {

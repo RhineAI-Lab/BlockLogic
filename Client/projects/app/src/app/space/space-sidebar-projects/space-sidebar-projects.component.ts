@@ -158,7 +158,7 @@ console.log('HelloWorld');
         if (file.path == this.deleteTargetPath) {
           project.files.splice(project.files.indexOf(file), 1);
           this.developService.deleteEvent$.next(this.deleteTargetPath);
-          this.developService.notifiy('文件已删除', 'success');
+          this.developService.notify('文件已删除', 'success');
           break;
         }
       }
@@ -175,7 +175,7 @@ console.log('HelloWorld');
           project.folders.splice(project.folders.indexOf(folder), 1);
         }
       }
-      this.developService.notifiy('文件夹已删除', 'success');
+      this.developService.notify('文件夹已删除', 'success');
     }
     this.resolve(project);
   }
@@ -205,16 +205,16 @@ console.log('HelloWorld');
       }
     }
     this.resolve(project);
-    this.developService.notifiy('重命名成功', 'success', old+' -> '+name);
+    this.developService.notify('重命名成功', 'success', old+' -> '+name);
   }
 
   onCopyName(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.title);
-    this.developService.notifiy('复制成功 '+origin.title, 'success');
+    this.developService.notify('复制成功 '+origin.title, 'success');
   }
   onCopyPath(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.key);
-    this.developService.notifiy('复制成功 '+origin.key, 'success');
+    this.developService.notify('复制成功 '+origin.key, 'success');
   }
 
   private async resolve(project: Project): Promise<void> {
