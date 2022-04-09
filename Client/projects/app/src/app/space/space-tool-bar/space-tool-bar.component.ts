@@ -61,7 +61,7 @@ export class SpaceToolBarComponent implements OnInit {
   ngOnInit(): void {}
 
   onRun(): void {
-    this.developService.runFile();
+    this.developService.run();
   }
   onSaveProject(): void {
     if (this.saveMode == SpaceSaveMode.Local) {

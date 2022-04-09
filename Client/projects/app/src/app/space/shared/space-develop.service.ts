@@ -87,7 +87,7 @@ export class SpaceDevelopService {
     }
   }
 
-  runFile(): void {
+  run(): void {
     this.showConsole$.next();
     if (this.runMode$.getValue() == SpaceRunMode.Browser) {
       this.sandboxOfLastRun?.destroy();
@@ -113,6 +113,8 @@ export class SpaceDevelopService {
         );
       }
     }
+  }
+  stop(): void {
   }
 
   private notify(

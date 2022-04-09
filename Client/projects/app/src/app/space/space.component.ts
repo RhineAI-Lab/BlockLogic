@@ -21,6 +21,15 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.developService.init();
+    document.addEventListener('keydown', (event)=>{
+      if(event.ctrlKey && !event.shiftKey && !event.altKey){
+        if(event.key == '6'){
+          this.developService.run();
+        }else if(event.key == '7') {
+          this.developService.stop();
+        }
+      }
+      return false;
+    });
   }
 }
