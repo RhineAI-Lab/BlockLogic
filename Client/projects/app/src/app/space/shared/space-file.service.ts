@@ -1,105 +1,88 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as JSZip from 'jszip';
-import {from, Observable} from 'rxjs';
+import { from, Observable } from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import {Project, ProjectType} from '../../common/project.class';
-import {ProjectFile} from '../../common/project-file.class';
+import { Project, ProjectType } from '../../common/project.class';
+import { ProjectFile } from '../../common/project-file.class';
 import zip from '../../common/zip';
-import {SpaceSaveMode} from '../common/space-modes.enums';
-import {HttpClient} from "@angular/common/http";
-import {NzNotificationService} from "ng-zorro-antd/notification";
+import { SpaceSaveMode } from '../common/space-modes.enums';
+import { HttpClient } from '@angular/common/http';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { SpaceLocationMode } from './space-develop.service';
+import { ParaUtils } from '../../common/utils/para.utils';
+import { SpaceDevelopService } from './space-develop.service';
 
 @Injectable()
 export class SpaceFileService {
   constructor(
     private httpClient: HttpClient,
     private notification: NzNotificationService,
+    private developService: SpaceDevelopService,
   ) {}
 
-  saveProject(project: Project, mode: SpaceSaveMode): Observable<void> {
-    return new Observable<void>(subscriber => {
-      project.initAll(this.httpClient).subscribe({
-        complete: () => {
-          const files = project.files;
-          if(mode==SpaceSaveMode.Local){
-            if (project.type == ProjectType.File) {
-              this.saveFile(files[0]).subscribe({
-                complete: () => subscriber.complete(),
-                error: err => subscriber.error(err),
-              });
-            } else {
-              this.saveZip(project.files, project.name).subscribe({
-                complete: () => subscriber.complete(),
-                error: err => subscriber.error(err),
-              });
-            }
-          }else if(mode==SpaceSaveMode.Browser){
-            const saveFiles: BrowserFile[] = [];
-            function end(){
-              if(saveFiles.length==files.length){
-                localStorage.setItem('Project', JSON.stringify(saveFiles));
-                subscriber.complete();
-              }
-            }
-            for (const file of files) {
-              if(file.gotCode){
-                saveFiles.push({path: file.path, content: file.code, file: ''});
-                end();
-              }else{
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                  saveFiles.push({path: file.path, content: '', file: reader.result as string});
-                  end();
-                };
-                reader.readAsDataURL(file.source!);
-
-              }
-            }
-          }else{
-            subscriber.error("Save mode unsupported");
-          }
-        }
-      })
-    })
+  init(): void {
+    const source = ParaUtils.getUrlParameter('source');
+    const location = ParaUtils.getUrlParameter('location');
+    this.openProjectFrom(source, location);
   }
 
-  saveFile(file: ProjectFile): Observable<void> {
-    return new Observable<void>(subscriber => {
-      let write = (inputStream: ReadableStream, outputStream: WritableStream) => {
-        this.write(inputStream, outputStream).subscribe({
-          complete: () => subscriber.complete(),
-          error: err => subscriber.error(err),
+  // OPEN-0  Get project from url
+  openProjectFrom(source: string, location: string): void {
+    if (location == SpaceLocationMode.Browser) {
+    } else if (location == SpaceLocationMode.Cloud) {
+    } else if (location == SpaceLocationMode.Public || location == '') {
+      if (source != '') {
+        let url = 'assets/example/' + source;
+        if (url.endsWith('/')) {
+          url = url + 'files.txt';
+        }
+        this.httpClient.get(url, { responseType: 'text' }).subscribe({
+          next: (text) => {
+            if (!source.endsWith('/')) {
+              const ps = source.split('/');
+              const name = ps[ps.length - 1];
+              const files: ProjectFile[] = [
+                ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
+              ];
+              this.developService.openProject(new Project(files));
+            } else {
+              const lines = text.split('\n');
+              const files: ProjectFile[] = [];
+              const name = lines[0];
+              for (let i = 1; i < lines.length; i++) {
+                if (lines[i] == '') {
+                  continue;
+                }
+                files.push(
+                  ProjectFile.makeProjectFileByUrl(
+                    source + lines[i],
+                    name + '/' + lines[i],
+                  ),
+                );
+              }
+              this.developService.openProject(new Project(files));
+            }
+          },
+          error: (err) => {
+            this.notify('打开项目失败', 'error', '服务器资源不存在');
+          },
         });
-      };
-      file.init(this.httpClient).subscribe({
-        complete: () => {
-          if(file.gotCode){
-            const blob = new Blob([file.code]);
-            const outputStream = streamSaver.createWriteStream(file.name, {
-              size: blob.size,
-            });
-            const inputStream = blob.stream();
-            write(inputStream, outputStream);
-          }else if(file.source){
-            const outputStream = streamSaver.createWriteStream(file.name, {
-              size: file.source.size,
-            });
-            const inputStream = file.source.stream();
-            write(inputStream, outputStream);
-          }else{
-            subscriber.error('ProjectFile init error');
-          }
-        },
-        error: err => {
-          subscriber.error(err);
-        },
-      });
+      } else {
+        this.developService.openProject(Project.getDefaultProject());
+      }
+    }
+  }
+
+  // OPEN-1  Zip
+  openZipFile(file: File): void {
+    if (file == undefined) return;
+    this.openZipDo(file).subscribe((project: Project) => {
+      this.developService.openProject(project);
     });
   }
-
-  openZip(file: File): Observable<Project> {
-    return new Observable<Project>(subscriber => {
+  openZipDo(file: File): Observable<Project> {
+    return new Observable<Project>((subscriber) => {
       file.arrayBuffer().then((buffer) => {
         new JSZip().loadAsync(buffer).then(
           (zip) => {
@@ -107,7 +90,8 @@ export class SpaceFileService {
             zip.forEach((relativePath, file) => {
               if (file.dir) return;
               const projectFile = ProjectFile.makeProjectFileByFile(
-                file, relativePath,
+                file,
+                relativePath,
               );
               files.push(projectFile);
             });
@@ -121,8 +105,149 @@ export class SpaceFileService {
     });
   }
 
-  saveZip(files: ProjectFile[], name: string): Observable<void> {
-    return new Observable<void>(subscriber => {
+  // OPEN-2  Browser
+  openBrowserProject(): void {
+    const filesStr = localStorage.getItem('Project');
+    if (filesStr) {
+      const projectFiles: ProjectFile[] = [];
+      const files = JSON.parse(filesStr);
+      for (const file of files) {
+        if (file.content.length > 0) {
+          projectFiles.push(
+            ProjectFile.makeProjectFileByCode(file.content, file.path),
+          );
+        } else {
+          projectFiles.push(
+            ProjectFile.makeProjectFileByFile(
+              dataToFile(file.file, ''),
+              file.path,
+            ),
+          );
+        }
+      }
+      this.developService.openProject(new Project(projectFiles));
+    } else {
+      this.notify('浏览器中无项目', 'error');
+    }
+  }
+
+  // SAVE
+  saveProject(mode: SpaceSaveMode): void {
+    const project = this.developService.project$.getValue();
+    this.notify('保存中...');
+    this.saveProjectDo(project, mode).subscribe({
+      complete: () => {
+        this.developService.projectState$.next('项目保存成功');
+        this.notify('保存成功', 'success');
+        if (mode == SpaceSaveMode.Browser) {
+          this.notify(
+            '注意',
+            'warning',
+            '浏览器只保存单一项目，重复操作将覆盖！',
+          );
+        }
+      },
+      error: (err) => {
+        this.developService.projectState$.next('项目保存失败');
+        this.notify('保存失败', 'error', err);
+      },
+    });
+  }
+  saveProjectDo(project: Project, mode: SpaceSaveMode): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      project.initAll(this.httpClient).subscribe({
+        complete: () => {
+          const files = project.files;
+          if (mode == SpaceSaveMode.Local) {
+            if (project.type == ProjectType.File) {
+              this.saveFile(files[0]).subscribe({
+                complete: () => subscriber.complete(),
+                error: (err) => subscriber.error(err),
+              });
+            } else {
+              this.saveFolder(project.files, project.name).subscribe({
+                complete: () => subscriber.complete(),
+                error: (err) => subscriber.error(err),
+              });
+            }
+          } else if (mode == SpaceSaveMode.Browser) {
+            const saveFiles: BrowserFile[] = [];
+            function end() {
+              if (saveFiles.length == files.length) {
+                localStorage.setItem('Project', JSON.stringify(saveFiles));
+                subscriber.complete();
+              }
+            }
+            for (const file of files) {
+              if (file.gotCode) {
+                saveFiles.push({
+                  path: file.path,
+                  content: file.code,
+                  file: '',
+                });
+                end();
+              } else {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                  saveFiles.push({
+                    path: file.path,
+                    content: '',
+                    file: reader.result as string,
+                  });
+                  end();
+                };
+                reader.readAsDataURL(file.source!);
+              }
+            }
+          } else {
+            subscriber.error('Save mode unsupported');
+          }
+        },
+      });
+    });
+  }
+
+  // SAVE-1  File
+  saveFile(file: ProjectFile): Observable<void> {
+    return new Observable<void>((subscriber) => {
+      let write = (
+        inputStream: ReadableStream,
+        outputStream: WritableStream,
+      ) => {
+        this.write(inputStream, outputStream).subscribe({
+          complete: () => subscriber.complete(),
+          error: (err) => subscriber.error(err),
+        });
+      };
+      file.init(this.httpClient).subscribe({
+        complete: () => {
+          if (file.gotCode) {
+            const blob = new Blob([file.code]);
+            const outputStream = streamSaver.createWriteStream(file.name, {
+              size: blob.size,
+            });
+            const inputStream = blob.stream();
+            write(inputStream, outputStream);
+          } else if (file.source) {
+            const outputStream = streamSaver.createWriteStream(file.name, {
+              size: file.source.size,
+            });
+            const inputStream = file.source.stream();
+            write(inputStream, outputStream);
+          } else {
+            subscriber.error('ProjectFile init error');
+          }
+        },
+        error: (err) => {
+          subscriber.error(err);
+        },
+      });
+    });
+  }
+
+  // SAVE-2  Folder
+  saveFolder(files: ProjectFile[], name: string): Observable<void> {
+    return new Observable<void>((subscriber) => {
       const inputStream = zip.createWriter({
         start(ctrl: any) {
           for (const file of files) {
@@ -141,10 +266,9 @@ export class SpaceFileService {
       const outputStream = streamSaver.createWriteStream(name + '.zip');
       this.write(inputStream, outputStream).subscribe({
         complete: () => subscriber.complete(),
-        error: err => subscriber.error(err),
+        error: (err) => subscriber.error(err),
       });
-    })
-
+    });
   }
 
   private write(
@@ -169,8 +293,20 @@ export class SpaceFileService {
     }
   }
 
-
+  notify(
+    title: string,
+    type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
+    content: string = '',
+  ): void {
+    if (type == 'remove') {
+      this.notification.remove();
+    } else {
+      this.notification.create(type, title, content);
+    }
+  }
 }
+
+declare function dataToFile(dataUrl: string, fileName: string): File;
 
 interface BrowserFile {
   path: string;

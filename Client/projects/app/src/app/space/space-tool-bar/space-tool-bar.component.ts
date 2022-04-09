@@ -12,6 +12,7 @@ import {
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
+import {SpaceFileService} from "../shared/space-file.service";
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -48,6 +49,7 @@ export class SpaceToolBarComponent implements OnInit {
   constructor(
     public state: SpaceState,
     private developService: SpaceDevelopService,
+    private fileService: SpaceFileService,
     private notifier: NzNotificationService,
   ) {
     this.logicMode = this.state.logicMode$.getValue();
@@ -63,14 +65,14 @@ export class SpaceToolBarComponent implements OnInit {
   }
   onSaveProject(): void {
     if (this.saveMode == SpaceSaveMode.Local) {
-      this.developService.saveProject(this.saveMode);
+      this.fileService.saveProject(this.saveMode);
     } else if (this.saveMode == SpaceSaveMode.Cloud) {
       this.notifier.error('暂不支持保存至云端', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Device) {
       this.notifier.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Browser) {
       // this.notifier.error('暂不支持保存至浏览器', '功能开发中...');
-      this.developService.saveProject(this.saveMode);
+      this.fileService.saveProject(this.saveMode);
     }
   }
   onOpenProject(): void {
@@ -89,14 +91,13 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.openMode == SpaceOpenMode.Device) {
       this.notifier.error('暂不支持打开设备中项目', '功能开发中...');
     } else if (this.openMode == SpaceOpenMode.Browser) {
-      // this.notifier.error('暂不支持打开浏览器中项目', '功能开发中...');
-      this.developService.openBrowserProject();
+      this.fileService.openBrowserProject();
     }
   }
 
   onSelectProject(): void {
     if (this.openMode == SpaceOpenMode.LocalZip) {
-      this.developService.openZipFile(this.zipChooser.nativeElement.files[0]);
+      this.fileService.openZipFile(this.zipChooser.nativeElement.files[0]);
     } else {
       let files: File[] = [];
       if (this.openMode == SpaceOpenMode.LocalFile) {

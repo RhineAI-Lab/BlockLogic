@@ -5,12 +5,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
-import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceFileService } from './space-file.service';
-import {stringify} from "querystring";
-import {SpaceState} from "./space-state.service";
+import { SpaceState } from './space-state.service';
 
 @Injectable()
 // Space区域开发相关管理服务
@@ -40,7 +38,6 @@ export class SpaceDevelopService {
   constructor(
     private state: SpaceState,
     private debugService: SpaceDebugService,
-    private fileService: SpaceFileService,
     private httpClient: HttpClient,
   ) {
     this.subscribeDebugEvents();
@@ -48,9 +45,6 @@ export class SpaceDevelopService {
 
   init(): void {
     this.editorState$.next('编辑器初始化完成');
-    const source = ParaUtils.getUrlParameter('source');
-    const location = ParaUtils.getUrlParameter('location');
-    this.openProjectFrom(source, location);
   }
 
   get targetCode(): string {
@@ -63,104 +57,19 @@ export class SpaceDevelopService {
     this.targetFile$.getValue().code = v;
   }
 
-  openProjectFrom(source: string, location: string): void {
-    if (location == SpaceLocationMode.Browser) {
-    } else if (location == SpaceLocationMode.Cloud) {
-    } else if (location == SpaceLocationMode.Public || location == '') {
-      if (source != '') {
-        let url = 'assets/example/' + source;
-        if (url.endsWith('/')) {
-          url = url + 'files.txt';
-        }
-        this.httpClient.get(url, { responseType: 'text' }).subscribe({
-          next: (text) => {
-            if (!source.endsWith('/')) {
-              const ps = source.split('/');
-              const name = ps[ps.length - 1];
-              const files: ProjectFile[] = [
-                ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
-              ];
-              this.openProject(new Project(files));
-            } else {
-              const lines = text.split('\n');
-              const files: ProjectFile[] = [];
-              const name = lines[0];
-              for (let i = 1; i < lines.length; i++) {
-                if (lines[i] == '') {
-                  continue;
-                }
-                files.push(
-                  ProjectFile.makeProjectFileByUrl(
-                    source + lines[i],
-                    name + '/' + lines[i],
-                  ),
-                );
-              }
-              this.openProject(new Project(files));
-            }
-          },
-          error: (err) => {
-            this.notify('打开项目失败', 'error', '服务器资源不存在');
-          },
-        });
-      } else {
-        this.openProject(Project.getDefaultProject());
-      }
-    }
-  }
-  openZipFile(file: File): void {
-    if (file == undefined) return;
-    this.fileService.openZip(file).subscribe((project: Project) => {
-      this.openProject(project);
-    });
-  }
-  openBrowserProject(): void{
-    const filesStr = localStorage.getItem('Project');
-    if(filesStr){
-      const projectFiles: ProjectFile[] = [];
-      const files = JSON.parse(filesStr);
-      for (const file of files) {
-        if(file.content.length > 0){
-          projectFiles.push(ProjectFile.makeProjectFileByCode(file.content, file.path));
-        }else{
-          projectFiles.push(ProjectFile.makeProjectFileByFile(dataToFile(file.file, ''), file.path));
-        }
-      }
-      this.openProject(new Project(projectFiles));
-    }else{
-      this.notify('浏览器中无项目', 'error');
-    }
-  }
-
   openProject(project: Project): void {
     this.project$.next(project);
-    const tip = `项目${project.files.length==1?project.files[0].name:project.name} 打开完成`
+    const tip = `项目${
+      project.files.length == 1 ? project.files[0].name : project.name
+    } 打开完成`;
     this.projectState$.next(tip);
-    this.notify(tip,'success')
+    this.notify(tip, 'success');
     if (project.target == -1) {
       this.notify('项目中无可打开的文件', 'error');
     } else {
       this.openFile(project.getTargetFile().path);
     }
   }
-  saveProject(mode: SpaceSaveMode): void {
-    const project = this.project$.getValue();
-    this.notify('保存中...');
-    this.fileService.saveProject(project, mode).subscribe({
-      complete: () => {
-        this.projectState$.next('项目保存成功');
-        this.notify('保存成功', 'success');
-        if(mode == SpaceSaveMode.Browser){
-          this.notify('注意', 'warning','浏览器只保存单一项目，重复操作将覆盖！');
-        }
-      },
-      error: (err) => {
-        this.projectState$.next('项目保存失败');
-        this.notify('保存失败', 'error', err);
-      },
-    });
-  }
-
   openFile(filePath: string): void {
     const file = this.project$.getValue().getFileByPath(filePath);
     if (file) {
@@ -191,7 +100,7 @@ export class SpaceDevelopService {
         next: this.output$.next.bind(this.output$),
         error: this.output$.error.bind(this.output$),
       });
-      this.debugOutput$.next(this.targetFile$.getValue().path+' 开始运行');
+      this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
       sandbox.run(this.targetFile$.getValue().code);
       this.sandboxOfLastRun = sandbox;
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
@@ -251,9 +160,9 @@ export class SpaceDevelopService {
         let text = event.message;
         let spaceNum = 0;
         for (const t in text.split('')) {
-          if(text[parseInt(t)] == ' ') spaceNum++;
-          if(spaceNum==4){
-            text = text.substring(parseInt(t)+1);
+          if (text[parseInt(t)] == ' ') spaceNum++;
+          if (spaceNum == 4) {
+            text = text.substring(parseInt(t) + 1);
             break;
           }
         }
@@ -262,8 +171,6 @@ export class SpaceDevelopService {
     });
   }
 }
-
-declare function dataToFile(dataUrl: string, fileName: string): File;
 
 export enum SpaceLocationMode {
   Browser = 'browser',
