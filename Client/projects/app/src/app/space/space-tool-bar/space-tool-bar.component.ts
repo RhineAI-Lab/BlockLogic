@@ -50,7 +50,7 @@ export class SpaceToolBarComponent implements OnInit {
     public state: SpaceState,
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
-    private notifier: NzNotificationService,
+    private notification: NzNotificationService,
   ) {
     this.logicMode = this.state.logicMode$.getValue();
     this.state.logicMode$.subscribe((mode) => {
@@ -67,9 +67,9 @@ export class SpaceToolBarComponent implements OnInit {
     if (this.saveMode == SpaceSaveMode.Local) {
       this.fileService.saveProject(this.saveMode);
     } else if (this.saveMode == SpaceSaveMode.Cloud) {
-      this.notifier.error('暂不支持保存至云端', '功能开发中...');
+      this.notification.error('暂不支持保存至云端', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Device) {
-      this.notifier.error('暂不支持保存至设备', '功能开发中...');
+      this.notification.error('暂不支持保存至设备', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Browser) {
       this.fileService.saveProject(this.saveMode);
     }
@@ -86,9 +86,9 @@ export class SpaceToolBarComponent implements OnInit {
     } else if (this.openMode == SpaceOpenMode.LocalZip) {
       this.zipChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.Cloud) {
-      this.notifier.error('暂不支持打开云端项目', '功能开发中...');
+      this.notification.error('暂不支持打开云端项目', '功能开发中...');
     } else if (this.openMode == SpaceOpenMode.Device) {
-      this.notifier.error('暂不支持打开设备中项目', '功能开发中...');
+      this.notification.error('暂不支持打开设备中项目', '功能开发中...');
     } else if (this.openMode == SpaceOpenMode.Browser) {
       this.fileService.openBrowserProject();
     }
@@ -117,9 +117,9 @@ export class SpaceToolBarComponent implements OnInit {
 
   onConnectDevice(): void {
     if (this.deviceAddress.length == 0) {
-      this.notifier.error('请输入IP地址', '');
+      this.notification.error('请输入IP地址', '');
     } else if (!StringUtils.checkIP(this.deviceAddress)) {
-      this.notifier.error('IP地址格式错误', '');
+      this.notification.error('IP地址格式错误', '');
     } else {
       const url = this.connectionProtocol + this.deviceAddress + ':9315';
       this.developService.connectDevice(url);
@@ -169,7 +169,7 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   onShare(): void {
-    this.developService.notify('暂不支持分享项目','info','您可以将网址分享给他人，并打开你的项目。')
+    this.notification.info('暂不支持分享项目','您可以将网址分享给他人，并打开你的项目。')
   }
 
   openConnectionHelp(): void {

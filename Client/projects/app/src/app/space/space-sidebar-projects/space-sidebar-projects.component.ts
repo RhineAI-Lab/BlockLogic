@@ -13,6 +13,7 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
 import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {ProjectFile} from "../../common/project-file.class";
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -52,6 +53,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   constructor(
     private developService: SpaceDevelopService,
     private nzContextMenuService: NzContextMenuService,
+    private notification: NzNotificationService,
     private clipboard: Clipboard,
   ) {}
 
@@ -158,7 +160,7 @@ console.log('HelloWorld');
         if (file.path == this.deleteTargetPath) {
           project.files.splice(project.files.indexOf(file), 1);
           this.developService.deleteEvent$.next(this.deleteTargetPath);
-          this.developService.notify('文件已删除', 'success');
+          this.notification.success('文件已删除', '');
           break;
         }
       }
@@ -175,7 +177,7 @@ console.log('HelloWorld');
           project.folders.splice(project.folders.indexOf(folder), 1);
         }
       }
-      this.developService.notify('文件夹已删除', 'success');
+      this.notification.success('文件夹已删除', '');
     }
     this.resolve(project);
   }
@@ -205,16 +207,16 @@ console.log('HelloWorld');
       }
     }
     this.resolve(project);
-    this.developService.notify('重命名成功', 'success', old+' -> '+name);
+    this.notification.success('重命名成功', old+' -> '+name);
   }
 
   onCopyName(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.title);
-    this.developService.notify('复制成功 '+origin.title, 'success');
+    this.notification.success('复制成功 '+origin.title, '');
   }
   onCopyPath(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.key);
-    this.developService.notify('复制成功 '+origin.key, 'success');
+    this.notification.success('复制成功 '+origin.key, '');
   }
 
   private async resolve(project: Project): Promise<void> {

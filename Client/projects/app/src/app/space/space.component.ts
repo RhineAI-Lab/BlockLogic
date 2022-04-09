@@ -14,32 +14,13 @@ import {SpaceFileService} from "./shared/space-file.service";
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
   constructor(
-    private debugService: SpaceDebugService,
     private developService: SpaceDevelopService,
-    private notifier: NzNotificationService,
   ) {
-    this.subscribeNotifier();
   }
 
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.developService.init();
-  }
-
-  private subscribeNotifier(): void {
-    this.developService.notification$.subscribe({
-      next: (notification) => {
-        if (notification.type == 'remove') {
-          this.notifier.remove();
-        } else {
-          this.notifier.create(
-            notification.type,
-            notification.title ? notification.title : '',
-            notification.content ? notification.content : '',
-          );
-        }
-      },
-    });
   }
 }

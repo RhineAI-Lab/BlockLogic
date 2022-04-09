@@ -322,7 +322,7 @@ export class SpaceFileService {
     }
   }
 
-  notify(
+  private notify(
     title: string,
     type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
     content: string = '',

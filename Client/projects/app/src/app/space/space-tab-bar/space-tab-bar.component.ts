@@ -6,6 +6,7 @@ import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState } from '../shared/space-state.service';
 import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {Clipboard} from '@angular/cdk/clipboard';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -18,6 +19,7 @@ export class SpaceTabBarComponent implements OnInit {
     private nzContextMenuService: NzContextMenuService,
     private state: SpaceState,
     private clipboard: Clipboard,
+    private notification: NzNotificationService,
   ) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
@@ -134,11 +136,11 @@ export class SpaceTabBarComponent implements OnInit {
   }
   onCopyName(item: TabItem): void {
     this.clipboard.copy(item.name);
-    this.developService.notify('复制成功 '+item.name, 'success');
+    this.notification.success('复制成功 '+item.name, '');
   }
   onCopyPath(item: TabItem): void {
     this.clipboard.copy(item.file);
-    this.developService.notify('复制成功 '+item.file,'success')
+    this.notification.success('复制成功 '+item.file,'')
   }
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {

@@ -8,6 +8,7 @@ import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
 import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceState } from './space-state.service';
+import {NzNotificationService} from "ng-zorro-antd/notification";
 
 @Injectable()
 export class SpaceDevelopService {
@@ -20,7 +21,6 @@ export class SpaceDevelopService {
   readonly debugEvents = this.debugService.events$;
   readonly output$ = new Subject<SandboxOutput>();
   readonly debugOutput$ = new Subject<string>();
-  readonly notification$ = new Subject<Notification>();
   readonly showConsole$ = new Subject<void>();
 
   readonly renameEvent$ = new Subject<string[]>();
@@ -34,6 +34,7 @@ export class SpaceDevelopService {
     private state: SpaceState,
     private debugService: SpaceDebugService,
     private httpClient: HttpClient,
+    private notification: NzNotificationService,
   ) {
     this.subscribeDebugEvents();
   }
@@ -114,16 +115,16 @@ export class SpaceDevelopService {
     }
   }
 
-  notify(
+  private notify(
     title: string,
     type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
     content: string = '',
   ): void {
-    this.notification$.next({
-      type: type,
-      title: title,
-      content: content,
-    });
+    if (type == 'remove') {
+      this.notification.remove();
+    } else {
+      this.notification.create(type, title, content);
+    }
   }
 
   async connectDevice(url: string): Promise<void> {
@@ -151,7 +152,6 @@ export class SpaceDevelopService {
         this.notify('连接错误', 'error', `地址：${eventTarget?.url}`);
       }
       if (event.type == 'message') {
-        // event.message Example: 04-07 10:29:36.126 Script-11 Main [remote://BLogic: main.js]/I: HelloWorld
         let text = event.message;
         let spaceNum = 0;
         for (const t in text.split('')) {
