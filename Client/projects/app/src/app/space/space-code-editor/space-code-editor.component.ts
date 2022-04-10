@@ -26,6 +26,8 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   editor!: monaco.editor.IStandaloneCodeEditor;
 
+  oneDarkLoaded = false;
+
   get code(): string {
     return this.developService.targetCode;
   }
@@ -49,9 +51,13 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
     });
     state.theme$.subscribe((v) => {
       if (v == ThemeType.Default) {
-        monaco.editor.setTheme('vs');
+        this.changeTheme('vs')
       } else {
-        monaco.editor.setTheme('vs-dark');
+        if(this.oneDarkLoaded){
+          this.changeTheme('one-dark')
+        }else{
+          this.changeTheme('vs-dark')
+        }
       }
     });
   }
@@ -62,6 +68,10 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
       .subscribe({
         next:(text: string) => {
           monaco.editor.defineTheme('one-dark', JSON.parse(text));
+          // this.oneDarkLoaded = true;
+          // if(this.state.theme$.getValue() == ThemeType.Dark){
+          //   this.changeTheme('one-dark')
+          // }
         },
         error:(err) => {
           console.error(err);
@@ -71,10 +81,17 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.editor = monaco.editor.create(
-      document.getElementById('monaco-editor')!,
-      this.editorOptions
-    );
+    // this.editor = monaco.editor.create(
+    //   document.getElementById('monaco-editor')!,
+    //   this.editorOptions
+    // );
+  }
+
+  changeTheme(theme: string) {
+    console.log(theme)
+    monaco.editor.setTheme(theme);
+    this.editorOptions.theme = theme;
+    this.editor.updateOptions(this.editorOptions);
   }
 
   loadTheme() {
