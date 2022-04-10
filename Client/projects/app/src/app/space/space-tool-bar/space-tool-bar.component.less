@@ -1,43 +1,54 @@
-.layout {
-  height: 30px;
-  background-color: #f2f2f2;
-  align-items: center;
-  padding: 0 4px;
-  white-space: nowrap;
 
-  .tip {
-    font-size: 12px;
-    color: #606060;
-  }
+@import "mixin";
+.themeMixin({
+  :host {
 
-  .deviceIpInput {
-    width: min-content;
-    input {
-      width: 160px;
+    .layout {
+      height: 30px;
+      background-color: @background-light;
+      align-items: center;
+      padding: 0 4px;
+      white-space: nowrap;
+
+      .tip {
+        font-size: 12px;
+        color: #606060;
+      }
+
+      .deviceIpInput {
+        width: min-content;
+
+        input {
+          width: 160px;
+        }
+
+        i {
+          color: #bbbbbb;
+        }
+      }
+
+      .deviceHelp:hover {
+        cursor: pointer;
+      }
+
+      .deviceHelp {
+        color: #606060;
+      }
+
+      .hide {
+        width: 0;
+        margin: 0;
+      }
     }
-    i {
-      color: #bbbbbb;
+
+    .layout > *:not(label) {
+      margin: 0 3px;
     }
-  }
 
-  .deviceHelp:hover {
-    cursor: pointer;
-  }
+    .layout > button,
+    nz-button-group {
+      margin: 0 4px;
+    }
 
-  .deviceHelp {
-    color: #606060;
   }
-
-  .hide {
-    width: 0;
-    margin: 0;
-  }
-}
-
-.layout > *:not(label) {
-  margin: 0 3px;
-}
-.layout > button,
-nz-button-group {
-  margin: 0 4px;
-}
+});

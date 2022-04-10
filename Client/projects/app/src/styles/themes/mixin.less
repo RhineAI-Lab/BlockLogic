@@ -4,22 +4,41 @@
     @primary-color: #00a86b;
     @header-background: #111111;
 
-    @divider-color: #cfcfcf;
-    @border-color: #bbbbbb;
 
     &.default {
       @import './default.less';
       @rules();
 
-      @background-base: #FFFFFF;
-      @background-light: #F2F2F2;
+      @background-base: #ffffff;
+      @background-light: #f2f2f2;
+      @background-second: #d9d9d9;
+      @background-third: #bdbdbd;
+      @color-base: #151515;
+      @color-obvious: #6e6e6e;
+      @divider-base: #cfcfcf;
+      @divider-obvious: #d3d3d3;
     }
     &.dark {
       @import './dark.less';
       @rules();
 
-      @background-base: #202020;
-      @background-light: #303030;
+      @background-base: #1e1e1e;
+      @background-light: #2b2c2d;
+      @background-second: #252525;
+      @background-third: #202020;
+      @color-base: #dfdfdf;
+      @color-obvious: #6e6e6e;
+      @divider-base: #525252;
+      @divider-obvious: #484848;
     }
   }
 }
+
+/* use
+@import "mixin";
+.themeMixin({
+  :host {
+
+  }
+});
+*/

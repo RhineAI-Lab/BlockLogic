@@ -1,7 +1,10 @@
-:host {
-  display: inline-block;
-  width: 1px;
-  height: 22px;
-  margin: 4px 5px;
-  background-color: #d3d3d3;
-}
+@import "mixin";
+.themeMixin({
+  :host {
+    display: inline-block;
+    width: 1px;
+    height: 22px;
+    margin: 4px 5px;
+    background-color: @divider-base;
+  }
+});

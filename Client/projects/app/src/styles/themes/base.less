@@ -1,2 +1,75 @@
 
 @primary-color: #00a86b;
+@border-color: #bbbbbb;
+
+
+.hr-ant {
+  .ant-tree-show-line .ant-tree-switcher {
+    background: #00000000;
+  }
+
+  .ant-btn:hover {
+    border-color: @primary-color;
+  }
+  .ant-btn:focus {
+    border-color: @primary-color;
+  }
+  .ant-btn-sm {
+    font-size: 12px;
+  }
+  .ant-btn-group-sm .ant-btn {
+    font-size: 12px;
+  }
+
+  .ant-btn i {
+    line-height: 24px;
+  }
+  .ant-btn span {
+    margin-left: 2px;
+  }
+
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: @primary-color;
+    border-color: @primary-color;
+  }
+
+  .ant-checkbox-wrapper {
+    margin-left: 6px;
+  }
+  .ant-checkbox-checked .ant-checkbox-inner {
+    border-color: @primary-color;
+  }
+  .ant-checkbox + span {
+    padding-left: 4px;
+    padding-right: 2px;
+  }
+
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: @primary-color;
+  }
+
+  .ant-tree-indent-unit {
+    width: 1px;
+    margin: 0 6px 0 11px;
+  }
+  .ant-tree-show-line .ant-tree-indent-unit::before {
+    border-color: #00000000;
+  }
+  .ant-tree-indent {
+    height: 28px;
+  }
+  .ant-tree-treenode {
+    padding: 0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.ant-tooltip-inner {
+  font-size: 12px;
+  padding: 2px 8px;
+  min-height: 22px;
+}

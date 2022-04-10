@@ -9,6 +9,9 @@ export class SpaceState {
   readonly theme$ = new BehaviorSubject<ThemeType>(ThemeType.Default);
   previousTheme = ThemeType.Default;
   firstTime = true;
+  get isLight(): boolean {
+    return this.theme$.value == ThemeType.Default;
+  }
 
   readonly isHeaderVisible$ = new BehaviorSubject(true);
 

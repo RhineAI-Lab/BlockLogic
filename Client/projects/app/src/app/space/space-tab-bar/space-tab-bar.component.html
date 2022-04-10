@@ -7,9 +7,9 @@
         [ngStyle]="
           item.selected
             ? {
-                'border-bottom-color': '#00A86B',
-                'border-top-color': '#FFFFFF',
-                background: '#FFFFFF'
+                'border-bottom-color': getPrimaryColor(),
+                'border-top-color': getBackgroundLight(),
+                background: getBackgroundLight()
               }
             : {}
         "
@@ -65,6 +65,7 @@
     [(ngModel)]="layoutMode"
     (ngModelChange)="onLayoutModeChange(layoutMode)"
     nzSize="small"
+    fxFlex="130px"
   >
     <label nz-radio-button [nzValue]="LayoutMode.Visual">图形</label>
     <label nz-radio-button [nzValue]="LayoutMode.Split">分割</label>

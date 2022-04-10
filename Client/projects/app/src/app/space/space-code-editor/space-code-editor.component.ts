@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as monaco from 'monaco-editor';
 
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import {SpaceState} from "../shared/space-state.service";
+import {SpaceDevelopService} from '../shared/space-develop.service';
+import {SpaceState, ThemeType} from "../shared/space-state.service";
 import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
 
 @Component({
@@ -12,7 +12,7 @@ import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component
 })
 export class SpaceCodeEditorComponent implements OnInit {
   editorOptions = {
-    theme: 'vs',
+    theme: 'vs-dark',
     language: 'javascript',
     scrollbar: {
       verticalScrollbarSize: 10,
@@ -41,6 +41,13 @@ export class SpaceCodeEditorComponent implements OnInit {
         }else if (v==SpaceToolBarButtonType.Redo) {
           this.redo();
         }
+      }
+    });
+    state.theme$.subscribe((v) => {
+      if(v==ThemeType.Default){
+        monaco.editor.setTheme('vs');
+      }else{
+        monaco.editor.setTheme('vs-dark');
       }
     });
   }

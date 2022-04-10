@@ -1,81 +1,95 @@
 @border-color: #bbbbbb;
 @tab-height: 30px;
 
-.layout {
-  height: @tab-height;
-  position: relative;
-  background-color: #f2f2f2;
+@import "mixin";
+.themeMixin({
+  :host {
+    .layout {
+      height: @tab-height;
+      position: relative;
+      background-color: @background-light;
+      padding-right: 6px;
 
-  .main {
-    overflow-x: hidden;
-    position: absolute;
-    left: 0;
-    right: 228px;
-    top: 0;
-    bottom: 0;
+      .main {
+        overflow-x: hidden;
+        position: absolute;
+        left: 0;
+        right: 228px;
+        top: 0;
+        bottom: 0;
 
-    .tabs {
-      height: 30px;
-      white-space: nowrap;
-      .tab {
-        display: inline-block;
-        width: min-content;
-        height: @tab-height;
-        background-color: #f2f2f2;
-        border-top: 2px solid #f2f2f2;
-        border-bottom: 2px solid #f2f2f2;
+        .tabs {
+          height: 30px;
+          white-space: nowrap;
+
+          .tab {
+            display: inline-block;
+            width: min-content;
+            height: @tab-height;
+            background-color: @background-light;
+            border-top: 2px solid @background-light;
+            border-bottom: 2px solid @background-light;
+            white-space: nowrap;
+            padding: 0 7px;
+
+            i {
+              display: inline-block;
+              margin: 3px;
+              font-size: 16px;
+              color: #b6b6b6;
+            }
+
+            p {
+              display: inline-block;
+              line-height: @tab-height - 4;
+              margin: 0 3px;
+              font-size: 14px;
+            }
+
+            .close-btn {
+              display: inline-block;
+              border-radius: 7px;
+
+              i {
+                width: 14px;
+                height: 14px;
+                padding: 1px;
+                border-radius: 7px;
+                font-size: 12px;
+                color: #bbbbbb;
+              }
+
+              i:hover {
+                background-color: #bababa;
+                color: #f2f2f2;
+              }
+            }
+          }
+
+          .tab:hover {
+            background-color: @background-second;
+            border-color: @background-second;
+          }
+        }
+
+        .tab:hover {
+          background-color: #e6e6e6;
+        }
+      }
+
+      .layout-mode-selector {
+        height: 30px;
+        padding: 3px 3px;
         white-space: nowrap;
-        padding: 0 7px;
-
-        i {
-          display: inline-block;
-          margin: 3px;
-          font-size: 16px;
-          color: #b6b6b6;
-        }
-        p {
-          display: inline-block;
-          line-height: @tab-height - 4;
-          margin: 0 3px;
-          font-size: 14px;
-        }
-        .close-btn {
-          display: inline-block;
-          border-radius: 7px;
-          i {
-            width: 14px;
-            height: 14px;
-            padding: 1px;
-            border-radius: 7px;
-            font-size: 12px;
-            color: #bbbbbb;
-          }
-          i:hover {
-            background-color: #bababa;
-            color: #f2f2f2;
-          }
-        }
       }
-      .tab:hover {
-        background-color: #dadada;
-        border-color: #dadada;
+
+      .editor-mode-selector {
+        margin: 3px;
+      }
+
+      .goto-logic-mode {
+        margin: 3px;
       }
     }
-    .tab:hover {
-      background-color: #e6e6e6;
-    }
   }
-
-  .layout-mode-selector {
-    width: 127px;
-    min-width: 127px;
-    height: 30px;
-    padding: 3px;
-  }
-  .editor-mode-selector {
-    margin: 3px;
-  }
-  .goto-logic-mode{
-    margin: 3px;
-  }
-}
+});

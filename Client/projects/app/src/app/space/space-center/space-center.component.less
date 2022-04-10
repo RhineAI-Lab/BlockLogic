@@ -1,60 +1,66 @@
-.layout {
-  width: 100%;
-  height: 100%;
-  position: relative;
-
-  .main{
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-  }
-
-  .shape-area {
-    width: 0;
-
-    app-space-shape-area {
+@import "mixin";
+.themeMixin({
+  :host {
+    .layout {
       width: 100%;
       height: 100%;
+      position: relative;
+
+      .main{
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .shape-area {
+        width: 0;
+
+        app-space-shape-area {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .code-area {
+        min-width: 200px;
+        z-index: 90;
+      }
+
+      .split-line {
+        width: 1px;
+        background: @color-obvious;
+        position: relative;
+      }
+      .split-line::before {
+        content: '';
+        position: absolute;
+        left: -4px;
+        right: -4px;
+        top: 0;
+        bottom: 0;
+        z-index: 1000;
+      }
+      .split-line:hover {
+        cursor: ew-resize;
+      }
+    }
+
+    .empty {
+      margin: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: @background-base;
+      z-index: 100;
+
+      div{
+        height: 45%;
+      }
     }
   }
+});
 
-  .code-area {
-    min-width: 200px;
-    z-index: 90;
-  }
-
-  .split-line {
-    width: 1px;
-    background: #d2d2d2;
-    position: relative;
-  }
-  .split-line::before {
-    content: '';
-    position: absolute;
-    left: -4px;
-    right: -4px;
-    top: 0;
-    bottom: 0;
-    z-index: 1000;
-  }
-  .split-line:hover {
-    cursor: ew-resize;
-  }
-}
-
-.empty {
-  margin: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #ffffff;
-  z-index: 100;
-
-  div{
-    height: 45%;
-  }
-}

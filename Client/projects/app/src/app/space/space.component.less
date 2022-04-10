@@ -1,18 +1,25 @@
-.layout {
-  height: 100%;
-  min-width: 1280px;
 
-  .body {
+@import "mixin";
+.themeMixin({
+  :host {
+    .layout {
+      height: 100%;
+      min-width: 1280px;
+      background: @background-light;
 
-    app-space-sidebar-manager{
-      overflow-y: hidden;
+      .body {
 
-      .center{
-        overflow-y: hidden;
+        app-space-sidebar-manager{
+          overflow-y: hidden;
 
-        app-space-center{
+          .center{
+            overflow-y: hidden;
+
+            app-space-center{
+            }
+          }
         }
       }
     }
   }
-}
+});
