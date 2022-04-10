@@ -1,9 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
-import {SpaceDevelopService} from '../shared/space-develop.service';
-import {SpaceState, ThemeType} from "../shared/space-state.service";
-import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component";
+import { SpaceDevelopService } from '../shared/space-develop.service';
+import { SpaceState, ThemeType } from '../shared/space-state.service';
+import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
+import { loadWASM } from 'onigasm';
+import { Registry } from 'monaco-textmate';
+import { wireTmGrammars } from 'monaco-editor-textmate'
 
 @Component({
   selector: 'app-space-code-editor',
@@ -12,7 +15,7 @@ import {SpaceToolBarButtonType} from "../space-tool-bar/space-tool-bar.component
 })
 export class SpaceCodeEditorComponent implements OnInit {
   editorOptions = {
-    theme: 'vs-dark',
+    theme: 'vs',
     language: 'javascript',
     scrollbar: {
       verticalScrollbarSize: 10,
@@ -35,29 +38,58 @@ export class SpaceCodeEditorComponent implements OnInit {
     private state: SpaceState,
   ) {
     state.toolbarButtonEvent$.subscribe((v) => {
-      if(!state.logicMode$.getValue()){
-        if(v==SpaceToolBarButtonType.Undo){
+      if (!state.logicMode$.getValue()) {
+        if (v == SpaceToolBarButtonType.Undo) {
           this.undo();
-        }else if (v==SpaceToolBarButtonType.Redo) {
+        } else if (v == SpaceToolBarButtonType.Redo) {
           this.redo();
         }
       }
     });
     state.theme$.subscribe((v) => {
-      if(v==ThemeType.Default){
+      if (v == ThemeType.Default) {
         monaco.editor.setTheme('vs');
-      }else{
+      } else {
         monaco.editor.setTheme('vs-dark');
       }
     });
   }
 
+  ngOnInit(): void {
+    // this.loadTheme();
+  }
+
+  loadTheme() {
+    const init = async () => {
+      await loadWASM('assets/onigasm/onigasm.wasm');
+      const grammars = new Map();
+      grammars.set('javascript', 'source.js');
+      // grammars.set('css', 'source.css');
+      // grammars.set('html', 'text.html.basic');
+      // grammars.set('typescript', 'source.ts');
+      // grammars.set('scss', 'source.css.scss');
+      // grammars.set('less', 'source.css.less');
+      // grammars.set('json', 'source.json');
+      // grammars.set('python', 'source.python');
+      const registry = new Registry({
+        getGrammarDefinition: async (scopeName) => {
+          return {
+            format: 'json',
+            content: await (
+              await fetch('assets/grammars/javascript.json')
+            ).text(),
+          };
+        },
+      });
+      await wireTmGrammars(monaco, registry, grammars, this.editor)
+    };
+    init();
+  }
+
   undo() {
-    this.editor.trigger('undo','undo',this.editor);
+    this.editor.trigger('undo', 'undo', this.editor);
   }
   redo() {
     this.editor.trigger('redo', 'redo', this.editor);
   }
-
-  ngOnInit(): void {}
 }
