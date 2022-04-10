@@ -14,11 +14,6 @@
           "strict": true
         }
       },
-      "stylePreprocessorOptions": {
-        "includePaths": [
-          "src/styles/themes"
-        ]
-      },
       "root": "projects/app",
       "sourceRoot": "projects/app/src",
       "prefix": "app",
@@ -55,6 +50,11 @@
                 "inject": false
               }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "projects/app/src/styles/themes"
+              ]
+            },
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "projects/app/ngsw-config.json"

@@ -1,12 +1,25 @@
+
 .themeMixin(@rules) {
   html {
+    @primary-color: #00a86b;
+    @header-background: #111111;
+
+    @divider-color: #cfcfcf;
+    @border-color: #bbbbbb;
+
     &.default {
       @import './default.less';
       @rules();
+
+      @background-base: #FFFFFF;
+      @background-light: #F2F2F2;
     }
     &.dark {
       @import './dark.less';
       @rules();
+
+      @background-base: #202020;
+      @background-light: #303030;
     }
   }
 }

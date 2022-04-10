@@ -1,17 +1,10 @@
 // Custom Theming for NG-ZORRO
 // For more information: https://ng.ant.design/docs/customize-theme/en
-@import '../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
-@import '../../../node_modules/ng-zorro-antd/style/color/colors.less';
+// @import '../../../node_modules/ng-zorro-antd/ng-zorro-antd.less';
+// @import '../../../node_modules/ng-zorro-antd/style/color/colors.less';
 
 // Override less variables to here
 // View all variables: https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/components/style/themes/default.less
-
-@primary-color: #00a86b;
-@first-background-color: #ffffff;
-@second-background-color: #f2f2f2;
-@border-color: #bbbbbb;
-
-@layout-header-background: #111111;
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -22,6 +15,100 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   overflow-y: hidden;
 }
+
+
+@import "mixin";
+
+.themeMixin({
+  :host {
+
+    .hr-ant {
+      .ant-btn {
+        border: 1px solid @border-color;
+      }
+      .ant-btn:not(:hover):not(:focus) {
+        i {
+          color: #606060;
+        }
+      }
+      .ant-btn:hover {
+        border-color: @primary-color;
+      }
+      .ant-btn:focus {
+        border-color: @primary-color;
+      }
+      .ant-btn-sm {
+        font-size: 12px;
+      }
+      .ant-btn-group-sm .ant-btn {
+        font-size: 12px;
+      }
+
+      .ant-btn i {
+        line-height: 24px;
+      }
+      .ant-btn span {
+        margin-left: 2px;
+      }
+
+      .ant-radio-button-wrapper {
+        font-size: 12px;
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper:first-child {
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper:last-child {
+        border-color: @border-color;
+      }
+      .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+        color: @primary-color;
+        border-color: @primary-color;
+      }
+
+      .ant-checkbox-wrapper {
+        margin-left: 6px;
+      }
+      .ant-checkbox-inner {
+        border-color: @border-color;
+      }
+      .ant-checkbox-checked .ant-checkbox-inner {
+        border-color: @primary-color;
+      }
+      .ant-checkbox + span {
+        padding-left: 4px;
+        padding-right: 2px;
+      }
+
+      .ant-input-group-addon {
+        border-color: @border-color;
+      }
+      .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+        border-color: @primary-color;
+      }
+      .ant-input-affix-wrapper {
+        border-color: @border-color;
+      }
+
+      .ant-tree-indent-unit {
+        width: 1px;
+        background-color: #dddddd;
+        margin: 0 6px 0 11px;
+      }
+      .ant-tree-show-line .ant-tree-indent-unit::before {
+        border-color: #00000000;
+      }
+      .ant-tree-indent {
+        height: 28px;
+      }
+      .ant-tree-treenode {
+        padding: 0;
+      }
+    }
+
+  }
+});
+
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -53,90 +140,6 @@ body {
   margin: 10px 4px 0 4px;
   font-size: 12px;
   color: #666
-}
-
-.hr-ant {
-  .ant-btn {
-    border: 1px solid @border-color;
-  }
-  .ant-btn:not(:hover):not(:focus) {
-    i {
-      color: #606060;
-    }
-  }
-  .ant-btn:hover {
-    border-color: @primary-color;
-  }
-  .ant-btn:focus {
-    border-color: @primary-color;
-  }
-  .ant-btn-sm {
-    font-size: 12px;
-  }
-  .ant-btn-group-sm .ant-btn {
-    font-size: 12px;
-  }
-
-  .ant-btn i {
-    line-height: 24px;
-  }
-  .ant-btn span {
-    margin-left: 2px;
-  }
-
-  .ant-radio-button-wrapper {
-    font-size: 12px;
-    border-color: @border-color;
-  }
-  .ant-radio-button-wrapper:first-child {
-    border-color: @border-color;
-  }
-  .ant-radio-button-wrapper:last-child {
-    border-color: @border-color;
-  }
-  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    color: @primary-color;
-    border-color: @primary-color;
-  }
-
-  .ant-checkbox-wrapper {
-    margin-left: 6px;
-  }
-  .ant-checkbox-inner {
-    border-color: @border-color;
-  }
-  .ant-checkbox-checked .ant-checkbox-inner {
-    border-color: @primary-color;
-  }
-  .ant-checkbox + span {
-    padding-left: 4px;
-    padding-right: 2px;
-  }
-
-  .ant-input-group-addon {
-    border-color: @border-color;
-  }
-  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
-    border-color: @primary-color;
-  }
-  .ant-input-affix-wrapper {
-    border-color: @border-color;
-  }
-
-  .ant-tree-indent-unit {
-    width: 1px;
-    background-color: #dddddd;
-    margin: 0 6px 0 11px;
-  }
-  .ant-tree-show-line .ant-tree-indent-unit::before {
-    border-color: #00000000;
-  }
-  .ant-tree-indent {
-    height: 28px;
-  }
-  .ant-tree-treenode {
-    padding: 0;
-  }
 }
 
 .no-select {

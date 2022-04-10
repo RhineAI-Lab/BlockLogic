@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
@@ -39,35 +39,40 @@ export class SpaceState {
     this.isHeaderVisible$.subscribe(() => {
       this.needResize$.next(true);
     });
+
     this.theme$.subscribe((v) => {
       this.loadTheme(this.firstTime).subscribe(
-        () => {}
+        (v) => {},
+        (err) => {
+          console.error(err);
+        },
+        () => {
+          // console.log("Theme load success")
+        },
       );
       this.firstTime = false;
     });
   }
 
   loadTheme(firstLoad = true): Observable<void> {
-    return new Observable<void>(subscriber => {
+    return new Observable<void>((subscriber) => {
       const theme = this.theme$.getValue();
       if (firstLoad) {
-        console.log("add0 "+theme)
         document.documentElement.classList.add(theme);
       }
       this.loadCss(`${theme}.css`, theme).then(
-        e => {
+        (e) => {
           if (!firstLoad) {
-            console.log("add1 "+theme)
             document.documentElement.classList.add(theme);
+            this.removeUnusedTheme(this.previousTheme);
           }
-          this.removeUnusedTheme(this.previousTheme);
           this.previousTheme = this.theme$.getValue();
           subscriber.complete();
         },
-        e => subscriber.error(e)
+        (e) => subscriber.error(e),
       );
-    })
-  };
+    });
+  }
 
   private loadCss(href: string, id: string): Promise<Event> {
     return new Promise((resolve, reject) => {
