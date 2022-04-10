@@ -5,14 +5,8 @@
         *ngIf="item.showTab && item.position.includes('left')"
         class="btn"
         (click)="onBtnClick(item)"
-        [ngStyle]="
-          item.isOpen
-            ? {
-                height: item.name.length * 12 + 52 + 'px',
-                background: getThirdBackground()
-              }
-            : { height: item.name.length * 12 + 52 + 'px' }
-        "
+        [ngClass]="item.isOpen ? 'btn btn-selected' : 'btn'"
+        [ngStyle]="{ height: item.name.length * 12 + 52 + 'px' }"
         [nz-tooltip]="item.tooltip"
         [nzTooltipMouseEnterDelay]="0.4"
       >

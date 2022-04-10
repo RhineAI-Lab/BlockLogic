@@ -1,17 +1,13 @@
 <div fxLayout class="layout no-select hr-ant">
-  <div class="main">
+  <div class="bottom-line"></div>
+  <div class="main" fxFlex="grow">
     <div class="tabs">
       <div
-        class="tab"
         *ngFor="let item of tabs"
-        [ngStyle]="
+        [ngClass]="
           item.selected
-            ? {
-                'border-bottom-color': getPrimaryColor(),
-                'border-top-color': getBackgroundLight(),
-                background: getBackgroundLight()
-              }
-            : {}
+            ? 'tab tab-selected'
+            : 'tab'
         "
         (click)="onTabClick(item)"
         (contextmenu)="contextMenu($event, menu)"
@@ -37,7 +33,6 @@
       </div>
     </div>
   </div>
-  <div fxFlex="grow"></div>
   <app-toolbar-divider></app-toolbar-divider>
   <button
     class="editor-mode-selector"

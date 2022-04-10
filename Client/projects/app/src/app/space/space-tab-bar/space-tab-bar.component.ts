@@ -157,12 +157,6 @@ export class SpaceTabBarComponent implements OnInit {
     }
   }
 
-  getBackgroundLight(): string{
-    return this.state.isLight? '#f2f2f2':'#2b2c2d';
-  }
-  getPrimaryColor(): string{
-    return '#00a86b';
-  }
 }
 
 class TabItem {

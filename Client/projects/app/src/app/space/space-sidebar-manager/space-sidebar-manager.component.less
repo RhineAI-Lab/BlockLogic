@@ -61,7 +61,14 @@
 
       .btn:hover {
         cursor: pointer;
+      }
+
+      .btn:not(.btn-selected):hover {
         background-color: @background-second;
+      }
+
+      .btn-selected {
+        background-color: @background-third;
       }
     }
 
