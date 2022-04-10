@@ -45,12 +45,12 @@
             "styles": [
               "projects/app/src/styles.less",
               {
-                "input": "src/styles/default.less",
+                "input": "projects/app/src/styles/default.less",
                 "bundleName": "default",
                 "inject": false
               },
               {
-                "input": "src/styles/dark.less",
+                "input": "projects/app/src/styles/dark.less",
                 "bundleName": "dark",
                 "inject": false
               }

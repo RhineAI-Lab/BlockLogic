@@ -11,7 +11,7 @@ import {
   SpaceSaveMode,
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceState } from '../shared/space-state.service';
+import {SpaceState, ThemeType} from '../shared/space-state.service';
 import {SpaceFileService} from "../shared/space-file.service";
 
 @Component({
@@ -32,7 +32,14 @@ export class SpaceToolBarComponent implements OnInit {
   @ViewChild('openProjectBtn') openProjectBtn!: ElementRef;
   @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
-  brightTheme = true;
+  _brightTheme = true;
+  get brightTheme() {
+    return this._brightTheme;
+  }
+  set brightTheme(value) {
+    this._brightTheme = value;
+    this.state.theme$.next(value ? ThemeType.Default : ThemeType.Dark);
+  }
   holdBox: boolean = this.state.holdBox$.getValue();
   syncCode: boolean = this.developService.syncCode;
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();

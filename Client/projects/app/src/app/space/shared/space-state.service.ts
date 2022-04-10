@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 
 @Injectable()
 export class SpaceState {
+  readonly theme$ = new BehaviorSubject<ThemeType>(ThemeType.Default);
+  previousTheme = ThemeType.Default;
+  firstTime = true;
+
   readonly isHeaderVisible$ = new BehaviorSubject(true);
 
   readonly logicMode$ = new BehaviorSubject<boolean>(true);
@@ -35,5 +39,57 @@ export class SpaceState {
     this.isHeaderVisible$.subscribe(() => {
       this.needResize$.next(true);
     });
+    this.theme$.subscribe((v) => {
+      this.loadTheme(this.firstTime).subscribe(
+        () => {}
+      );
+      this.firstTime = false;
+    });
   }
+
+  loadTheme(firstLoad = true): Observable<void> {
+    return new Observable<void>(subscriber => {
+      const theme = this.theme$.getValue();
+      if (firstLoad) {
+        console.log("add0 "+theme)
+        document.documentElement.classList.add(theme);
+      }
+      this.loadCss(`${theme}.css`, theme).then(
+        e => {
+          if (!firstLoad) {
+            console.log("add1 "+theme)
+            document.documentElement.classList.add(theme);
+          }
+          this.removeUnusedTheme(this.previousTheme);
+          this.previousTheme = this.theme$.getValue();
+          subscriber.complete();
+        },
+        e => subscriber.error(e)
+      );
+    })
+  };
+
+  private loadCss(href: string, id: string): Promise<Event> {
+    return new Promise((resolve, reject) => {
+      const style = document.createElement('link');
+      style.rel = 'stylesheet';
+      style.href = href;
+      style.id = id;
+      style.onload = resolve;
+      style.onerror = reject;
+      document.head.append(style);
+    });
+  }
+  private removeUnusedTheme(theme: ThemeType): void {
+    document.documentElement.classList.remove(theme);
+    const removedThemeStyle = document.getElementById(theme);
+    if (removedThemeStyle) {
+      document.head.removeChild(removedThemeStyle);
+    }
+  }
+}
+
+export enum ThemeType {
+  Default = 'default',
+  Dark = 'dark',
 }
