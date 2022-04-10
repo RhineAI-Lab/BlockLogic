@@ -1,15 +1,20 @@
-.layout {
-  width: 24px;
-  height: 24px;
-  vertical-align: middle;
-  text-align: center;
-  border-radius: 2px;
+@import "mixin";
+.themeMixin({
+  :host {
+    .layout {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      text-align: center;
+      border-radius: 2px;
 
-  i {
-    vertical-align: middle;
+      i {
+        vertical-align: middle;
+      }
+    }
+    .layout:hover {
+      background-color: @background-btn-hover;
+      cursor: pointer;
+    }
   }
-}
-.layout:hover {
-  background-color: #e3e3e3;
-  cursor: pointer;
-}
+});

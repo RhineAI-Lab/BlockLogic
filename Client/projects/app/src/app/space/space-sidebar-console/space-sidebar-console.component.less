@@ -1,14 +1,20 @@
-.layout {
-  .main {
-    overflow-y: auto;
 
-    .line{
-      padding: 2px 8px;
-      word-break: break-all;
-      color: #333333;
-    }
-    .line:hover{
-      background-color: #EEEEEE;
+@import "mixin";
+.themeMixin({
+  :host {
+    .layout {
+      .main {
+        overflow-y: auto;
+
+        .line{
+          padding: 2px 8px;
+          word-break: break-all;
+          color: @color-base;
+        }
+        .line:hover{
+          background-color: @background-second;
+        }
+      }
     }
   }
-}
+});

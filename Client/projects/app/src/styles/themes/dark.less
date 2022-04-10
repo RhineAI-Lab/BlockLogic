@@ -3,6 +3,7 @@
 
 @primary-color: #00a86b;
 @border-color: #606060;
+@line-color: #525252;
 
 body{
   background-color: #2b2c2d;
@@ -39,6 +40,13 @@ body{
   .ant-input-group-addon {
     border-color: @border-color;
   }
+
+  .ant-tree-indent-unit {
+    width: 1px;
+    margin: 0 6px 0 11px;
+    background: @line-color;
+  }
+
 }
 
 ::-webkit-scrollbar-thumb {

@@ -3,14 +3,14 @@
     nz-icon
     *ngIf="!icon.startsWith('icon-')"
     [nzType]="icon"
-    [ngStyle]="{ color: color, 'font-size': size + 'px' }"
+    [ngStyle]="{ color: showColor, 'font-size': size + 'px' }"
     [nzTheme]="fill ? 'fill' : 'outline'"
   ></i>
   <i
     nz-icon
     *ngIf="icon.startsWith('icon-')"
     [nzIconfont]="icon"
-    [ngStyle]="{ color: color, 'font-size': size + 'px' }"
+    [ngStyle]="{ color: showColor, 'font-size': size + 'px' }"
   ></i>
 </div>
 <div hidden #iconWrapper>

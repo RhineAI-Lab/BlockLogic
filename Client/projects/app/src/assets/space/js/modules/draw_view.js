@@ -72,7 +72,7 @@ DrawSpace.initSidebar = function(sidebarId){
                         DrawSpace.toolbox.selectItemByPosition(i);
                         DrawSpace.toolbox.selectItemByPosition(i);
                         if(DrawSpace.flyoutLast!=null){
-                            DrawSpace.flyoutLast.color = "#324a5b";
+                            DrawSpace.flyoutLast.themeColor = "#324a5b";
                             DrawSpace.flyoutLast.bg = "#ffffff";
                         }
                         v.color = "#000000";
@@ -149,7 +149,7 @@ DrawSpace.init = function (blocklyId,toolboxId) {
                 DrawSpace.workspace.getFlyout().hide();
                 DrawSpace.flyoutId = -1;
                 if(DrawSpace.flyoutLast!=null){
-                    DrawSpace.flyoutLast.color = "#324a5b";
+                    DrawSpace.flyoutLast.themeColor = "#324a5b";
                     DrawSpace.flyoutLast.bg = "#ffffff";
                 }
                 DrawSpace.flyoutLast = null;
