@@ -14,6 +14,11 @@
           "strict": true
         }
       },
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "src/styles/themes"
+        ]
+      },
       "root": "projects/app",
       "sourceRoot": "projects/app/src",
       "prefix": "app",
@@ -37,7 +42,19 @@
                 "output": "assets/monaco-editor"
               }
             ],
-            "styles": ["projects/app/src/styles.less"],
+            "styles": [
+              "projects/app/src/styles.less",
+              {
+                "input": "src/styles/default.less",
+                "bundleName": "default",
+                "inject": false
+              },
+              {
+                "input": "src/styles/dark.less",
+                "bundleName": "dark",
+                "inject": false
+              }
+            ],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "projects/app/ngsw-config.json"
