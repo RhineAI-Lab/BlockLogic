@@ -7,12 +7,6 @@
     background: #00000000;
   }
 
-  .ant-btn:hover {
-    border-color: @primary-color;
-  }
-  .ant-btn:focus {
-    border-color: @primary-color;
-  }
   .ant-btn-sm {
     font-size: 12px;
   }
@@ -27,10 +21,6 @@
     margin-left: 2px;
   }
 
-  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    color: @primary-color;
-    border-color: @primary-color;
-  }
 
   .ant-checkbox-wrapper {
     margin-left: 6px;
@@ -43,10 +33,6 @@
     padding-right: 2px;
   }
 
-  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
-    border-color: @primary-color;
-  }
-
   .ant-tree-show-line .ant-tree-indent-unit::before {
     border-color: #00000000;
   }
@@ -56,6 +42,7 @@
   .ant-tree-treenode {
     padding: 0;
   }
+
 }
 
 ::-webkit-scrollbar-track {
@@ -71,4 +58,10 @@
   font-size: 12px;
   padding: 2px 8px;
   min-height: 22px;
+}
+.ant-modal-header {
+  border-bottom: 0;
+}
+.ant-modal-footer {
+  border-top: 0;
 }

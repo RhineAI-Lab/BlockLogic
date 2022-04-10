@@ -13,6 +13,12 @@ body{
   .ant-btn {
     border: 1px solid @border-color;
   }
+  .ant-btn:hover {
+    border-color: @primary-color;
+  }
+  .ant-btn:focus {
+    border-color: @primary-color;
+  }
   .ant-btn:not(:hover):not(:focus) {
     i {
       color: #606060;
@@ -28,6 +34,14 @@ body{
   }
   .ant-radio-button-wrapper:last-child {
     border-color: @border-color;
+  }
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: @primary-color;
+    border-color: @primary-color;
+  }
+
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color: @primary-color;
   }
 
   .ant-checkbox-inner {
