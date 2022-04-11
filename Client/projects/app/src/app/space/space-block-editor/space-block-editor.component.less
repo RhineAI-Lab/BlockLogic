@@ -9,6 +9,7 @@ nz-layout {
     .sidebar-main {
       height: 100%;
       overflow-y: auto;
+      overflow-x: hidden;
 
       ::ng-deep {
         .ant-menu-item,
@@ -42,6 +43,20 @@ nz-layout {
         .ant-menu-item-selected {
           color: #000000ce;
         }
+        .ant-menu {
+          background: #ffffff;
+          color: #171717;
+        }
+        .ant-menu-item {
+          background: #ffffff;
+          color: #171717;
+        }
+        .ant-menu-item:hover {
+          color: #00a86b;
+        }
+        .ant-menu-item-selected {
+          background: #00a86b50;
+        }
       }
 
       h1 {
@@ -68,6 +83,8 @@ nz-layout {
 
       .categories{
         margin-bottom: 64px;
+        background: #fff;
+        border-right: 0;
       }
 
       .category-icon {
@@ -80,6 +97,15 @@ nz-layout {
       .category-title {
         transform: translateY(1px);
       }
+
+      .tip{
+        display: block;
+        width: 100%;
+        color: #6e6e6e;
+        font-size: 14px;
+        text-align: center;
+      }
+
     }
   }
 }

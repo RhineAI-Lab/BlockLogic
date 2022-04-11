@@ -1,5 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as monaco from 'monaco-editor';
+import { Registry } from 'monaco-textmate'
+import { wireTmGrammars } from 'monaco-editor-textmate'
 
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState, ThemeType } from '../shared/space-state.service';
@@ -16,7 +18,6 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   editorOptions = {
     theme: 'vs-dark',
     language: 'javascript',
-    value: 'console.log("Hello World!");',
     scrollbar: {
       verticalScrollbarSize: 10,
       horizontalScrollbarSize: 10,
@@ -77,14 +78,9 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
           console.error(err);
         },
       });
-    // this.loadTheme();
   }
 
   ngAfterViewInit() {
-    // this.editor = monaco.editor.create(
-    //   document.getElementById('monaco-editor')!,
-    //   this.editorOptions
-    // );
   }
 
   changeTheme(theme: string) {
@@ -106,19 +102,6 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
       grammars.set('less', 'source.css.less');
       grammars.set('json', 'source.json');
       grammars.set('python', 'source.python');
-
-      // TODO: 取消注释下方代码会产生webpack报错
-      // const registry = new Registry({
-      //   getGrammarDefinition: async (scopeName) => {
-      //     return {
-      //       format: 'json',
-      //       content: await (
-      //         await fetch('assets/grammars/javascript.json')
-      //       ).text(),
-      //     };
-      //   },
-      // });
-      // await wireTmGrammars(monaco, registry, grammars, this.editor)
     };
     init();
   }
