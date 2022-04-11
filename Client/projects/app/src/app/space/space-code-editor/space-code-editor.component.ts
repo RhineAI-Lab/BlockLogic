@@ -1,12 +1,9 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
-import { Registry } from 'monaco-textmate'
-import { wireTmGrammars } from 'monaco-editor-textmate'
 
 import { SpaceDevelopService } from '../shared/space-develop.service';
 import { SpaceState, ThemeType } from '../shared/space-state.service';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import { loadWASM } from 'onigasm';
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -16,7 +13,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   editorOptions = {
-    theme: 'vs-dark',
+    theme: 'one-dark',
     language: 'javascript',
     scrollbar: {
       verticalScrollbarSize: 10,
@@ -27,7 +24,7 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   editor!: monaco.editor.IStandaloneCodeEditor;
 
-  oneDarkLoaded = false;
+  oneDarkLoaded = true;
 
   get code(): string {
     return this.developService.targetCode;
@@ -50,60 +47,46 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    state.theme$.subscribe((v) => {
-      if (v == ThemeType.Default) {
-        this.changeTheme('vs')
-      } else {
-        if(this.oneDarkLoaded){
-          this.changeTheme('one-dark')
-        }else{
-          this.changeTheme('vs-dark')
-        }
-      }
-    });
+    // state.theme$.subscribe((v) => {
+    //   if (v == ThemeType.Default) {
+    //     this.changeTheme('vs')
+    //   } else {
+    //     if(this.oneDarkLoaded){
+    //       this.changeTheme('one-dark')
+    //     }else{
+    //       this.changeTheme('vs-dark')
+    //     }
+    //   }
+    // });
+  }
+
+  onInit(editor: monaco.editor.IStandaloneCodeEditor) {
+    this.editor = editor;
   }
 
   ngOnInit(): void {
-    this.httpClient
-      .get('assets/monaco/themes/one-dark.json', {responseType: 'text'})
-      .subscribe({
-        next:(text: string) => {
-          monaco.editor.defineTheme('one-dark', JSON.parse(text));
-          // this.oneDarkLoaded = true;
-          // if(this.state.theme$.getValue() == ThemeType.Dark){
-          //   this.changeTheme('one-dark')
-          // }
-        },
-        error:(err) => {
-          console.error(err);
-        },
-      });
+    // this.httpClient
+    //   .get('assets/monaco/themes/one-dark.json', {responseType: 'text'})
+    //   .subscribe({
+    //     next:(text: string) => {
+    //       monaco.editor.defineTheme('one-dark', JSON.parse(text));
+    //       this.oneDarkLoaded = true;
+    //       if(this.state.theme$.getValue() == ThemeType.Dark){
+    //         this.changeTheme('one-dark')
+    //       }
+    //     },
+    //     error:(err) => {
+    //       console.error(err);
+    //     },
+    //   });
   }
 
-  ngAfterViewInit() {
-  }
+  ngAfterViewInit() {}
 
   changeTheme(theme: string) {
-    console.log(theme)
     monaco.editor.setTheme(theme);
     this.editorOptions.theme = theme;
     this.editor.updateOptions(this.editorOptions);
-  }
-
-  loadTheme() {
-    const init = async () => {
-      await loadWASM('assets/onigasm/onigasm.wasm');
-      const grammars = new Map();
-      grammars.set('javascript', 'source.js');
-      grammars.set('css', 'source.css');
-      grammars.set('html', 'text.html.basic');
-      grammars.set('typescript', 'source.ts');
-      grammars.set('scss', 'source.css.scss');
-      grammars.set('less', 'source.css.less');
-      grammars.set('json', 'source.json');
-      grammars.set('python', 'source.python');
-    };
-    init();
   }
 
   undo() {

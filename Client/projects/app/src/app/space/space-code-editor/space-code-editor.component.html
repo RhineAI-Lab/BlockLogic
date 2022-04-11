@@ -3,7 +3,7 @@
     [options]="editorOptions"
     [(ngModel)]="code"
     (ngModelChange)="change.emit()"
-    (onInit)="editor = $event"
+    (onInit)="onInit($event)"
   ></ngx-monaco-editor>
 <!--  <div id="monaco-editor"></div>-->
 </div>

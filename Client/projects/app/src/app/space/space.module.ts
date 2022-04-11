@@ -41,7 +41,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
-import { MonacoEditorModule } from 'ngx-monaco-editor';
+import {MonacoEditorModule, NgxMonacoEditorConfig} from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
 import { DividerModule } from '../components/divider/divider.module';
@@ -64,6 +64,7 @@ import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzEmptyModule} from "ng-zorro-antd/empty";
+import * as monaco from "monaco-editor";
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -87,6 +88,23 @@ const icons: IconDefinition[] = [
   VerticalAlignBottomOutline,
   SearchOutline,
 ];
+
+const monacoConfig: NgxMonacoEditorConfig = {
+  baseUrl: 'assets',
+  defaultOptions: { scrollBeyondLastLine: false },
+  onMonacoLoad: () => {
+    console.log('monaco loaded');
+    monaco.editor.defineTheme('one-dark', {
+      base: 'vs',
+      inherit: false,
+      rules: [
+        { token: '', foreground: '0000ff', background: 'ff0000' }
+      ],
+      colors: {}
+    });
+    monaco.editor.setTheme('one-dark');
+  },
+};
 
 @NgModule({
   declarations: [
@@ -124,13 +142,13 @@ const icons: IconDefinition[] = [
       NzInputModule,
       NzCheckboxModule,
     ],
-    MonacoEditorModule,
     AngularSplitModule,
     IconButtonModule,
     DividerModule,
     NzPopconfirmModule,
     NzModalModule,
     NzEmptyModule,
+    MonacoEditorModule.forRoot(monacoConfig)
   ],
   providers: [
     {

@@ -10,7 +10,6 @@ import { NZ_CONFIG, NzConfig } from 'ng-zorro-antd/core/config';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { zh_CN } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -36,7 +35,6 @@ const ngZorroConfig: NzConfig = {
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    MonacoEditorModule.forRoot(),
     NzIconModule.forRoot([]),
     CoreModule,
     AppRoutingModule,
