@@ -39,9 +39,16 @@ export class SpaceFileService {
         if (url.endsWith('/')) {
           url = url + 'files.txt';
         }
+        const openError = () => {
+          this.notify('打开项目失败', 'error', '服务器资源不存在');
+          // this.state.emptyCenter$.next();
+          this.developService.openProject(Project.getDefaultProject(), false);
+        };
         this.httpClient.get(url, { responseType: 'text' }).subscribe({
           next: (text) => {
-            if (!source.endsWith('/')) {
+            if(text.startsWith('<!DOCTYPE html><html lang="zh"><head>')){
+              openError();
+            }else if (!source.endsWith('/')) {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
               const files: ProjectFile[] = [
@@ -67,7 +74,7 @@ export class SpaceFileService {
             }
           },
           error: (err) => {
-            this.notify('打开项目失败', 'error', '服务器资源不存在');
+            openError();
           },
         });
       } else {

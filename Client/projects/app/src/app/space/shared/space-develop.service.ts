@@ -53,13 +53,15 @@ export class SpaceDevelopService {
     this.targetFile$.getValue().code = v;
   }
 
-  openProject(project: Project): void {
+  openProject(project: Project, needTip: boolean = true): void {
     this.project$.next(project);
-    const tip = `项目${
-      project.files.length == 1 ? project.files[0].name : project.name
-    } 打开完成`;
-    this.state.projectState$.next(tip);
-    this.notify(tip, 'success');
+    if(needTip){
+      const tip = `项目${
+        project.files.length == 1 ? project.files[0].name : project.name
+      } 打开完成`;
+      this.state.projectState$.next(tip);
+      this.notify(tip, 'success');
+    }
     if (project.target == -1) {
       this.notify('项目中无可打开的文件', 'error');
     } else {

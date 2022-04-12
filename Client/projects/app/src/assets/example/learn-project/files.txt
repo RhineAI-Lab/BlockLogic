@@ -1,0 +1,7 @@
+LearnProject
+project.json
+main.js
+icons/logo_icon.png
+res/background.png
+ui.xml
+editor-show.js

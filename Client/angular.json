@@ -27,7 +27,6 @@
             "polyfills": "projects/app/src/polyfills.ts",
             "tsConfig": "projects/app/tsconfig.app.json",
             "inlineStyleLanguage": "less",
-            // "allowedCommonJsDependencies": ["crypto","stream","http","https","assert","os"],
             "assets": [
               "projects/app/src/favicon.ico",
               "projects/app/src/assets",
@@ -70,8 +69,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "8kb",
+                  "maximumError": "16kb"
                 }
               ],
               "fileReplacements": [
