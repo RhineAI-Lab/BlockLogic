@@ -64,7 +64,7 @@ import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzEmptyModule} from "ng-zorro-antd/empty";
-import * as monaco from "monaco-editor";
+import {CodeEditorTheme} from "./space-code-editor/space-code-editor-theme";
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -93,15 +93,8 @@ const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: 'assets',
   defaultOptions: { scrollBeyondLastLine: false },
   onMonacoLoad: () => {
-    console.log('monaco loaded');
-    monaco.editor.defineTheme('one-dark', {
-      base: 'vs',
-      inherit: false,
-      rules: [
-        { token: '', foreground: '0000ff', background: 'ff0000' }
-      ],
-      colors: {}
-    });
+    const monaco = (<any>window).monaco;
+    monaco.editor.defineTheme('one-dark', CodeEditorTheme.MyOneDark);
     monaco.editor.setTheme('one-dark');
   },
 };

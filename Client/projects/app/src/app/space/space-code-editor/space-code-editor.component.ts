@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
 import { SpaceDevelopService } from '../shared/space-develop.service';
@@ -11,9 +11,9 @@ import { HttpClient } from "@angular/common/http";
   templateUrl: './space-code-editor.component.html',
   styleUrls: ['./space-code-editor.component.less'],
 })
-export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
+export class SpaceCodeEditorComponent implements OnInit {
   editorOptions = {
-    theme: 'one-dark',
+    theme: 'vs',
     language: 'javascript',
     scrollbar: {
       verticalScrollbarSize: 10,
@@ -25,6 +25,7 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
   editor!: monaco.editor.IStandaloneCodeEditor;
 
   oneDarkLoaded = true;
+  monaco: any = null;
 
   get code(): string {
     return this.developService.targetCode;
@@ -37,9 +38,11 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
     private developService: SpaceDevelopService,
     private state: SpaceState,
     private httpClient: HttpClient,
-  ) {
-    state.toolbarButtonEvent$.subscribe((v) => {
-      if (!state.logicMode$.getValue()) {
+  ) {}
+
+  ngOnInit() {
+    this.state.toolbarButtonEvent$.subscribe((v) => {
+      if (!this.state.logicMode$.getValue()) {
         if (v == SpaceToolBarButtonType.Undo) {
           this.undo();
         } else if (v == SpaceToolBarButtonType.Redo) {
@@ -47,46 +50,28 @@ export class SpaceCodeEditorComponent implements OnInit, AfterViewInit {
         }
       }
     });
-    // state.theme$.subscribe((v) => {
-    //   if (v == ThemeType.Default) {
-    //     this.changeTheme('vs')
-    //   } else {
-    //     if(this.oneDarkLoaded){
-    //       this.changeTheme('one-dark')
-    //     }else{
-    //       this.changeTheme('vs-dark')
-    //     }
-    //   }
-    // });
+    this.state.theme$.subscribe((v) => {
+      if (v == ThemeType.Default) {
+        this.changeTheme('vs')
+      } else {
+        if(this.oneDarkLoaded){
+          this.changeTheme('one-dark')
+        }else{
+          this.changeTheme('vs-dark')
+        }
+      }
+    });
   }
 
   onInit(editor: monaco.editor.IStandaloneCodeEditor) {
     this.editor = editor;
+    this.monaco = (<any>window).monaco;
   }
-
-  ngOnInit(): void {
-    // this.httpClient
-    //   .get('assets/monaco/themes/one-dark.json', {responseType: 'text'})
-    //   .subscribe({
-    //     next:(text: string) => {
-    //       monaco.editor.defineTheme('one-dark', JSON.parse(text));
-    //       this.oneDarkLoaded = true;
-    //       if(this.state.theme$.getValue() == ThemeType.Dark){
-    //         this.changeTheme('one-dark')
-    //       }
-    //     },
-    //     error:(err) => {
-    //       console.error(err);
-    //     },
-    //   });
-  }
-
-  ngAfterViewInit() {}
 
   changeTheme(theme: string) {
-    monaco.editor.setTheme(theme);
-    this.editorOptions.theme = theme;
-    this.editor.updateOptions(this.editorOptions);
+    if(this.monaco!=null){
+      this.monaco.editor.setTheme(theme);
+    }
   }
 
   undo() {
