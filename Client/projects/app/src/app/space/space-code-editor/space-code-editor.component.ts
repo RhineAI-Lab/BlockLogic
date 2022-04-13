@@ -51,15 +51,17 @@ export class SpaceCodeEditorComponent implements OnInit {
       }
     });
     this.state.theme$.subscribe((v) => {
-      if (v == ThemeType.Default) {
-        this.changeTheme('vs')
-      } else {
-        if(this.oneDarkLoaded){
-          this.changeTheme('one-dark')
-        }else{
-          this.changeTheme('vs-dark')
+      setTimeout(() => {
+        if (v == ThemeType.Default) {
+          this.changeTheme('vs')
+        } else {
+          if(this.oneDarkLoaded){
+            this.changeTheme('one-dark')
+          }else{
+            this.changeTheme('vs-dark')
+          }
         }
-      }
+      },200);
     });
   }
 

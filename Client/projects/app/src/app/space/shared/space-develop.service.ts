@@ -1,14 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Subject} from 'rxjs';
 
-import { Project } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
-import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
-import { SpaceRunMode, SpaceSaveMode } from '../common/space-modes.enums';
-import { SpaceDebugService } from './space-debug.service';
-import { SpaceState } from './space-state.service';
+import {Project} from '../../common/project.class';
+import {ProjectFile} from '../../common/project-file.class';
+import {Sandbox, SandboxOutput} from '../../common/sandbox.class';
+import {SpaceEditorMode, SpaceRunMode} from '../common/space-modes.enums';
+import {SpaceDebugService} from './space-debug.service';
+import {SpaceState} from './space-state.service';
 import {NzNotificationService} from "ng-zorro-antd/notification";
+import {CodeUtils, XmlResult} from "../../common/utils/code.utils";
 
 @Injectable()
 export class SpaceDevelopService {
@@ -30,6 +31,8 @@ export class SpaceDevelopService {
 
   private sandboxOfLastRun?: Sandbox;
 
+  xmlList: XmlResult[] = [];
+
   constructor(
     private state: SpaceState,
     private debugService: SpaceDebugService,
@@ -37,6 +40,12 @@ export class SpaceDevelopService {
     private notification: NzNotificationService,
   ) {
     this.subscribeDebugEvents();
+    this.state.editorMode$.subscribe(mode => {
+      if (mode === SpaceEditorMode.Design) {
+        this.xmlList = CodeUtils.getXmlCodeList(this.targetCode);
+        console.log(this.xmlList)
+      }
+    });
   }
 
   init(): void {
