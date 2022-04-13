@@ -75,7 +75,7 @@ export class SpaceDevelopService {
         complete: () => {
           if (this.project$.getValue().changeTargetFile(filePath)) {
             const targetFile = this.project$.getValue().getTargetFile();
-            this.state.logicMode$.next(targetFile.isLogicFile());
+            this.state.isLogicFile$.next(targetFile.isLogicFile());
             this.targetFile$.next(targetFile);
           }
         },

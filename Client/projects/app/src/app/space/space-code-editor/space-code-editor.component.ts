@@ -42,7 +42,7 @@ export class SpaceCodeEditorComponent implements OnInit {
 
   ngOnInit() {
     this.state.toolbarButtonEvent$.subscribe((v) => {
-      if (!this.state.logicMode$.getValue()) {
+      if (!this.state.isLogicFile$.getValue()) {
         if (v == SpaceToolBarButtonType.Undo) {
           this.undo();
         } else if (v == SpaceToolBarButtonType.Redo) {

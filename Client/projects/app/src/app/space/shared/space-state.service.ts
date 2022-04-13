@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
+import {ParaUtils} from "../../common/utils/para.utils";
 
 @Injectable()
 export class SpaceState {
@@ -15,7 +16,7 @@ export class SpaceState {
 
   readonly isHeaderVisible$ = new BehaviorSubject(true);
 
-  readonly logicMode$ = new BehaviorSubject<boolean>(true);
+  readonly isLogicFile$ = new BehaviorSubject<boolean>(true);
   readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
     SpaceEditorMode.Logic,
   );
@@ -36,13 +37,12 @@ export class SpaceState {
     this.layoutMode$.subscribe(() => {
       this.needResize$.next(true);
     });
-    this.logicMode$.subscribe(() => {
+    this.isLogicFile$.subscribe(() => {
       this.needResize$.next(true);
     });
     this.isHeaderVisible$.subscribe(() => {
       this.needResize$.next(true);
     });
-
     this.theme$.subscribe((v) => {
       this.loadTheme(this.firstTime).subscribe(
         (v) => {},
@@ -55,6 +55,7 @@ export class SpaceState {
       );
       this.firstTime = false;
     });
+    const theme = ParaUtils.getUrlParameter('theme');
   }
 
   loadTheme(firstLoad = true): Observable<void> {

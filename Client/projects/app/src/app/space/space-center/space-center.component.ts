@@ -34,11 +34,11 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     private state: SpaceState,
   ) {
     this.layoutMode = state.layoutMode$.getValue();
-    this.isLogicMode = state.logicMode$.getValue();
+    this.isLogicMode = state.isLogicFile$.getValue();
     state.layoutMode$.subscribe((mode) => {
       this.layoutMode = mode;
     });
-    state.logicMode$.subscribe((mode) => {
+    state.isLogicFile$.subscribe((mode) => {
       this.isLogicMode = mode;
     });
     state.emptyCenter$.subscribe(() => {

@@ -1,6 +1,6 @@
 <div class="layout hr-ant" fxLayout>
   <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
-  <label nz-checkbox *ngIf="logicMode"
+  <label nz-checkbox *ngIf="isLogicFile"
     [(ngModel)]="holdBox"
     (ngModelChange)="onChangeHoldBox()"
   >保持栏目</label>
@@ -20,7 +20,7 @@
           (ngModelChange)="onChangeUnfoldXml()"
         >展开XML</label>
       </li>
-      <li nz-menu-item *ngIf="logicMode">
+      <li nz-menu-item *ngIf="isLogicFile">
         <label
           nz-checkbox
           [(ngModel)]="syncCode"
@@ -46,9 +46,18 @@
   >
     icon-redo
   </app-icon-button>
-  <app-toolbar-divider *ngIf="logicMode"></app-toolbar-divider>
-  <span class="tip" *ngIf="logicMode">生成: </span>
-  <nz-button-group nzSize="small" *ngIf="logicMode">
+  <app-toolbar-divider [hidden]="!isLogicFile || isEditorLogicMode"></app-toolbar-divider>
+  <nz-select
+    class="xml-selector"
+    [(ngModel)]="targetXml"
+    nzSize="small"
+    [hidden]="!isLogicFile || isEditorLogicMode"
+  >
+    <nz-option nzValue="XmlList" nzLabel="XmlList"></nz-option>
+  </nz-select>
+  <app-toolbar-divider [hidden]="!isLogicFile || !isEditorLogicMode"></app-toolbar-divider>
+  <span class="tip" [hidden]="!isLogicFile || !isEditorLogicMode">生成: </span>
+  <nz-button-group nzSize="small" [hidden]="!isLogicFile || !isEditorLogicMode">
     <button nz-button (click)="onToCode()">
       <i nz-icon nzType="right"></i>
       代码
@@ -58,7 +67,6 @@
       图形
     </button>
   </nz-button-group>
-  <br />
   <app-toolbar-divider></app-toolbar-divider>
   <app-icon-button
       color="#995599"
@@ -106,24 +114,15 @@
     api
   </app-icon-button>
   <app-toolbar-divider></app-toolbar-divider>
-  <button
+  <nz-select
     class="editor-mode-selector"
-    nz-button
-    nz-dropdown
-    [nzDropdownMenu]="runModeMenu"
+    [(ngModel)]="runMode"
+    (ngModelChange)="onRunModeChange()"
     nzSize="small"
   >
-    {{ runMode }}
-    <i nz-icon nzType="down"></i>
-    <nz-dropdown-menu #runModeMenu="nzDropdownMenu">
-      <ul nz-menu>
-        <li nz-menu-item (click)="onRunModeChange(RunMode.Browser)">
-          在线运行
-        </li>
-        <li nz-menu-item (click)="onRunModeChange(RunMode.Device)">设备运行</li>
-      </ul>
-    </nz-dropdown-menu>
-  </button>
+    <nz-option [nzValue]="RunMode.Browser" nzLabel="在线运行"></nz-option>
+    <nz-option [nzValue]="RunMode.Device" nzLabel="设备运行"></nz-option>
+  </nz-select>
   <app-icon-button
     color="#59A869"
     nz-tooltip="运行 [Ctrl+6]"
@@ -221,26 +220,26 @@
     </button>
   </nz-button-group>
   <input
-    class="hide"
     type="file"
     (change)="onSelectProject()"
     webkitdirectory
     directory
     #folderChooser
+    hidden
   />
   <input
-    class="hide"
     type="file"
     (change)="onSelectProject()"
     accept="text/javascript"
     #fileChooser
+    hidden
   />
   <input
-    class="hide"
     type="file"
     (change)="onSelectProject()"
     accept=".zip"
     #zipChooser
+    hidden
   />
   <app-toolbar-divider
     [fxHide]="state.isHeaderVisible$ | async"

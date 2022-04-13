@@ -2,10 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { filter, race, take } from 'rxjs';
 
-import { Project } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
 import { StringUtils } from '../../common/utils/string.utils';
 import {
+  SpaceEditorMode,
   SpaceOpenMode,
   SpaceRunMode,
   SpaceSaveMode,
@@ -23,7 +22,7 @@ export class SpaceToolBarComponent implements OnInit {
   RunMode = SpaceRunMode;
   SaveMode = SpaceSaveMode;
   OpenMode = SpaceOpenMode;
-  logicMode;
+  EditorMode = SpaceEditorMode;
 
   @ViewChild('folderChooser') folderChooser!: ElementRef;
   @ViewChild('fileChooser') fileChooser!: ElementRef;
@@ -45,8 +44,15 @@ export class SpaceToolBarComponent implements OnInit {
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();
 
   runMode = SpaceRunMode.Browser;
+  editorMode = SpaceEditorMode.Logic;
   saveMode = SpaceSaveMode.Local;
   openMode = SpaceOpenMode.LocalFile;
+  isLogicFile = false;
+  get isEditorLogicMode() {
+    return this.editorMode == SpaceEditorMode.Logic;
+  };
+
+  targetXml: string = 'XmlList';
 
   deviceAddress = '';
   connectionProtocol = 'ws://';
@@ -59,9 +65,12 @@ export class SpaceToolBarComponent implements OnInit {
     private fileService: SpaceFileService,
     private notification: NzNotificationService,
   ) {
-    this.logicMode = this.state.logicMode$.getValue();
-    this.state.logicMode$.subscribe((mode) => {
-      this.logicMode = mode;
+    this.isLogicFile = this.state.isLogicFile$.getValue();
+    this.state.isLogicFile$.subscribe((mode) => {
+      this.isLogicFile = mode;
+    });
+    this.state.editorMode$.subscribe((mode) => {
+      this.editorMode = mode;
     });
   }
 
@@ -149,9 +158,8 @@ export class SpaceToolBarComponent implements OnInit {
     this.developService.unfoldXml$.next(this.unfoldXml);
   }
 
-  onRunModeChange(mode: SpaceRunMode): void {
-    this.runMode = mode;
-    this.developService.runMode$.next(mode);
+  onRunModeChange(): void {
+    this.developService.runMode$.next(this.runMode);
   }
   onSaveModeChange(mode: SpaceSaveMode): void {
     this.saveMode = mode;

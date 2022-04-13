@@ -1,18 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as JSZip from 'jszip';
-import { from, Observable } from 'rxjs';
+import {from, Observable} from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import { Project, ProjectType } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
+import {Project, ProjectType} from '../../common/project.class';
+import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
-import { SpaceSaveMode } from '../common/space-modes.enums';
-import { HttpClient } from '@angular/common/http';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { SpaceLocationMode } from './space-develop.service';
-import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceDevelopService } from './space-develop.service';
-import { SpaceState } from './space-state.service';
+import {SpaceSaveMode} from '../common/space-modes.enums';
+import {HttpClient} from '@angular/common/http';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {SpaceDevelopService, SpaceLocationMode} from './space-develop.service';
+import {ParaUtils} from '../../common/utils/para.utils';
+import {SpaceState, ThemeType} from './space-state.service';
 
 @Injectable()
 export class SpaceFileService {

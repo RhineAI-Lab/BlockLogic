@@ -91,7 +91,9 @@ const icons: IconDefinition[] = [
 
 const monacoConfig: NgxMonacoEditorConfig = {
   baseUrl: 'assets',
-  defaultOptions: { scrollBeyondLastLine: false },
+  defaultOptions: {
+    scrollBeyondLastLine: false,
+  },
   onMonacoLoad: () => {
     const monaco = (<any>window).monaco;
     monaco.editor.defineTheme('one-dark', CodeEditorTheme.MyOneDark);
