@@ -2,7 +2,8 @@
 @import "mixin";
 .themeMixin({
   :host {
-    background-color: @divider-base;
+    background: @divider-base;
+    transition: background-color .4s ease;
     &.horizontal {
       display: block;
       width: 100%;

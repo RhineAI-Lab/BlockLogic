@@ -6,7 +6,8 @@
     .layout {
       height: @tab-height;
       position: relative;
-      background-color: @background-light;
+      background: @background-light;
+      transition: background-color .4s ease;
       padding-right: 6px;
 
       .bottom-line {
@@ -15,7 +16,8 @@
         left: 0;
         right: 0;
         height: 1px;
-        background-color: @divider-base;
+        background: @divider-base;
+        transition: background-color .4s ease;
       }
 
       .main {
@@ -33,6 +35,7 @@
             white-space: nowrap;
             padding: 2px 7px;
             margin-bottom: 1px;
+            transition: background-color .15s ease, color .15s ease;
 
             i {
               display: inline-block;
@@ -62,18 +65,18 @@
               }
 
               i:hover {
-                background-color: @background-close-hover;
+                background: @background-close-hover;
                 color: @background-base;
               }
             }
           }
 
           .tab:hover {
-            background-color: @background-second;
+            background: @background-second;
           }
 
           .tab-selected {
-            background-color: @background-base;
+            background: @background-base;
           }
 
           .tab-selected:before {

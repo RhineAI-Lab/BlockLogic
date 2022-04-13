@@ -10,13 +10,13 @@
   :host {
     .btns {
       width: 22px;
-      background-color: @background-light;
 
       .btn {
         position: relative;
         width: 22px;
         min-height: 40px;
         background: @background-light;
+        transition: background-color .15s ease;
         margin-bottom: 1px;
 
         .btn-text {
@@ -28,6 +28,7 @@
           position: absolute;
           font-size: 10px;
           color: @color-base;
+          transition: color .4s ease;
         }
 
         .btn-text-left {
@@ -64,11 +65,11 @@
       }
 
       .btn:not(.btn-selected):hover {
-        background-color: @background-second;
+        background: @background-second;
       }
 
       .btn-selected {
-        background-color: @background-third;
+        background: @background-third;
       }
     }
 
@@ -97,7 +98,8 @@
           position: absolute;
           top: 0;
           bottom: 0;
-          background-color: @divider-base;
+          background: @divider-base;
+          transition: background-color .4s ease;
         }
 
         .drag-split-line-left {

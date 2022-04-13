@@ -14,10 +14,11 @@
         top: 0;
         left: 0;
         right: 0;
-        background-color: @background-light;
+        background: @background-light;
         align-items: center;
         white-space: nowrap;
         padding: 0 4px;
+        transition: background-color .4s ease;
 
         .header-icon {
           width: 16px;
@@ -25,6 +26,7 @@
           font-size: 15px;
           margin: 8px 4px 6px 6px;
           color: @color-base;
+          transition: color .4s ease;
         }
         .header-text {
           height: @header-height - 3;
@@ -34,6 +36,7 @@
           max-lines: 1;
           font-size: 13px;
           color: @color-base;
+          transition: color .4s ease;
         }
       }
       .divider {
@@ -48,7 +51,8 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: @background-base;
+        background: @background-base;
+        transition: background-color .4s ease;
       }
     }
   }
