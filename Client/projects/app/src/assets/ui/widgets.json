@@ -62,7 +62,7 @@
     },
     {
       "name": "控件",
-      "open": true,
+      "open": false,
       "widgets": [
         {
           "name": "appbar",
