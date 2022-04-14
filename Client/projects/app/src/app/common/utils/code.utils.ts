@@ -45,19 +45,15 @@ export class CodeUtils {
       }else if(obj.type){
         if(obj.type==="JSXElement"){
           if(obj.closingElement){
-            result.push({
-              line:[obj.openingElement.loc.start.line,obj.closingElement.loc.end.line],
-              range:[obj.openingElement.range[0],obj.closingElement.range[1]],
-              indent: 0,
-              tip: '',
-            });
+            result.push(new XmlResult(
+              [obj.openingElement.loc.start.line,obj.closingElement.loc.end.line],
+              [obj.openingElement.range[0],obj.closingElement.range[1]],
+            ));
           }else{
-            result.push({
-              line:[obj.openingElement.loc.start.line,obj.openingElement.loc.end.line],
-              range:obj.openingElement.range,
-              indent: 0,
-              tip: '',
-            });
+            result.push(new XmlResult(
+              [obj.openingElement.loc.start.line,obj.openingElement.loc.end.line],
+              obj.openingElement.range,
+            ));
           }
           let res = result[result.length-1];
           res.indent = StringUtils.countLastN(code,res.range[0]-1);
@@ -68,6 +64,7 @@ export class CodeUtils {
           }else {
             res.tip = res.tip.substring(0,res.tip.length-1)+".."
           }
+          res.tip += ' [line:'+res.line[0]+'~'+res.line[1]+']';
         }else {
           let values = Object.values(obj);
           for (let i = 0; i < values.length; i++) {
@@ -81,9 +78,24 @@ export class CodeUtils {
   }
 }
 
-export interface XmlResult {
-  range: [number, number];
-  line: [number, number];
-  indent: number;
+export class XmlResult {
+  range: [number, number]
+  line: [number, number]
+  indent: number
   tip: string
+
+  constructor(line: [number, number], range: [number, number], indent: number = 0, tip: string = '') {
+    this.range = range;
+    this.line = line;
+    this.indent = indent;
+    this.tip = tip;
+  }
+
+  isEmpty(): boolean {
+    return this.range[0] == -1;
+  }
+
+  static createEmpty(): XmlResult {
+    return new XmlResult([-1,-1],[-1,-1],-1,'暂无XML');
+  }
 }

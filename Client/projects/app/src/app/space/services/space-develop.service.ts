@@ -32,6 +32,7 @@ export class SpaceDevelopService {
   private sandboxOfLastRun?: Sandbox;
 
   xmlList: XmlResult[] = [];
+  readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
 
   constructor(
     private state: SpaceState,
@@ -42,8 +43,7 @@ export class SpaceDevelopService {
     this.subscribeDebugEvents();
     this.state.editorMode$.subscribe(mode => {
       if (mode === SpaceEditorMode.Design) {
-        this.xmlList = CodeUtils.getXmlCodeList(this.targetCode);
-        console.log(this.xmlList)
+        this.freshXmlList();
       }
     });
   }
@@ -126,6 +126,26 @@ export class SpaceDevelopService {
     }
   }
   stop(): void {
+  }
+
+  freshXmlList(): void {
+    const index = this.xmlList.indexOf(this.targetXml$.getValue());
+    this.xmlList = CodeUtils.getXmlCodeList(this.targetCode);
+    if(index>=0){
+      if(index<this.xmlList.length){
+        this.targetXml$.next(this.xmlList[index]);
+      }else if(this.xmlList.length>0){
+        this.targetXml$.next(this.xmlList[0]);
+      }else{
+        this.targetXml$.next(XmlResult.createEmpty());
+      }
+    }else{
+      if(this.xmlList.length>0){
+        this.targetXml$.next(this.xmlList[0]);
+      }else{
+        this.targetXml$.next(XmlResult.createEmpty());
+      }
+    }
   }
 
   private notify(

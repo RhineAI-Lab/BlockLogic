@@ -46,15 +46,24 @@
   >
     icon-redo
   </app-icon-button>
-  <app-toolbar-divider [hidden]="!isLogicFile || isEditorLogicMode"></app-toolbar-divider>
+  <app-toolbar-divider [hidden]="isEditorLogicMode"></app-toolbar-divider>
   <nz-select
     class="xml-selector"
     [(ngModel)]="targetXml"
     nzSize="small"
-    [hidden]="!isLogicFile || isEditorLogicMode"
+    [hidden]="isEditorLogicMode"
   >
-    <nz-option nzValue="XmlList" nzLabel="XmlList"></nz-option>
+    <nz-option *ngFor="let xml of xmlList" [nzValue]="xml" [nzLabel]="xml.tip"></nz-option>
   </nz-select>
+  <app-icon-button
+    [color]="this.state.isLight?'#666666':'#bbbbbb'"
+    nz-tooltip="刷新XML列表"
+    nzTooltipPlacement="bottom"
+    (click)="freshXmlList()"
+    [hidden]="isEditorLogicMode"
+  >
+    icon-refresh
+  </app-icon-button>
   <app-toolbar-divider [hidden]="!isLogicFile || !isEditorLogicMode"></app-toolbar-divider>
   <span class="tip" [hidden]="!isLogicFile || !isEditorLogicMode">生成: </span>
   <nz-button-group nzSize="small" [hidden]="!isLogicFile || !isEditorLogicMode">

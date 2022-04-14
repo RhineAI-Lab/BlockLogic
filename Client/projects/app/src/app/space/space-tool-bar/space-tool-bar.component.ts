@@ -12,6 +12,7 @@ import {
 import { SpaceDevelopService } from '../services/space-develop.service';
 import {SpaceState, ThemeType} from '../services/space-state.service';
 import {SpaceFileService} from "../services/space-file.service";
+import {XmlResult} from "../../common/utils/code.utils";
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -44,7 +45,12 @@ export class SpaceToolBarComponent implements OnInit {
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();
 
   runMode = SpaceRunMode.Browser;
-  editorMode = SpaceEditorMode.Logic;
+  get editorMode() {
+    return this.state.editorMode$.getValue();
+  }
+  set editorMode(value: SpaceEditorMode) {
+    this.state.editorMode$.next(value);
+  }
   saveMode = SpaceSaveMode.Local;
   openMode = SpaceOpenMode.LocalFile;
   isLogicFile = false;
@@ -52,7 +58,15 @@ export class SpaceToolBarComponent implements OnInit {
     return this.editorMode == SpaceEditorMode.Logic;
   };
 
-  targetXml: string = 'XmlList';
+  get targetXml() {
+    return this.developService.targetXml$.getValue();
+  }
+  set targetXml(value: XmlResult){
+    this.developService.targetXml$.next(value);
+  }
+  get xmlList() {
+    return this.developService.xmlList;
+  }
 
   deviceAddress = '';
   connectionProtocol = 'ws://';
@@ -68,9 +82,6 @@ export class SpaceToolBarComponent implements OnInit {
     this.isLogicFile = this.state.isLogicFile$.getValue();
     this.state.isLogicFile$.subscribe((mode) => {
       this.isLogicFile = mode;
-    });
-    this.state.editorMode$.subscribe((mode) => {
-      this.editorMode = mode;
     });
   }
 
@@ -146,6 +157,10 @@ export class SpaceToolBarComponent implements OnInit {
         ),
       ]).subscribe();
     }
+  }
+
+  freshXmlList(): void {
+    this.developService.freshXmlList()
   }
 
   onChangeSyncCode(): void {
