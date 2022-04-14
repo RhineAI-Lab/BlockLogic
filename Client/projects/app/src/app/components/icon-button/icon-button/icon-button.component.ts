@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {SpaceState, ThemeType} from "../../../space/shared/space-state.service";
+import {SpaceState, ThemeType} from "../../../space/services/space-state.service";
 
 @Component({
   selector: 'app-icon-button',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SpaceSidebarEntry } from '../../space-sidebar-manager/space-sidebar-manager.component';
-import { SpaceState } from '../space-state.service';
+import { SpaceState } from '../../services/space-state.service';
 
 @Component({
   selector: 'app-space-sidebar-layout',

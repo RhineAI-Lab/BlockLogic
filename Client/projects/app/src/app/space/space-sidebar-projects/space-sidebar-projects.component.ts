@@ -9,7 +9,7 @@ import {
 import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { IconUtils } from '../../common/utils/icon.utils';
-import { SpaceDevelopService } from '../shared/space-develop.service';
+import { SpaceDevelopService } from '../services/space-develop.service';
 import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {Clipboard} from "@angular/cdk/clipboard";
 import {ProjectFile} from "../../common/project-file.class";

@@ -4,13 +4,13 @@ import * as Blockly from 'blockly';
 
 import { CodeUtils } from '../../common/utils/code.utils';
 import { SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceState } from '../shared/space-state.service';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState } from '../services/space-state.service';
 import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 import { wait } from '../../common/promisify.utils';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import {SpaceFileService} from "../shared/space-file.service";
+import {SpaceFileService} from "../services/space-file.service";
 
 @Component({
   selector: 'app-space-center',

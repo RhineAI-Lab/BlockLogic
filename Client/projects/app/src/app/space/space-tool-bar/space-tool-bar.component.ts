@@ -9,9 +9,9 @@ import {
   SpaceRunMode,
   SpaceSaveMode,
 } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import {SpaceState, ThemeType} from '../shared/space-state.service';
-import {SpaceFileService} from "../shared/space-file.service";
+import { SpaceDevelopService } from '../services/space-develop.service';
+import {SpaceState, ThemeType} from '../services/space-state.service';
+import {SpaceFileService} from "../services/space-file.service";
 
 @Component({
   selector: 'app-space-tool-bar',

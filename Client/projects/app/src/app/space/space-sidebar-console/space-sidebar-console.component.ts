@@ -3,7 +3,7 @@ import * as dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 
 import { SandboxOutput } from '../../common/sandbox.class';
-import { SpaceDevelopService } from '../shared/space-develop.service';
+import { SpaceDevelopService } from '../services/space-develop.service';
 
 @Component({
   selector: 'app-space-sidebar-console',

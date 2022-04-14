@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
-import { SpaceDebugService } from './shared/space-debug.service';
-import { SpaceDevelopService } from './shared/space-develop.service';
-import { SpaceState } from './shared/space-state.service';
-import {SpaceFileService} from "./shared/space-file.service";
+import { SpaceDebugService } from './services/space-debug.service';
+import { SpaceDevelopService } from './services/space-develop.service';
+import { SpaceState } from './services/space-state.service';
+import {SpaceFileService} from "./services/space-file.service";
 
 @Component({
   selector: 'app-space',

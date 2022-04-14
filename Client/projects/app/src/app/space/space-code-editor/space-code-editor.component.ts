@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceState, ThemeType } from '../shared/space-state.service';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState, ThemeType } from '../services/space-state.service';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 import { HttpClient } from "@angular/common/http";
 

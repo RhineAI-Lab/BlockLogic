@@ -1,5 +1,5 @@
 import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {SpaceState} from "../shared/space-state.service";
+import {SpaceState} from "../services/space-state.service";
 
 @Component({
   selector: 'app-space-status-bar',

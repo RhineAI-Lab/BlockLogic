@@ -1,11 +1,11 @@
 import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
 import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
-import {SpaceState, ThemeType} from '../shared/space-state.service';
+import {SpaceState, ThemeType} from '../services/space-state.service';
 import {SpaceComponent} from '../space.component';
 import {SpaceSidebarConsoleComponent} from '../space-sidebar-console/space-sidebar-console.component';
 import {SpaceSidebarProjectsComponent} from '../space-sidebar-projects/space-sidebar-projects.component';
 import {SpaceSidebarTerminalComponent} from '../space-sidebar-terminal/space-sidebar-terminal.component';
-import {SpaceDevelopService} from '../shared/space-develop.service';
+import {SpaceDevelopService} from '../services/space-develop.service';
 
 @Component({
   selector: 'app-space-sidebar-manager',

@@ -3,7 +3,7 @@ import * as Blockly from 'blockly';
 
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
 import { ColorUtils } from '../../common/utils/color.utils';
-import { SpaceState } from '../shared/space-state.service';
+import { SpaceState } from '../services/space-state.service';
 
 @Component({
   selector: 'app-space-block-editor',

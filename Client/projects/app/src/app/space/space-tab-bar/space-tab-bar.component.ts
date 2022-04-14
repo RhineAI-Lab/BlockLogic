@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../shared/space-develop.service';
-import { SpaceState } from '../shared/space-state.service';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState } from '../services/space-state.service';
 import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
 import {Clipboard} from '@angular/cdk/clipboard';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
