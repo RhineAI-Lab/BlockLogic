@@ -7,8 +7,8 @@ import {ParaUtils} from "../../common/utils/para.utils";
 
 @Injectable()
 export class SpaceState {
-  readonly theme$ = new BehaviorSubject<ThemeType>(ThemeType.Default);
-  previousTheme = ThemeType.Default;
+  readonly theme$ = new BehaviorSubject<ThemeType>(ThemeType.Dark);
+  previousTheme = this.theme$.getValue();
   firstTime = true;
   get isLight(): boolean {
     return this.theme$.value == ThemeType.Default;

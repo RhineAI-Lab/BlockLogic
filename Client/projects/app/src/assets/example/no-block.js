@@ -1,3 +1,8 @@
-for (var count = 0; count < 10; count++) {
-    console.log('HelloWorld');
-}
+"ui";
+
+$ui.layout(
+    <frame w="*" h="*">
+        <text id="tv" text="HelloWorld"/>
+    </frame>
+);
+

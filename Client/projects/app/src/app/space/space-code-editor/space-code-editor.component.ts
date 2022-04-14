@@ -13,7 +13,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class SpaceCodeEditorComponent implements OnInit {
   editorOptions = {
-    theme: 'vs',
+    theme: this.state.isLight ? 'vs' : 'one-dark',
     language: 'javascript',
     scrollbar: {
       verticalScrollbarSize: 10,
@@ -72,7 +72,10 @@ export class SpaceCodeEditorComponent implements OnInit {
 
   changeTheme(theme: string) {
     if(this.monaco!=null){
-      this.monaco.editor.setTheme(theme);
+      if(this.editorOptions.theme!=theme){
+        this.editorOptions.theme = theme;
+        this.monaco.editor.setTheme(theme);
+      }
     }
   }
 
