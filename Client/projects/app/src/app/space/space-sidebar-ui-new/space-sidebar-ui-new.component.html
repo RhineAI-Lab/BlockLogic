@@ -1,6 +1,6 @@
 <app-space-sidebar-layout class="layout">
-  <div class="main">
-    <ul nz-menu nzMode="inline">
+  <div class="main no-select">
+    <ul nz-menu class="menu" nzMode="inline" [nzSelectable]="false">
       <li
         nz-submenu
         class="group"
@@ -10,8 +10,19 @@
         [nzOpen]="group.open"
       >
         <ul>
-          <li nz-menu-item class="item" *ngFor="let item of group.widgets">
-            {{item.name}}
+          <li nz-menu-item *ngFor="let item of group.widgets">
+            <div class="item">
+              <div class="title">
+                <i
+                  nz-icon
+                  [nzType]="'appstore'"
+                ></i>
+                <span>{{item.name}}</span>
+              </div>
+              <div class="content">
+                <div>{{item.summary}}</div>
+              </div>
+            </div>
           </li>
         </ul>
       </li>
