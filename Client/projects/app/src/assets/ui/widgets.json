@@ -1,0 +1,418 @@
+{
+  "widgetGroups": [
+    {
+      "name": "布局",
+      "open": true,
+      "widgets": [
+        {
+          "name": "drawer",
+          "code": "<drawer></drawer>",
+          "summary": "抽屉布局 可从侧边拉出页面",
+          "type": "VG"
+        },
+        {
+          "name": "frame",
+          "code": "<frame></frame>",
+          "summary": "帧布局 内部控件将任意重叠排列",
+          "type": "VG"
+        },
+        {
+          "name": "grid",
+          "code": "<grid></grid>",
+          "summary": "表格布局 表格状排布布局",
+          "type": "VG"
+        },
+        {
+          "name": "horizontal",
+          "code": "<horizontal></horizontal>",
+          "summary": "水平布局 内部控件将水平排列",
+          "type": "VG"
+        },
+        {
+          "name": "linear",
+          "code": "<linear></linear>",
+          "summary": "线性布局 内部控件将水平或垂直线性排列",
+          "type": "VG"
+        },
+        {
+          "name": "list",
+          "code": "<list></list>",
+          "summary": "列表布局 用于呈现列表类数据 等价安卓RecyclerView",
+          "type": "VG"
+        },
+        {
+          "name": "relative",
+          "code": "<relative></relative>",
+          "summary": "相对布局 内部控件可相对其他控件设置位置",
+          "type": "VG"
+        },
+        {
+          "name": "vertical",
+          "code": "<vertical></vertical>",
+          "summary": "垂直布局 内部控件将垂直排列",
+          "type": "VG"
+        },
+        {
+          "name": "viewpager",
+          "code": "<viewpager></viewpager>",
+          "summary": "多页布局 可有多个可左右活动的页面",
+          "type": "VG"
+        }
+      ]
+    },
+    {
+      "name": "控件",
+      "open": true,
+      "widgets": [
+        {
+          "name": "appbar",
+          "code": "<appbar/>",
+          "summary": "App标题栏控件",
+          "type": "V"
+        },
+        {
+          "name": "button",
+          "code": "<button/>",
+          "summary": "按钮控件",
+          "type": "V"
+        },
+        {
+          "name": "card",
+          "code": "<card/>",
+          "summary": "卡片控件",
+          "type": "V"
+        },
+        {
+          "name": "checkbox",
+          "code": "<checkbox/>",
+          "summary": "[支持绑定] 复选框控件",
+          "type": "V"
+        },
+        {
+          "name": "datepicker",
+          "code": "<datepicker/>",
+          "summary": "日期选择控件",
+          "type": "V"
+        },
+        {
+          "name": "fab",
+          "code": "<fab/>",
+          "summary": "浮动按钮控件",
+          "type": "V"
+        },
+        {
+          "name": "icon",
+          "code": "<icon/>",
+          "summary": "图标控件",
+          "type": "V"
+        },
+        {
+          "name": "img",
+          "code": "<img/>",
+          "summary": "图片控件",
+          "type": "V"
+        },
+        {
+          "name": "input",
+          "code": "<input/>",
+          "summary": "[支持绑定] 输入框控件",
+          "type": "V"
+        },
+        {
+          "name": "progressbar",
+          "code": "<progressbar/>",
+          "summary": "进度条控件",
+          "type": "V"
+        },
+        {
+          "name": "radio",
+          "code": "<radio/>",
+          "summary": "[支持绑定] 单选框控件",
+          "type": "V"
+        },
+        {
+          "name": "radiogroup",
+          "code": "<radiogroup/>",
+          "summary": "单选框组控件",
+          "type": "V"
+        },
+        {
+          "name": "seekbar",
+          "code": "<seekbar/>",
+          "summary": "[支持绑定] 拖动条控件",
+          "type": "V"
+        },
+        {
+          "name": "spinner",
+          "code": "<spinner/>",
+          "summary": "[支持绑定] 下拉菜单控件",
+          "type": "V"
+        },
+        {
+          "name": "Switch",
+          "code": "<Switch/>",
+          "summary": "[支持绑定] 开关控件",
+          "type": "V"
+        },
+        {
+          "name": "text",
+          "code": "<text/>",
+          "summary": "文本控件",
+          "type": "V"
+        },
+        {
+          "name": "timepicker",
+          "code": "<timepicker/>",
+          "summary": "时间选择控件",
+          "type": "V"
+        },
+        {
+          "name": "webview",
+          "code": "<webview/>",
+          "summary": "网页控件",
+          "type": "V"
+        }
+      ]
+    },
+    {
+      "name": "Android布局",
+      "open": false,
+      "widgets": [
+        {
+          "name": "AppBarLayout",
+          "code": "<AppBarLayout></AppBarLayout>",
+          "summary": "App顶栏布局",
+          "type": "VG"
+        },
+        {
+          "name": "BottomAppBar",
+          "code": "<BottomAppBar></BottomAppBar>",
+          "summary": "底栏布局",
+          "type": "VG"
+        },
+        {
+          "name": "CardView",
+          "code": "<CardView></CardView>",
+          "summary": "卡片布局",
+          "type": "VG"
+        },
+        {
+          "name": "ConstraintLayout",
+          "code": "<ConstraintLayout></ConstraintLayout>",
+          "summary": "约束布局",
+          "type": "VG"
+        },
+        {
+          "name": "FrameLayout",
+          "code": "<FrameLayout></FrameLayout>",
+          "summary": "帧布局",
+          "type": "VG"
+        },
+        {
+          "name": "GridLayout",
+          "code": "<GridLayout></GridLayout>",
+          "summary": "表格布局",
+          "type": "VG"
+        },
+        {
+          "name": "LinearLayout",
+          "code": "<LinearLayout></LinearLayout>",
+          "summary": "线性布局",
+          "type": "VG"
+        },
+        {
+          "name": "NavigationView",
+          "code": "<NavigationView></NavigationView>",
+          "summary": "导航布局",
+          "type": "VG"
+        },
+        {
+          "name": "RecyclerView",
+          "code": "<RecyclerView></RecyclerView>",
+          "summary": "重复布局",
+          "type": "VG"
+        },
+        {
+          "name": "ScrollView",
+          "code": "<ScrollView></ScrollView>",
+          "summary": "滚动布局",
+          "type": "VG"
+        },
+        {
+          "name": "TabItem",
+          "code": "<TabItem></TabItem>",
+          "summary": "切换指示器",
+          "type": "VG"
+        },
+        {
+          "name": "TabLayout",
+          "code": "<TabLayout></TabLayout>",
+          "summary": "切换指示器组",
+          "type": "VG"
+        },
+        {
+          "name": "TableLayout",
+          "code": "<TableLayout></TableLayout>",
+          "summary": "表格布局",
+          "type": "VG"
+        },
+        {
+          "name": "TableRow",
+          "code": "<TableRow></TableRow>",
+          "summary": "表格行布局",
+          "type": "VG"
+        },
+        {
+          "name": "ToolBar",
+          "code": "<ToolBar></ToolBar>",
+          "summary": "工具栏布局",
+          "type": "VG"
+        }
+      ]
+    },
+    {
+      "name": "Android控件",
+      "open": false,
+      "widgets": [
+        {
+          "name": "AdView",
+          "code": "<AdView/>",
+          "summary": "广告控件",
+          "type": "V"
+        },
+        {
+          "name": "Barrier",
+          "code": "<Barrier/>",
+          "summary": "定位块",
+          "type": "V"
+        },
+        {
+          "name": "Button",
+          "code": "<Button/>",
+          "summary": "按钮控件",
+          "type": "V"
+        },
+        {
+          "name": "CalendarView",
+          "code": "<CalendarView/>",
+          "summary": "日期控件",
+          "type": "V"
+        },
+        {
+          "name": "CheckBox",
+          "code": "<CheckBox/>",
+          "summary": "复选框控件",
+          "type": "V"
+        },
+        {
+          "name": "Chip",
+          "code": "<Chip/>",
+          "summary": "标签",
+          "type": "V"
+        },
+        {
+          "name": "ChipGroup",
+          "code": "<ChipGroup/>",
+          "summary": "标签流组件",
+          "type": "V"
+        },
+        {
+          "name": "GuideLine",
+          "code": "<GuideLine/>",
+          "summary": "定位线",
+          "type": "V"
+        },
+        {
+          "name": "ImageView",
+          "code": "<ImageView/>",
+          "summary": "图片控件",
+          "type": "V"
+        },
+        {
+          "name": "MapView",
+          "code": "<MapView/>",
+          "summary": "地图控件",
+          "type": "V"
+        },
+        {
+          "name": "MockView",
+          "code": "<MockView/>",
+          "summary": "虚拟控件",
+          "type": "V"
+        },
+        {
+          "name": "ProgressBar",
+          "code": "<ProgressBar/>",
+          "summary": "进度条控件",
+          "type": "V"
+        },
+        {
+          "name": "RadioButton",
+          "code": "<RadioButton/>",
+          "summary": "单选框按键",
+          "type": "V"
+        },
+        {
+          "name": "RadioGroup",
+          "code": "<RadioGroup/>",
+          "summary": "单选框组件",
+          "type": "V"
+        },
+        {
+          "name": "RatingBar",
+          "code": "<RatingBar/>",
+          "summary": "打星级控件",
+          "type": "V"
+        },
+        {
+          "name": "SearchView",
+          "code": "<SearchView/>",
+          "summary": "搜索框控件",
+          "type": "V"
+        },
+        {
+          "name": "SeekBar",
+          "code": "<SeekBar/>",
+          "summary": "拖动条控件",
+          "type": "V"
+        },
+        {
+          "name": "SurfaceView",
+          "code": "<SurfaceView/>",
+          "summary": "流媒体控件",
+          "type": "V"
+        },
+        {
+          "name": "TextView",
+          "code": "<TextView/>",
+          "summary": "文本框控件",
+          "type": "V"
+        },
+        {
+          "name": "ToggleButton",
+          "code": "<ToggleButton/>",
+          "summary": "开关控件",
+          "type": "V"
+        },
+        {
+          "name": "VideoView",
+          "code": "<VideoView/>",
+          "summary": "视频控件",
+          "type": "V"
+        },
+        {
+          "name": "View",
+          "code": "<View/>",
+          "summary": "基础控件",
+          "type": "V"
+        },
+        {
+          "name": "WebView",
+          "code": "<WebView/>",
+          "summary": "网页控件",
+          "type": "V"
+        }
+      ]
+    }
+  ]
+}

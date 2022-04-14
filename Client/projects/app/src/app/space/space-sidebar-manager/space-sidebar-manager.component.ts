@@ -7,6 +7,9 @@ import {SpaceSidebarProjectsComponent} from '../space-sidebar-projects/space-sid
 import {SpaceSidebarTerminalComponent} from '../space-sidebar-terminal/space-sidebar-terminal.component';
 import {SpaceDevelopService} from '../services/space-develop.service';
 import {SpaceSidebarUiNewComponent} from "../space-sidebar-ui-new/space-sidebar-ui-new.component";
+import {SpaceSidebarUiStructureComponent} from "../space-sidebar-ui-structure/space-sidebar-ui-structure.component";
+import {SpaceSidebarUiTreeComponent} from "../space-sidebar-ui-tree/space-sidebar-ui-tree.component";
+import {SpaceSidebarUiAttributeComponent} from "../space-sidebar-ui-attribute/space-sidebar-ui-attribute.component";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -69,7 +72,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     this.use({
       name: ' UI 控件树',
       icon: 'menu-unfold',
-      component: SpaceSidebarUiNewComponent,
+      component: SpaceSidebarUiTreeComponent,
       tooltip: '控件树视图',
       position: 'left-top',
       width: 280,
@@ -80,7 +83,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     this.use({
       name: ' UI 结构',
       icon: 'appstore',
-      component: SpaceSidebarUiNewComponent,
+      component: SpaceSidebarUiStructureComponent,
       tooltip: '控件结构视图',
       position: 'left-top',
       width: 320,
@@ -91,7 +94,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     this.use({
       name: ' UI 属性',
       icon: 'unordered-list',
-      component: SpaceSidebarUiNewComponent,
+      component: SpaceSidebarUiAttributeComponent,
       tooltip: '调整控件属性',
       position: 'right-top',
       width: 320,
