@@ -6,6 +6,7 @@ import {SpaceSidebarConsoleComponent} from '../space-sidebar-console/space-sideb
 import {SpaceSidebarProjectsComponent} from '../space-sidebar-projects/space-sidebar-projects.component';
 import {SpaceSidebarTerminalComponent} from '../space-sidebar-terminal/space-sidebar-terminal.component';
 import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceSidebarUiNewComponent} from "../space-sidebar-ui-new/space-sidebar-ui-new.component";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -51,6 +52,50 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       position: 'right-top',
       width: 400,
       minWidth: 220,
+      isOpen: false,
+      showTab: true,
+    }),
+    this.use({
+      name: ' UI 新增',
+      icon: 'appstore-add',
+      component: SpaceSidebarUiNewComponent,
+      tooltip: '新增UI控件',
+      position: 'left-top',
+      width: 280,
+      minWidth: 180,
+      isOpen: false,
+      showTab: true,
+    }),
+    this.use({
+      name: ' UI 控件树',
+      icon: 'menu-unfold',
+      component: SpaceSidebarUiNewComponent,
+      tooltip: '控件树视图',
+      position: 'left-top',
+      width: 280,
+      minWidth: 180,
+      isOpen: false,
+      showTab: true,
+    }),
+    this.use({
+      name: ' UI 结构',
+      icon: 'appstore',
+      component: SpaceSidebarUiNewComponent,
+      tooltip: '控件结构视图',
+      position: 'left-top',
+      width: 320,
+      minWidth: 180,
+      isOpen: false,
+      showTab: true,
+    }),
+    this.use({
+      name: ' UI 属性',
+      icon: 'unordered-list',
+      component: SpaceSidebarUiNewComponent,
+      tooltip: '调整控件属性',
+      position: 'right-top',
+      width: 320,
+      minWidth: 180,
       isOpen: false,
       showTab: true,
     }),
@@ -118,6 +163,14 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     }else{
       return '#202020';
     }
+  }
+
+  getNameLength(name: string): string {
+    let len = name.length * 12 + 50;
+    if(name.startsWith(' UI ')){
+      len = len - 30;
+    }
+    return len + 'px';
   }
 }
 

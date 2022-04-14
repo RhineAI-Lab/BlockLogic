@@ -22,6 +22,10 @@ import {
   UpOutline,
   VerticalAlignBottomOutline,
   SearchOutline,
+  AppstoreAddOutline,
+  UnorderedListOutline,
+  AppstoreOutline,
+  MenuUnfoldOutline,
 } from '@ant-design/icons-angular/icons';
 import {
   ANGULAR_SPLIT_DEFAULT_OPTIONS,
@@ -65,6 +69,10 @@ import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzEmptyModule} from "ng-zorro-antd/empty";
 import {CodeEditorTheme} from "./space-code-editor/space-code-editor-theme";
+import {SpaceSidebarUiNewComponent} from "./space-sidebar-ui-new/space-sidebar-ui-new.component";
+import {SpaceSidebarUiAttributeComponent} from "./space-sidebar-ui-attribute/space-sidebar-ui-attribute.component";
+import {SpaceSidebarUiTreeComponent} from "./space-sidebar-ui-tree/space-sidebar-ui-tree.component";
+import {SpaceSidebarUiStructureComponent} from "./space-sidebar-ui-structure/space-sidebar-ui-structure.component";
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -87,6 +95,10 @@ const icons: IconDefinition[] = [
   UpOutline,
   VerticalAlignBottomOutline,
   SearchOutline,
+  AppstoreAddOutline,
+  UnorderedListOutline,
+  AppstoreOutline,
+  MenuUnfoldOutline,
 ];
 
 const monacoConfig: NgxMonacoEditorConfig = {
@@ -115,6 +127,10 @@ const monacoConfig: NgxMonacoEditorConfig = {
     SpaceSidebarConsoleComponent,
     SpaceSidebarLayoutComponent,
     SpaceSidebarTerminalComponent,
+    SpaceSidebarUiNewComponent,
+    SpaceSidebarUiTreeComponent,
+    SpaceSidebarUiStructureComponent,
+    SpaceSidebarUiAttributeComponent,
     SpaceCenterComponent,
   ],
   imports: [
@@ -159,7 +175,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
 export class SpaceModule {
   constructor(iconService: NzIconService) {
     iconService.fetchFromIconfont({
-      scriptUrl: 'http://at.alicdn.com/t/font_3294553_frhir9wah3s.js',
+      scriptUrl: 'http://at.alicdn.com/t/font_3294553_xulmh7kku5.js',
     });
   }
 }

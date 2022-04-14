@@ -6,7 +6,7 @@
         class="btn"
         (click)="onBtnClick(item)"
         [ngClass]="item.isOpen ? 'btn btn-selected' : 'btn'"
-        [ngStyle]="{ height: item.name.length * 12 + 52 + 'px' }"
+        [ngStyle]="{ height: getNameLength(item.name) }"
         [nz-tooltip]="item.tooltip"
         [nzTooltipMouseEnterDelay]="0.4"
       >
@@ -70,10 +70,10 @@
           [ngStyle]="
             item.isOpen
               ? {
-                  height: item.name.length * 12 + 52 + 'px',
+                  height: getNameLength(item.name),
                   background: getThirdBackground()
                 }
-              : { height: item.name.length * 12 + 52 + 'px' }
+              : { height: getNameLength(item.name) }
           "
           [nz-tooltip]="item.tooltip"
           [nzTooltipMouseEnterDelay]="0.4"
