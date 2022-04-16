@@ -1,5 +1,4 @@
-
-export class CodeEditorTheme{
+export class CodeEditorTheme {
   static MyOneDark: any = {
     base: 'vs-dark',
     inherit: true,
@@ -65,6 +64,6 @@ export class CodeEditorTheme{
       'editor.indentGuides': '#404040',
       'editor.activeIndentGuides': '#707070',
       'editor.selectionHighlight': '#ADD6FF26',
-    }
+    },
   };
 }

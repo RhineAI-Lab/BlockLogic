@@ -10,9 +10,9 @@ import {
   SpaceSaveMode,
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../services/space-develop.service';
-import {SpaceState, ThemeType} from '../services/space-state.service';
-import {SpaceFileService} from "../services/space-file.service";
-import {XmlResult} from "../../common/utils/code.utils";
+import { SpaceState, ThemeType } from '../services/space-state.service';
+import { SpaceFileService } from '../services/space-file.service';
+import { XmlResult } from '../../common/utils/code.utils';
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -56,12 +56,12 @@ export class SpaceToolBarComponent implements OnInit {
   isLogicFile = false;
   get isEditorLogicMode() {
     return this.editorMode == SpaceEditorMode.Logic;
-  };
+  }
 
   get targetXml() {
     return this.developService.targetXml$.getValue();
   }
-  set targetXml(value: XmlResult){
+  set targetXml(value: XmlResult) {
     this.developService.targetXml$.next(value);
   }
   get xmlList() {
@@ -133,11 +133,11 @@ export class SpaceToolBarComponent implements OnInit {
       }
       this.fileService.openLocalFiles(files);
     }
-    if(this.openMode == SpaceOpenMode.LocalFile) {
+    if (this.openMode == SpaceOpenMode.LocalFile) {
       this.fileChooser.nativeElement.value = '';
-    }else if(this.openMode == SpaceOpenMode.LocalFolder) {
+    } else if (this.openMode == SpaceOpenMode.LocalFolder) {
       this.folderChooser.nativeElement.value = '';
-    }else if(this.openMode == SpaceOpenMode.LocalZip) {
+    } else if (this.openMode == SpaceOpenMode.LocalZip) {
       this.zipChooser.nativeElement.value = '';
     }
   }
@@ -160,7 +160,7 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   freshXmlList(): void {
-    this.developService.freshXmlList()
+    this.developService.freshXmlList();
   }
 
   onChangeSyncCode(): void {
@@ -199,11 +199,14 @@ export class SpaceToolBarComponent implements OnInit {
   }
 
   onShare(): void {
-    this.notification.info('暂不支持分享项目','您可以将网址分享给他人，并打开你的项目。')
+    this.notification.info(
+      '暂不支持分享项目',
+      '您可以将网址分享给他人，并打开你的项目。',
+    );
   }
 
   openConnectionHelp(): void {
-    window.open('docs#/start/Connect')
+    window.open('docs#/start/Connect');
   }
 }
 

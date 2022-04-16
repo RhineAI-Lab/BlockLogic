@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import {ParaUtils} from "../../common/utils/para.utils";
+import { ParaUtils } from '../../common/utils/para.utils';
 
 @Injectable()
 export class SpaceState {

@@ -1,17 +1,20 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as JSZip from 'jszip';
-import {from, Observable} from 'rxjs';
+import { from, Observable } from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import {Project, ProjectType} from '../../common/project.class';
-import {ProjectFile} from '../../common/project-file.class';
+import { Project, ProjectType } from '../../common/project.class';
+import { ProjectFile } from '../../common/project-file.class';
 import zip from '../../common/zip';
-import {SpaceSaveMode} from '../common/space-modes.enums';
-import {HttpClient} from '@angular/common/http';
-import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {SpaceDevelopService, SpaceLocationMode} from './space-develop.service';
-import {ParaUtils} from '../../common/utils/para.utils';
-import {SpaceState, ThemeType} from './space-state.service';
+import { SpaceSaveMode } from '../common/space-modes.enums';
+import { HttpClient } from '@angular/common/http';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import {
+  SpaceDevelopService,
+  SpaceLocationMode,
+} from './space-develop.service';
+import { ParaUtils } from '../../common/utils/para.utils';
+import { SpaceState, ThemeType } from './space-state.service';
 
 @Injectable()
 export class SpaceFileService {
@@ -45,9 +48,9 @@ export class SpaceFileService {
         };
         this.httpClient.get(url, { responseType: 'text' }).subscribe({
           next: (text) => {
-            if(text.startsWith('<!DOCTYPE html><html lang="zh"><head>')){
+            if (text.startsWith('<!DOCTYPE html><html lang="zh"><head>')) {
               openError();
-            }else if (!source.endsWith('/')) {
+            } else if (!source.endsWith('/')) {
               const ps = source.split('/');
               const name = ps[ps.length - 1];
               const files: ProjectFile[] = [
@@ -167,7 +170,9 @@ export class SpaceFileService {
         this.state.projectState$.next('项目保存成功');
         this.notify('保存成功', 'success');
         if (mode == SpaceSaveMode.Browser) {
-          this.notify('注意', 'warning',
+          this.notify(
+            '注意',
+            'warning',
             '浏览器只保存单一项目，重复操作将覆盖！',
           );
         }
@@ -274,7 +279,7 @@ export class SpaceFileService {
 
   // SAVE-3  Browser
   saveBrowser(files: ProjectFile[]): Observable<void> {
-    return new Observable<void>(subscriber => {
+    return new Observable<void>((subscriber) => {
       const saveFiles: BrowserFile[] = [];
       function end() {
         if (saveFiles.length == files.length) {
@@ -303,7 +308,7 @@ export class SpaceFileService {
           reader.readAsDataURL(file.source!);
         }
       }
-    })
+    });
   }
 
   private write(

@@ -9,7 +9,7 @@ import { SpaceState } from '../../services/space-state.service';
   styleUrls: ['./space-sidebar-layout.component.less'],
 })
 export class SpaceSidebarLayoutComponent implements OnInit {
-  constructor(public entry: SpaceSidebarEntry,public state: SpaceState) {}
+  constructor(public entry: SpaceSidebarEntry, public state: SpaceState) {}
 
   ngOnInit(): void {}
 

@@ -1,15 +1,15 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 
-import {Project} from '../../common/project.class';
-import {ProjectFile} from '../../common/project-file.class';
-import {Sandbox, SandboxOutput} from '../../common/sandbox.class';
-import {SpaceEditorMode, SpaceRunMode} from '../common/space-modes.enums';
-import {SpaceDebugService} from './space-debug.service';
-import {SpaceState} from './space-state.service';
-import {NzNotificationService} from "ng-zorro-antd/notification";
-import {CodeUtils, XmlResult} from "../../common/utils/code.utils";
+import { Project } from '../../common/project.class';
+import { ProjectFile } from '../../common/project-file.class';
+import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
+import { SpaceEditorMode, SpaceRunMode } from '../common/space-modes.enums';
+import { SpaceDebugService } from './space-debug.service';
+import { SpaceState } from './space-state.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { CodeUtils, XmlResult } from '../../common/utils/code.utils';
 
 @Injectable()
 export class SpaceDevelopService {
@@ -41,7 +41,7 @@ export class SpaceDevelopService {
     private notification: NzNotificationService,
   ) {
     this.subscribeDebugEvents();
-    this.state.editorMode$.subscribe(mode => {
+    this.state.editorMode$.subscribe((mode) => {
       if (mode === SpaceEditorMode.Design) {
         this.freshXmlList();
       }
@@ -64,7 +64,7 @@ export class SpaceDevelopService {
 
   openProject(project: Project, needTip: boolean = true): void {
     this.project$.next(project);
-    if(needTip){
+    if (needTip) {
       const tip = `项目${
         project.files.length == 1 ? project.files[0].name : project.name
       } 打开完成`;
@@ -125,24 +125,23 @@ export class SpaceDevelopService {
       }
     }
   }
-  stop(): void {
-  }
+  stop(): void {}
 
   freshXmlList(): void {
     const index = this.xmlList.indexOf(this.targetXml$.getValue());
     this.xmlList = CodeUtils.getXmlCodeList(this.targetCode);
-    if(index>=0){
-      if(index<this.xmlList.length){
+    if (index >= 0) {
+      if (index < this.xmlList.length) {
         this.targetXml$.next(this.xmlList[index]);
-      }else if(this.xmlList.length>0){
+      } else if (this.xmlList.length > 0) {
         this.targetXml$.next(this.xmlList[0]);
-      }else{
+      } else {
         this.targetXml$.next(XmlResult.createEmpty());
       }
-    }else{
-      if(this.xmlList.length>0){
+    } else {
+      if (this.xmlList.length > 0) {
         this.targetXml$.next(this.xmlList[0]);
-      }else{
+      } else {
         this.targetXml$.next(XmlResult.createEmpty());
       }
     }

@@ -115,7 +115,7 @@ export class SpaceDebugService {
   // TODO: type of `data`
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   private onReceive(type: number, data: any): void {
-    console.log(data)
+    console.log(data);
     if (type == 1) {
       if (data.type == 'hello') {
         this.device = data.data.device_name;
