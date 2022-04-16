@@ -42,7 +42,7 @@ export class SpaceDevelopService {
   ) {
     this.subscribeDebugEvents();
     this.state.editorMode$.subscribe((mode) => {
-      if (mode === SpaceEditorMode.Design) {
+      if (mode == SpaceEditorMode.Design) {
         this.freshXmlList();
       }
     });

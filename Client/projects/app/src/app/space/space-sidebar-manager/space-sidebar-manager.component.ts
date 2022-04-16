@@ -66,7 +66,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       position: 'left-top',
       width: 280,
       minWidth: 180,
-      isOpen: true,
+      isOpen: false,
       showTab: true,
     }),
     this.use({
