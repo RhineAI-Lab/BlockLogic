@@ -105,7 +105,7 @@ $ ng serve
 代码规范: ESLint,Prettier
 提交规范: type(scope): message
 部署: Docker,AlibabaToolkiyt
-开源协议: GNU v3.0
+开源协议: GNU General Public License v3.0
 ```
   
 </details>
