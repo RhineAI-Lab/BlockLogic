@@ -1,7 +1,11 @@
 
 # <div align="center">BlockLogic</div>
 B-Logic是一款开源的在线代码编辑器，适合于新手在线学习程序，和小型项目的在线快速开发。<br/>
-类似于麻省理工的AppInventor，但在快速调试，专业级Api等方面，都有着更出色的表现。他同时支持脱离图形块进行JS规范化开发，以及完整的补全功能。
+类似于麻省理工的AppInventor，但在快速调试，专业级Api等方面，都有着更出色的表现。他同时支持脱离图形块进行JS规范化开发，以及完整的补全功能。<br/>
+
+在线体验<br/>
+主页: <a href="http://logic.autojs.org/" target="_blank">http://logic.autojs.org/</a><br/>
+编辑器: <a href="http://logic.autojs.org/space/" target="_blank">http://logic.autojs.org/space/</a><br/>
 
 <details open>
 <summary>预览图(暗色)</summary>
