@@ -1,12 +1,25 @@
 
 # <div align="center">BlockLogic</div>
 B-Logic是一款开源的在线代码编辑器，适合于新手在线学习程序，和小型项目的在线快速开发。<br/>
-类似于麻省理工的AppInventor，但在快速调试，专业级Api等方面，都有着更出色的表现。他同时支持脱离图形块进行JS规范化开发。
+类似于麻省理工的AppInventor，但在快速调试，专业级Api等方面，都有着更出色的表现。他同时支持脱离图形块进行JS规范化开发，以及完整的补全功能。
 
+<details open>
+<summary>预览图(暗色)</summary>
 <div align="center">
-<p><img width="850" src="http://logic.autojs.org/space/assets/readme/show-dark.png"></a></p>
-<p><img width="850" src="http://logic.autojs.org/space/assets/readme/show-light.png"></a></p>
+  <img width="850" src="http://logic.autojs.org/space/assets/readme/show-dark.png">
 </div>
+</details>
+
+<details>
+<summary>预览图(亮色)</summary>
+<div align="center">
+  <img width="850" src="http://logic.autojs.org/space/assets/readme/show-light.png">
+</div>
+</details>
+
+
+## <div align="center">简介</div>
+
 
 <details open>
 <summary>Function</summary>
@@ -88,7 +101,7 @@ $ ng serve
 代码规范: ESLint,Prettier
 提交规范: type(scope): message
 部署: Docker,AlibabaToolkiyt
-开源协议: MIT
+开源协议: GNU v3.0
 ```
   
 </details>
