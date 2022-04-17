@@ -104,7 +104,7 @@ $ ng serve
 前后分离代理: Nginx
 代码规范: ESLint,Prettier
 提交规范: type(scope): message
-部署: Docker,AlibabaToolkiyt
+部署: Docker,AlibabaToolkit
 开源协议: GNU General Public License v3.0
 ```
   
