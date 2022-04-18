@@ -146,7 +146,7 @@ export class ProjectFile {
     return new ProjectFile(path, name, ns[ns.length - 1], '', '');
   }
 
-  public static SUPPORT_OPEN_LIST = 'js ts jsx tsx xml html css vue json java cpp php python'.split(' ');
+  public static SUPPORT_OPEN_LIST = 'js ts jsx tsx xml html css vue json java cpp php python txt yaml'.split(' ');
 }
 
 export enum CodeType {
