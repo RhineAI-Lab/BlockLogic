@@ -73,6 +73,7 @@ export class SpaceDevelopService {
     }
     if (project.target == -1) {
       this.notify('项目中无可打开的文件', 'error');
+      this.state.emptyCenter$.next();
     } else {
       this.openFile(project.getTargetFile().path);
     }

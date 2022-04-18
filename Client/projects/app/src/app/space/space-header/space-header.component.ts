@@ -20,7 +20,7 @@ export class SpaceHeaderComponent implements OnInit {
     { text: '联系我们', url: '/#contact' },
   ];
 
-  constructor(private state: SpaceState) {}
+  constructor(public state: SpaceState) {}
 
   ngOnInit(): void {}
 }

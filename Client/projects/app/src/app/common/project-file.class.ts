@@ -12,6 +12,7 @@ export class ProjectFile {
   name: string;
   type: string;
   code: string;
+  codeType: CodeType = CodeType.UNKNOWN;
   gotCode: boolean = false;
 
   constructor(
@@ -146,4 +147,16 @@ export class ProjectFile {
   }
 
   public static SUPPORT_OPEN_LIST = 'js ts jsx tsx xml html css vue json java cpp php python'.split(' ');
+}
+
+export enum CodeType {
+  UNKNOWN,
+  NOT_CODE,
+  JS_BASE,
+  JS_AUTO,
+  JS_AUTO_UI,
+  JS_BLOCK_AUTO,
+  JS_BLOCK_AUTO_UI,
+  PY_BASE,
+  PY_DL,
 }
