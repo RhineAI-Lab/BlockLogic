@@ -50,10 +50,10 @@ export class SpaceTabBarComponent implements OnInit {
       }
       this.logicFile = file.isLogicFile();
     });
-    this.developService.deleteEvent$.subscribe((v) => {
+    this.developService.closeEvent$.subscribe((file) => {
       for (const tabKey in this.tabs) {
         const tab = this.tabs[tabKey];
-        if (tab.file.path == v.last) {
+        if (tab.file == file) {
           const index = parseInt(tabKey);
           if (tab.selected) {
             if (this.tabs.length > 1) {
@@ -102,21 +102,15 @@ export class SpaceTabBarComponent implements OnInit {
         next.selected = true;
         this.developService.openFile(next.file.path);
       }
-      this.tabs.splice(index, 1);
     } else {
-      // this.developService.notification$.next({
-      //   type: 'info',
-      //   title: '至少保留一个文件',
-      // });
       this.developService.project$.getValue().target = -1;
-      this.tabs.splice(index, 1);
     }
+    this.onClose(item);
   }
   onCloseOther(item: TabItem): void {
     for (const tabsKey in this.tabs) {
       if (this.tabs[tabsKey].file != item.file) {
-        this.developService.closeEvent$.next(this.tabs[tabsKey].file);
-        this.tabs.splice(parseInt(tabsKey), 1);
+        this.onClose(this.tabs[tabsKey]);
       }
     }
     if (!item.selected) {
@@ -124,6 +118,10 @@ export class SpaceTabBarComponent implements OnInit {
       this.developService.openFile(item.file.path);
     }
   }
+  onClose(item: TabItem): void {
+    this.developService.closeEvent$.next(item.file);
+  }
+
   onCopyName(item: TabItem): void {
     this.clipboard.copy(item.file.name);
     this.notification.success('复制成功 ' + item.file.name, '');

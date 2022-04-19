@@ -38,6 +38,12 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
       }
       this.targetPage = page;
     });
+    this.developService.closeEvent$.subscribe((file) => {
+      const index = this.getPageIndexByFile(file);
+      if(index!=-1) {
+        this.pages.splice(index, 1);
+      }
+    });
     this.fileService.init();
     this.developService.init();
   }

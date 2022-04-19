@@ -23,14 +23,11 @@ export class SpaceDevelopService {
   readonly output$ = new Subject<SandboxOutput>();
   readonly debugOutput$ = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
-
   readonly closeEvent$ = new Subject<ProjectFile>();
-  readonly deleteEvent$ = new Subject<ProjectEvent>();
-  readonly renameEvent$ = new Subject<ProjectEvent>();
-
-  syncCode = true;
 
   private sandboxOfLastRun?: Sandbox;
+
+  syncCode = true;
 
   xmlList: XmlResult[] = [];
   readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
@@ -210,9 +207,4 @@ export interface Notification {
   type: 'info' | 'success' | 'error' | 'warning' | 'remove';
   title?: string;
   content?: string;
-}
-
-export interface ProjectEvent {
-  last: string;
-  file?: ProjectFile;
 }
