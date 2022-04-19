@@ -1,15 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import { SpaceCenterComponent } from '../space-center/space-center.component';
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { ProjectFile } from '../../common/project-file.class';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceFileService } from '../services/space-file.service';
 
 @Component({
   selector: 'app-space-page-manager',
   templateUrl: './space-page-manager.component.html',
-  styleUrls: ['./space-page-manager.component.less']
+  styleUrls: ['./space-page-manager.component.less'],
 })
-export class SpacePageManagerComponent implements OnInit {
+export class SpacePageManagerComponent implements OnInit, AfterViewInit {
+  pages: PageEntry[] = [];
+  targetPage: PageEntry | null = null;
 
-  constructor() { }
+  constructor(
+    private injector: Injector,
+    private developService: SpaceDevelopService,
+    private fileService: SpaceFileService,
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    this.developService.targetFile$.subscribe((file) => {
+      const index = this.getPageIndexByFile(file);
+      let page;
+      if(index==-1) {
+        page = this.use({ target: file });
+      }else {
+        page = this.pages[index];
+      }
+      this.targetPage = page;
+      this.pages.push(page);
+    });
+    this.fileService.init();
+    this.developService.init();
   }
 
+  private getPageIndexByFile(file: ProjectFile): number {
+    return this.pages.findIndex((page) => page.target === file);
+  }
+
+  private use(definition: PageEntry): PageEntry {
+    const injector = Injector.create({
+      parent: this.injector,
+      providers: [{ provide: PageEntry, useValue: definition }],
+    });
+    definition.portal = new ComponentPortal(
+      SpaceCenterComponent,
+      undefined,
+      injector,
+    );
+    return definition;
+  }
+}
+
+export abstract class PageEntry {
+  abstract target: ProjectFile;
+  abstract portal?: ComponentPortal<SpaceCenterComponent>;
 }
