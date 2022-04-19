@@ -105,21 +105,19 @@ export class SpaceTabBarComponent implements OnInit {
     } else {
       this.developService.project$.getValue().target = -1;
     }
-    this.onClose(item);
+    this.developService.closeEvent$.next(item.file);
   }
   onCloseOther(item: TabItem): void {
-    for (const tabsKey in this.tabs) {
-      if (this.tabs[tabsKey].file != item.file) {
-        this.onClose(this.tabs[tabsKey]);
+    for (let i = 0; i < this.tabs.length; i++) {
+      if (this.tabs[i].file != item.file) {
+        this.developService.closeEvent$.next(this.tabs[i].file);
+        i--;
       }
     }
     if (!item.selected) {
       item.selected = true;
       this.developService.openFile(item.file.path);
     }
-  }
-  onClose(item: TabItem): void {
-    this.developService.closeEvent$.next(item.file);
   }
 
   onCopyName(item: TabItem): void {
