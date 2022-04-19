@@ -23,16 +23,20 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
+    this.developService.project$.subscribe((project) => {
+      this.pages = [];
+      this.targetPage = null;
+    });
     this.developService.targetFile$.subscribe((file) => {
       const index = this.getPageIndexByFile(file);
       let page;
       if(index==-1) {
         page = this.use({ target: file });
+        this.pages.push(page);
       }else {
         page = this.pages[index];
       }
       this.targetPage = page;
-      this.pages.push(page);
     });
     this.fileService.init();
     this.developService.init();

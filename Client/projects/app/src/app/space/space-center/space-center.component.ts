@@ -72,12 +72,6 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
           break;
       }
     });
-    this.developService.targetFile$.subscribe((file) => {
-      this.isEmpty = false;
-      this.codeEditor.code = file.code;
-      this.updateBlocks();
-      this.state.needResize$.next(true);
-    });
   }
 
   init() {
