@@ -28,7 +28,6 @@ export class SpaceState {
   readonly projectState$ = new BehaviorSubject<string>('项目打开中...');
 
   readonly holdBox$ = new BehaviorSubject<boolean>(false);
-  readonly emptyCenter$ = new Subject<void>();
 
   readonly needResize$ = new Subject<boolean>();
   readonly toolbarButtonEvent$ = new Subject<SpaceToolBarButtonType>();

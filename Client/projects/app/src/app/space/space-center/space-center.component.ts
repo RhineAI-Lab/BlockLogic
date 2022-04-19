@@ -26,8 +26,6 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   layoutMode;
   isLogicMode;
 
-  isEmpty = false;
-
   constructor(
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
@@ -40,9 +38,6 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     });
     state.isLogicFile$.subscribe((mode) => {
       this.isLogicMode = mode;
-    });
-    state.emptyCenter$.subscribe(() => {
-      this.isEmpty = true;
     });
     state.needResize$.subscribe(async (v: boolean) => {
       if (v) await wait();

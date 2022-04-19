@@ -24,8 +24,9 @@ export class SpaceDevelopService {
   readonly debugOutput$ = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
 
-  readonly renameEvent$ = new Subject<ProjectEvent>();
+  readonly closeEvent$ = new Subject<ProjectFile>();
   readonly deleteEvent$ = new Subject<ProjectEvent>();
+  readonly renameEvent$ = new Subject<ProjectEvent>();
 
   syncCode = true;
 
@@ -73,7 +74,6 @@ export class SpaceDevelopService {
     }
     if (project.target == -1) {
       this.notify('项目中无可打开的文件', 'error');
-      this.state.emptyCenter$.next();
     } else {
       this.openFile(project.getTargetFile().path);
     }

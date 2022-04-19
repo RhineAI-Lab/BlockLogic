@@ -4,4 +4,8 @@
             <ng-template [cdkPortalOutlet]="page.portal"></ng-template>
         </div>
     </ng-container>
+    <div [ngStyle]="{ display: pages.length==0 ? 'block' : 'none' }" class="empty">
+        <div></div>
+        <nz-empty></nz-empty>
+    </div>
 </div>

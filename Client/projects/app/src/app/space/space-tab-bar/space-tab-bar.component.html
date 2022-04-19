@@ -12,8 +12,8 @@
         (click)="onTabClick(item)"
         (contextmenu)="contextMenu($event, menu)"
       >
-        <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.name)"></i>
-        <p>{{ item.name }}</p>
+        <i nz-icon class="icon" [nzIconfont]="getFileIcon(item.file.name)"></i>
+        <p>{{ item.file.name }}</p>
         <div class="close-btn">
           <i
             nz-icon
