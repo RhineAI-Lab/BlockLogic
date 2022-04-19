@@ -30,17 +30,20 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     this.developService.targetFile$.subscribe((file) => {
       const index = this.getPageIndexByFile(file);
       let page;
-      if(index==-1) {
-        page = this.use({ target: file });
+      if (index == -1) {
+        page = this.use({ file: file });
         this.pages.push(page);
-      }else {
+      } else {
         page = this.pages[index];
       }
       this.targetPage = page;
     });
     this.developService.closeEvent$.subscribe((file) => {
       const index = this.getPageIndexByFile(file);
-      if(index!=-1) {
+      if (index != -1) {
+        if (this.pages[index] == this.targetPage) {
+          this.targetPage = null;
+        }
         this.pages.splice(index, 1);
       }
     });
@@ -49,7 +52,7 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
   }
 
   private getPageIndexByFile(file: ProjectFile): number {
-    return this.pages.findIndex((page) => page.target === file);
+    return this.pages.findIndex((page) => page.file === file);
   }
 
   private use(definition: PageEntry): PageEntry {
@@ -67,6 +70,6 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
 }
 
 export abstract class PageEntry {
-  abstract target: ProjectFile;
+  abstract file: ProjectFile;
   abstract portal?: ComponentPortal<SpaceCenterComponent>;
 }
