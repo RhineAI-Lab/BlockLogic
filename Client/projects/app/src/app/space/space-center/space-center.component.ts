@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 
@@ -11,6 +11,7 @@ import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor
 import { wait } from '../../common/promisify.utils';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 import { SpaceFileService } from '../services/space-file.service';
+import {ProjectFile} from "../../common/project-file.class";
 
 @Component({
   selector: 'app-space-center',
@@ -18,6 +19,8 @@ import { SpaceFileService } from '../services/space-file.service';
   styleUrls: ['./space-center.component.less'],
 })
 export class SpaceCenterComponent implements OnInit, AfterViewInit {
+  @Input() file!: ProjectFile;
+
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;

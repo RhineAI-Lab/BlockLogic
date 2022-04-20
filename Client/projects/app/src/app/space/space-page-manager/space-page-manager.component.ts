@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import {AfterViewInit, Component, ComponentRef, Injector, OnInit} from '@angular/core';
 import { SpaceCenterComponent } from '../space-center/space-center.component';
-import { ComponentPortal } from '@angular/cdk/portal';
+import {CdkPortalOutletAttachedRef, ComponentPortal} from '@angular/cdk/portal';
 import { ProjectFile } from '../../common/project-file.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import { SpaceFileService } from '../services/space-file.service';
@@ -24,8 +24,7 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.developService.project$.subscribe((project) => {
-      this.pages = [];
-      this.targetPage = null;
+      this.clearPage();
     });
     this.developService.targetFile$.subscribe((file) => {
       this.openPage(file);
@@ -37,6 +36,10 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     this.developService.init();
   }
 
+  clearPage() {
+    this.pages = [];
+    this.targetPage = null;
+  }
   openPage(file: ProjectFile) {
     const index = this.getPageIndexByFile(file);
     let page;
@@ -72,11 +75,19 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
       undefined,
       injector,
     );
+
     return definition;
   }
+
+  onComponentRendering(ref: CdkPortalOutletAttachedRef, page: PageEntry): void {
+    ref = ref as ComponentRef<any>;
+    ref.instance['file'] = page.file;
+  }
+
 }
 
 export abstract class PageEntry {
   abstract file: ProjectFile;
   abstract portal?: ComponentPortal<SpaceCenterComponent>;
+  abstract component?: SpaceCenterComponent;
 }

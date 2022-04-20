@@ -1,7 +1,7 @@
 <div class="layout">
     <ng-container *ngFor="let page of pages">
         <div class="page" [hidden]="page!=targetPage">
-            <ng-template [cdkPortalOutlet]="page.portal"></ng-template>
+            <ng-template (attached)="onComponentRendering($event,page)" [cdkPortalOutlet]="page.portal"></ng-template>
         </div>
     </ng-container>
     <div [ngStyle]="{ display: pages.length==0 ? 'block' : 'none' }" class="empty">
