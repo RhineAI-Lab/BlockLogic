@@ -1,6 +1,6 @@
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
-import { SpaceState, ThemeType } from '../services/space-state.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 import { SpaceComponent } from '../space.component';
 import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
@@ -161,7 +161,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   }
 
   getThirdBackground(): string {
-    if (this.state.theme$.getValue() == ThemeType.Default) {
+    if (this.state.theme$.getValue() == ThemeMode.Default) {
       return '#bdbdbd';
     } else {
       return '#202020';

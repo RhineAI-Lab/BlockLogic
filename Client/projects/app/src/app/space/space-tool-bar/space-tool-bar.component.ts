@@ -10,7 +10,7 @@ import {
   SpaceSaveMode,
 } from '../common/space-modes.enums';
 import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState, ThemeType } from '../services/space-state.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 import { SpaceFileService } from '../services/space-file.service';
 import { XmlResult } from '../../common/utils/code.utils';
 
@@ -38,7 +38,7 @@ export class SpaceToolBarComponent implements OnInit {
   }
   set brightTheme(value) {
     this._brightTheme = value;
-    this.state.theme$.next(value ? ThemeType.Default : ThemeType.Dark);
+    this.state.theme$.next(value ? ThemeMode.Default : ThemeMode.Dark);
   }
   holdBox: boolean = this.state.holdBox$.getValue();
   syncCode: boolean = this.developService.syncCode;

@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
 import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState, ThemeType } from '../services/space-state.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 
 @Component({
@@ -50,7 +50,7 @@ export class SpaceCodeEditorComponent implements OnInit {
     });
     this.state.theme$.subscribe((v) => {
       setTimeout(() => {
-        if (v == ThemeType.Default) {
+        if (v == ThemeMode.Default) {
           this.changeTheme('vs');
         } else {
           if (this.oneDarkLoaded) {

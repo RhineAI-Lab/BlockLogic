@@ -7,11 +7,11 @@ import { ParaUtils } from '../../common/utils/para.utils';
 
 @Injectable()
 export class SpaceState {
-  readonly theme$ = new BehaviorSubject<ThemeType>(ThemeType.Default);
+  readonly theme$ = new BehaviorSubject<ThemeMode>(ThemeMode.Default);
   previousTheme = this.theme$.getValue();
   firstTime = true;
   get isLight(): boolean {
-    return this.theme$.value == ThemeType.Default;
+    return this.theme$.value == ThemeMode.Default;
   }
 
   readonly isHeaderVisible$ = new BehaviorSubject(true);
@@ -88,7 +88,7 @@ export class SpaceState {
       document.head.append(style);
     });
   }
-  private removeUnusedTheme(theme: ThemeType): void {
+  private removeUnusedTheme(theme: ThemeMode): void {
     document.documentElement.classList.remove(theme);
     const removedThemeStyle = document.getElementById(theme);
     if (removedThemeStyle) {
@@ -97,7 +97,7 @@ export class SpaceState {
   }
 }
 
-export enum ThemeType {
+export enum ThemeMode {
   Default = 'default',
   Dark = 'dark',
 }

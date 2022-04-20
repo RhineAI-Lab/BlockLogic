@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import {
   SpaceState,
-  ThemeType,
+  ThemeMode,
 } from '../../../space/services/space-state.service';
 
 @Component({
@@ -35,7 +35,7 @@ export class IconButtonComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, private state: SpaceState) {
     this.state.theme$.subscribe((theme) => {
-      if (theme == ThemeType.Default) {
+      if (theme == ThemeMode.Default) {
         this.themeColor = '#6e6e6e';
       } else {
         this.themeColor = '#bbbbbb';
