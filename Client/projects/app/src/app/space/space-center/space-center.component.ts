@@ -10,7 +10,7 @@ import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-edi
 import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
 import { wait } from '../../common/promisify.utils';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import {SpaceFileService} from "../services/space-file.service";
+import { SpaceFileService } from '../services/space-file.service';
 
 @Component({
   selector: 'app-space-center',

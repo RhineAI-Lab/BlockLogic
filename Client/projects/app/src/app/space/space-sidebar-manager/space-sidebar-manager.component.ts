@@ -1,15 +1,15 @@
-import {ComponentPortal, ComponentType} from '@angular/cdk/portal';
-import {AfterViewInit, Component, Injector, OnInit} from '@angular/core';
-import {SpaceState, ThemeType} from '../services/space-state.service';
-import {SpaceComponent} from '../space.component';
-import {SpaceSidebarConsoleComponent} from '../space-sidebar-console/space-sidebar-console.component';
-import {SpaceSidebarProjectsComponent} from '../space-sidebar-projects/space-sidebar-projects.component';
-import {SpaceSidebarTerminalComponent} from '../space-sidebar-terminal/space-sidebar-terminal.component';
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceSidebarUiNewComponent} from "../space-sidebar-ui-new/space-sidebar-ui-new.component";
-import {SpaceSidebarUiStructureComponent} from "../space-sidebar-ui-structure/space-sidebar-ui-structure.component";
-import {SpaceSidebarUiTreeComponent} from "../space-sidebar-ui-tree/space-sidebar-ui-tree.component";
-import {SpaceSidebarUiAttributeComponent} from "../space-sidebar-ui-attribute/space-sidebar-ui-attribute.component";
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import { SpaceState, ThemeType } from '../services/space-state.service';
+import { SpaceComponent } from '../space.component';
+import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
+import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
+import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceSidebarUiNewComponent } from '../space-sidebar-ui-new/space-sidebar-ui-new.component';
+import { SpaceSidebarUiStructureComponent } from '../space-sidebar-ui-structure/space-sidebar-ui-structure.component';
+import { SpaceSidebarUiTreeComponent } from '../space-sidebar-ui-tree/space-sidebar-ui-tree.component';
+import { SpaceSidebarUiAttributeComponent } from '../space-sidebar-ui-attribute/space-sidebar-ui-attribute.component';
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -161,16 +161,16 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
   }
 
   getThirdBackground(): string {
-    if(this.state.theme$.getValue()==ThemeType.Default){
-      return '#bdbdbd'
-    }else{
+    if (this.state.theme$.getValue() == ThemeType.Default) {
+      return '#bdbdbd';
+    } else {
       return '#202020';
     }
   }
 
   getNameLength(name: string): string {
     let len = name.length * 12 + 50;
-    if(name.startsWith(' UI ')){
+    if (name.startsWith(' UI ')) {
       len = len - 30;
     }
     return len + 'px';

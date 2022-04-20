@@ -45,7 +45,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
-import {MonacoEditorModule, NgxMonacoEditorConfig} from 'ngx-monaco-editor';
+import { MonacoEditorModule, NgxMonacoEditorConfig } from 'ngx-monaco-editor';
 
 import { BlocklierModule } from '../blocklier/blocklier.module';
 import { DividerModule } from '../components/divider/divider.module';
@@ -65,14 +65,14 @@ import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-si
 import { SpaceStatusBarComponent } from './space-status-bar/space-status-bar.component';
 import { SpaceTabBarComponent } from './space-tab-bar/space-tab-bar.component';
 import { SpaceToolBarComponent } from './space-tool-bar/space-tool-bar.component';
-import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
-import {NzModalModule} from "ng-zorro-antd/modal";
-import {NzEmptyModule} from "ng-zorro-antd/empty";
-import {CodeEditorTheme} from "./space-code-editor/space-code-editor-theme";
-import {SpaceSidebarUiNewComponent} from "./space-sidebar-ui-new/space-sidebar-ui-new.component";
-import {SpaceSidebarUiAttributeComponent} from "./space-sidebar-ui-attribute/space-sidebar-ui-attribute.component";
-import {SpaceSidebarUiTreeComponent} from "./space-sidebar-ui-tree/space-sidebar-ui-tree.component";
-import {SpaceSidebarUiStructureComponent} from "./space-sidebar-ui-structure/space-sidebar-ui-structure.component";
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { CodeEditorTheme } from './space-code-editor/space-code-editor-theme';
+import { SpaceSidebarUiNewComponent } from './space-sidebar-ui-new/space-sidebar-ui-new.component';
+import { SpaceSidebarUiAttributeComponent } from './space-sidebar-ui-attribute/space-sidebar-ui-attribute.component';
+import { SpaceSidebarUiTreeComponent } from './space-sidebar-ui-tree/space-sidebar-ui-tree.component';
+import { SpaceSidebarUiStructureComponent } from './space-sidebar-ui-structure/space-sidebar-ui-structure.component';
 import { SpacePageManagerComponent } from './space-page-manager/space-page-manager.component';
 
 const icons: IconDefinition[] = [
@@ -161,7 +161,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     NzPopconfirmModule,
     NzModalModule,
     NzEmptyModule,
-    MonacoEditorModule.forRoot(monacoConfig)
+    MonacoEditorModule.forRoot(monacoConfig),
   ],
   providers: [
     {

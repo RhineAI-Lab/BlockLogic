@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 
@@ -24,8 +24,7 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     this.developService.debugOutput$.subscribe((output) => {
       this.resolveStringWithTime(output);
     });
-    this.resolveStringWithTime("控制台初始化完成")
-
+    this.resolveStringWithTime('控制台初始化完成');
   }
 
   ngOnDestroy(): void {
@@ -34,10 +33,12 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
 
   resolveOutput(output: SandboxOutput): void {
     const content = output.data.map((data) => this.stringify(data)).join(' ');
-    this.lines.push(`${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}: ${content}`);
+    this.lines.push(
+      `${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}: ${content}`,
+    );
   }
   resolveStringWithTime(text: string): void {
-    this.lines.push(this.getTime()+' '+text);
+    this.lines.push(this.getTime() + ' ' + text);
   }
   resolveString(text: string): void {
     this.lines.push(text);
@@ -47,10 +48,10 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     return dayjs().format('HH:mm:ss');
   }
   getSingleType(type: string): string {
-    if(type=='info')return 'I';
-    if(type=='warn')return 'W';
-    if(type=='error')return 'E';
-    if(type=='debug')return 'V';
+    if (type == 'info') return 'I';
+    if (type == 'warn') return 'W';
+    if (type == 'error') return 'E';
+    if (type == 'debug') return 'V';
     return 'D';
   }
 

@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-space-sidebar-ui-new',
@@ -15,12 +15,12 @@ export class SpaceSidebarUiNewComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.httpClient
-      .get('assets/ui/widgets.json',{responseType: 'json'})
+      .get('assets/ui/widgets.json', { responseType: 'json' })
       .subscribe({
         next: (data: any) => {
           this.groups = data.widgetGroups;
         },
-    });
+      });
   }
 }
 

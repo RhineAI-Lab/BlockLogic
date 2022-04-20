@@ -1,5 +1,10 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {SpaceState} from "../services/space-state.service";
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { SpaceState } from '../services/space-state.service';
 
 @Component({
   selector: 'app-space-status-bar',
@@ -10,10 +15,7 @@ export class SpaceStatusBarComponent implements OnInit, AfterViewInit {
   leftTipText = '';
   rightTipText = '';
 
-  constructor(
-    private state: SpaceState,
-    private cd: ChangeDetectorRef,
-  ) {}
+  constructor(private state: SpaceState, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 

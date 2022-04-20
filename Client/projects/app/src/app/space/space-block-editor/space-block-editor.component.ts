@@ -1,4 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
 import * as Blockly from 'blockly';
 
 import { BlocklierToolboxCategory } from '../../blocklier/blocklier/blocklier.component';
@@ -22,7 +28,7 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   }
   set workspace(value: Blockly.WorkspaceSvg) {
     this._workspace = value;
-    if(!this.initialized){
+    if (!this.initialized) {
       this.initialized = true;
       this.init.emit();
       this.afterBlocklyInit();
@@ -41,15 +47,15 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
 
   afterBlocklyInit() {
     this.state.holdBox$.subscribe((v) => {
-      if(this.workspace){
+      if (this.workspace) {
         this.workspace.getToolbox().getFlyout().autoClose = !v;
       }
     });
   }
 
   onChange(event: Event): void {
-    if(!this.state.holdBox$.getValue()){
-      if(event.type==Blockly.Events.CREATE){
+    if (!this.state.holdBox$.getValue()) {
+      if (event.type == Blockly.Events.CREATE) {
         this.categorySelected = undefined;
       }
     }

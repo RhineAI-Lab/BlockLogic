@@ -10,9 +10,12 @@ import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
 import { IconUtils } from '../../common/utils/icon.utils';
 import { SpaceDevelopService } from '../services/space-develop.service';
-import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
-import {Clipboard} from "@angular/cdk/clipboard";
-import {ProjectFile} from "../../common/project-file.class";
+import {
+  NzContextMenuService,
+  NzDropdownMenuComponent,
+} from 'ng-zorro-antd/dropdown';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { ProjectFile } from '../../common/project-file.class';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
@@ -91,8 +94,11 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onRename(node: NzTreeNode): void {
     const origin = node.origin;
     this.existsList = [];
-    node.getParentNode()?.children.forEach(item => {
-      if(item.origin.isLeaf == origin.isLeaf && item.origin.title != origin.title){
+    node.getParentNode()?.children.forEach((item) => {
+      if (
+        item.origin.isLeaf == origin.isLeaf &&
+        item.origin.title != origin.title
+      ) {
         this.existsList.push(item.origin.title);
       }
     });
@@ -103,39 +109,37 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onDelete(node: NzTreeNode): void {
     this.deleteTargetPath = node.origin.key;
     this.deleteNode = node;
-    this.deleteTitle = '确认要删除 '+node.origin.title+' 吗？';
+    this.deleteTitle = '确认要删除 ' + node.origin.title + ' 吗？';
     this.deleteModalVisible = true;
   }
-  onNew(type: NewType,node: NzTreeNode): void {
+  onNew(type: NewType, node: NzTreeNode): void {
     this.existsList = [];
-    node.children.forEach(item => {
-      if(item.origin.isLeaf && type!=NewType.Folder){
+    node.children.forEach((item) => {
+      if (item.origin.isLeaf && type != NewType.Folder) {
         this.existsList.push(item.origin.title);
-      }else if(item.origin.isLeaf==undefined && type==NewType.Folder){
+      } else if (item.origin.isLeaf == undefined && type == NewType.Folder) {
         this.existsList.push(item.origin.title);
       }
     });
     this.newNode = node;
     this.newType = type;
     this.newValue = '';
-    if(type == NewType.BlockLogic || type == NewType.JavaScript) {
+    if (type == NewType.BlockLogic || type == NewType.JavaScript) {
       this.newValue = '.js';
-    }else if(type == NewType.Python){
+    } else if (type == NewType.Python) {
       this.newValue = '.py';
     }
     this.newModalVisible = true;
   }
-  onMove(event: NzFormatEmitEvent): void {
-
-  }
+  onMove(event: NzFormatEmitEvent): void {}
 
   onNewOk(): void {
-    const project = this.developService.project$.getValue()
-    if(this.newType == NewType.Folder) {
-      project.folders.push(this.newNode!.origin.key+'/'+this.newValue);
-    }else{
+    const project = this.developService.project$.getValue();
+    if (this.newType == NewType.Folder) {
+      project.folders.push(this.newNode!.origin.key + '/' + this.newValue);
+    } else {
       let defaultCode = '';
-      if(this.newType== NewType.BlockLogic) {
+      if (this.newType == NewType.BlockLogic) {
         defaultCode = `
 console.log('HelloWorld');
 
@@ -144,12 +148,15 @@ console.log('HelloWorld');
 //------ 图形块结构记录 请勿随意修改 ------
 /*<xml xmlns="https://logic.autojs.org/xml"><block type="console_output" id="+=3+{]OC^:(lSk.2D}{C" x="70" y="150"><field name="TYPE">log</field><value name="CONTENT"><shadow type="text" id="UuJldUNi}cp6]}gp3Ldr"><field name="TEXT">HelloWorld</field></shadow></value></block></xml>*/
 `;
-      }else if(this.newType == NewType.JavaScript) {
+      } else if (this.newType == NewType.JavaScript) {
         defaultCode = 'console.log("HelloWorld");';
-      }else if(this.newType == NewType.Python){
+      } else if (this.newType == NewType.Python) {
         defaultCode = 'print("HelloWorld");';
       }
-      const file = ProjectFile.makeProjectFileByCode(defaultCode,this.newNode!.origin.key+'/'+this.newValue);
+      const file = ProjectFile.makeProjectFileByCode(
+        defaultCode,
+        this.newNode!.origin.key + '/' + this.newValue,
+      );
       project.files.push(file);
       this.developService.openFile(file.path);
     }
@@ -158,7 +165,7 @@ console.log('HelloWorld');
   onDeleteOk(): void {
     this.deleteModalVisible = false;
     const project = this.developService.project$.getValue();
-    if(this.deleteNode!.origin.isLeaf){
+    if (this.deleteNode!.origin.isLeaf) {
       for (const file of project.files) {
         if (file.path == this.deleteTargetPath) {
           project.files.splice(project.files.indexOf(file), 1);
@@ -167,8 +174,8 @@ console.log('HelloWorld');
           break;
         }
       }
-    }else{
-      const deleteFolder = this.deleteTargetPath+'/';
+    } else {
+      const deleteFolder = this.deleteTargetPath + '/';
       for (const file of project.files) {
         if (file.path.startsWith(deleteFolder)) {
           this.developService.closeEvent$.next(file);
@@ -176,7 +183,10 @@ console.log('HelloWorld');
         }
       }
       for (const folder of project.folders) {
-        if (folder.startsWith(deleteFolder) || folder == this.deleteTargetPath) {
+        if (
+          folder.startsWith(deleteFolder) ||
+          folder == this.deleteTargetPath
+        ) {
           project.folders.splice(project.folders.indexOf(folder), 1);
         }
       }
@@ -185,44 +195,45 @@ console.log('HelloWorld');
     this.resolve(project);
   }
   onRenameOk(): void {
-    if(this.existsList.includes(this.renameValue)) return;
+    if (this.existsList.includes(this.renameValue)) return;
     this.renameModalVisible = false;
-    if(this.renameValue==this.renameNode?.title) return;
+    if (this.renameValue == this.renameNode?.title) return;
 
     const origin = this.renameNode!.origin;
     const name = this.renameValue.trim();
     const project = this.developService.project$.getValue();
     let old = origin.title;
-    if(origin.isLeaf){
-      const path = origin.key.substring(0, origin.key.length-old.length)+name;
+    if (origin.isLeaf) {
+      const path =
+        origin.key.substring(0, origin.key.length - old.length) + name;
       const file = project.getFileByPath(origin.key)!;
       file.renamePath(path);
-    }else{
-      const oldPath = origin.key+'/';
-      const newPath = origin.key.substring(0, origin.key.length-old.length)+name+'/';
+    } else {
+      const oldPath = origin.key + '/';
+      const newPath =
+        origin.key.substring(0, origin.key.length - old.length) + name + '/';
       for (const file of project.files) {
-        if(file.path.startsWith(oldPath)){
+        if (file.path.startsWith(oldPath)) {
           const oldFilePath = file.path;
-          const newFilePath = newPath+file.path.substring(oldPath.length);
+          const newFilePath = newPath + file.path.substring(oldPath.length);
           file.renamePath(newFilePath);
         }
       }
     }
     this.resolve(project);
-    this.notification.success('重命名成功', old+' -> '+name);
+    this.notification.success('重命名成功', old + ' -> ' + name);
   }
 
   onCopyName(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.title);
-    this.notification.success('复制成功 '+origin.title, '');
+    this.notification.success('复制成功 ' + origin.title, '');
   }
   onCopyPath(origin: NzTreeNodeOptions): void {
     this.clipboard.copy(origin.key);
-    this.notification.success('复制成功 '+origin.key, '');
+    this.notification.success('复制成功 ' + origin.key, '');
   }
 
-  onSearchChange(event: NzFormatEmitEvent): void {
-  }
+  onSearchChange(event: NzFormatEmitEvent): void {}
 
   private async resolve(project: Project): Promise<void> {
     const files = project.files;

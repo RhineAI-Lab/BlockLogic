@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { SpaceCenterComponent } from '../space-center/space-center.component';
-import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ProjectFile } from '../../common/project-file.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import { SpaceFileService } from '../services/space-file.service';
