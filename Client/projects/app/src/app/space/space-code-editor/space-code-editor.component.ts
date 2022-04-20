@@ -4,7 +4,6 @@ import * as monaco from 'monaco-editor';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import { SpaceState, ThemeType } from '../services/space-state.service';
 import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-space-code-editor',
@@ -37,7 +36,6 @@ export class SpaceCodeEditorComponent implements OnInit {
   constructor(
     private developService: SpaceDevelopService,
     private state: SpaceState,
-    private httpClient: HttpClient,
   ) {}
 
   ngOnInit() {

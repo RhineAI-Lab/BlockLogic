@@ -28,27 +28,34 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
       this.targetPage = null;
     });
     this.developService.targetFile$.subscribe((file) => {
-      const index = this.getPageIndexByFile(file);
-      let page;
-      if (index == -1) {
-        page = this.use({ file: file });
-        this.pages.push(page);
-      } else {
-        page = this.pages[index];
-      }
-      this.targetPage = page;
+      this.openPage(file);
     });
     this.developService.closeEvent$.subscribe((file) => {
-      const index = this.getPageIndexByFile(file);
-      if (index != -1) {
-        if (this.pages[index] == this.targetPage) {
-          this.targetPage = null;
-        }
-        this.pages.splice(index, 1);
-      }
+      this.closePage(file);
     });
     this.fileService.init();
     this.developService.init();
+  }
+
+  openPage(file: ProjectFile) {
+    const index = this.getPageIndexByFile(file);
+    let page;
+    if (index == -1) {
+      page = this.use({ file: file });
+      this.pages.push(page);
+    } else {
+      page = this.pages[index];
+    }
+    this.targetPage = page;
+  }
+  closePage(file: ProjectFile) {
+    const index = this.getPageIndexByFile(file);
+    if (index != -1) {
+      if (this.pages[index] == this.targetPage) {
+        this.targetPage = null;
+      }
+      this.pages.splice(index, 1);
+    }
   }
 
   private getPageIndexByFile(file: ProjectFile): number {
