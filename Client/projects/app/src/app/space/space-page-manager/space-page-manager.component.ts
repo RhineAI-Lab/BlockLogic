@@ -94,8 +94,13 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
       page = this.pages[index];
       this.targetPage = page;
     }
-    this.state.layoutMode$.next(page.state!.layoutMode$.getValue());
-    this.state.editorMode$.next(page.state!.editorMode$.getValue());
+    if(page.state) {
+      this.state.layoutMode$.next(page.state.layoutMode$.getValue());
+      this.state.editorMode$.next(page.state.editorMode$.getValue());
+    }else{
+      this.state.layoutMode$.next(SpaceLayoutMode.Unspecified);
+      this.state.editorMode$.next(SpaceEditorMode.Logic);
+    }
   }
   closePage(file: ProjectFile) {
     const index = this.getPageIndexByFile(file);
