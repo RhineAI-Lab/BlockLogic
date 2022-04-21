@@ -148,6 +148,16 @@ export class SpaceTabBarComponent implements OnInit {
       this.onLayoutModeChange(SpaceLayoutMode.Split);
     }
   }
+
+  showToBlockFileBtn(): boolean {
+    return this.developService.targetFile$.getValue().type == 'js' && !this.isBlockFile;
+  }
+  showEditorModeChangeBtn(): boolean {
+    return this.developService.targetFile$.getValue().type == 'js';
+  }
+  showSplitLine(): boolean {
+    return this.showToBlockFileBtn() || this.showEditorModeChangeBtn() || this.isBlockFile;
+  }
 }
 
 class TabItem {

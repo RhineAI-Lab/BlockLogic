@@ -33,8 +33,9 @@
       </div>
     </div>
   </div>
-  <app-toolbar-divider></app-toolbar-divider>
+  <app-toolbar-divider *ngIf="showSplitLine()"></app-toolbar-divider>
   <button
+    *ngIf="showEditorModeChangeBtn()"
     class="editor-mode-selector"
     nz-button
     nz-dropdown
@@ -67,7 +68,7 @@
     <label nz-radio-button [nzValue]="LayoutMode.Classic">代码</label>
   </nz-radio-group>
   <button
-    *ngIf="!isBlockFile"
+    *ngIf="showToBlockFileBtn()"
     nz-popconfirm
     class="goto-logic-mode"
     nzPopconfirmPlacement="bottomRight"
