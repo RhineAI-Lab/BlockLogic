@@ -1,17 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { JSZipObject } from 'jszip';
-import { CodeUtils, XmlResult } from './utils/code.utils';
-import {
-  SpaceEditorMode,
-  SpaceLayoutMode,
-} from '../space/common/space-modes.enums';
+import { CodeUtils } from './utils/code.utils';
 
 export class ProjectFile {
   // Source
   zipSource?: JSZipObject; // Uninitialized
   urlSource?: string; // Uninitialized
   source?: File;
+  handle?: FileSystemFileHandle;
 
   // Attr
   path: string;
@@ -132,7 +129,7 @@ export class ProjectFile {
 
   toBlockFile(): boolean {
     if (this.opened && !this.isBlockFile) {
-      if(this.type == 'js') {
+      if (this.type == 'js') {
         this.code = CodeUtils.toLogicFile(this.code);
         this.codeType = CodeType.JS_BLOCK_AUTO;
         return true;
@@ -195,4 +192,10 @@ export enum CodeType {
   PY_BASE,
   PY_BLOCK_DL,
   OTHER_CODE,
+}
+
+declare class FileSystemFileHandle {
+  constructor(file: File);
+  getFile(): File;
+  createWritable(): WritableStream;
 }

@@ -161,40 +161,53 @@ export class SpaceFileService {
     }
   }
 
+  makeSavePickerOptions(file: ProjectFile): any {
+    const accept: any = {};
+    let desciption = '';
+    if (file.type == 'py') {
+      accept['text/python'] = ['.py'];
+      desciption = 'Python';
+    } else if (file.type == 'js') {
+      accept['text/javascript'] = ['.js'];
+      desciption = 'JavaScript';
+    } else if (file.type == 'json') {
+      accept['application/json'] = ['.json'];
+      desciption = 'JSON';
+    } else {
+      desciption = file.type + '文件';
+    }
+    return {
+      suggestedName: file.name,
+      types: [
+        {
+          description: desciption,
+          accept: accept,
+        },
+      ],
+    };
+  }
+
   // SAVE
   async saveProject(
     mode: SpaceSaveMode,
     another: boolean = false,
   ): Promise<void> {
     const project = this.developService.project$.getValue();
-    const accept: any = {};
-    let desciption = '';
     let handle = null;
     if (another) {
       if (project.files.length == 1) {
         const file = project.files[0];
-        if (file.type == 'py') {
-          accept['text/python'] = ['.py'];
-          desciption = 'Python';
-        } else if (file.type == 'js') {
-          accept['text/javascript'] = ['.js'];
-          desciption = 'JavaScript';
-        } else if (file.type == 'json') {
-          accept['application/json'] = ['.json'];
-          desciption = 'JSON';
+        const options = this.makeSavePickerOptions(file);
+        try {
+          handle = await window.showSaveFilePicker(options);
+        } catch (e) {}
+        if (handle == null) {
+          return;
         } else {
-          desciption = file.type + '文件';
+          if (!file.handle) {
+            file.handle = handle;
+          }
         }
-        const options = {
-          suggestedName: file.name,
-          types: [
-            {
-              description: desciption,
-              accept: accept,
-            },
-          ],
-        };
-        handle = await window.showSaveFilePicker(options);
       }
     }
     this.notify('保存中...');
@@ -262,7 +275,7 @@ export class SpaceFileService {
       ) => {
         this.write(inputStream, outputStream).subscribe({
           complete: () => {
-            subscriber.complete()
+            subscriber.complete();
           },
           error: (err) => subscriber.error(err),
         });
@@ -270,6 +283,9 @@ export class SpaceFileService {
       file.init(this.httpClient).subscribe({
         complete: async () => {
           if (file.opened) {
+            if (!handle && file.handle) {
+              handle = file.handle;
+            }
             const blob = new Blob([file.code]);
             let outputStream: WritableStream;
             if (handle) {
