@@ -18,12 +18,6 @@ export class ProjectFile {
   // Opened
   code: string;
   codeType: CodeType = CodeType.UNKNOWN;
-  pageState: PageState = new PageState(SpaceEditorMode.Logic, SpaceLayoutMode.Split);
-
-  // UI
-  xmlList:  XmlResult[] = [];
-  readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
-
   get opened(): boolean {
     return this.codeType != CodeType.UNKNOWN;
   }
@@ -116,7 +110,6 @@ export class ProjectFile {
       }else{
         this.codeType = CodeType.JS_AUTO;
       }
-      this.xmlList = CodeUtils.getXmlCodeList(this.code);
     }else if(this.type == 'py') {
       if(CodeUtils.getBlockXml(this.code).length > 0) {
         this.codeType = CodeType.PY_BLOCK_DL;
@@ -195,17 +188,4 @@ export enum CodeType {
   PY_BASE,
   PY_BLOCK_DL,
   OTHER_CODE,
-}
-
-export class PageState {
-  constructor(editorMode: SpaceEditorMode, layoutMode: SpaceLayoutMode) {
-    this.editorMode$.next(editorMode);
-    this.layoutMode$.next(layoutMode);
-  }
-  readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
-    SpaceEditorMode.Logic,
-  );
-  readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
-    SpaceLayoutMode.Split,
-  );
 }

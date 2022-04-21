@@ -1,17 +1,18 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Input } from '@angular/core';
-import { SplitComponent } from 'angular-split';
+import {AfterViewInit, Component, Input, OnInit, ViewChild,} from '@angular/core';
+import {SplitComponent} from 'angular-split';
 import * as Blockly from 'blockly';
 
-import { CodeUtils } from '../../common/utils/code.utils';
-import { SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState } from '../services/space-state.service';
-import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
-import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
-import { wait } from '../../common/promisify.utils';
-import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import { SpaceFileService } from '../services/space-file.service';
-import {ProjectFile} from "../../common/project-file.class";
+import {CodeUtils, XmlResult} from '../../common/utils/code.utils';
+import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
+import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceState} from '../services/space-state.service';
+import {SpaceBlockEditorComponent} from '../space-block-editor/space-block-editor.component';
+import {SpaceCodeEditorComponent} from '../space-code-editor/space-code-editor.component';
+import {wait} from '../../common/promisify.utils';
+import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
+import {SpaceFileService} from '../services/space-file.service';
+import {CodeType, ProjectFile} from '../../common/project-file.class';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-space-center',
@@ -20,6 +21,7 @@ import {ProjectFile} from "../../common/project-file.class";
 })
 export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @Input() file!: ProjectFile;
+  @Input() page!: Page;
 
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
@@ -161,5 +163,46 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       document.onmouseup = null;
       this.state.needResize$.next(true);
     };
+  }
+}
+
+export class Page {
+  readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
+    SpaceEditorMode.Logic,
+  );
+  readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
+    SpaceLayoutMode.Split,
+  );
+
+  xmlList: XmlResult[] = [];
+  readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
+
+  constructor(
+    file: ProjectFile,
+    editorMode: SpaceEditorMode = SpaceEditorMode.Logic,
+    layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split,
+  ) {
+    this.editorMode$.next(editorMode);
+    this.layoutMode$.next(layoutMode);
+  }
+
+  public static makePageByFile(file: ProjectFile): Page {
+    const page = new Page(file);
+    if(file.opened){
+      if(file.codeType==CodeType.PY_BLOCK_DL||file.codeType==CodeType.JS_BLOCK_AUTO) {
+        page.layoutMode$.next(SpaceLayoutMode.Split);
+      }else{
+        page.layoutMode$.next(SpaceLayoutMode.Classic);
+      }
+      if(file.type=='js'){
+        const xmlList = CodeUtils.getXmlCodeList(file.code);
+        if(xmlList.length>0){
+          page.xmlList = xmlList;
+          page.targetXml$.next(xmlList[0]);
+          page.editorMode$.next(SpaceEditorMode.Design);
+        }
+      }
+    }
+    return page;
   }
 }

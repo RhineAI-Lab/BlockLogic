@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ComponentRef, Injector, OnInit} from '@angular/core';
-import { SpaceCenterComponent } from '../space-center/space-center.component';
+import {Page, SpaceCenterComponent} from '../space-center/space-center.component';
 import {CdkPortalOutletAttachedRef, ComponentPortal} from '@angular/cdk/portal';
 import { ProjectFile } from '../../common/project-file.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
@@ -80,8 +80,10 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
   }
 
   onComponentRendering(ref: CdkPortalOutletAttachedRef, page: PageEntry): void {
-    ref = ref as ComponentRef<any>;
+    ref = ref as ComponentRef<SpaceCenterComponent>;
+    page.component = ref.instance;
     ref.instance['file'] = page.file;
+    ref.instance['page'] = Page.makePageByFile(page.file);
   }
 
 }
@@ -91,4 +93,5 @@ export abstract class PageEntry {
   abstract portal?: ComponentPortal<SpaceCenterComponent>;
   abstract component?: SpaceCenterComponent;
 }
+
 
