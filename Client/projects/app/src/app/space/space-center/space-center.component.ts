@@ -8,10 +8,9 @@ import {SpaceDevelopService} from '../services/space-develop.service';
 import {SpaceState} from '../services/space-state.service';
 import {SpaceBlockEditorComponent} from '../space-block-editor/space-block-editor.component';
 import {SpaceCodeEditorComponent} from '../space-code-editor/space-code-editor.component';
-import {wait} from '../../common/promisify.utils';
 import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
 import {SpaceFileService} from '../services/space-file.service';
-import {CodeType, ProjectFile} from '../../common/project-file.class';
+import {ProjectFile} from '../../common/project-file.class';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
@@ -26,6 +25,13 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   @ViewChild(SplitComponent) splitter!: SplitComponent;
   @ViewChild(SpaceBlockEditorComponent) blockEditor!: SpaceBlockEditorComponent;
   @ViewChild(SpaceCodeEditorComponent) codeEditor!: SpaceCodeEditorComponent;
+
+  get code(): string {
+    return this.file.code;
+  }
+  set code(value: string) {
+    this.file.code = value;
+  }
 
   codeAreaWidth = 480;
   get layoutMode(): SpaceLayoutMode {
@@ -74,7 +80,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       Blockly.svgResize(this.blockEditor.workspace);
       this.codeEditor.editor.layout();
     } catch (e) {
-      // console.log(e);
+      // console.warn(e);
     }
   }
 

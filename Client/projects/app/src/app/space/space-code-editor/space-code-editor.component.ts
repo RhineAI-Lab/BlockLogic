@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as monaco from 'monaco-editor';
 
 import {SpaceDevelopService} from '../services/space-develop.service';
@@ -12,6 +12,11 @@ import {SpaceLayoutMode} from "../common/space-modes.enums";
   styleUrls: ['./space-code-editor.component.less'],
 })
 export class SpaceCodeEditorComponent implements OnInit {
+  @Input() code!: string;
+  @Output() codeChange = new EventEmitter<string>();
+
+  editor!: monaco.editor.IStandaloneCodeEditor;
+
   editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
     theme: this.state.isLight ? 'vs' : 'one-dark',
     language: 'javascript',
@@ -20,19 +25,8 @@ export class SpaceCodeEditorComponent implements OnInit {
       horizontalScrollbarSize: 10,
     },
   };
-
-  @Output() change = new EventEmitter();
-  editor!: monaco.editor.IStandaloneCodeEditor;
-
   oneDarkLoaded = true;
   monaco: any = null;
-
-  get code(): string {
-    return this.developService.targetCode;
-  }
-  set code(v: string) {
-    this.developService.targetCode = v;
-  }
 
   constructor(
     private developService: SpaceDevelopService,

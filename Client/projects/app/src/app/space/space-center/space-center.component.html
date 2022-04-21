@@ -15,6 +15,7 @@
       (mousedown)="onChangeWidth($event)"
     ></div>
     <app-space-code-editor
+      [(code)]="code"
       [ngStyle]="
         onlyClassic()
           ? {
