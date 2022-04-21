@@ -227,7 +227,7 @@ export class SpaceFileService {
       };
       file.init(this.httpClient).subscribe({
         complete: () => {
-          if (file.gotCode) {
+          if (file.opened) {
             const blob = new Blob([file.code]);
             const outputStream = streamSaver.createWriteStream(file.name, {
               size: blob.size,
@@ -257,7 +257,7 @@ export class SpaceFileService {
       const inputStream = zip.createWriter({
         start(ctrl: any) {
           for (const file of files) {
-            if (!file.gotCode) {
+            if (!file.opened) {
               ctrl.enqueue(file.source, file.path);
             } else {
               ctrl.enqueue({
@@ -288,7 +288,7 @@ export class SpaceFileService {
         }
       }
       for (const file of files) {
-        if (file.gotCode) {
+        if (file.opened) {
           saveFiles.push({
             path: file.path,
             content: file.code,

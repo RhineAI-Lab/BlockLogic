@@ -46,7 +46,7 @@ export class Project {
     return new Observable<void>(observer => {
       let initialized: string[] = [];
       this.files.forEach(file => {
-        if(file.gotCode||file.source){
+        if(file.opened||file.source){
           observer.next();
           initialized.push(file.path)
           if(initialized.length== this.files.length){

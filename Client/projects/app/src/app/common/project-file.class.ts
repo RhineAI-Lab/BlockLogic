@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {JSZipObject} from "jszip";
-import {CodeUtils} from "./utils/code.utils";
+import {CodeUtils, XmlResult} from "./utils/code.utils";
 import {SpaceEditorMode, SpaceLayoutMode} from "../space/common/space-modes.enums";
 
 export class ProjectFile {
@@ -18,7 +18,13 @@ export class ProjectFile {
   // Opened
   code: string;
   codeType: CodeType = CodeType.UNKNOWN;
-  get gotCode(): boolean {
+  pageState: PageState = new PageState(SpaceEditorMode.Logic, SpaceLayoutMode.Split);
+
+  // UI
+  xmlList:  XmlResult[] = [];
+  readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
+
+  get opened(): boolean {
     return this.codeType != CodeType.UNKNOWN;
   }
 
@@ -39,7 +45,7 @@ export class ProjectFile {
   // init: any source -> file
   init(httpClient?: HttpClient): Observable<void> {
     return new Observable<void>(subscriber => {
-      if (this.gotCode||this.source) {
+      if (this.opened||this.source) {
         subscriber.complete();
       }else if(this.urlSource){
         if (!httpClient) {
@@ -74,7 +80,7 @@ export class ProjectFile {
     return new Observable(subscriber => {
       this.init(httpClient).subscribe({
         complete:() => {
-          if(this.gotCode){
+          if(this.opened){
             subscriber.next(this.code);
             subscriber.complete();
           }else if(this.source){
@@ -110,6 +116,7 @@ export class ProjectFile {
       }else{
         this.codeType = CodeType.JS_AUTO;
       }
+      this.xmlList = CodeUtils.getXmlCodeList(this.code);
     }else if(this.type == 'py') {
       if(CodeUtils.getBlockXml(this.code).length > 0) {
         this.codeType = CodeType.PY_BLOCK_DL;
@@ -122,7 +129,7 @@ export class ProjectFile {
   }
 
   isLogicFile(): boolean {
-    if(this.gotCode){
+    if(this.opened){
       if(this.type=='js'){
         if(CodeUtils.getBlockXml(this.code).length>0){
           return true;
@@ -132,7 +139,7 @@ export class ProjectFile {
     return false;
   }
   toLogicFile(): boolean {
-    if(this.gotCode&&!this.isLogicFile()){
+    if(this.opened&&!this.isLogicFile()){
       this.code = CodeUtils.toLogicFile(this.code);
       return true;
     }
@@ -188,4 +195,17 @@ export enum CodeType {
   PY_BASE,
   PY_BLOCK_DL,
   OTHER_CODE,
+}
+
+export class PageState {
+  constructor(editorMode: SpaceEditorMode, layoutMode: SpaceLayoutMode) {
+    this.editorMode$.next(editorMode);
+    this.layoutMode$.next(layoutMode);
+  }
+  readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
+    SpaceEditorMode.Logic,
+  );
+  readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
+    SpaceLayoutMode.Split,
+  );
 }
