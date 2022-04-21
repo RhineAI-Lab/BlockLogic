@@ -162,10 +162,43 @@ export class SpaceFileService {
   }
 
   // SAVE
-  saveProject(mode: SpaceSaveMode): void {
+  async saveProject(
+    mode: SpaceSaveMode,
+    another: boolean = false,
+  ): Promise<void> {
     const project = this.developService.project$.getValue();
+    const accept: any = {};
+    let desciption = '';
+    let handle = null;
+    if (another) {
+      if (project.files.length == 1) {
+        const file = project.files[0];
+        if (file.type == 'py') {
+          accept['text/python'] = ['.py'];
+          desciption = 'Python';
+        } else if (file.type == 'js') {
+          accept['text/javascript'] = ['.js'];
+          desciption = 'JavaScript';
+        } else if (file.type == 'json') {
+          accept['application/json'] = ['.json'];
+          desciption = 'JSON';
+        } else {
+          desciption = file.type + '文件';
+        }
+        const options = {
+          suggestedName: file.name,
+          types: [
+            {
+              description: desciption,
+              accept: accept,
+            },
+          ],
+        };
+        handle = await window.showSaveFilePicker(options);
+      }
+    }
     this.notify('保存中...');
-    this.saveProjectDo(project, mode).subscribe({
+    this.saveProjectDo(project, mode, handle).subscribe({
       complete: () => {
         this.state.projectState$.next('项目保存成功');
         this.notify('保存成功', 'success');
@@ -183,14 +216,18 @@ export class SpaceFileService {
       },
     });
   }
-  saveProjectDo(project: Project, mode: SpaceSaveMode): Observable<void> {
+  saveProjectDo(
+    project: Project,
+    mode: SpaceSaveMode,
+    handle?: FileSystemFileHandle,
+  ): Observable<void> {
     return new Observable<void>((subscriber) => {
       project.initAll(this.httpClient).subscribe({
         complete: () => {
           const files = project.files;
-          if (mode == SpaceSaveMode.Local) {
+          if (mode == SpaceSaveMode.Local || mode == SpaceSaveMode.Another) {
             if (project.type == ProjectType.File) {
-              this.saveSingleFile(files[0]).subscribe({
+              this.saveSingleFile(files[0], handle).subscribe({
                 complete: () => subscriber.complete(),
                 error: (err) => subscriber.error(err),
               });
@@ -214,30 +251,45 @@ export class SpaceFileService {
   }
 
   // SAVE-1  SingleFile
-  saveSingleFile(file: ProjectFile): Observable<void> {
+  saveSingleFile(
+    file: ProjectFile,
+    handle?: FileSystemFileHandle,
+  ): Observable<void> {
     return new Observable<void>((subscriber) => {
       let write = (
         inputStream: ReadableStream,
         outputStream: WritableStream,
       ) => {
         this.write(inputStream, outputStream).subscribe({
-          complete: () => subscriber.complete(),
+          complete: () => {
+            subscriber.complete()
+          },
           error: (err) => subscriber.error(err),
         });
       };
       file.init(this.httpClient).subscribe({
-        complete: () => {
+        complete: async () => {
           if (file.opened) {
             const blob = new Blob([file.code]);
-            const outputStream = streamSaver.createWriteStream(file.name, {
-              size: blob.size,
-            });
+            let outputStream: WritableStream;
+            if (handle) {
+              outputStream = await handle.createWritable();
+            } else {
+              outputStream = streamSaver.createWriteStream(file.name, {
+                size: blob.size,
+              });
+            }
             const inputStream = blob.stream();
             write(inputStream, outputStream);
           } else if (file.source) {
-            const outputStream = streamSaver.createWriteStream(file.name, {
-              size: file.source.size,
-            });
+            let outputStream: WritableStream;
+            if (handle) {
+              outputStream = handle.createWritable();
+            } else {
+              outputStream = streamSaver.createWriteStream(file.name, {
+                size: file.source.size,
+              });
+            }
             const inputStream = file.source.stream();
             write(inputStream, outputStream);
           } else {
@@ -347,6 +399,18 @@ export class SpaceFileService {
 }
 
 declare function dataToFile(dataUrl: string, fileName: string): File;
+
+declare global {
+  interface Window {
+    showSaveFilePicker(options: any): any;
+  }
+}
+
+declare class FileSystemFileHandle {
+  constructor(file: File);
+  getFile(): File;
+  createWritable(): WritableStream;
+}
 
 interface BrowserFile {
   path: string;

@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as monaco from 'monaco-editor';
 
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceState, ThemeMode} from '../services/space-state.service';
-import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
-import {SpaceLayoutMode} from "../common/space-modes.enums";
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 
 @Component({
   selector: 'app-space-code-editor',

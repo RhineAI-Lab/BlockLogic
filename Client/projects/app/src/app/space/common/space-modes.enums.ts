@@ -17,6 +17,7 @@ export enum SpaceRunMode {
 
 export enum SpaceSaveMode {
   Local = '本地',
+  Another = '另存为',
   Browser = '浏览器',
   Device = '设备',
   Cloud = '云端',

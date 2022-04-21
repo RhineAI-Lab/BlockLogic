@@ -92,6 +92,8 @@ export class SpaceToolBarComponent implements OnInit {
   onSaveProject(): void {
     if (this.saveMode == SpaceSaveMode.Local) {
       this.fileService.saveProject(this.saveMode);
+    } else if (this.saveMode == SpaceSaveMode.Another) {
+      this.fileService.saveProject(this.saveMode, true);
     } else if (this.saveMode == SpaceSaveMode.Cloud) {
       this.notification.error('暂不支持保存至云端', '功能开发中...');
     } else if (this.saveMode == SpaceSaveMode.Device) {
