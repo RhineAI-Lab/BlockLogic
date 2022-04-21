@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { IconUtils } from '../../common/utils/icon.utils';
-import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState } from '../services/space-state.service';
-import {
-  NzContextMenuService,
-  NzDropdownMenuComponent,
-} from 'ng-zorro-antd/dropdown';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ProjectFile } from '../../common/project-file.class';
+import {IconUtils} from '../../common/utils/icon.utils';
+import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
+import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceState} from '../services/space-state.service';
+import {NzContextMenuService, NzDropdownMenuComponent,} from 'ng-zorro-antd/dropdown';
+import {Clipboard} from '@angular/cdk/clipboard';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {ProjectFile} from '../../common/project-file.class';
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -27,12 +24,13 @@ export class SpaceTabBarComponent implements OnInit {
   ) {}
 
   editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
-  layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split;
+  layoutMode: SpaceLayoutMode = SpaceLayoutMode.Unspecified;
+  get isBlockFile() {
+    return this.layoutMode != SpaceLayoutMode.Unspecified;
+  }
 
   EditorMode = SpaceEditorMode;
   LayoutMode = SpaceLayoutMode;
-
-  logicFile = false;
 
   tabs: TabItem[] = [];
 
@@ -48,7 +46,6 @@ export class SpaceTabBarComponent implements OnInit {
       } else {
         this.tabs.push(new TabItem(file, true));
       }
-      this.logicFile = file.isLogicFile();
     });
     this.developService.closeEvent$.subscribe((file) => {
       for (const tabKey in this.tabs) {

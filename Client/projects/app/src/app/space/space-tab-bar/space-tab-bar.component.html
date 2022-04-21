@@ -55,7 +55,7 @@
     </nz-dropdown-menu>
   </button>
   <nz-radio-group
-    *ngIf="logicFile"
+    *ngIf="isBlockFile"
     class="layout-mode-selector"
     [(ngModel)]="layoutMode"
     (ngModelChange)="onLayoutModeChange(layoutMode)"
@@ -67,7 +67,7 @@
     <label nz-radio-button [nzValue]="LayoutMode.Classic">代码</label>
   </nz-radio-group>
   <button
-    *ngIf="!logicFile"
+    *ngIf="!isBlockFile"
     nz-popconfirm
     class="goto-logic-mode"
     nzPopconfirmPlacement="bottomRight"

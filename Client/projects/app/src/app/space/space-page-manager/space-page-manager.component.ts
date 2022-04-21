@@ -1,9 +1,13 @@
 import {AfterViewInit, Component, ComponentRef, Injector, OnInit} from '@angular/core';
 import {Page, SpaceCenterComponent} from '../space-center/space-center.component';
 import {CdkPortalOutletAttachedRef, ComponentPortal} from '@angular/cdk/portal';
-import { ProjectFile } from '../../common/project-file.class';
+import {CodeType, ProjectFile} from '../../common/project-file.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import { SpaceFileService } from '../services/space-file.service';
+import {SpaceState} from "../services/space-state.service";
+import {SpaceEditorMode, SpaceLayoutMode} from "../common/space-modes.enums";
+import {CodeUtils} from "../../common/utils/code.utils";
+import {wait} from "../../common/promisify.utils";
 
 @Component({
   selector: 'app-space-page-manager',
@@ -16,11 +20,23 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
 
   constructor(
     private injector: Injector,
+    private state: SpaceState,
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.state.layoutMode$.subscribe(mode => {
+      this.targetPage?.state?.layoutMode$.next(mode);
+    });
+    this.state.editorMode$.subscribe(mode => {
+      this.targetPage?.state?.editorMode$.next(mode);
+    });
+    this.state.needResize$.subscribe(async (v: boolean) => {
+      if (v) await wait();
+      this.targetPage?.component?.resize();
+    });
+  }
 
   ngAfterViewInit() {
     this.developService.project$.subscribe((project) => {
@@ -45,11 +61,14 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     let page;
     if (index == -1) {
       page = this.use({ file: file });
+      this.targetPage = page;
       this.pages.push(page);
     } else {
       page = this.pages[index];
+      this.targetPage = page;
     }
-    this.targetPage = page;
+    this.state.layoutMode$.next(page.state!.layoutMode$.getValue());
+    this.state.editorMode$.next(page.state!.editorMode$.getValue());
   }
   closePage(file: ProjectFile) {
     const index = this.getPageIndexByFile(file);
@@ -80,11 +99,28 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
   }
 
   onComponentRendering(ref: CdkPortalOutletAttachedRef, pageEntry: PageEntry): void {
+    const file = pageEntry.file;
+    pageEntry.state = Page.makePageByFile(file);
+    if (file.opened) {
+      if (
+        file.codeType == CodeType.PY_BLOCK_DL ||
+        file.codeType == CodeType.JS_BLOCK_AUTO
+      ) {
+        this.state.layoutMode$.next(SpaceLayoutMode.Split);
+      } else {
+        this.state.layoutMode$.next(SpaceLayoutMode.Unspecified);
+      }
+      if (file.type == 'js') {
+        const xmlList = CodeUtils.getXmlCodeList(file.code);
+        if (xmlList.length > 0) {
+          this.state.editorMode$.next(SpaceEditorMode.Design);
+        }
+      }
+    }
     ref = ref as ComponentRef<SpaceCenterComponent>;
-    pageEntry.state = Page.makePageByFile(pageEntry.file);
     pageEntry.component = ref.instance;
     ref.instance['page'] = pageEntry.state;
-    ref.instance['file'] = pageEntry.file;
+    ref.instance['file'] = file;
   }
 
 }

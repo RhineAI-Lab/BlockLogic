@@ -1,24 +1,18 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { SplitComponent } from 'angular-split';
+import {AfterViewInit, Component, Input, OnInit, ViewChild,} from '@angular/core';
+import {SplitComponent} from 'angular-split';
 import * as Blockly from 'blockly';
 
-import { CodeUtils, XmlResult } from '../../common/utils/code.utils';
-import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState } from '../services/space-state.service';
-import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
-import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
-import { wait } from '../../common/promisify.utils';
-import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
-import { SpaceFileService } from '../services/space-file.service';
-import { CodeType, ProjectFile } from '../../common/project-file.class';
-import { BehaviorSubject } from 'rxjs';
+import {CodeUtils, XmlResult} from '../../common/utils/code.utils';
+import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
+import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceState} from '../services/space-state.service';
+import {SpaceBlockEditorComponent} from '../space-block-editor/space-block-editor.component';
+import {SpaceCodeEditorComponent} from '../space-code-editor/space-code-editor.component';
+import {wait} from '../../common/promisify.utils';
+import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
+import {SpaceFileService} from '../services/space-file.service';
+import {CodeType, ProjectFile} from '../../common/project-file.class';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-space-center',
@@ -38,19 +32,14 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     return this.page.layoutMode$.getValue();
   }
   get isBlockFile(): boolean {
-    return this.page.isBlockFile$.getValue();
+    return this.layoutMode == SpaceLayoutMode.Unspecified;
   }
 
   constructor(
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
     private state: SpaceState,
-  ) {
-    state.needResize$.subscribe(async (v: boolean) => {
-      if (v) await wait();
-      this.resize();
-    });
-  }
+  ) { }
 
   ngOnInit(): void {}
 
@@ -82,6 +71,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   resize(): void {
     try {
+      console.log('resize');
       Blockly.svgResize(this.blockEditor.workspace);
       this.codeEditor.editor.layout();
     } catch (e) {
@@ -130,22 +120,20 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   }
 
   showClassic(): boolean {
-    return (
-      !this.isBlockFile ||
-      [SpaceLayoutMode.Classic, SpaceLayoutMode.Split].includes(this.layoutMode)
-    );
+    return this.layoutMode != SpaceLayoutMode.Visual;
   }
   showVisual(): boolean {
     return (
-      this.isBlockFile &&
       [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(this.layoutMode)
     );
   }
   showSplitLine(): boolean {
-    return this.isBlockFile && this.layoutMode == SpaceLayoutMode.Split;
+    return this.layoutMode == SpaceLayoutMode.Split;
   }
   onlyClassic(): boolean {
-    return !this.isBlockFile || this.layoutMode == SpaceLayoutMode.Classic;
+    return (
+      [SpaceLayoutMode.Classic, SpaceLayoutMode.Unspecified].includes(this.layoutMode)
+    );
   }
 
   onChangeWidth(e: MouseEvent): void {
@@ -175,7 +163,6 @@ export class Page {
   readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
     SpaceLayoutMode.Split,
   );
-  readonly isBlockFile$ = new BehaviorSubject<boolean>(true);
 
   xmlList: XmlResult[] = [];
   readonly targetXml$ = new BehaviorSubject<XmlResult>(XmlResult.createEmpty());
@@ -184,31 +171,18 @@ export class Page {
     file: ProjectFile,
     editorMode: SpaceEditorMode = SpaceEditorMode.Logic,
     layoutMode: SpaceLayoutMode = SpaceLayoutMode.Split,
-    isBlockFile: boolean = true,
   ) {
     this.editorMode$.next(editorMode);
     this.layoutMode$.next(layoutMode);
-    this.isBlockFile$.next(isBlockFile);
   }
 
   public static makePageByFile(file: ProjectFile): Page {
     const page = new Page(file);
-    if (file.opened) {
-      if (
-        file.codeType == CodeType.PY_BLOCK_DL ||
-        file.codeType == CodeType.JS_BLOCK_AUTO
-      ) {
-        page.layoutMode$.next(SpaceLayoutMode.Split);
-      } else {
-        page.layoutMode$.next(SpaceLayoutMode.Classic);
-      }
-      if (file.type == 'js') {
-        const xmlList = CodeUtils.getXmlCodeList(file.code);
-        if (xmlList.length > 0) {
-          page.xmlList = xmlList;
-          page.targetXml$.next(xmlList[0]);
-          page.editorMode$.next(SpaceEditorMode.Design);
-        }
+    if (file.type == 'js') {
+      const xmlList = CodeUtils.getXmlCodeList(file.code);
+      if (xmlList.length > 0) {
+        page.xmlList = xmlList;
+        page.targetXml$.next(xmlList[0]);
       }
     }
     return page;
