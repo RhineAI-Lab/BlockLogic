@@ -34,16 +34,6 @@ export class SpaceCodeEditorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // TODO: 迁移监听位置
-    this.state.toolbarButtonEvent$.subscribe((v) => {
-      if (this.state.layoutMode$.getValue()!=SpaceLayoutMode.Unspecified) {
-        if (v == SpaceToolBarButtonType.Undo) {
-          this.undo();
-        } else if (v == SpaceToolBarButtonType.Redo) {
-          this.redo();
-        }
-      }
-    });
     this.state.theme$.subscribe((v) => {
       setTimeout(() => {
         if (v == ThemeMode.Default) {

@@ -1,13 +1,26 @@
-import {AfterViewInit, Component, ComponentRef, Injector, OnInit} from '@angular/core';
-import {Page, SpaceCenterComponent} from '../space-center/space-center.component';
-import {CdkPortalOutletAttachedRef, ComponentPortal} from '@angular/cdk/portal';
-import {CodeType, ProjectFile} from '../../common/project-file.class';
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  Page,
+  SpaceCenterComponent,
+} from '../space-center/space-center.component';
+import {
+  CdkPortalOutletAttachedRef,
+  ComponentPortal,
+} from '@angular/cdk/portal';
+import { CodeType, ProjectFile } from '../../common/project-file.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import { SpaceFileService } from '../services/space-file.service';
-import {SpaceState} from "../services/space-state.service";
-import {SpaceEditorMode, SpaceLayoutMode} from "../common/space-modes.enums";
-import {CodeUtils} from "../../common/utils/code.utils";
-import {wait} from "../../common/promisify.utils";
+import { SpaceState } from '../services/space-state.service';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
+import { CodeUtils } from '../../common/utils/code.utils';
+import { wait } from '../../common/promisify.utils';
+import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 
 @Component({
   selector: 'app-space-page-manager',
@@ -26,15 +39,29 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    this.state.layoutMode$.subscribe(mode => {
+    this.state.layoutMode$.subscribe((mode) => {
       this.targetPage?.state?.layoutMode$.next(mode);
     });
-    this.state.editorMode$.subscribe(mode => {
+    this.state.editorMode$.subscribe((mode) => {
       this.targetPage?.state?.editorMode$.next(mode);
     });
     this.state.needResize$.subscribe(async (v: boolean) => {
       if (v) await wait();
       this.targetPage?.component?.resize();
+    });
+
+    this.state.toolbarButtonEvent$.subscribe((v) => {
+      if (
+        [SpaceLayoutMode.Classic, SpaceLayoutMode.Unspecified].includes(
+          this.state.layoutMode$.getValue(),
+        )
+      ) {
+        if (v == SpaceToolBarButtonType.Undo) {
+          this.targetPage?.component?.undo();
+        } else if (v == SpaceToolBarButtonType.Redo) {
+          this.targetPage?.component?.redo();
+        }
+      }
     });
   }
 
@@ -98,7 +125,10 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     return definition;
   }
 
-  onComponentRendering(ref: CdkPortalOutletAttachedRef, pageEntry: PageEntry): void {
+  onComponentRendering(
+    ref: CdkPortalOutletAttachedRef,
+    pageEntry: PageEntry,
+  ): void {
     const file = pageEntry.file;
     pageEntry.state = Page.makePageByFile(file);
     if (file.opened) {
@@ -122,7 +152,6 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     ref.instance['page'] = pageEntry.state;
     ref.instance['file'] = file;
   }
-
 }
 
 export abstract class PageEntry {
@@ -131,5 +160,3 @@ export abstract class PageEntry {
   abstract component?: SpaceCenterComponent;
   abstract state?: Page;
 }
-
-

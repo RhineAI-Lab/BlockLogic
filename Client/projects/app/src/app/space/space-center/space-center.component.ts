@@ -84,6 +84,13 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     }
   }
 
+  undo(): void {
+    this.codeEditor.undo();
+  }
+  redo(): void {
+    this.codeEditor.redo();
+  }
+
   onBlockChange(event: Event): void {
     let changeType = [
       Blockly.Events.BLOCK_CREATE,
