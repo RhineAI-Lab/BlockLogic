@@ -38,7 +38,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     return this.page.layoutMode$.getValue();
   }
   get isBlockFile(): boolean {
-    return this.layoutMode == SpaceLayoutMode.Unspecified;
+    return this.layoutMode != SpaceLayoutMode.Unspecified;
   }
 
   constructor(
