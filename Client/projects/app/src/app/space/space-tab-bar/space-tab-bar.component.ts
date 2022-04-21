@@ -23,8 +23,19 @@ export class SpaceTabBarComponent implements OnInit {
     private notification: NzNotificationService,
   ) {}
 
-  editorMode: SpaceEditorMode = SpaceEditorMode.Logic;
-  layoutMode: SpaceLayoutMode = SpaceLayoutMode.Unspecified;
+  get editorMode(): SpaceEditorMode {
+    return this.state.editorMode$.getValue();
+  }
+  set editorMode(value: SpaceEditorMode) {
+    this.state.editorMode$.next(value);
+  }
+  get layoutMode(): SpaceLayoutMode {
+    return this.state.layoutMode$.getValue();
+  }
+  set layoutMode(value: SpaceLayoutMode) {
+    this.state.layoutMode$.next(value);
+  }
+
   get isBlockFile() {
     return this.layoutMode != SpaceLayoutMode.Unspecified;
   }
@@ -79,11 +90,9 @@ export class SpaceTabBarComponent implements OnInit {
 
   onEditorModeChange(mode: SpaceEditorMode): void {
     this.editorMode = mode;
-    this.state.editorMode$.next(mode);
   }
   onLayoutModeChange(mode: SpaceLayoutMode): void {
     this.layoutMode = mode;
-    this.state.layoutMode$.next(mode);
   }
 
   onTabClick(item: TabItem): void {
@@ -134,11 +143,9 @@ export class SpaceTabBarComponent implements OnInit {
     return IconUtils.getIconByFileName(name);
   }
 
-  onGotoLogicMode(): void {
+  onToBlockFile(): void {
     if (this.developService.targetFile$.getValue().toLogicFile()) {
-      this.developService.openFile(
-        this.developService.targetFile$.getValue().path,
-      );
+      this.onLayoutModeChange(SpaceLayoutMode.Split);
     }
   }
 }

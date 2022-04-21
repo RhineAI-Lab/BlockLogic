@@ -46,11 +46,12 @@ export class SpaceToolBarComponent implements OnInit {
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();
 
   runMode = SpaceRunMode.Browser;
+  saveMode = SpaceSaveMode.Local;
+  openMode = SpaceOpenMode.LocalFile;
+
   get editorMode() {
     return this.state.editorMode$.getValue();
   }
-  saveMode = SpaceSaveMode.Local;
-  openMode = SpaceOpenMode.LocalFile;
   get layoutMode () {
     return this.state.layoutMode$.getValue();
   }
