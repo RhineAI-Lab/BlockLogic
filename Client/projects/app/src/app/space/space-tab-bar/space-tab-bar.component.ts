@@ -144,7 +144,7 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   onToBlockFile(): void {
-    if (this.developService.targetFile$.getValue().toLogicFile()) {
+    if (this.developService.targetFile$.getValue().toBlockFile()) {
       this.onLayoutModeChange(SpaceLayoutMode.Split);
     }
   }

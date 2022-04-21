@@ -130,20 +130,13 @@ export class ProjectFile {
     }
   }
 
-  isLogicFile(): boolean {
-    if (this.opened) {
-      if (this.type == 'js') {
-        if (CodeUtils.getBlockXml(this.code).length > 0) {
-          return true;
-        }
+  toBlockFile(): boolean {
+    if (this.opened && !this.isBlockFile) {
+      if(this.type == 'js') {
+        this.code = CodeUtils.toLogicFile(this.code);
+        this.codeType = CodeType.JS_BLOCK_AUTO;
+        return true;
       }
-    }
-    return false;
-  }
-  toLogicFile(): boolean {
-    if (this.opened && !this.isLogicFile()) {
-      this.code = CodeUtils.toLogicFile(this.code);
-      return true;
     }
     return false;
   }

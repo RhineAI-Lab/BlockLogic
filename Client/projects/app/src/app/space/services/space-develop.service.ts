@@ -81,6 +81,7 @@ export class SpaceDevelopService {
       file.open(this.httpClient).subscribe({
         complete: () => {
           if (this.project$.getValue().changeTargetFile(filePath)) {
+            file.analysisCode();
             const targetFile = this.project$.getValue().getTargetFile();
             this.targetFile$.next(targetFile);
           }

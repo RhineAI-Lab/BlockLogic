@@ -14,7 +14,7 @@ import {
   SpaceLocationMode,
 } from './space-develop.service';
 import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceState, ThemeMode } from './space-state.service';
+import { SpaceState } from './space-state.service';
 
 @Injectable()
 export class SpaceFileService {
