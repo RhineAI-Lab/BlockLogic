@@ -56,7 +56,7 @@ export class SpaceToolBarComponent implements OnInit {
     return this.state.layoutMode$.getValue();
   }
   get isBlockFile () {
-    return this.layoutMode == SpaceLayoutMode.Unspecified;
+    return this.layoutMode != SpaceLayoutMode.Unspecified;
   }
   get isEditorLogicMode() {
     return this.editorMode == SpaceEditorMode.Logic;
