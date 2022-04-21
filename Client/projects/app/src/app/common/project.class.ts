@@ -80,7 +80,7 @@ export class Project {
     }
     if(jsFile !== -1) return jsFile;
     for (const filesKey in this.files) {
-      if(ProjectFile.SUPPORT_OPEN_LIST.includes(this.files[filesKey].type))
+      if(ProjectFile.SUPPORT_TYPE_LIST.includes(this.files[filesKey].type))
         return parseInt(filesKey, 10);
     }
     return jsFile;

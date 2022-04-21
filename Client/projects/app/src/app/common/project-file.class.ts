@@ -1,19 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { from, Observable } from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {JSZipObject} from "jszip";
 import {CodeUtils} from "./utils/code.utils";
+import {SpaceEditorMode, SpaceLayoutMode} from "../space/common/space-modes.enums";
 
 export class ProjectFile {
+  // Source
   zipSource?: JSZipObject; // Uninitialized
   urlSource?: string; // Uninitialized
   source?: File;
 
+  // Attr
   path: string;
   name: string;
   type: string;
+
+  // Opened
   code: string;
   codeType: CodeType = CodeType.UNKNOWN;
-  gotCode: boolean = false;
+  get gotCode(): boolean {
+    return this.codeType != CodeType.UNKNOWN;
+  }
 
   constructor(
     path: string,
@@ -29,6 +36,7 @@ export class ProjectFile {
     this.code = code;
   }
 
+  // init: any source -> file
   init(httpClient?: HttpClient): Observable<void> {
     return new Observable<void>(subscriber => {
       if (this.gotCode||this.source) {
@@ -43,7 +51,7 @@ export class ProjectFile {
           .subscribe({
             next:(code: string) => {
               this.code = code;
-              this.gotCode = true;
+              this.analysisCode();
               subscriber.complete();
             },
             error:(err) => {
@@ -61,6 +69,7 @@ export class ProjectFile {
     });
   }
 
+  // open: any source | file -> code
   open(httpClient?: HttpClient): Observable<string> {
     return new Observable(subscriber => {
       this.init(httpClient).subscribe({
@@ -69,11 +78,11 @@ export class ProjectFile {
             subscriber.next(this.code);
             subscriber.complete();
           }else if(this.source){
-            if(ProjectFile.SUPPORT_OPEN_LIST.includes(this.type)) {
+            if(ProjectFile.SUPPORT_TYPE_LIST.includes(this.type)) {
               const reader = new FileReader();
               reader.onload = (e) => {
                 this.code = reader.result as string;
-                this.gotCode = true;
+                this.analysisCode();
                 subscriber.next(this.code);
                 subscriber.complete();
               };
@@ -90,6 +99,26 @@ export class ProjectFile {
         }
       });
     });
+  }
+
+  analysisCode(): void {
+    if(!ProjectFile.CODE_TYPE_LIST.includes(this.type)) {
+      this.codeType = CodeType.NOT_CODE;
+    }else if(this.type == 'js') {
+      if(CodeUtils.getBlockXml(this.code).length > 0) {
+        this.codeType = CodeType.JS_BLOCK_AUTO;
+      }else{
+        this.codeType = CodeType.JS_AUTO;
+      }
+    }else if(this.type == 'py') {
+      if(CodeUtils.getBlockXml(this.code).length > 0) {
+        this.codeType = CodeType.PY_BLOCK_DL;
+      }else{
+        this.codeType = CodeType.PY_BASE;
+      }
+    }else{
+      this.codeType = CodeType.OTHER_CODE;
+    }
   }
 
   isLogicFile(): boolean {
@@ -135,7 +164,7 @@ export class ProjectFile {
   static makeProjectFileByCode(code: string, path: string): ProjectFile {
     const projectFile = ProjectFile.makeProjectFileByPath(path);
     projectFile.code = code;
-    projectFile.gotCode = true;
+    projectFile.analysisCode();
     return projectFile;
   }
 
@@ -146,7 +175,8 @@ export class ProjectFile {
     return new ProjectFile(path, name, ns[ns.length - 1], '', '');
   }
 
-  public static SUPPORT_OPEN_LIST = 'js ts jsx tsx xml html css vue json java cpp php python txt yaml'.split(' ');
+  public static SUPPORT_TYPE_LIST = 'js ts jsx tsx xml html css vue json java cpp php py txt yaml'.split(' ');
+  public static CODE_TYPE_LIST = 'js ts jsx tsx xml html css vue json java cpp php py'.split(' ');
 }
 
 export enum CodeType {
@@ -154,9 +184,8 @@ export enum CodeType {
   NOT_CODE,
   JS_BASE,
   JS_AUTO,
-  JS_AUTO_UI,
   JS_BLOCK_AUTO,
-  JS_BLOCK_AUTO_UI,
   PY_BASE,
-  PY_DL,
+  PY_BLOCK_DL,
+  OTHER_CODE,
 }

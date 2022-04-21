@@ -91,3 +91,4 @@ export abstract class PageEntry {
   abstract portal?: ComponentPortal<SpaceCenterComponent>;
   abstract component?: SpaceCenterComponent;
 }
+
