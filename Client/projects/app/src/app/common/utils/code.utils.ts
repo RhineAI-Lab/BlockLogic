@@ -68,7 +68,9 @@ export class CodeUtils {
         }else {
           let values = Object.values(obj);
           for (let i = 0; i < values.length; i++) {
-            search(values[i])
+            if(values[i]){
+              search(values[i])
+            }
           }
         }
       }

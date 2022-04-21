@@ -79,11 +79,12 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
     return definition;
   }
 
-  onComponentRendering(ref: CdkPortalOutletAttachedRef, page: PageEntry): void {
+  onComponentRendering(ref: CdkPortalOutletAttachedRef, pageEntry: PageEntry): void {
     ref = ref as ComponentRef<SpaceCenterComponent>;
-    page.component = ref.instance;
-    ref.instance['file'] = page.file;
-    ref.instance['page'] = Page.makePageByFile(page.file);
+    pageEntry.state = Page.makePageByFile(pageEntry.file);
+    pageEntry.component = ref.instance;
+    ref.instance['page'] = pageEntry.state;
+    ref.instance['file'] = pageEntry.file;
   }
 
 }
@@ -92,6 +93,7 @@ export abstract class PageEntry {
   abstract file: ProjectFile;
   abstract portal?: ComponentPortal<SpaceCenterComponent>;
   abstract component?: SpaceCenterComponent;
+  abstract state?: Page;
 }
 
 
