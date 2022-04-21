@@ -1,9 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import * as monaco from 'monaco-editor';
 
-import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState, ThemeMode } from '../services/space-state.service';
-import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
+import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceState, ThemeMode} from '../services/space-state.service';
+import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
+import {SpaceLayoutMode} from "../common/space-modes.enums";
 
 @Component({
   selector: 'app-space-code-editor',
@@ -39,8 +40,9 @@ export class SpaceCodeEditorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // TODO: 迁移监听位置
     this.state.toolbarButtonEvent$.subscribe((v) => {
-      if (!this.state.isLogicFile$.getValue()) {
+      if (this.state.layoutMode$.getValue()!=SpaceLayoutMode.Unspecified) {
         if (v == SpaceToolBarButtonType.Undo) {
           this.undo();
         } else if (v == SpaceToolBarButtonType.Redo) {

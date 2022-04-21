@@ -1,18 +1,19 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { filter, race, take } from 'rxjs';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {filter, race, take} from 'rxjs';
 
-import { StringUtils } from '../../common/utils/string.utils';
+import {StringUtils} from '../../common/utils/string.utils';
 import {
   SpaceEditorMode,
+  SpaceLayoutMode,
   SpaceOpenMode,
   SpaceRunMode,
   SpaceSaveMode,
 } from '../common/space-modes.enums';
-import { SpaceDevelopService } from '../services/space-develop.service';
-import { SpaceState, ThemeMode } from '../services/space-state.service';
-import { SpaceFileService } from '../services/space-file.service';
-import { XmlResult } from '../../common/utils/code.utils';
+import {SpaceDevelopService} from '../services/space-develop.service';
+import {SpaceState, ThemeMode} from '../services/space-state.service';
+import {SpaceFileService} from '../services/space-file.service';
+import {XmlResult} from '../../common/utils/code.utils';
 
 @Component({
   selector: 'app-space-tool-bar',
@@ -48,12 +49,14 @@ export class SpaceToolBarComponent implements OnInit {
   get editorMode() {
     return this.state.editorMode$.getValue();
   }
-  set editorMode(value: SpaceEditorMode) {
-    this.state.editorMode$.next(value);
-  }
   saveMode = SpaceSaveMode.Local;
   openMode = SpaceOpenMode.LocalFile;
-  isLogicFile = false;
+  get layoutMode () {
+    return this.state.layoutMode$.getValue();
+  }
+  get isBlockFile () {
+    return this.layoutMode == SpaceLayoutMode.Unspecified;
+  }
   get isEditorLogicMode() {
     return this.editorMode == SpaceEditorMode.Logic;
   }
@@ -78,12 +81,7 @@ export class SpaceToolBarComponent implements OnInit {
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
     private notification: NzNotificationService,
-  ) {
-    this.isLogicFile = this.state.isLogicFile$.getValue();
-    this.state.isLogicFile$.subscribe((mode) => {
-      this.isLogicFile = mode;
-    });
-  }
+  ) {}
 
   ngOnInit(): void {}
 

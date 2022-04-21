@@ -1,6 +1,6 @@
 <div class="layout hr-ant" fxLayout>
   <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
-  <label nz-checkbox *ngIf="isLogicFile"
+  <label nz-checkbox *ngIf="isBlockFile"
     [(ngModel)]="holdBox"
     (ngModelChange)="onChangeHoldBox()"
   >保持栏目</label>
@@ -20,7 +20,7 @@
           (ngModelChange)="onChangeUnfoldXml()"
         >展开XML</label>
       </li>
-      <li nz-menu-item *ngIf="isLogicFile">
+      <li nz-menu-item *ngIf="isBlockFile">
         <label
           nz-checkbox
           [(ngModel)]="syncCode"
@@ -64,9 +64,9 @@
   >
     icon-refresh
   </app-icon-button>
-  <app-toolbar-divider [hidden]="!isLogicFile || !isEditorLogicMode"></app-toolbar-divider>
-  <span class="tip" [hidden]="!isLogicFile || !isEditorLogicMode">生成: </span>
-  <nz-button-group nzSize="small" [hidden]="!isLogicFile || !isEditorLogicMode">
+  <app-toolbar-divider [hidden]="!isBlockFile || !isEditorLogicMode"></app-toolbar-divider>
+  <span class="tip" [hidden]="!isBlockFile || !isEditorLogicMode">生成: </span>
+  <nz-button-group nzSize="small" [hidden]="!isBlockFile || !isEditorLogicMode">
     <button nz-button (click)="onToCode()">
       <i nz-icon nzType="right"></i>
       代码

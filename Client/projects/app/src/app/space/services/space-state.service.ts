@@ -16,12 +16,11 @@ export class SpaceState {
 
   readonly isHeaderVisible$ = new BehaviorSubject(true);
 
-  readonly isLogicFile$ = new BehaviorSubject<boolean>(true);
   readonly editorMode$ = new BehaviorSubject<SpaceEditorMode>(
     SpaceEditorMode.Logic,
   );
   readonly layoutMode$ = new BehaviorSubject<SpaceLayoutMode>(
-    SpaceLayoutMode.Split,
+    SpaceLayoutMode.Unspecified,
   );
 
   readonly editorState$ = new BehaviorSubject<string>('编辑器初始化中...');
@@ -34,9 +33,6 @@ export class SpaceState {
 
   constructor() {
     this.layoutMode$.subscribe(() => {
-      this.needResize$.next(true);
-    });
-    this.isLogicFile$.subscribe(() => {
       this.needResize$.next(true);
     });
     this.isHeaderVisible$.subscribe(() => {

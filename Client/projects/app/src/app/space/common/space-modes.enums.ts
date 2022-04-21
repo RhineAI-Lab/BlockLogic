@@ -4,6 +4,7 @@ export enum SpaceEditorMode {
 }
 
 export enum SpaceLayoutMode {
+  Unspecified,
   Visual,
   Split,
   Classic,
