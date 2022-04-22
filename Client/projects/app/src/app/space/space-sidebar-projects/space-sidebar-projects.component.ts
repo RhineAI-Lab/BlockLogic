@@ -137,13 +137,17 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onMove(event: NzFormatEmitEvent): void {}
 
   onNewOk(): void {
+    this.newModalVisible = false;
+    this.newValue = this.newValue.trim();
+    if (this.existsList.includes(this.newValue)||this.newValue.length==0) return;
+
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
       const folder = new ProjectFolder(
         this.newNode!.origin.key + '/' + this.newValue,
       );
       project.folders.push(folder);
-      project.sortFolderByPath();
+      project.sortFoldersByPath();
     } else {
       let defaultCode = '';
       if (this.newType == NewType.BlockLogic) {
@@ -203,8 +207,9 @@ console.log('HelloWorld');
     this.resolve(project);
   }
   onRenameOk(): void {
-    if (this.existsList.includes(this.renameValue)) return;
     this.renameModalVisible = false;
+    this.renameValue = this.renameValue.trim();
+    if (this.existsList.includes(this.renameValue)||this.renameValue.length==0) return;
     if (this.renameValue == this.renameNode?.title) return;
 
     const origin = this.renameNode!.origin;
@@ -236,7 +241,7 @@ console.log('HelloWorld');
           file.renamePath(newFilePath);
         }
       }
-      project.sortFolderByPath();
+      project.sortFoldersByPath();
       project.sortFilesByPath();
     }
     this.resolve(project);

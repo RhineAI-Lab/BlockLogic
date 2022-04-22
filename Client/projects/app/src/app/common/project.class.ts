@@ -17,7 +17,7 @@ export class Project {
       this.name = files[0].path.split('/')[0];
       this.checkFolders();
       this.sortFilesByPath();
-      this.sortFolderByPath();
+      this.sortFoldersByPath();
       this.target = this.findDefaultTarget();
     }
   }
@@ -97,7 +97,7 @@ export class Project {
       return 1;
     });
   }
-  sortFolderByPath(): void {
+  sortFoldersByPath(): void {
     this.folders.sort((a: ProjectFolder, b: ProjectFolder): number => {
       const al = a.path.split('/');
       const bl = b.path.split('/');
