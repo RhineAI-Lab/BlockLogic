@@ -5,7 +5,6 @@ import { ProjectFolder } from './project-folder.class';
 
 export class Project {
   target = -1;
-  name = 'Project';
   folders: ProjectFolder[] = [];
   handle?: FileSystemDirectoryHandle;
 
@@ -14,11 +13,20 @@ export class Project {
     public engine: ProjectEngine = ProjectEngine.BLogic,
   ) {
     if (files.length >= 1) {
-      this.name = files[0].path.split('/')[0];
       this.checkFolders();
       this.sortFilesByPath();
       this.sortFoldersByPath();
       this.target = this.findDefaultTarget();
+    }
+  }
+
+  get name(): string {
+    if(this.files.length > 0) {
+      return this.files[0].path.split('/')[0];
+    }else if (this.folders.length > 0) {
+      return this.folders[0].path.split('/')[0];
+    }else{
+      return 'Project';
     }
   }
 

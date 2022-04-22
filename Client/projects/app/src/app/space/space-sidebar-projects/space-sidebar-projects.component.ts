@@ -198,12 +198,14 @@ console.log('HelloWorld');
           project.files.splice(project.files.indexOf(file), 1);
         }
       }
-      for (const folder of project.folders) {
+      for (let i=0;i<project.folders.length;i++) {
+        const folder = project.folders[i];
         if (
           folder.path.startsWith(deleteFolder) ||
           folder.path == this.deleteTargetPath
         ) {
           project.folders.splice(project.folders.indexOf(folder), 1);
+          i--;
         }
       }
       this.notification.success('文件夹已删除', '');
@@ -274,7 +276,7 @@ console.log('HelloWorld');
       return ;
     }
     this.freshLock = true;
-    const projectName = project.files[0].path.split('/')[0];
+    let projectName = project.name;
     this.data = [
       {
         title: projectName,
