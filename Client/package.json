@@ -27,6 +27,7 @@
     "@types/wicg-file-system-access": "^2020.9.5",
     "angular-split": "^13.2.0",
     "blockly": "^6.20210701.0",
+    "brython-runner": "^1.0.10",
     "clipboard": "^2.0.10",
     "dayjs": "^1.11.0",
     "esprima": "^4.0.1",

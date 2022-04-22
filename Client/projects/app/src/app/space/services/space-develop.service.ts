@@ -10,6 +10,7 @@ import { SpaceDebugService } from './space-debug.service';
 import { SpaceState } from './space-state.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CodeUtils, XmlResult } from '../../common/utils/code.utils';
+import { Python } from '../../python/python.class';
 
 @Injectable()
 export class SpaceDevelopService {
@@ -47,6 +48,7 @@ export class SpaceDevelopService {
   }
 
   init(): void {
+    Python.init();
     this.state.editorState$.next('编辑器初始化完成');
   }
 
@@ -99,15 +101,19 @@ export class SpaceDevelopService {
   run(): void {
     this.showConsole$.next();
     if (this.runMode$.getValue() == SpaceRunMode.Browser) {
-      this.sandboxOfLastRun?.destroy();
-      const sandbox = new Sandbox();
-      sandbox.output$.subscribe({
-        next: this.output$.next.bind(this.output$),
-        error: this.output$.error.bind(this.output$),
-      });
-      this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
-      sandbox.run(this.targetFile$.getValue().code);
-      this.sandboxOfLastRun = sandbox;
+      if (this.targetFile$.getValue().type == 'js'){
+        this.sandboxOfLastRun?.destroy();
+        const sandbox = new Sandbox();
+        sandbox.output$.subscribe({
+          next: this.output$.next.bind(this.output$),
+          error: this.output$.error.bind(this.output$),
+        });
+        this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
+        sandbox.run(this.targetFile$.getValue().code);
+        this.sandboxOfLastRun = sandbox;
+      }else if (this.targetFile$.getValue().type == 'py'){
+        Python.run(this.targetFile$.getValue().code)
+      }
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
       if (this.debugService.connected) {
         this.debugService.runFile(
