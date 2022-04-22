@@ -32,7 +32,7 @@ export class SpaceFileService {
     this.openProjectFrom(source, location);
   }
 
-  // OPEN-0
+  // OPEN
   openProject(mode: SpaceOpenMode): void {
     if (mode == SpaceOpenMode.LocalFile) {
       this.openLocalFile();
@@ -66,7 +66,7 @@ export class SpaceFileService {
               const files: ProjectFile[] = [
                 ProjectFile.makeProjectFileByCode(text, 'Project/' + name),
               ];
-              this.developService.openProject(new Project(files));
+              this.openProjectFinal(new Project(files));
             } else {
               const lines = text.split('\n');
               const files: ProjectFile[] = [];
@@ -82,7 +82,7 @@ export class SpaceFileService {
                   ),
                 );
               }
-              this.developService.openProject(new Project(files));
+              this.openProjectFinal(new Project(files));
             }
           },
           error: (err) => {
@@ -90,7 +90,7 @@ export class SpaceFileService {
           },
         });
       } else {
-        this.developService.openProject(Project.getDefaultProject());
+        this.developService.openProject(Project.getDefaultProject(), false);
       }
     }
   }
@@ -99,7 +99,11 @@ export class SpaceFileService {
   openZipFile(file: File): void {
     if (file == undefined) return;
     this.openZipDo(file).subscribe((project: Project) => {
-      this.developService.openProject(project);
+      if (project.files.length == 0) {
+        this.notify('打开项目失败', 'error', '项目为空');
+      } else {
+        this.openProjectFinal(project);
+      }
     });
   }
   openZipDo(file: File): Observable<Project> {
@@ -146,7 +150,7 @@ export class SpaceFileService {
           );
         }
       }
-      this.developService.openProject(new Project(projectFiles));
+      this.openProjectFinal(new Project(projectFiles));
     } else {
       this.notify('浏览器中无项目', 'error');
     }
@@ -167,7 +171,7 @@ export class SpaceFileService {
         files[0],
         'Project/' + files[0].name,
       );
-      this.developService.openProject(new Project([projectFile]));
+      this.openProjectFinal(new Project([projectFile]));
     }
   }
 
@@ -186,7 +190,7 @@ export class SpaceFileService {
       );
       projectFile.handle = handle;
       const project = new Project([projectFile]);
-      this.developService.openProject(project);
+      this.openProjectFinal(project);
     }
   }
 
@@ -220,7 +224,15 @@ export class SpaceFileService {
     await parseFolder(rootHandle, rootHandle.name);
     const project = new Project(files);
     project.folders = folders;
-    this.developService.openProject(project);
+    this.openProjectFinal(project);
+  }
+
+  openProjectFinal(project: Project): void {
+    if (project.files.length == 0) {
+      this.notify('打开项目失败', 'error', '项目为空');
+    } else {
+      this.developService.openProject(project);
+    }
   }
 
   // SAVE
@@ -229,6 +241,10 @@ export class SpaceFileService {
     another: boolean = false,
   ): Promise<void> {
     const project = this.developService.project$.getValue();
+    if (project.files.length == 0) {
+      this.notify('项目中无文件', 'warning');
+      return;
+    }
     let handle;
     if (another) {
       if (project.files.length == 1) {
