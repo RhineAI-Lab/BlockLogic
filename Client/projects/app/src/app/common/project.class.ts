@@ -15,6 +15,7 @@ export class Project {
   ) {
     if (files.length >= 1) {
       this.name = files[0].path.split('/')[0];
+      this.sortFilesByPath();
       this.target = this.findDefaultTarget();
     }
   }
@@ -67,6 +68,31 @@ export class Project {
           });
         }
       });
+    });
+  }
+
+  sortFilesByPath(): void {
+    this.files.sort((a: ProjectFile, b: ProjectFile): number => {
+      const al = a.path.split('/');
+      const bl = b.path.split('/');
+      for(let i = 0; i < al.length; i++){
+        if(i==bl.length-1){
+          if(i==al.length-1){
+            return al[i]>bl[i]?1:-1;
+          }else{
+            return -1;
+          }
+        }else{
+          if(i==al.length-1){
+            return 1;
+          }else{
+            if (al[i]!=bl[i]){
+              return al[i]>bl[i]?1:-1;
+            }
+          }
+        }
+      }
+      return 0;
     });
   }
 

@@ -210,6 +210,7 @@ console.log('HelloWorld');
         origin.key.substring(0, origin.key.length - old.length) + name;
       const file = project.getFileByPath(origin.key)!;
       file.renamePath(path);
+      project.sortFilesByPath();
     } else {
       const oldPath = origin.key + '/';
       const newPath =
@@ -221,6 +222,7 @@ console.log('HelloWorld');
           file.renamePath(newFilePath);
         }
       }
+      project.sortFilesByPath();
     }
     this.resolve(project);
     this.notification.success('重命名成功', old + ' -> ' + name);
