@@ -143,6 +143,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
         this.newNode!.origin.key + '/' + this.newValue,
       );
       project.folders.push(folder);
+      project.sortFolderByPath();
     } else {
       let defaultCode = '';
       if (this.newType == NewType.BlockLogic) {
@@ -164,6 +165,7 @@ console.log('HelloWorld');
         this.newNode!.origin.key + '/' + this.newValue,
       );
       project.files.push(file);
+      project.sortFilesByPath();
       this.developService.openFile(file.path);
     }
     this.resolve(project);
@@ -218,14 +220,23 @@ console.log('HelloWorld');
     } else {
       const oldPath = origin.key + '/';
       const newPath =
-        origin.key.substring(0, origin.key.length - old.length) + name + '/';
+        origin.key.substring(0, origin.key.length - old.length) + name;
+      for (const folder of project.folders) {
+        if (folder.path.startsWith(oldPath)) {
+          const newFolderPath = newPath + '/' + folder.path.substring(oldPath.length);
+          folder.renamePath(newFolderPath);
+        } else if (folder.path == origin.key) {
+          folder.renamePath(newPath);
+        }
+      }
       for (const file of project.files) {
         if (file.path.startsWith(oldPath)) {
           const oldFilePath = file.path;
-          const newFilePath = newPath + file.path.substring(oldPath.length);
+          const newFilePath = newPath + '/' + file.path.substring(oldPath.length);
           file.renamePath(newFilePath);
         }
       }
+      project.sortFolderByPath();
       project.sortFilesByPath();
     }
     this.resolve(project);
