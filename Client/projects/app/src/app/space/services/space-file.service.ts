@@ -204,6 +204,9 @@ export class SpaceFileService {
       handle: FileSystemDirectoryHandle,
       path: string,
     ): Promise<void> {
+      const projectFolder = new ProjectFolder(handle.name);
+      projectFolder.handle = handle;
+      folders.push(projectFolder);
       for await (const entry of handle.values()) {
         if (entry.kind == 'file') {
           const file = await entry.getFile();
@@ -214,9 +217,6 @@ export class SpaceFileService {
           projectFile.handle = entry;
           files.push(projectFile);
         } else if (entry.kind == 'directory') {
-          const projectFolder = new ProjectFolder(entry.name);
-          projectFolder.handle = entry;
-          folders.push(projectFolder);
           await parseFolder(entry, path + '/' + entry.name);
         }
       }
