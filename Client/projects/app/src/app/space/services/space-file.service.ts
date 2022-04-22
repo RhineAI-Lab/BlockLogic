@@ -26,6 +26,13 @@ export class SpaceFileService {
     private developService: SpaceDevelopService,
   ) {}
 
+  savingNotificationIds: string[] = [];
+  removeSavingNotifications() {
+    for (const id of this.savingNotificationIds) {
+      this.notification.remove(id);
+    }
+  }
+
   init(): void {
     const source = ParaUtils.getUrlParameter('source');
     const location = ParaUtils.getUrlParameter('location');
@@ -267,7 +274,7 @@ export class SpaceFileService {
         }
       }
     }
-    this.notify('保存中...');
+    this.savingNotificationIds.push(this.notify('保存中...'));
     if (
       mode == SpaceSaveMode.Local &&
       project.files.length > 1 &&
@@ -275,10 +282,14 @@ export class SpaceFileService {
     ) {
       this.saveProjectHandle(project).subscribe({
         next: (num) => {
-          this.state.projectState$.next('项目保存成功 共改动' + num + ' 个文件');
+          this.state.projectState$.next(
+            '项目保存成功 共改动' + num + ' 个文件',
+          );
+          this.removeSavingNotifications();
           this.notify('保存成功', 'success', '共改动' + num + '个文件');
         },
         error: (err) => {
+          this.removeSavingNotifications();
           this.state.projectState$.next('项目保存失败');
           this.notify('保存失败', 'error', err);
         },
@@ -287,6 +298,7 @@ export class SpaceFileService {
       this.saveProjectDo(project, mode, handle).subscribe({
         complete: () => {
           this.state.projectState$.next('项目保存成功');
+          this.removeSavingNotifications();
           this.notify('保存成功', 'success');
           if (mode == SpaceSaveMode.Browser) {
             this.notify(
@@ -297,6 +309,7 @@ export class SpaceFileService {
           }
         },
         error: (err) => {
+          this.removeSavingNotifications();
           this.state.projectState$.next('项目保存失败');
           this.notify('保存失败', 'error', err);
         },
@@ -546,11 +559,12 @@ export class SpaceFileService {
     title: string,
     type: 'info' | 'success' | 'warning' | 'error' | 'remove' = 'info',
     content: string = '',
-  ): void {
+  ): string {
     if (type == 'remove') {
       this.notification.remove();
+      return '';
     } else {
-      this.notification.create(type, title, content);
+      return this.notification.create(type, title, content).messageId;
     }
   }
 }
