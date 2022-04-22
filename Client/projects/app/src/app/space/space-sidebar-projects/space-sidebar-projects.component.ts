@@ -17,7 +17,7 @@ import {
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ProjectFile } from '../../common/project-file.class';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import {ProjectFolder} from "../../common/project-folder.class";
+import { ProjectFolder } from '../../common/project-folder.class';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -88,7 +88,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   onDoubleClick(event: NzFormatEmitEvent): void {
     if (event.node) {
-      this.developService.openFile(event.node.origin.key);
+      if (event.node.isLeaf) {
+        this.developService.openFile(event.node.origin.key);
+      }
     }
   }
 
@@ -137,7 +139,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onNewOk(): void {
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
-      const folder = new ProjectFolder(this.newNode!.origin.key + '/' + this.newValue)
+      const folder = new ProjectFolder(
+        this.newNode!.origin.key + '/' + this.newValue,
+      );
       project.folders.push(folder);
     } else {
       let defaultCode = '';
