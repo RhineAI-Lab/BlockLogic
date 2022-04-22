@@ -1,11 +1,12 @@
 import { ProjectFile } from './project-file.class';
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {ProjectFolder} from "./project-folder.class";
 
 export class Project {
   target = -1;
   name = 'Project';
-  folders: string[] = [];
+  folders: ProjectFolder[] = [];
   constructor(
     public files: ProjectFile[],
     public engine: ProjectEngine = ProjectEngine.BLogic,

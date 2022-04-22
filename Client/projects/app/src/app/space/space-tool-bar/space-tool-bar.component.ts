@@ -107,7 +107,7 @@ export class SpaceToolBarComponent implements OnInit {
     if (this.openMode == SpaceOpenMode.LocalFile) {
       this.fileService.openProject(this.openMode);
     } else if (this.openMode == SpaceOpenMode.LocalFolder) {
-      this.folderChooser.nativeElement.click();
+      this.fileService.openProject(this.openMode);
     } else if (this.openMode == SpaceOpenMode.LocalZip) {
       this.zipChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.Cloud) {

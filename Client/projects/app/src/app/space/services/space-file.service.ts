@@ -15,6 +15,7 @@ import {
 } from './space-develop.service';
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
+import {ProjectFolder} from "../../common/project-folder.class";
 
 @Injectable()
 export class SpaceFileService {
@@ -174,7 +175,7 @@ export class SpaceFileService {
   async openLocalFile(): Promise<void> {
     let fileHandleList: FileSystemFileHandle[] = [];
     try{
-      fileHandleList.push((await window.showOpenFilePicker({}))[0]);
+      fileHandleList.push((await window.showOpenFilePicker())[0]);
     }catch (e) {}
     if(fileHandleList.length>0) {
       const handle = fileHandleList[0];
@@ -188,7 +189,12 @@ export class SpaceFileService {
 
   // OPEN-6 LocalFolder
   async openLocalFolder(): Promise<void> {
-
+    const rootHandle = await window.showDirectoryPicker();
+    const files: ProjectFile[] = [];
+    const folders: ProjectFolder[] = [];
+    for await (const entry of rootHandle.values()) {
+      console.log(entry.kind, entry.name);
+    }
   }
 
 
@@ -450,7 +456,8 @@ declare function dataToFile(dataUrl: string, fileName: string): File;
 declare global {
   interface Window {
     showSaveFilePicker(options: any): any;
-    showOpenFilePicker(options: any): any;
+    showOpenFilePicker(options?: any): any;
+    showDirectoryPicker(options?: any): any;
   }
 }
 

@@ -17,6 +17,7 @@ import {
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ProjectFile } from '../../common/project-file.class';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import {ProjectFolder} from "../../common/project-folder.class";
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -136,7 +137,8 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onNewOk(): void {
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
-      project.folders.push(this.newNode!.origin.key + '/' + this.newValue);
+      const folder = new ProjectFolder(this.newNode!.origin.key + '/' + this.newValue)
+      project.folders.push(folder);
     } else {
       let defaultCode = '';
       if (this.newType == NewType.BlockLogic) {
@@ -184,8 +186,8 @@ console.log('HelloWorld');
       }
       for (const folder of project.folders) {
         if (
-          folder.startsWith(deleteFolder) ||
-          folder == this.deleteTargetPath
+          folder.path.startsWith(deleteFolder) ||
+          folder.path == this.deleteTargetPath
         ) {
           project.folders.splice(project.folders.indexOf(folder), 1);
         }
@@ -268,7 +270,7 @@ console.log('HelloWorld');
       const rootNode = this.tree.getTreeNodeByKey(projectName);
       if (!rootNode) return;
       for (const folder of project.folders) {
-        const ps = folder.split('/');
+        const ps = folder.path.split('/');
         let focusNode: NzTreeNode = rootNode;
         let focusPath: string = projectName;
         for (const psKey in ps) {
