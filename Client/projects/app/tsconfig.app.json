@@ -5,6 +5,10 @@
     "outDir": "../../out-tsc/app",
     "types": []
   },
-  "files": ["src/main.ts", "src/polyfills.ts"],
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts",
+    "../../node_modules/@types/wicg-file-system-access/index.d.ts"
+  ],
   "include": ["src/**/*.d.ts"]
 }

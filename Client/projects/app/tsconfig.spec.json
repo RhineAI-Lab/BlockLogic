@@ -5,6 +5,10 @@
     "outDir": "../../out-tsc/spec",
     "types": ["jasmine"]
   },
-  "files": ["src/test.ts", "src/polyfills.ts"],
+  "files": [
+    "src/test.ts",
+    "src/polyfills.ts",
+    "../../node_modules/@types/wicg-file-system-access/index.d.ts"
+  ],
   "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }

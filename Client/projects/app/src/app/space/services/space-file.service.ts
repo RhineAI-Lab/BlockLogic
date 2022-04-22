@@ -16,7 +16,6 @@ import {
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
 import {ProjectFolder} from "../../common/project-folder.class";
-import 'wicg-file-system-access'
 
 @Injectable()
 export class SpaceFileService {
@@ -193,11 +192,11 @@ export class SpaceFileService {
     const rootHandle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
     const files: ProjectFile[] = [];
     const folders: ProjectFolder[] = [];
-    // function parseFolder(handle: FileSystemDirectoryHandle): void {
-    //   for await (const entry of rootHandle.values()) {
-    //     console.log(entry.kind, entry.name);
-    //   }
-    // }
+    async function parseFolder(handle: FileSystemDirectoryHandle): Promise<void> {
+      for await (const entry of rootHandle.values()) {
+        console.log(entry.kind, entry.name);
+      }
+    }
   }
 
 
