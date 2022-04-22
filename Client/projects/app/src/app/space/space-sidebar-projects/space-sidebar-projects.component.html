@@ -99,6 +99,7 @@
                nzTitle="请输入名称"
                (nzOnOk)="onNewOk()"
                (nzOnCancel)="newModalVisible=false"
+               [nzOkDisabled]="existsList.includes(newValue)"
             >
               <ng-container *nzModalContent>
                 <input nz-input placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />

@@ -111,7 +111,6 @@ export class Project {
       }
       return 1;
     });
-    console.log(this.folders);
   }
   checkFolders(): void {
     for (const file of this.files) {
