@@ -6,7 +6,7 @@ import * as streamSaver from 'streamsaver';
 import { Project, ProjectType } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import zip from '../../common/zip';
-import {SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
+import { SpaceOpenMode, SpaceSaveMode } from '../common/space-modes.enums';
 import { HttpClient } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import {
@@ -15,7 +15,7 @@ import {
 } from './space-develop.service';
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
-import {ProjectFolder} from "../../common/project-folder.class";
+import { ProjectFolder } from '../../common/project-folder.class';
 
 @Injectable()
 export class SpaceFileService {
@@ -34,9 +34,9 @@ export class SpaceFileService {
 
   // OPEN-0
   openProject(mode: SpaceOpenMode): void {
-    if(mode==SpaceOpenMode.LocalFile) {
+    if (mode == SpaceOpenMode.LocalFile) {
       this.openLocalFile();
-    }else if(mode==SpaceOpenMode.LocalFolder) {
+    } else if (mode == SpaceOpenMode.LocalFolder) {
       this.openLocalFolder();
     }
   }
@@ -174,13 +174,16 @@ export class SpaceFileService {
   // OPEN-5 LocalFile
   async openLocalFile(): Promise<void> {
     let fileHandleList: FileSystemFileHandle[] = [];
-    try{
+    try {
       fileHandleList.push((await window.showOpenFilePicker())[0]);
-    }catch (e) {}
-    if(fileHandleList.length>0) {
+    } catch (e) {}
+    if (fileHandleList.length > 0) {
       const handle = fileHandleList[0];
       const file = await handle.getFile();
-      const projectFile = ProjectFile.makeProjectFileByFile(file,'Project/'+file.name);
+      const projectFile = ProjectFile.makeProjectFileByFile(
+        file,
+        'Project/' + file.name,
+      );
       projectFile.handle = handle;
       const project = new Project([projectFile]);
       this.developService.openProject(project);
@@ -189,16 +192,36 @@ export class SpaceFileService {
 
   // OPEN-6 LocalFolder
   async openLocalFolder(): Promise<void> {
-    const rootHandle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
+    const rootHandle: FileSystemDirectoryHandle =
+      await window.showDirectoryPicker();
     const files: ProjectFile[] = [];
     const folders: ProjectFolder[] = [];
-    async function parseFolder(handle: FileSystemDirectoryHandle): Promise<void> {
-      for await (const entry of rootHandle.values()) {
-        console.log(entry.kind, entry.name);
+    async function parseFolder(
+      handle: FileSystemDirectoryHandle,
+      path: string,
+    ): Promise<void> {
+      for await (const entry of handle.values()) {
+        if (entry.kind == 'file') {
+          const file = await entry.getFile();
+          const projectFile = ProjectFile.makeProjectFileByFile(
+            file,
+            path + '/' + file.name,
+          );
+          projectFile.handle = entry;
+          files.push(projectFile);
+        } else if (entry.kind == 'directory') {
+          const projectFolder = new ProjectFolder(entry.name);
+          projectFolder.handle = entry;
+          folders.push(projectFolder);
+          await parseFolder(entry, path + '/' + entry.name);
+        }
       }
     }
+    await parseFolder(rootHandle, rootHandle.name);
+    const project = new Project(files);
+    project.folders = folders;
+    this.developService.openProject(project);
   }
-
 
   // SAVE
   async saveProject(

@@ -3,9 +3,9 @@ export class ProjectFolder {
 
   path: string;
   name: string;
-  handle?: FileSystemFileHandle;
+  handle?: FileSystemDirectoryHandle;
 
-  constructor(path: string, handle?: FileSystemFileHandle) {
+  constructor(path: string, handle?: FileSystemDirectoryHandle) {
     this.path = path;
     const ps = path.split('/');
     this.name = ps[ps.length - 1];
