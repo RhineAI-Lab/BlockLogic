@@ -47,6 +47,8 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   showSearchBox = false;
   searchValue = '';
 
+  freshLock = false;
+
   data: NzTreeNodeOptions[] | NzTreeNode[] = [
     {
       title: 'Project',
@@ -65,7 +67,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.developService.project$.subscribe((project) => this.resolve(project));
+    this.developService.project$.subscribe((project) => {
+      this.resolve(project)
+    });
   }
 
   getNodeIdFromListByTitle(
@@ -260,45 +264,63 @@ console.log('HelloWorld');
   onSearchChange(event: NzFormatEmitEvent): void {}
 
   private async resolve(project: Project): Promise<void> {
-    const files = project.files;
-    if (files.length == 1) {
-      this.data = [
-        {
-          title: 'Project',
-          key: 'Project',
-          isRoot: true,
-          expanded: true,
-          children: [
+    if(this.freshLock) {
+      const interval = setInterval(() => {
+        if(!this.freshLock) {
+          clearInterval(interval);
+          this.resolve(project);
+        }
+      }, 1);
+      return ;
+    }
+    this.freshLock = true;
+    const projectName = project.files[0].path.split('/')[0];
+    this.data = [
+      {
+        title: projectName,
+        key: projectName,
+        isRoot: true,
+        expanded: true,
+        children: [],
+      },
+    ];
+    await wait();
+    const rootNode = this.tree.getTreeNodeByKey(projectName);
+    if (!rootNode) return;
+    for (const folder of project.folders) {
+      const ps = folder.path.split('/');
+      let focusNode: NzTreeNode = rootNode;
+      let focusPath: string = projectName;
+      for (const psKey in ps) {
+        if (psKey == '0') continue;
+        const name = ps[psKey];
+        focusPath = focusPath + '/' + name;
+        const node = this.tree.getTreeNodeByKey(focusPath);
+        if (node) {
+          focusNode = node;
+        } else {
+          focusNode.addChildren([
             {
-              title: files[0].name,
-              key: 'Project/' + files[0].name,
-              isLeaf: true,
+              title: name,
+              key: focusPath,
+              expanded: true,
+              children: [],
             },
-          ],
-        },
-      ];
-    } else {
-      const projectName = files[0].path.split('/')[0];
-      this.data = [
-        {
-          title: projectName,
-          key: projectName,
-          isRoot: true,
-          expanded: true,
-          children: [],
-        },
-      ];
-      await wait();
-      const rootNode = this.tree.getTreeNodeByKey(projectName);
-      if (!rootNode) return;
-      for (const folder of project.folders) {
-        const ps = folder.path.split('/');
-        let focusNode: NzTreeNode = rootNode;
-        let focusPath: string = projectName;
-        for (const psKey in ps) {
-          if (psKey == '0') continue;
-          const name = ps[psKey];
-          focusPath = focusPath + '/' + name;
+          ]);
+          const temp = this.tree.getTreeNodeByKey(focusPath);
+          if (temp) focusNode = temp;
+        }
+      }
+    }
+    for (const file of project.files) {
+      const ps = file.path.split('/');
+      let focusNode: NzTreeNode = rootNode;
+      let focusPath: string = projectName;
+      for (const psKey in ps) {
+        if (psKey == '0') continue;
+        const name = ps[psKey];
+        focusPath = focusPath + '/' + name;
+        if (psKey != ps.length - 1 + '') {
           const node = this.tree.getTreeNodeByKey(focusPath);
           if (node) {
             focusNode = node;
@@ -314,46 +336,20 @@ console.log('HelloWorld');
             const temp = this.tree.getTreeNodeByKey(focusPath);
             if (temp) focusNode = temp;
           }
-        }
-      }
-      for (const file of files) {
-        const ps = file.path.split('/');
-        let focusNode: NzTreeNode = rootNode;
-        let focusPath: string = projectName;
-        for (const psKey in ps) {
-          if (psKey == '0') continue;
-          const name = ps[psKey];
-          focusPath = focusPath + '/' + name;
-          if (psKey != ps.length - 1 + '') {
-            const node = this.tree.getTreeNodeByKey(focusPath);
-            if (node) {
-              focusNode = node;
-            } else {
-              focusNode.addChildren([
-                {
-                  title: name,
-                  key: focusPath,
-                  expanded: true,
-                  children: [],
-                },
-              ]);
-              const temp = this.tree.getTreeNodeByKey(focusPath);
-              if (temp) focusNode = temp;
-            }
-          } else {
-            focusNode.addChildren([
-              {
-                title: name,
-                key: focusPath,
-                isLeaf: true,
-              },
-            ]);
-            const temp = this.tree.getTreeNodeByKey(focusPath);
-            if (temp) focusNode = temp;
-          }
+        } else {
+          focusNode.addChildren([
+            {
+              title: name,
+              key: focusPath,
+              isLeaf: true,
+            },
+          ]);
+          const temp = this.tree.getTreeNodeByKey(focusPath);
+          if (temp) focusNode = temp;
         }
       }
     }
+    this.freshLock = false;
   }
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {
