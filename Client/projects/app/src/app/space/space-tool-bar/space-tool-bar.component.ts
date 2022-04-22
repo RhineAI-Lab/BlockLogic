@@ -103,12 +103,9 @@ export class SpaceToolBarComponent implements OnInit {
     }
   }
   onOpenProject(): void {
-    this.modalVisible = true;
-  }
-  openProject(): void {
     this.modalVisible = false;
     if (this.openMode == SpaceOpenMode.LocalFile) {
-      this.fileChooser.nativeElement.click();
+      this.fileService.openProject(this.openMode);
     } else if (this.openMode == SpaceOpenMode.LocalFolder) {
       this.folderChooser.nativeElement.click();
     } else if (this.openMode == SpaceOpenMode.LocalZip) {
@@ -183,7 +180,7 @@ export class SpaceToolBarComponent implements OnInit {
   }
   onOpenModeChange(mode: SpaceOpenMode): void {
     this.openMode = mode;
-    this.onOpenProject();
+    this.modalVisible = true;
   }
 
   onUndo(): void {

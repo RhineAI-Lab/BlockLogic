@@ -6,7 +6,7 @@ import * as streamSaver from 'streamsaver';
 import { Project, ProjectType } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
 import zip from '../../common/zip';
-import { SpaceSaveMode } from '../common/space-modes.enums';
+import {SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
 import { HttpClient } from '@angular/common/http';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import {
@@ -31,7 +31,16 @@ export class SpaceFileService {
     this.openProjectFrom(source, location);
   }
 
-  // OPEN-0  Get project from url
+  // OPEN-0
+  openProject(mode: SpaceOpenMode): void {
+    if(mode==SpaceOpenMode.LocalFile) {
+      this.openLocalFile();
+    }else if(mode==SpaceOpenMode.LocalFolder) {
+      this.openLocalFolder();
+    }
+  }
+
+  // OPEN-1  Get project from url
   openProjectFrom(source: string, location: string): void {
     if (location == SpaceLocationMode.Browser) {
     } else if (location == SpaceLocationMode.Cloud) {
@@ -85,7 +94,7 @@ export class SpaceFileService {
     }
   }
 
-  // OPEN-1  Zip
+  // OPEN-2  Zip
   openZipFile(file: File): void {
     if (file == undefined) return;
     this.openZipDo(file).subscribe((project: Project) => {
@@ -116,7 +125,7 @@ export class SpaceFileService {
     });
   }
 
-  // OPEN-2  Browser
+  // OPEN-3  Browser
   openBrowserProject(): void {
     const filesStr = localStorage.getItem('Project');
     if (filesStr) {
@@ -142,7 +151,7 @@ export class SpaceFileService {
     }
   }
 
-  // OPEN-3  LocalFiles
+  // OPEN-4  LocalFiles Default
   openLocalFiles(files: File[]): void {
     if (files.length > 1) {
       const projectFiles: ProjectFile[] = [];
@@ -161,31 +170,27 @@ export class SpaceFileService {
     }
   }
 
-  makeSavePickerOptions(file: ProjectFile): any {
-    const accept: any = {};
-    let desciption = '';
-    if (file.type == 'py') {
-      accept['text/python'] = ['.py'];
-      desciption = 'Python';
-    } else if (file.type == 'js') {
-      accept['text/javascript'] = ['.js'];
-      desciption = 'JavaScript';
-    } else if (file.type == 'json') {
-      accept['application/json'] = ['.json'];
-      desciption = 'JSON';
-    } else {
-      desciption = file.type + '文件';
+  // OPEN-5 LocalFile
+  async openLocalFile(): Promise<void> {
+    let fileHandleList: FileSystemFileHandle[] = [];
+    try{
+      fileHandleList.push((await window.showOpenFilePicker({}))[0]);
+    }catch (e) {}
+    if(fileHandleList.length>0) {
+      const handle = fileHandleList[0];
+      const file = await handle.getFile();
+      const projectFile = ProjectFile.makeProjectFileByFile(file,'Project/'+file.name);
+      projectFile.handle = handle;
+      const project = new Project([projectFile]);
+      this.developService.openProject(project);
     }
-    return {
-      suggestedName: file.name,
-      types: [
-        {
-          description: desciption,
-          accept: accept,
-        },
-      ],
-    };
   }
+
+  // OPEN-6 LocalFolder
+  async openLocalFolder(): Promise<void> {
+
+  }
+
 
   // SAVE
   async saveProject(
@@ -379,6 +384,32 @@ export class SpaceFileService {
     });
   }
 
+  makeSavePickerOptions(file: ProjectFile): any {
+    const accept: any = {};
+    let desciption = '';
+    if (file.type == 'py') {
+      accept['text/python'] = ['.py'];
+      desciption = 'Python';
+    } else if (file.type == 'js') {
+      accept['text/javascript'] = ['.js'];
+      desciption = 'JavaScript';
+    } else if (file.type == 'json') {
+      accept['application/json'] = ['.json'];
+      desciption = 'JSON';
+    } else {
+      desciption = file.type + '文件';
+    }
+    return {
+      suggestedName: file.name,
+      types: [
+        {
+          description: desciption,
+          accept: accept,
+        },
+      ],
+    };
+  }
+
   private write(
     inputStream: ReadableStream,
     outputStream: WritableStream,
@@ -419,6 +450,7 @@ declare function dataToFile(dataUrl: string, fileName: string): File;
 declare global {
   interface Window {
     showSaveFilePicker(options: any): any;
+    showOpenFilePicker(options: any): any;
   }
 }
 

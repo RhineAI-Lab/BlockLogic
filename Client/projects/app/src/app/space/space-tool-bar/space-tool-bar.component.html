@@ -151,7 +151,7 @@
   <nz-button-group nzSize="small">
     <button
       nz-button
-      (click)="onOpenProject()"
+      (click)="modalVisible=true"
       nz-tooltip="打开项目"
       nzTooltipPlacement="bottom"
       #openProjectBtn
@@ -268,7 +268,7 @@
     [(nzVisible)]="modalVisible"
     nzTitle="打开新项目将覆盖当前项目，请确认是否已经保存。是否继续打开？"
     (nzOnCancel)="modalVisible = false"
-    (nzOnOk)="openProject()"
+    (nzOnOk)="onOpenProject()"
   >
   </nz-modal>
 </div>
