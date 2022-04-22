@@ -7,6 +7,8 @@ export class Project {
   target = -1;
   name = 'Project';
   folders: ProjectFolder[] = [];
+  handle?: FileSystemDirectoryHandle;
+
   constructor(
     public files: ProjectFile[],
     public engine: ProjectEngine = ProjectEngine.BLogic,

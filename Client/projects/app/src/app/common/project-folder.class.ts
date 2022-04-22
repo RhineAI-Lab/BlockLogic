@@ -20,8 +20,3 @@ export class ProjectFolder {
 
 }
 
-declare class FileSystemFileHandle {
-  constructor(file: File);
-  getFile(): File;
-  createWritable(): WritableStream;
-}

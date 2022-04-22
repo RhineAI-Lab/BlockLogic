@@ -16,6 +16,7 @@ import {
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
 import {ProjectFolder} from "../../common/project-folder.class";
+import 'wicg-file-system-access'
 
 @Injectable()
 export class SpaceFileService {
@@ -189,12 +190,14 @@ export class SpaceFileService {
 
   // OPEN-6 LocalFolder
   async openLocalFolder(): Promise<void> {
-    const rootHandle = await window.showDirectoryPicker();
+    const rootHandle: FileSystemDirectoryHandle = await window.showDirectoryPicker();
     const files: ProjectFile[] = [];
     const folders: ProjectFolder[] = [];
-    for await (const entry of rootHandle.values()) {
-      console.log(entry.kind, entry.name);
-    }
+    // function parseFolder(handle: FileSystemDirectoryHandle): void {
+    //   for await (const entry of rootHandle.values()) {
+    //     console.log(entry.kind, entry.name);
+    //   }
+    // }
   }
 
 
@@ -204,7 +207,7 @@ export class SpaceFileService {
     another: boolean = false,
   ): Promise<void> {
     const project = this.developService.project$.getValue();
-    let handle = null;
+    let handle;
     if (another) {
       if (project.files.length == 1) {
         const file = project.files[0];
@@ -212,9 +215,7 @@ export class SpaceFileService {
         try {
           handle = await window.showSaveFilePicker(options);
         } catch (e) {}
-        if (handle == null) {
-          return;
-        } else {
+        if (handle) {
           if (!file.handle) {
             file.handle = handle;
           }
@@ -311,7 +312,7 @@ export class SpaceFileService {
           } else if (file.source) {
             let outputStream: WritableStream;
             if (handle) {
-              outputStream = handle.createWritable();
+              outputStream = await handle.createWritable();
             } else {
               outputStream = streamSaver.createWriteStream(file.name, {
                 size: file.source.size,
@@ -452,20 +453,6 @@ export class SpaceFileService {
 }
 
 declare function dataToFile(dataUrl: string, fileName: string): File;
-
-declare global {
-  interface Window {
-    showSaveFilePicker(options: any): any;
-    showOpenFilePicker(options?: any): any;
-    showDirectoryPicker(options?: any): any;
-  }
-}
-
-declare class FileSystemFileHandle {
-  constructor(file: File);
-  getFile(): File;
-  createWritable(): WritableStream;
-}
 
 interface BrowserFile {
   path: string;

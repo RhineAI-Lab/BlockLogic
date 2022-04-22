@@ -193,9 +193,3 @@ export enum CodeType {
   PY_BLOCK_DL,
   OTHER_CODE,
 }
-
-declare class FileSystemFileHandle {
-  constructor(file: File);
-  getFile(): File;
-  createWritable(): WritableStream;
-}
