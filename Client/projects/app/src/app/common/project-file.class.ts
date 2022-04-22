@@ -17,6 +17,7 @@ export class ProjectFile {
 
   // Opened
   code: string;
+  savedCode: string;
   codeType: CodeType = CodeType.UNKNOWN;
   get opened(): boolean {
     return this.codeType != CodeType.UNKNOWN;
@@ -40,6 +41,7 @@ export class ProjectFile {
     this.type = type;
     this.urlSource = url;
     this.code = code;
+    this.savedCode = code;
   }
 
   // init: any source -> file
@@ -88,6 +90,7 @@ export class ProjectFile {
               const reader = new FileReader();
               reader.onload = (e) => {
                 this.code = reader.result as string;
+                this.savedCode = this.code;
                 this.analysisCode();
                 subscriber.next(this.code);
                 subscriber.complete();

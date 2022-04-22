@@ -1,21 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as JSZip from 'jszip';
-import { from, Observable } from 'rxjs';
+import {from, Observable} from 'rxjs';
 import * as streamSaver from 'streamsaver';
 
-import { Project, ProjectType } from '../../common/project.class';
-import { ProjectFile } from '../../common/project-file.class';
+import {Project} from '../../common/project.class';
+import {ProjectFile} from '../../common/project-file.class';
 import zip from '../../common/zip';
-import { SpaceOpenMode, SpaceSaveMode } from '../common/space-modes.enums';
-import { HttpClient } from '@angular/common/http';
-import { NzNotificationService } from 'ng-zorro-antd/notification';
-import {
-  SpaceDevelopService,
-  SpaceLocationMode,
-} from './space-develop.service';
-import { ParaUtils } from '../../common/utils/para.utils';
-import { SpaceState } from './space-state.service';
-import { ProjectFolder } from '../../common/project-folder.class';
+import {SpaceOpenMode, SpaceSaveMode} from '../common/space-modes.enums';
+import {HttpClient} from '@angular/common/http';
+import {NzNotificationService} from 'ng-zorro-antd/notification';
+import {SpaceDevelopService, SpaceLocationMode,} from './space-develop.service';
+import {ParaUtils} from '../../common/utils/para.utils';
+import {SpaceState} from './space-state.service';
+import {ProjectFolder} from '../../common/project-folder.class';
 
 @Injectable()
 export class SpaceFileService {
@@ -236,17 +233,14 @@ export class SpaceFileService {
   }
 
   // SAVE
-  async saveProject(
-    mode: SpaceSaveMode,
-    another: boolean = false,
-  ): Promise<void> {
+  async saveProject(mode: SpaceSaveMode): Promise<void> {
     const project = this.developService.project$.getValue();
     if (project.files.length == 0) {
       this.notify('项目中无文件', 'warning');
       return;
     }
     let handle;
-    if (another) {
+    if (mode == SpaceSaveMode.Another) {
       if (project.files.length == 1) {
         const file = project.files[0];
         const options = this.makeSavePickerOptions(file);
@@ -258,27 +252,75 @@ export class SpaceFileService {
             file.handle = handle;
           }
         }
+      } else {
+        this.notify('多文件项目不支持另存', 'error');
+        return;
       }
     }
     this.notify('保存中...');
-    this.saveProjectDo(project, mode, handle).subscribe({
-      complete: () => {
-        this.state.projectState$.next('项目保存成功');
-        this.notify('保存成功', 'success');
-        if (mode == SpaceSaveMode.Browser) {
-          this.notify(
-            '注意',
-            'warning',
-            '浏览器只保存单一项目，重复操作将覆盖！',
-          );
+    if (mode == SpaceSaveMode.Local && project.files.length>1 && project.checkAllHandle()){
+      this.saveProjectHandle(project).subscribe({
+        complete: () => {
+          this.notify('保存成功', 'success');
+        },
+        error: (err) => {
+          this.state.projectState$.next('项目保存失败');
+          this.notify('保存失败', 'error', err);
+        },
+      });
+    }else{
+      this.saveProjectDo(project, mode, handle).subscribe({
+        complete: () => {
+          this.state.projectState$.next('项目保存成功');
+          this.notify('保存成功', 'success');
+          if (mode == SpaceSaveMode.Browser) {
+            this.notify(
+              '注意',
+              'warning',
+              '浏览器只保存单一项目，重复操作将覆盖！',
+            );
+          }
+        },
+        error: (err) => {
+          this.state.projectState$.next('项目保存失败');
+          this.notify('保存失败', 'error', err);
+        },
+      });
+    }
+  }
+  saveProjectHandle(project: Project){
+    return new Observable<void>((subscriber) => {
+      let needSave = [];
+      let completeNum = 0;
+      for (const file of project.files) {
+        if (file.handle && file.opened && file.code != file.savedCode) {
+          needSave.push(file);
         }
-      },
-      error: (err) => {
-        this.state.projectState$.next('项目保存失败');
-        this.notify('保存失败', 'error', err);
-      },
+      }
+      if (needSave.length == 0) {
+        subscriber.complete();
+        return;
+      }
+      for (const file of needSave) {
+        const inputStream = new Blob([file.code]).stream();
+        file.handle?.createWritable().then((outputStream) => {
+          this.write(inputStream,outputStream).subscribe({
+            complete: () => {
+              completeNum++;
+              file.savedCode = file.code;
+              if (completeNum == needSave.length) {
+                subscriber.complete();
+              }
+            },
+            error: (err) => {
+              subscriber.error(err);
+            },
+          });
+        });
+      }
     });
   }
+
   saveProjectDo(
     project: Project,
     mode: SpaceSaveMode,
@@ -289,7 +331,7 @@ export class SpaceFileService {
         complete: () => {
           const files = project.files;
           if (mode == SpaceSaveMode.Local || mode == SpaceSaveMode.Another) {
-            if (project.type == ProjectType.File) {
+            if (project.files.length == 1) {
               this.saveSingleFile(files[0], handle).subscribe({
                 complete: () => subscriber.complete(),
                 error: (err) => subscriber.error(err),

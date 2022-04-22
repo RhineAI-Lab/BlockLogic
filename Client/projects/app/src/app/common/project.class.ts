@@ -161,6 +161,17 @@ export class Project {
     return jsFile;
   }
 
+  checkAllHandle(): boolean {
+    let fullHandle = true;
+    for (const file of this.files) {
+      if(!file.handle){
+        fullHandle = false;
+        break;
+      }
+    }
+    return fullHandle;
+  }
+
   static getDefaultProject(): Project {
     return new Project(
       [ProjectFile.makeProjectFileByUrl('default-code.js', 'Project/main.js')],
