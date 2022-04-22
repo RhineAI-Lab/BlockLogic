@@ -256,6 +256,13 @@ export class SpaceFileService {
         this.notify('多文件项目不支持另存', 'error');
         return;
       }
+    }else if(mode == SpaceSaveMode.Local){
+      if(project.files.length==1){
+        const file = project.files[0];
+        if(file.handle){
+          handle = file.handle;
+        }
+      }
     }
     this.notify('保存中...');
     if (mode == SpaceSaveMode.Local && project.files.length>1 && project.checkAllHandle()){
@@ -302,19 +309,14 @@ export class SpaceFileService {
         return;
       }
       for (const file of needSave) {
-        const inputStream = new Blob([file.code]).stream();
         file.handle?.createWritable().then((outputStream) => {
-          this.write(inputStream,outputStream).subscribe({
-            complete: () => {
-              completeNum++;
-              file.savedCode = file.code;
-              if (completeNum == needSave.length) {
-                subscriber.complete();
-              }
-            },
-            error: (err) => {
-              subscriber.error(err);
-            },
+          outputStream.write(file.code).then(() => {
+            file.savedCode = file.code;
+            completeNum++;
+            outputStream.close();
+            if (completeNum == needSave.length) {
+              subscriber.complete();
+            }
           });
         });
       }
@@ -379,27 +381,36 @@ export class SpaceFileService {
               handle = file.handle;
             }
             const blob = new Blob([file.code]);
-            let outputStream: WritableStream;
             if (handle) {
-              outputStream = await handle.createWritable();
+              handle.createWritable().then((outputStream) => {
+                outputStream.write(file.code).then(() => {
+                  file.savedCode = file.code;
+                  outputStream.close();
+                  subscriber.complete();
+                });
+              });
             } else {
-              outputStream = streamSaver.createWriteStream(file.name, {
+              const outputStream = streamSaver.createWriteStream(file.name, {
                 size: blob.size,
               });
+              const inputStream = blob.stream();
+              write(inputStream, outputStream);
             }
-            const inputStream = blob.stream();
-            write(inputStream, outputStream);
           } else if (file.source) {
-            let outputStream: WritableStream;
+            const inputStream = file.source.stream();
             if (handle) {
-              outputStream = await handle.createWritable();
+              handle.createWritable().then((outputStream) => {
+                inputStream.pipeTo(outputStream).then(() => {
+                  outputStream.close();
+                  subscriber.complete();
+                });
+              });
             } else {
-              outputStream = streamSaver.createWriteStream(file.name, {
+              const outputStream = streamSaver.createWriteStream(file.name, {
                 size: file.source.size,
               });
+              write(inputStream, outputStream);
             }
-            const inputStream = file.source.stream();
-            write(inputStream, outputStream);
           } else {
             subscriber.error('ProjectFile init error');
           }
