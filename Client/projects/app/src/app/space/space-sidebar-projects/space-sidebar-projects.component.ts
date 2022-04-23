@@ -170,14 +170,14 @@ console.log('HelloWorld');
     }
     this.resolve(project);
   }
-  onDeleteOk(): void {
+  async onDeleteOk(): Promise<void> {
     this.deleteModalVisible = false;
     const project = this.developService.project$.getValue();
     if (this.deleteNode!.origin.isLeaf) {
       for (const file of project.files) {
         if (file.path == this.deleteTargetPath) {
-          project.files.splice(project.files.indexOf(file), 1);
           this.developService.closeEvent$.next(file);
+          await project.deleteFile(this.deleteTargetPath);
           this.notification.success('文件已删除', '');
           break;
         }
@@ -187,19 +187,9 @@ console.log('HelloWorld');
       for (const file of project.files) {
         if (file.path.startsWith(deleteFolder)) {
           this.developService.closeEvent$.next(file);
-          project.files.splice(project.files.indexOf(file), 1);
         }
       }
-      for (let i=0;i<project.folders.length;i++) {
-        const folder = project.folders[i];
-        if (
-          folder.path.startsWith(deleteFolder) ||
-          folder.path == this.deleteTargetPath
-        ) {
-          project.folders.splice(project.folders.indexOf(folder), 1);
-          i--;
-        }
-      }
+      await project.deleteFolder(this.deleteTargetPath);
       this.notification.success('文件夹已删除', '');
     }
     this.resolve(project);

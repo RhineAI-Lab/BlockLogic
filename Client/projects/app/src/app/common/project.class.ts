@@ -53,7 +53,6 @@ export class Project {
   async addFile(path: string, code: string = ''): Promise<void> {
     const file = ProjectFile.makeProjectFileByCode(code, path);
     const parent = this.getFolderByPath(file.parentPath);
-    console.log(this)
     if (parent && parent.handle) {
       file.handle = await parent.handle.getFileHandle(file.name, {
         create: true,
@@ -73,6 +72,46 @@ export class Project {
     }
     this.folders.push(folder);
     this.sortFoldersByPath();
+  }
+  async deleteFile(path: string): Promise<void> {
+    const file = this.getFileByPath(path);
+    if(!file)return ;
+    const parent = this.getFolderByPath(file.parentPath);
+    if(parent && parent.handle){
+      await parent.handle.removeEntry(file.name);
+    }
+
+    for (let i = 0; i < this.files.length; i++) {
+      if (this.files[i].path === path) {
+        this.files.splice(i, 1);
+        break;
+      }
+    }
+  }
+  async deleteFolder(path: string): Promise<void> {
+    const folder = this.getFolderByPath(path);
+    if(!folder)return ;
+    const parent = this.getFolderByPath(folder.parentPath);
+    if(parent && parent.handle){
+      await parent.handle.removeEntry(folder.name, { recursive: true });
+    }
+
+    const deleteFolder = path + '/';
+    for (const file of this.files) {
+      if (file.path.startsWith(deleteFolder)) {
+        this.files.splice(this.files.indexOf(file), 1);
+      }
+    }
+    for (let i=0;i<this.folders.length;i++) {
+      const folder = this.folders[i];
+      if (
+        folder.path.startsWith(deleteFolder) ||
+        folder.path == path
+      ) {
+        this.folders.splice(this.folders.indexOf(folder), 1);
+        i--;
+      }
+    }
   }
 
   getTargetFile(): ProjectFile {
