@@ -11,18 +11,13 @@ import { SpaceState, ThemeMode } from '../services/space-state.service';
 })
 export class SpaceCodeEditorComponent implements OnInit {
   @Input() code!: string;
+  @Input() language!: string;
   @Output() codeChange = new EventEmitter<string>();
 
   editor!: monaco.editor.IStandaloneCodeEditor;
 
-  editorOptions: monaco.editor.IStandaloneEditorConstructionOptions = {
-    theme: this.state.isLight ? 'vs' : 'one-dark',
-    language: 'javascript',
-    scrollbar: {
-      verticalScrollbarSize: 10,
-      horizontalScrollbarSize: 10,
-    },
-  };
+  editorOptions!: monaco.editor.IStandaloneEditorConstructionOptions
+
   oneDarkLoaded = true;
   monaco: any = null;
 
@@ -45,32 +40,16 @@ export class SpaceCodeEditorComponent implements OnInit {
         }
       }, 200);
     });
-    // this.developService.targetFile$.subscribe((file) => {
-    //   const languages = [
-    //     'javascript js jsx',
-    //     'typescript ts tsx',
-    //     'html htm html',
-    //     'xml xml config',
-    //     'css css',
-    //     'json json',
-    //     'java java',
-    //     'python py',
-    //     'yaml yml yaml',
-    //     'kotlin kt',
-    //   ];
-    //   for (const language of languages) {
-    //     const lan = language.split(' ');
-    //     for (const i in lan) {
-    //       if(i=='0')continue;
-    //       if (file.type == lan[i]) {
-    //         this.changeLanguage(lan[0]);
-    //         return;
-    //       }
-    //     }
-    //   }
-    //   this.changeLanguage('text');
-    //   return;
-    // });
+
+    this.editorOptions = {
+      theme: this.state.isLight ? 'vs' : 'one-dark',
+      language: this.language,
+      scrollbar: {
+        verticalScrollbarSize: 10,
+        horizontalScrollbarSize: 10,
+      },
+    };
+
   }
 
   onInit(editor: monaco.editor.IStandaloneCodeEditor) {

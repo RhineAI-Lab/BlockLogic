@@ -1,4 +1,5 @@
-export class IconUtils {
+export class FileUtils {
+
   static getIconByFileName(name: string): string {
     const nameSp = name.split('.');
     const nameLast = nameSp[nameSp.length - 1];
@@ -24,4 +25,35 @@ export class IconUtils {
       return 'icon-file-text';
     }
   }
+
+  static getLanguageByFileType(type: string): string {
+    const languages = [
+      'javascript js jsx',
+      'typescript ts tsx',
+      'python py',
+      'java java',
+      'kotlin kt',
+      'java java',
+      'html htm html',
+      'xml xml config',
+      'sql sql',
+      'css css',
+      'less less',
+      'scss scss',
+      'json json',
+      'yaml yml yaml',
+      'markdown md',
+    ];
+    for (const language of languages) {
+      const lan = language.split(' ');
+      for (const i in lan) {
+        if(i=='0')continue;
+        if (type == lan[i]) {
+          return lan[0];
+        }
+      }
+    }
+    return 'plaintext';
+  }
+
 }

@@ -8,7 +8,7 @@ import {
 
 import { Project } from '../../common/project.class';
 import { wait } from '../../common/promisify.utils';
-import { IconUtils } from '../../common/utils/icon.utils';
+import { FileUtils } from '../../common/utils/file.utils';
 import { SpaceDevelopService } from '../services/space-develop.service';
 import {
   NzContextMenuService,
@@ -87,7 +87,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   }
 
   getFileIcon(name: string): string {
-    return IconUtils.getIconByFileName(name);
+    return FileUtils.getIconByFileName(name);
   }
 
   onDoubleClick(event: NzFormatEmitEvent): void {

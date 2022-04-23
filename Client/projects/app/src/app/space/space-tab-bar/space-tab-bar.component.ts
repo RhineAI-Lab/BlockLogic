@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {IconUtils} from '../../common/utils/icon.utils';
+import {FileUtils} from '../../common/utils/file.utils';
 import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
 import {SpaceDevelopService} from '../services/space-develop.service';
 import {SpaceState} from '../services/space-state.service';
@@ -140,7 +140,7 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   getFileIcon(name: string): string {
-    return IconUtils.getIconByFileName(name);
+    return FileUtils.getIconByFileName(name);
   }
 
   onToBlockFile(): void {

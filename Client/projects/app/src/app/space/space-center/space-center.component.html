@@ -16,6 +16,7 @@
     ></div>
     <app-space-code-editor
       [(code)]="code"
+      [language]="getLanguage()"
       [ngStyle]="
         onlyClassic()
           ? {

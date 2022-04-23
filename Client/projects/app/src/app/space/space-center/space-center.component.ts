@@ -12,6 +12,7 @@ import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component
 import {SpaceFileService} from '../services/space-file.service';
 import {ProjectFile} from '../../common/project-file.class';
 import {BehaviorSubject} from 'rxjs';
+import {FileUtils} from "../../common/utils/file.utils";
 
 @Component({
   selector: 'app-space-center',
@@ -165,6 +166,10 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
       document.onmouseup = null;
       this.state.needResize$.next(true);
     };
+  }
+
+  getLanguage(): string {
+    return FileUtils.getLanguageByFileType(this.file.type);
   }
 }
 
