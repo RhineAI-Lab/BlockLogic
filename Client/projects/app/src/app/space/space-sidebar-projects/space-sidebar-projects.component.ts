@@ -68,7 +68,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.developService.project$.subscribe((project) => {
-      this.resolve(project)
+      this.resolve(project);
     });
   }
 
@@ -142,12 +142,17 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   async onNewOk(): Promise<void> {
     this.newValue = this.newValue.trim();
-    if (this.existsList.includes(this.newValue)||this.newValue.length==0) return;
+    if (this.existsList.includes(this.newValue) || this.newValue.length == 0)
+      return;
     this.newModalVisible = false;
 
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
-      await project.addFolder(this.newNode!.origin.key + '/' + this.newValue)
+      project.addFolder(this.newNode!.origin.key + '/' + this.newValue).then(()=>{
+        this.resolve(project);
+      }).catch(()=>{
+        this.notification.error('创建文件夹失败', '请检查文件夹名称是否合法');
+      });
     } else {
       let defaultCode = '';
       if (this.newType == NewType.BlockLogic) {
@@ -165,20 +170,34 @@ console.log('HelloWorld');
         defaultCode = 'print("HelloWorld");';
       }
       const path = this.newNode!.origin.key + '/' + this.newValue;
-      await project.addFile(path, defaultCode);
-      this.developService.openFile(path);
+      await project.addFile(path, defaultCode).then(()=>{
+        this.resolve(project);
+        this.developService.openFile(path);
+      }).catch(()=>{
+        this.notification.error('创建文件失败', '请检查文件名称是否合法');
+      });
     }
-    this.resolve(project);
   }
-  async onDeleteOk(): Promise<void> {
+  onDeleteOk(): void {
     this.deleteModalVisible = false;
     const project = this.developService.project$.getValue();
     if (this.deleteNode!.origin.isLeaf) {
       for (const file of project.files) {
         if (file.path == this.deleteTargetPath) {
           this.developService.closeEvent$.next(file);
-          await project.removeFile(this.deleteTargetPath);
-          this.notification.success('文件已删除', '');
+          project
+            .removeFile(this.deleteTargetPath)
+            .then(() => {
+              this.notification.success('文件已删除', '');
+              this.resolve(project);
+            })
+            .catch((e) => {
+              console.warn(e);
+              this.notification.error(
+                '文件删除失败',
+                '请检查文件是否被占用。或重打开项目目录。',
+              );
+            });
           break;
         }
       }
@@ -189,14 +208,28 @@ console.log('HelloWorld');
           this.developService.closeEvent$.next(file);
         }
       }
-      await project.removeFolder(this.deleteTargetPath);
-      this.notification.success('文件夹已删除', '');
+      project
+        .removeFolder(this.deleteTargetPath)
+        .then(() => {
+          this.notification.success('文件夹已删除', '');
+          this.resolve(project);
+        })
+        .catch((e) => {
+          console.warn(e);
+          this.notification.error(
+            '文件夹删除失败',
+            '请检查文件夹是否被占用。或重打开项目目录。',
+          );
+        });
     }
-    this.resolve(project);
   }
-  async onRenameOk(): Promise<void> {
+  onRenameOk(): void {
     this.renameValue = this.renameValue.trim();
-    if (this.existsList.includes(this.renameValue)||this.renameValue.length==0) return;
+    if (
+      this.existsList.includes(this.renameValue) ||
+      this.renameValue.length == 0
+    )
+      return;
     if (this.renameValue == this.renameNode?.title) return;
     this.renameModalVisible = false;
 
@@ -205,34 +238,49 @@ console.log('HelloWorld');
     const project = this.developService.project$.getValue();
     let old = origin.title;
     if (origin.isLeaf) {
-      await project.renameFile(origin.key, name);
+      project
+        .renameFile(origin.key, name)
+        .then(() => {
+          this.notification.success('重命名成功', old + ' -> ' + name);
+          this.resolve(project);
+        })
+        .catch((e) => {
+          console.warn(e);
+          this.notification.error(
+            '文件重命名失败',
+            '请检查文件是否被占用。或重打开项目目录。',
+          );
+        });
     } else {
+      if (project.handle) {
+        this.notification.error('本地项目暂不支持重命名文件夹', '');
+        return;
+      }
       const oldPath = origin.key + '/';
       const newPath =
         origin.key.substring(0, origin.key.length - old.length) + name;
       for (const folder of project.folders) {
         if (folder.path.startsWith(oldPath)) {
-          const newFolderPath = newPath + '/' + folder.path.substring(oldPath.length);
+          const newFolderPath =
+            newPath + '/' + folder.path.substring(oldPath.length);
           folder.renamePath(newFolderPath);
         } else if (folder.path == origin.key) {
           folder.renamePath(newPath);
-          if(folder.handle){
-            // folder.handle.move(folder.name);
-          }
         }
       }
       for (const file of project.files) {
         if (file.path.startsWith(oldPath)) {
           const oldFilePath = file.path;
-          const newFilePath = newPath + '/' + file.path.substring(oldPath.length);
+          const newFilePath =
+            newPath + '/' + file.path.substring(oldPath.length);
           file.renamePath(newFilePath);
         }
       }
       project.sortFoldersByPath();
       project.sortFilesByPath();
+      this.notification.success('重命名成功', old + ' -> ' + name);
+      this.resolve(project);
     }
-    this.resolve(project);
-    this.notification.success('重命名成功', old + ' -> ' + name);
   }
 
   onCopyName(origin: NzTreeNodeOptions): void {
@@ -247,14 +295,14 @@ console.log('HelloWorld');
   onSearchChange(event: NzFormatEmitEvent): void {}
 
   private async resolve(project: Project): Promise<void> {
-    if(this.freshLock) {
+    if (this.freshLock) {
       const interval = setInterval(() => {
-        if(!this.freshLock) {
+        if (!this.freshLock) {
           clearInterval(interval);
           this.resolve(project);
         }
       }, 1);
-      return ;
+      return;
     }
     this.freshLock = true;
     let projectName = project.name;

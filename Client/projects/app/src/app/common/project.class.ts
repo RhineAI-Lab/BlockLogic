@@ -2,7 +2,7 @@ import { ProjectFile } from './project-file.class';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ProjectFolder } from './project-folder.class';
-import { FileSystemDirectoryHandle } from "file-system-access";
+import { FileSystemDirectoryHandle } from 'file-system-access';
 
 export class Project {
   target = -1;
@@ -57,7 +57,10 @@ export class Project {
     this.files.push(file);
     this.sortFilesByPath();
   }
-  async addLocalFile(file: ProjectFile, content: string | Uint8Array = ''): Promise<void> {
+  async addLocalFile(
+    file: ProjectFile,
+    content: string | Uint8Array = '',
+  ): Promise<void> {
     const parent = this.getFolderByPath(file.parentPath);
     if (parent && parent.handle) {
       file.handle = await parent.handle.getFileHandle(file.name, {
@@ -90,19 +93,18 @@ export class Project {
     }
   }
   async removeLocalFile(file: ProjectFile, name?: string): Promise<void> {
-    if(!name){
+    if (!name) {
       name = file.name;
     }
     const parent = this.getFolderByPath(file.parentPath);
-    if(parent && parent.handle){
+    if (parent && parent.handle) {
       await parent.handle.removeEntry(name);
     }
   }
   async removeFolder(path: string): Promise<void> {
-    const folder = this.getFolderByPath(path);
-    if(!folder)return ;
+    const folder = this.getFolderByPath(path)!;
     const parent = this.getFolderByPath(folder.parentPath);
-    if(parent && parent.handle){
+    if (parent && parent.handle) {
       await parent.handle.removeEntry(folder.name, { recursive: true });
     }
 
@@ -112,27 +114,24 @@ export class Project {
         this.files.splice(this.files.indexOf(file), 1);
       }
     }
-    for (let i=0;i<this.folders.length;i++) {
+    for (let i = 0; i < this.folders.length; i++) {
       const folder = this.folders[i];
-      if (
-        folder.path.startsWith(deleteFolder) ||
-        folder.path == path
-      ) {
+      if (folder.path.startsWith(deleteFolder) || folder.path == path) {
         this.folders.splice(this.folders.indexOf(folder), 1);
         i--;
       }
     }
   }
   async renameFile(path: string, newName: string): Promise<void> {
-    const newPath = path.substring(0, path.lastIndexOf('/')+1) + newName;
+    const newPath = path.substring(0, path.lastIndexOf('/') + 1) + newName;
     const file = this.getFileByPath(path)!;
     const oldName = file.name;
-    file.renamePath(newPath);
-    if(file.handle){
-      const uint8Array = new Uint8Array(await file.source!.arrayBuffer())
+    if (file.handle) {
+      const uint8Array = new Uint8Array(await file.source!.arrayBuffer());
       await this.addLocalFile(file, uint8Array);
       await this.removeLocalFile(file, oldName);
     }
+    file.renamePath(newPath);
     this.sortFilesByPath();
   }
 
