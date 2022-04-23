@@ -142,17 +142,23 @@ export class SpaceSidebarProjectsComponent implements OnInit {
 
   async onNewOk(): Promise<void> {
     this.newValue = this.newValue.trim();
-    if (this.existsList.includes(this.newValue) || this.newValue.length == 0)
+    if (
+      this.existsList.includes(this.newValue) ||
+      !this.checkName(this.newValue)
+    )
       return;
     this.newModalVisible = false;
 
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
-      project.addFolder(this.newNode!.origin.key + '/' + this.newValue).then(()=>{
-        this.resolve(project);
-      }).catch(()=>{
-        this.notification.error('创建文件夹失败', '请检查文件夹名称是否合法');
-      });
+      project
+        .addFolder(this.newNode!.origin.key + '/' + this.newValue)
+        .then(() => {
+          this.resolve(project);
+        })
+        .catch(() => {
+          this.notification.error('创建文件夹失败', '请检查文件夹名称是否合法');
+        });
     } else {
       let defaultCode = '';
       if (this.newType == NewType.BlockLogic) {
@@ -170,12 +176,15 @@ console.log('HelloWorld');
         defaultCode = 'print("HelloWorld");';
       }
       const path = this.newNode!.origin.key + '/' + this.newValue;
-      await project.addFile(path, defaultCode).then(()=>{
-        this.resolve(project);
-        this.developService.openFile(path);
-      }).catch(()=>{
-        this.notification.error('创建文件失败', '请检查文件名称是否合法');
-      });
+      await project
+        .addFile(path, defaultCode)
+        .then(() => {
+          this.resolve(project);
+          this.developService.openFile(path);
+        })
+        .catch(() => {
+          this.notification.error('创建文件失败', '请检查文件名称是否合法');
+        });
     }
   }
   onDeleteOk(): void {
@@ -227,7 +236,7 @@ console.log('HelloWorld');
     this.renameValue = this.renameValue.trim();
     if (
       this.existsList.includes(this.renameValue) ||
-      this.renameValue.length == 0
+      !this.checkName(this.renameValue)
     )
       return;
     if (this.renameValue == this.renameNode?.title) return;
@@ -381,6 +390,16 @@ console.log('HelloWorld');
       }
     }
     this.freshLock = false;
+  }
+
+  checkName(name: string): boolean {
+    if (name.trim().length == 0) {
+      return false;
+    }
+    if (name.includes('/')) {
+      return false;
+    }
+    return true;
   }
 
   contextMenu($event: MouseEvent, menu: NzDropdownMenuComponent): void {

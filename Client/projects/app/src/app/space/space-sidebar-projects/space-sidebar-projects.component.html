@@ -82,7 +82,7 @@
               nzTitle="请输入新名称"
               (nzOnOk)="onRenameOk()"
               (nzOnCancel)="renameModalVisible=false"
-              [nzOkDisabled]="existsList.includes(renameValue.trim())||renameValue.trim().length==0"
+              [nzOkDisabled]="existsList.includes(renameValue.trim())||!checkName(renameValue)"
             >
               <ng-container *nzModalContent>
                 <input nz-input (keydown)="$event.keyCode==13?onRenameOk():null" placeholder="新名称" spellcheck="false" [(ngModel)]="renameValue" />
@@ -100,7 +100,7 @@
                nzTitle="请输入名称"
                (nzOnOk)="onNewOk()"
                (nzOnCancel)="newModalVisible=false"
-               [nzOkDisabled]="existsList.includes(newValue.trim())||newValue.trim().length==0"
+               [nzOkDisabled]="existsList.includes(newValue.trim())||!checkName(newValue)"
             >
               <ng-container *nzModalContent>
                 <input nz-input (keydown)="$event.keyCode==13?onNewOk():null" placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />
