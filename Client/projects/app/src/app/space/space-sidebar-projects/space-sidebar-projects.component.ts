@@ -177,7 +177,7 @@ console.log('HelloWorld');
       for (const file of project.files) {
         if (file.path == this.deleteTargetPath) {
           this.developService.closeEvent$.next(file);
-          await project.deleteFile(this.deleteTargetPath);
+          await project.removeFile(this.deleteTargetPath);
           this.notification.success('文件已删除', '');
           break;
         }
@@ -189,7 +189,7 @@ console.log('HelloWorld');
           this.developService.closeEvent$.next(file);
         }
       }
-      await project.deleteFolder(this.deleteTargetPath);
+      await project.removeFolder(this.deleteTargetPath);
       this.notification.success('文件夹已删除', '');
     }
     this.resolve(project);
@@ -205,7 +205,7 @@ console.log('HelloWorld');
     const project = this.developService.project$.getValue();
     let old = origin.title;
     if (origin.isLeaf) {
-      project.renameFile(origin.key, name);
+      await project.renameFile(origin.key, name);
     } else {
       const oldPath = origin.key + '/';
       const newPath =

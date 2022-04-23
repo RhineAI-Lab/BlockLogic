@@ -79,14 +79,9 @@ export class Project {
     this.folders.push(folder);
     this.sortFoldersByPath();
   }
-  async deleteFile(path: string): Promise<void> {
-    const file = this.getFileByPath(path);
-    if(!file)return ;
-    const parent = this.getFolderByPath(file.parentPath);
-    if(parent && parent.handle){
-      await parent.handle.removeEntry(file.name);
-    }
-
+  async removeFile(path: string): Promise<void> {
+    const file = this.getFileByPath(path)!;
+    await this.removeLocalFile(file);
     for (let i = 0; i < this.files.length; i++) {
       if (this.files[i].path === path) {
         this.files.splice(i, 1);
@@ -94,7 +89,16 @@ export class Project {
       }
     }
   }
-  async deleteFolder(path: string): Promise<void> {
+  async removeLocalFile(file: ProjectFile, name?: string): Promise<void> {
+    if(!name){
+      name = file.name;
+    }
+    const parent = this.getFolderByPath(file.parentPath);
+    if(parent && parent.handle){
+      await parent.handle.removeEntry(name);
+    }
+  }
+  async removeFolder(path: string): Promise<void> {
     const folder = this.getFolderByPath(path);
     if(!folder)return ;
     const parent = this.getFolderByPath(folder.parentPath);
@@ -120,12 +124,14 @@ export class Project {
     }
   }
   async renameFile(path: string, newName: string): Promise<void> {
-    const newPath = path.substring(0, path.lastIndexOf('/')+1) + name;
+    const newPath = path.substring(0, path.lastIndexOf('/')+1) + newName;
     const file = this.getFileByPath(path)!;
+    const oldName = file.name;
     file.renamePath(newPath);
     if(file.handle){
       const uint8Array = new Uint8Array(await file.source!.arrayBuffer())
-
+      await this.addLocalFile(file, uint8Array);
+      await this.removeLocalFile(file, oldName);
     }
     this.sortFilesByPath();
   }
