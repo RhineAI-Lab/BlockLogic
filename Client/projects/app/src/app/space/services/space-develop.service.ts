@@ -4,7 +4,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 import { Project } from '../../common/project.class';
 import { ProjectFile } from '../../common/project-file.class';
-import { Sandbox, SandboxOutput } from '../../common/sandbox.class';
+import { Sandbox } from '../../common/sandbox.class';
 import { SpaceEditorMode, SpaceRunMode } from '../common/space-modes.enums';
 import { SpaceDebugService } from './space-debug.service';
 import { SpaceState } from './space-state.service';
@@ -21,7 +21,7 @@ export class SpaceDevelopService {
   readonly runMode$ = new BehaviorSubject<SpaceRunMode>(SpaceRunMode.Browser);
   readonly unfoldXml$ = new BehaviorSubject<boolean>(false);
   readonly debugEvents = this.debugService.events$;
-  readonly output$ = new Subject<SandboxOutput>();
+  readonly output$ = new Subject<any>();
   readonly debugOutput$ = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
   readonly closeEvent$ = new Subject<ProjectFile>();
@@ -112,7 +112,13 @@ export class SpaceDevelopService {
         sandbox.run(this.targetFile$.getValue().code);
         this.sandboxOfLastRun = sandbox;
       }else if (this.targetFile$.getValue().type == 'py'){
-        Python.run(this.targetFile$.getValue().code)
+        const python = new Python();
+        python.output$.subscribe({
+          next: this.output$.next.bind(this.output$),
+          error: this.output$.error.bind(this.output$),
+        });
+        this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
+        python.run(this.targetFile$.getValue().code)
       }
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
       if (this.debugService.connected) {

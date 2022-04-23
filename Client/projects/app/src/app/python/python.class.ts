@@ -1,47 +1,66 @@
+import {Observable, Subject} from "rxjs";
+
 export class Python {
+  static useLogPython = false;
   static init(): void {
     const dom = document.createElement('script');
     dom.src = 'assets/python/brython-runner.bundle.js';
     dom.className = 'brython-runner';
     document.body.appendChild(dom);
-    Python.runner = new BrythonRunner({
+  }
+  static get inited(): boolean {
+    return document.getElementsByClassName('brython-runner').length > 0;
+  }
+
+  runner: BrythonRunner;
+  output$ = new Subject<any>();
+
+  constructor() {
+    if (!Python.inited) {
+      Python.init();
+    }
+    this.runner = new BrythonRunner({
       onInit: () => {
-        // console.log('Python inited');
+        Python.ifLog('Python inited');
       },
       stdout: {
-        write(content: any) {
-          console.log('Python Output: ' + content);
+        write: (content: any) => {
+          this.output$.next(content);
+          Python.ifLog('Python Output: ' + content);
         },
         flush() {},
       },
       stderr: {
-        write(content: any) {
-          console.error('Python Error: ' + content);
+        write: (content: any) => {
+          this.output$.error(content);
+          Python.ifLog('Python Error: ' + content);
         },
         flush() {},
       },
       stdin: {
         async readline() {
           const userInput = prompt();
-          console.log('Python Input: ' + userInput);
+          Python.ifLog('Python Input: ' + userInput);
           return userInput;
         },
       },
     });
   }
-  static get inited(): boolean {
-    return document.getElementsByClassName('brython-runner').length > 0 && this.runner!=undefined;
-  }
 
-  static runner: BrythonRunner;
-
-  static run(code: string): void {
+  run(code: string): void {
     if(Python.inited) {
-      Python.runner.runCode(code);
+      this.runner.runCode(code);
     } else {
       console.error('Python is not initialized');
     }
   }
+
+  static ifLog(text: string): void {
+    if (Python.useLogPython) {
+      console.log(text);
+    }
+  }
+
 }
 
 declare class BrythonRunner {
