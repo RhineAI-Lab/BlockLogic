@@ -65,13 +65,6 @@ export class SpaceCodeEditorComponent implements OnInit {
       }
     }
   }
-  // changeLanguage(language: string) {
-  //   if (this.editorOptions.language != language) {
-  //     this.editorOptions.language = language;
-  //     this.editor.updateOptions(this.editorOptions);
-  //     console.log(language);
-  //   }
-  // }
 
   undo() {
     this.editor.trigger('undo', 'undo', this.editor);

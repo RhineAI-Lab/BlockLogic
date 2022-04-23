@@ -12,6 +12,11 @@ export class ProjectFolder {
     this.handle = handle;
   }
 
+  get parentPath(): string {
+    return this.path.substring(0, this.path.lastIndexOf('/'));
+  }
+
+
   renamePath(newPath: string): void {
     this.path = newPath;
     const ps = this.path.split('/');

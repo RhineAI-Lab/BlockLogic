@@ -231,6 +231,7 @@ export class SpaceFileService {
     await parseFolder(rootHandle, rootHandle.name);
     const project = new Project(files);
     project.folders = folders;
+    project.handle = rootHandle;
     this.openProjectFinal(project);
   }
 

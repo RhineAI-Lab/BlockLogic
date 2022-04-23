@@ -14,6 +14,9 @@ export class ProjectFile {
   path: string;
   name: string;
   type: string;
+  get parentPath(): string {
+    return this.path.substring(0, this.path.lastIndexOf('/'));
+  }
 
   // Opened
   code: string;

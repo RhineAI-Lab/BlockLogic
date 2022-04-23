@@ -21,13 +21,57 @@ export class Project {
   }
 
   get name(): string {
-    if(this.files.length > 0) {
+    if (this.files.length > 0) {
       return this.files[0].path.split('/')[0];
-    }else if (this.folders.length > 0) {
+    } else if (this.folders.length > 0) {
       return this.folders[0].path.split('/')[0];
-    }else{
+    } else {
       return 'Project';
     }
+  }
+  get type(): ProjectType {
+    return this.files.length == 1 ? ProjectType.File : ProjectType.Folder;
+  }
+
+  getFileByPath(path: string): ProjectFile | null {
+    for (let i = 0; i < this.files.length; i++) {
+      if (this.files[i].path === path) {
+        return this.files[i];
+      }
+    }
+    return null;
+  }
+  getFolderByPath(path: string): ProjectFolder | null {
+    for (const folder of this.folders) {
+      if (folder.name == path) {
+        return folder;
+      }
+    }
+    return null;
+  }
+
+  async addFile(path: string, code: string = ''): Promise<void> {
+    const file = ProjectFile.makeProjectFileByCode(code, path);
+    const parent = this.getFolderByPath(file.parentPath);
+    if (parent && parent.handle) {
+      file.handle = await parent.handle.getFileHandle(file.name, {
+        create: true,
+      });
+      file.savedCode = '';
+    }
+    this.files.push(file);
+    this.sortFilesByPath();
+  }
+  async addFolder(path: string): Promise<void> {
+    const folder = new ProjectFolder(path);
+    const parent = this.getFolderByPath(folder.parentPath);
+    if (parent && parent.handle) {
+      folder.handle = await parent.handle.getDirectoryHandle(folder.name, {
+        create: true,
+      });
+    }
+    this.folders.push(folder);
+    this.sortFoldersByPath();
   }
 
   getTargetFile(): ProjectFile {
@@ -41,19 +85,6 @@ export class Project {
     } else {
       return false;
     }
-  }
-
-  get type(): ProjectType {
-    return this.files.length == 1 ? ProjectType.File : ProjectType.Folder;
-  }
-
-  getFileByPath(path: string): ProjectFile | null {
-    for (let i = 0; i < this.files.length; i++) {
-      if (this.files[i].path === path) {
-        return this.files[i];
-      }
-    }
-    return null;
   }
 
   initAll(httpClient?: HttpClient): Observable<void> {
@@ -110,10 +141,10 @@ export class Project {
       const al = a.path.split('/');
       const bl = b.path.split('/');
       for (let i = 0; i < al.length; i++) {
-        if (i == bl.length){
+        if (i == bl.length) {
           break;
         }
-        if(al[i] != bl[i]){
+        if (al[i] != bl[i]) {
           return al[i] > bl[i] ? 1 : -1;
         }
       }
@@ -125,21 +156,22 @@ export class Project {
       const ps = file.path.split('/');
       let nowPath = ps[0];
       for (let i = 0; i < ps.length - 1; i++) {
-        if (this.findFolderByPath(nowPath) == null) {
+        if (this.getFolderByPath(nowPath) == null) {
           this.folders.push(new ProjectFolder(nowPath));
         }
         nowPath += '/' + ps[i + 1];
       }
     }
   }
-
-  findFolderByPath(path: string): ProjectFolder | null {
-    for (const folder of this.folders) {
-      if (folder.name == path) {
-        return folder;
+  checkAllHandle(): boolean {
+    let fullHandle = true;
+    for (const file of this.files) {
+      if (!file.handle) {
+        fullHandle = false;
+        break;
       }
     }
-    return null;
+    return fullHandle;
   }
 
   findDefaultTarget(): number {
@@ -159,17 +191,6 @@ export class Project {
         return parseInt(filesKey, 10);
     }
     return jsFile;
-  }
-
-  checkAllHandle(): boolean {
-    let fullHandle = true;
-    for (const file of this.files) {
-      if(!file.handle){
-        fullHandle = false;
-        break;
-      }
-    }
-    return fullHandle;
   }
 
   static getDefaultProject(): Project {
