@@ -53,15 +53,20 @@ export class Project {
 
   async addFile(path: string, code: string = ''): Promise<void> {
     const file = ProjectFile.makeProjectFileByCode(code, path);
+    await this.addLocalFile(file, code);
+    this.files.push(file);
+    this.sortFilesByPath();
+  }
+  async addLocalFile(file: ProjectFile, content: string | Uint8Array = ''): Promise<void> {
     const parent = this.getFolderByPath(file.parentPath);
     if (parent && parent.handle) {
       file.handle = await parent.handle.getFileHandle(file.name, {
         create: true,
       });
-      file.savedCode = '';
+      const writeable = await file.handle.createWritable();
+      await writeable.write(content);
+      await writeable.close();
     }
-    this.files.push(file);
-    this.sortFilesByPath();
   }
   async addFolder(path: string): Promise<void> {
     const folder = new ProjectFolder(path);
@@ -113,6 +118,16 @@ export class Project {
         i--;
       }
     }
+  }
+  async renameFile(path: string, newName: string): Promise<void> {
+    const newPath = path.substring(0, path.lastIndexOf('/')+1) + name;
+    const file = this.getFileByPath(path)!;
+    file.renamePath(newPath);
+    if(file.handle){
+      const uint8Array = new Uint8Array(await file.source!.arrayBuffer())
+
+    }
+    this.sortFilesByPath();
   }
 
   getTargetFile(): ProjectFile {

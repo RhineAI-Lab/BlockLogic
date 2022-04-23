@@ -205,14 +205,7 @@ console.log('HelloWorld');
     const project = this.developService.project$.getValue();
     let old = origin.title;
     if (origin.isLeaf) {
-      const path =
-        origin.key.substring(0, origin.key.length - old.length) + name;
-      const file = project.getFileByPath(origin.key)!;
-      file.renamePath(path);
-      if(file.handle){
-        console.log(file.handle);
-      }
-      project.sortFilesByPath();
+      project.renameFile(origin.key, name);
     } else {
       const oldPath = origin.key + '/';
       const newPath =

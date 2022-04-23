@@ -234,7 +234,6 @@ export class SpaceFileService {
     const project = new Project(files);
     project.folders = folders;
     project.handle = rootHandle;
-    console.log(project);
     this.openProjectFinal(project);
   }
 
