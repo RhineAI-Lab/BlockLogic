@@ -85,7 +85,7 @@
               [nzOkDisabled]="existsList.includes(renameValue.trim())||renameValue.trim().length==0"
             >
               <ng-container *nzModalContent>
-                <input nz-input placeholder="新名称" spellcheck="false" [(ngModel)]="renameValue" />
+                <input nz-input (keydown)="$event.keyCode==13?onRenameOk():null" placeholder="新名称" spellcheck="false" [(ngModel)]="renameValue" />
                 <p class="modal-tip" *ngIf="existsList.includes(renameValue.trim())">有重名文件，不可修改。</p>
               </ng-container>
             </nz-modal>
@@ -103,7 +103,7 @@
                [nzOkDisabled]="existsList.includes(newValue.trim())||newValue.trim().length==0"
             >
               <ng-container *nzModalContent>
-                <input nz-input placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />
+                <input nz-input (keydown)="$event.keyCode==13?onNewOk():null" placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />
                 <p class="modal-tip" *ngIf="existsList.includes(newValue.trim())">该文件名已存在。</p>
               </ng-container>
             </nz-modal>

@@ -141,9 +141,9 @@ export class SpaceSidebarProjectsComponent implements OnInit {
   onMove(event: NzFormatEmitEvent): void {}
 
   onNewOk(): void {
-    this.newModalVisible = false;
     this.newValue = this.newValue.trim();
     if (this.existsList.includes(this.newValue)||this.newValue.length==0) return;
+    this.newModalVisible = false;
 
     const project = this.developService.project$.getValue();
     if (this.newType == NewType.Folder) {
@@ -213,10 +213,10 @@ console.log('HelloWorld');
     this.resolve(project);
   }
   onRenameOk(): void {
-    this.renameModalVisible = false;
     this.renameValue = this.renameValue.trim();
     if (this.existsList.includes(this.renameValue)||this.renameValue.length==0) return;
     if (this.renameValue == this.renameNode?.title) return;
+    this.renameModalVisible = false;
 
     const origin = this.renameNode!.origin;
     const name = this.renameValue.trim();
