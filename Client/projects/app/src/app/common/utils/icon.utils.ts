@@ -3,7 +3,7 @@ export class IconUtils {
     const nameSp = name.split('.');
     const nameLast = nameSp[nameSp.length - 1];
     const hadList =
-      'java js jsx ts tsx html xhtml xml css xsd yaml properties python gql'.split(
+      'java js jsx ts tsx html xhtml xml css xsd yaml properties gql'.split(
         ' ',
       );
     const zipList = 'zip rar 7z'.split(' ');
@@ -12,6 +12,8 @@ export class IconUtils {
       return 'icon-file-config';
     } else if (hadList.includes(nameLast)) {
       return 'icon-file-' + nameLast;
+    } else if (nameLast=='py') {
+      return 'icon-file-python';
     } else if (zipList.includes(nameLast)) {
       return 'icon-file-archive';
     } else if (picList.includes(nameLast)) {
