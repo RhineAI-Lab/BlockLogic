@@ -16,6 +16,7 @@ import {
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
 import { ProjectFolder } from '../../common/project-folder.class';
+import { FileSystemDirectoryHandle } from "file-system-access";
 
 @Injectable()
 export class SpaceFileService {
@@ -203,6 +204,7 @@ export class SpaceFileService {
 
   // OPEN-6 LocalFolder
   async openLocalFolder(): Promise<void> {
+    // @ts-ignore
     const rootHandle: FileSystemDirectoryHandle =
       await window.showDirectoryPicker();
     const files: ProjectFile[] = [];

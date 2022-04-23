@@ -194,7 +194,7 @@ console.log('HelloWorld');
     }
     this.resolve(project);
   }
-  onRenameOk(): void {
+  async onRenameOk(): Promise<void> {
     this.renameValue = this.renameValue.trim();
     if (this.existsList.includes(this.renameValue)||this.renameValue.length==0) return;
     if (this.renameValue == this.renameNode?.title) return;
@@ -209,6 +209,9 @@ console.log('HelloWorld');
         origin.key.substring(0, origin.key.length - old.length) + name;
       const file = project.getFileByPath(origin.key)!;
       file.renamePath(path);
+      if(file.handle){
+        console.log(file.handle);
+      }
       project.sortFilesByPath();
     } else {
       const oldPath = origin.key + '/';
@@ -220,6 +223,9 @@ console.log('HelloWorld');
           folder.renamePath(newFolderPath);
         } else if (folder.path == origin.key) {
           folder.renamePath(newPath);
+          if(folder.handle){
+            // folder.handle.move(folder.name);
+          }
         }
       }
       for (const file of project.files) {

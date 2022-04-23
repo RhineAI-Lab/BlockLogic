@@ -2,6 +2,7 @@ import { ProjectFile } from './project-file.class';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ProjectFolder } from './project-folder.class';
+import { FileSystemDirectoryHandle } from "file-system-access";
 
 export class Project {
   target = -1;
