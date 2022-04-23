@@ -211,7 +211,7 @@ export class SpaceFileService {
       handle: FileSystemDirectoryHandle,
       path: string,
     ): Promise<void> {
-      const projectFolder = new ProjectFolder(handle.name);
+      const projectFolder = new ProjectFolder(path);
       projectFolder.handle = handle;
       folders.push(projectFolder);
       for await (const entry of handle.values()) {
@@ -232,6 +232,7 @@ export class SpaceFileService {
     const project = new Project(files);
     project.folders = folders;
     project.handle = rootHandle;
+    console.log(project);
     this.openProjectFinal(project);
   }
 

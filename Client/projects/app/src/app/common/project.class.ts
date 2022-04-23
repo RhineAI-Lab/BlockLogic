@@ -43,7 +43,7 @@ export class Project {
   }
   getFolderByPath(path: string): ProjectFolder | null {
     for (const folder of this.folders) {
-      if (folder.name == path) {
+      if (folder.path == path) {
         return folder;
       }
     }
@@ -53,6 +53,7 @@ export class Project {
   async addFile(path: string, code: string = ''): Promise<void> {
     const file = ProjectFile.makeProjectFileByCode(code, path);
     const parent = this.getFolderByPath(file.parentPath);
+    console.log(this)
     if (parent && parent.handle) {
       file.handle = await parent.handle.getFileHandle(file.name, {
         create: true,
