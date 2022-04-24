@@ -5,6 +5,7 @@
       fxFlex="1 1 auto"
     >
       <app-space-block-editor
+        [type]="file.type"
         (change)="onBlockChange($event)"
         (init)="init()"
       ></app-space-block-editor>

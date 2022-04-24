@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
+  EventEmitter, Input,
   OnInit,
   Output,
 } from '@angular/core';
@@ -17,6 +17,7 @@ import { SpaceState } from '../services/space-state.service';
   styleUrls: ['./space-block-editor.component.less'],
 })
 export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
+  @Input() type: string = 'js';
   @Output() change = new EventEmitter();
   categorySelected?: BlocklierToolboxCategory;
   _workspace!: Blockly.WorkspaceSvg;

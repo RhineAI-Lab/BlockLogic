@@ -1,6 +1,8 @@
-import * as _ from 'blockly/javascript';
+import * as _javascript from 'blockly/javascript';
+import * as _python from 'blockly/python';
 
-export const JavaScript = _ as any;
+export const JavaScript = _javascript as any;
+export const Python = _python as any;
 
 export function connectNecessaryArgs(
   args: string | any[],

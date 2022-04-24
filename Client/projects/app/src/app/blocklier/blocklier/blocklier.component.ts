@@ -5,6 +5,7 @@ import {
   ElementRef,
   EventEmitter,
   OnInit,
+  Input,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -20,6 +21,7 @@ import { BlocklierRenderer } from '../blocklier-renderer';
   styleUrls: ['./blocklier.component.less'],
 })
 export class BlocklierComponent implements OnInit, AfterViewInit {
+  @Input() type: string = 'js';
   @Output() init = new EventEmitter();
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
@@ -31,9 +33,15 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
+    let toolboxPath = 'assets/blockly/toolbox/';
+    if (this.type == 'py') {
+      toolboxPath += 'python.xml';
+    } else {
+      toolboxPath += 'javascript.xml';
+    }
     /* eslint-disable @typescript-eslint/no-non-null-assertion */
     this.httpClient
-      .get('assets/toolbox.xml', { responseType: 'text' })
+      .get(toolboxPath, { responseType: 'text' })
       .subscribe((xml) => {
         const $host = this.container.nativeElement;
 

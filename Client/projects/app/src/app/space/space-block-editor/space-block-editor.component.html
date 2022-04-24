@@ -42,6 +42,7 @@
   <nz-content>
     <app-blocklier
       class="no-select"
+      [type]="type"
       (init)="workspace = blocklier.workspace"
       (change)="onChange($event)"
       #blocklier
