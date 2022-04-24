@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>B-Logic</title>
+    <base href="/space/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-color" content="#1976d2" />
+  </head>
+  <body>
+    <app-root></app-root>
+    <noscript>
+      Please enable JavaScript to continue using this application.
+    </noscript>
+    <script>
+      function dataToFile(dataUrl, fileName){
+        let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], fileName, {type:mime});
+      }
+    </script>
+  </body>
+</html>
