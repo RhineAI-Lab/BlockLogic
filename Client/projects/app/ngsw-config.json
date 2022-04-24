@@ -11,7 +11,21 @@
           "/index.html",
           "/manifest.webmanifest",
           "/*.css",
-          "/*.js"
+          "/*.js",
+          "/styles/**"
+        ]
+      }
+    },
+    {
+      "name": "pre-assets",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "resources": {
+        "files": [
+          "/assets/toolbox.xml",
+          "/assets/logo.png",
+          "/assets/toolbox.xml",
+          "/assets/example/default-code.js"
         ]
       }
     },

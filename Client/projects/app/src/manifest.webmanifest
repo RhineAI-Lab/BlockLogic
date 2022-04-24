@@ -1,6 +1,6 @@
 {
-  "name": "app",
-  "short_name": "app",
+  "name": "BlockLogic",
+  "short_name": "B-Logic",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
