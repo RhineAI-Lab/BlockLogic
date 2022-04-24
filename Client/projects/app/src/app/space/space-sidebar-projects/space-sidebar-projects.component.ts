@@ -15,9 +15,7 @@ import {
   NzDropdownMenuComponent,
 } from 'ng-zorro-antd/dropdown';
 import { Clipboard } from '@angular/cdk/clipboard';
-import { ProjectFile } from '../../common/project-file.class';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { ProjectFolder } from '../../common/project-folder.class';
 
 @Component({
   selector: 'app-space-sidebar-files',
@@ -133,7 +131,7 @@ export class SpaceSidebarProjectsComponent implements OnInit {
     this.newValue = '';
     if (type == NewType.BlockLogic || type == NewType.JavaScript) {
       this.newValue = '.js';
-    } else if (type == NewType.Python) {
+    } else if (type == NewType.Python || type == NewType.PythonDl) {
       this.newValue = '.py';
     }
     this.newModalVisible = true;
@@ -172,6 +170,16 @@ console.log('HelloWorld');
 `;
       } else if (this.newType == NewType.JavaScript) {
         defaultCode = 'console.log("HelloWorld");';
+      } else if (this.newType == NewType.PythonDl) {
+        defaultCode = `
+for count in range(10):
+  print('HelloWorld')
+
+
+
+#------ 图形块结构记录 请勿随意修改 ------
+"""<xml xmlns="https://logic.autojs.org/xml"><block type="controls_repeat_ext" id="k9:CL2)i{,N3IeQhpe{\`" x="50" y="50"><value name="TIMES"><shadow type="math_number" id="k;7vI.h/6LuMX*.J-,d5"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="text_print" id="[,^VcEO[-}eig%To2bOb"><value name="TEXT"><shadow type="text" id="-W:gLQDVx9|!XCu!vbq("><field name="TEXT">HelloWorld</field></shadow></value></block></statement></block></xml>"""
+        `;
       } else if (this.newType == NewType.Python) {
         defaultCode = 'print("HelloWorld");';
       }
@@ -413,4 +421,5 @@ enum NewType {
   BlockLogic,
   JavaScript,
   Python,
+  PythonDl,
 }
