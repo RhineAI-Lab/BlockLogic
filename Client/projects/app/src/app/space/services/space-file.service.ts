@@ -16,7 +16,7 @@ import {
 import { ParaUtils } from '../../common/utils/para.utils';
 import { SpaceState } from './space-state.service';
 import { ProjectFolder } from '../../common/project-folder.class';
-import { FileSystemDirectoryHandle } from "file-system-access";
+import { FileSystemDirectoryHandle } from 'file-system-access';
 
 @Injectable()
 export class SpaceFileService {
@@ -259,7 +259,9 @@ export class SpaceFileService {
         const options = this.makeSavePickerOptions(file);
         try {
           handle = await window.showSaveFilePicker(options);
-        } catch (e) {}
+        } catch (e) {
+          return;
+        }
         if (handle) {
           if (!file.handle) {
             file.handle = handle;
