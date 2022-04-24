@@ -9,6 +9,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as Blockly from 'blockly';
+import 'blockly/blocks';
+import 'blockly/python';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
 

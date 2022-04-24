@@ -123,7 +123,7 @@ export class ProjectFile {
         this.codeType = CodeType.JS_AUTO;
       }
     } else if (this.type == 'py') {
-      if (CodeUtils.getBlockXml(this.code).length > 0) {
+      if (CodeUtils.getBlockXml(this.code, 'py').length > 0) {
         this.codeType = CodeType.PY_BLOCK_DL;
       } else {
         this.codeType = CodeType.PY_BASE;

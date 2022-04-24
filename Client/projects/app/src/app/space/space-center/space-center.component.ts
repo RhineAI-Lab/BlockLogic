@@ -1,18 +1,24 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild,} from '@angular/core';
-import {SplitComponent} from 'angular-split';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { SplitComponent } from 'angular-split';
 import * as Blockly from 'blockly';
 
-import {CodeUtils, XmlResult} from '../../common/utils/code.utils';
-import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceState} from '../services/space-state.service';
-import {SpaceBlockEditorComponent} from '../space-block-editor/space-block-editor.component';
-import {SpaceCodeEditorComponent} from '../space-code-editor/space-code-editor.component';
-import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
-import {SpaceFileService} from '../services/space-file.service';
-import {ProjectFile} from '../../common/project-file.class';
-import {BehaviorSubject} from 'rxjs';
-import {FileUtils} from "../../common/utils/file.utils";
+import { CodeUtils, XmlResult } from '../../common/utils/code.utils';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState } from '../services/space-state.service';
+import { SpaceBlockEditorComponent } from '../space-block-editor/space-block-editor.component';
+import { SpaceCodeEditorComponent } from '../space-code-editor/space-code-editor.component';
+import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
+import { SpaceFileService } from '../services/space-file.service';
+import { CodeType, ProjectFile } from '../../common/project-file.class';
+import { BehaviorSubject } from 'rxjs';
+import { FileUtils } from '../../common/utils/file.utils';
 
 @Component({
   selector: 'app-space-center',
@@ -46,7 +52,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     private developService: SpaceDevelopService,
     private fileService: SpaceFileService,
     private state: SpaceState,
-  ) { }
+  ) {}
 
   ngOnInit(): void {}
 
@@ -74,6 +80,9 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
 
   init() {
     this.state.needResize$.next(true);
+    if (this.isBlockFile) {
+      this.updateBlocks();
+    }
   }
 
   resize(): void {
@@ -109,12 +118,12 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
   updateBlocks(): void {
     if (!this.isBlockFile) return;
     const code = this.codeEditor.code;
-    let xmlText = CodeUtils.getBlockXml(code);
+    let xmlText = CodeUtils.getBlockXml(code, this.file.type);
     if (xmlText.length == 0) {
       // console.warn('XmlText is empty');
     } else {
+      // console.log(xmlText);
       const xmlDom = Blockly.Xml.textToDom(xmlText);
-      // console.log(xmlDom);
       this.blockEditor.workspace.clear();
       Blockly.Xml.domToWorkspace(xmlDom, this.blockEditor.workspace);
     }
@@ -128,24 +137,33 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     } else {
       xmlText = Blockly.Xml.domToText(xmlDom);
     }
-    const code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
-    this.codeEditor.code = CodeUtils.connectBlockXml(code, xmlText);
+    let code = '';
+    if (this.file.type == 'js') {
+      code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
+    } else if (this.file.type == 'py') {
+      code = Blockly.Python.workspaceToCode(this.blockEditor.workspace);
+    }
+    this.codeEditor.code = CodeUtils.connectBlockXml(
+      code,
+      xmlText,
+      this.file.type,
+    );
   }
 
   showClassic(): boolean {
     return this.layoutMode != SpaceLayoutMode.Visual;
   }
   showVisual(): boolean {
-    return (
-      [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(this.layoutMode)
+    return [SpaceLayoutMode.Visual, SpaceLayoutMode.Split].includes(
+      this.layoutMode,
     );
   }
   showSplitLine(): boolean {
     return this.layoutMode == SpaceLayoutMode.Split;
   }
   onlyClassic(): boolean {
-    return (
-      [SpaceLayoutMode.Classic, SpaceLayoutMode.Unspecified].includes(this.layoutMode)
+    return [SpaceLayoutMode.Classic, SpaceLayoutMode.Unspecified].includes(
+      this.layoutMode,
     );
   }
 

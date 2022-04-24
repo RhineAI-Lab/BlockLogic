@@ -28,7 +28,7 @@ export class CodeUtils {
       return '';
     } else {
       i += CodeUtils.getBlockStartStr(type).length;
-      const length = code.substring(i).indexOf('*/');
+      const length = code.substring(i).indexOf(CodeUtils.getBlockEndStr(type));
       return code.substring(i, i + length);
     }
   }
