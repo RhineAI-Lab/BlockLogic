@@ -139,6 +139,10 @@ export class ProjectFile {
         this.code = CodeUtils.toLogicFile(this.code);
         this.codeType = CodeType.JS_BLOCK_AUTO;
         return true;
+      } else if (this.type == 'py') {
+        this.code = CodeUtils.toLogicFile(this.code, 'py');
+        this.codeType = CodeType.PY_BLOCK_DL;
+        return true;
       }
     }
     return false;

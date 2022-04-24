@@ -150,7 +150,7 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   showToBlockFileBtn(): boolean {
-    return this.developService.targetFile$.getValue().type == 'js' && !this.isBlockFile;
+    return ['js','py'].includes(this.developService.targetFile$.getValue().type) && !this.isBlockFile;
   }
   showEditorModeChangeBtn(): boolean {
     return this.developService.targetFile$.getValue().type == 'js';
