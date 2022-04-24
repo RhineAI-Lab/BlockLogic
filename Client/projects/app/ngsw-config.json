@@ -14,11 +14,13 @@
           "/*.css",
           "/*.js",
           "/styles/**",
-          "/assets/iconfont.js",
-          "/assets/toolbox.xml",
           "/assets/logo.png",
-          "/assets/toolbox.xml",
+          "/assets/blockly/toolbox/javascript.xml",
+          "/assets/blockly/toolbox/python.xml",
           "/assets/example/default-code.js"
+        ],
+        "urls": [
+          "https://at.alicdn.com/t/font_3294553_ml83t1vx2b.js"
         ]
       }
     },
