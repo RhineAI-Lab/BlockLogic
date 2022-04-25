@@ -5,10 +5,9 @@ declare module 'blockly/core' {
   export const Dart: Generator;
   export const Lua: Generator;
   export const PHP: Generator;
-  export const Python: Generator;
+  export const Python: PythonGenerator;
 
   export interface JavaScriptGenerator extends Generator {
-    // Orders from "https://developers.google.com/blockly/guides/create-custom-blocks/operator-precedence"
     ORDER_ATOMIC: 0; // 0 "" ...
     ORDER_NEW: 1.1; // new
     ORDER_MEMBER: 1.2; // . []
@@ -45,12 +44,21 @@ declare module 'blockly/core' {
     ORDER_COMMA: 17; // ,
     ORDER_NONE: 99; // (...)
 
-    // TODO: determine whether `forceReturn` is need
     valueToCode(
       block: Block,
       name: string,
       outerOrder: number,
       forceReturn?: boolean,
+    ): string;
+  }
+
+  export interface PythonGenerator extends Generator {
+
+    valueToCode(
+        block: Block,
+        name: string,
+        outerOrder: number,
+        forceReturn?: boolean,
     ): string;
   }
 

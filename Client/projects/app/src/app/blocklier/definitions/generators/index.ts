@@ -19,3 +19,4 @@ import './storage';
 import './ui-btn';
 import './ui';
 import './widget';
+import './temp';
