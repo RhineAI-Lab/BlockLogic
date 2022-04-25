@@ -32,7 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 src/main/resources/static/docs/images
-src/main/resources/application.properties
 src/main/resources/blocklogic.jks
 src/main/resources/blocklogic.jks
 src/main/java/com/hraps/blocklogic/controller/ImgController.java
