@@ -26,3 +26,16 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: baseHelpUrl+'',
     },
 ]);
+
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: 'base_more_new_dict',
+        message0: '创建新字典',
+        inputsInline: true,
+        output: 'MAP',
+        colour: colour,
+        tooltip: '创建新字典',
+        helpUrl: baseHelpUrl+'',
+    },
+]);
+

@@ -10,3 +10,8 @@ Python['base_more_enum'] = function (block: any) {
     const code = `for ${key}, ${data} in enumerate(${sequence}, start = ${start}):\n  ${branch}`;
     return code;
 };
+
+Python['base_more_new_dict'] = function (block: any) {
+    const code = `dict()`;
+    return [code, 0];
+};
