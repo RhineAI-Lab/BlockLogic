@@ -2,7 +2,8 @@
   <div class="btns btns-left no-select">
     <ng-container *ngFor="let item of items">
       <div
-        *ngIf="item.showTab && item.position.includes('left')"
+        *ngIf="item.position.includes('left')"
+        [hidden]="!item.showTab"
         class="btn"
         (click)="onBtnClick(item)"
         [ngClass]="item.isOpen ? 'btn btn-selected' : 'btn'"
@@ -64,7 +65,8 @@
     <div class="btns btns-right no-select">
       <ng-container *ngFor="let item of items">
         <div
-          *ngIf="item.showTab && item.position.includes('right')"
+          *ngIf="item.position.includes('right')"
+          [hidden]="!item.showTab"
           class="btn"
           (click)="onBtnClick(item)"
           [ngStyle]="

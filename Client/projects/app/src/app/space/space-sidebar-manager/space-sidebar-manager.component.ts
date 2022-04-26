@@ -113,6 +113,11 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       );
       if (consoleItem) consoleItem.isOpen = true;
     });
+    this.developService.targetFile$.subscribe((file) => {
+      this.items.forEach((item) => {
+        if (item.name.startsWith(" UI ")) item.showTab = file.type=='js';
+      });
+    });
   }
 
   onChangeWidth(e: MouseEvent, item: SpaceSidebarEntry): void {
