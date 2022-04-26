@@ -20,3 +20,4 @@ import './ui-btn';
 import './ui';
 import './widget';
 import './temp';
+import './base-more';
