@@ -19,3 +19,4 @@ import './ui-text';
 import './var-function';
 import './widget';
 import './temp';
+import './base-more';

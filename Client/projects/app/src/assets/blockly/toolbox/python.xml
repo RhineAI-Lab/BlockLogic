@@ -64,6 +64,30 @@
                 </value>
             </block>
             <block type="controls_forEach"></block>
+
+            <block type="base_more_enum">
+                <value name="KEY">
+                    <block type="variables_get">
+                        <field name="VAR">key</field>
+                    </block>
+                </value>
+                <value name="VALUE">
+                    <block type="variables_get">
+                        <field name="VAR">value</field>
+                    </block>
+                </value>
+                <value name="SEQUENCE">
+                    <block type="variables_get">
+                        <field name="VAR">Sequ</field>
+                    </block>
+                </value>
+                <value name="START">
+                    <block type="math_number">
+                        <field name="NUM">0</field>
+                    </block>
+                </value>
+            </block>
+
             <block type="controls_flow_statements"></block>
         </category>
         <category name="变量" categorystyle="variable_category" custom="VARIABLE"></category>
@@ -284,11 +308,12 @@
                 </value>
             </block>
         </category>
-        <category name="列表" categorystyle="list_category">
+        <category name="数据" categorystyle="list_category">
             <block type="lists_create_with">
                 <mutation items="0"></mutation>
             </block>
             <block type="lists_create_with"></block>
+            <block type="base_more_new_dict"></block>
             <block type="lists_get">
                 <value name="ARRAY">
                     <block type="variables_get">
