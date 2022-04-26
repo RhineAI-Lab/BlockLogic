@@ -137,12 +137,7 @@ export class SpaceCenterComponent implements OnInit, AfterViewInit {
     } else {
       xmlText = Blockly.Xml.domToText(xmlDom);
     }
-    let code = '';
-    if (this.file.type == 'js') {
-      code = Blockly.JavaScript.workspaceToCode(this.blockEditor.workspace);
-    } else if (this.file.type == 'py') {
-      code = Blockly.Python.workspaceToCode(this.blockEditor.workspace);
-    }
+    const code = CodeUtils.workspaceToCode(this.blockEditor.workspace, this.file.type);
     this.codeEditor.code = CodeUtils.connectBlockXml(
       code,
       xmlText,

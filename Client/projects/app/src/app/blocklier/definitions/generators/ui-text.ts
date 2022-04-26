@@ -10,6 +10,6 @@ JavaScript['ui_text_set_text'] = function (block: {
     JavaScript.ORDER_ATOMIC,
     true,
   );
-  const code = 'ui.' + id_value + '.setText(' + text_value + ');\n';
+  const code = '$ui.' + id_value + '.setText(' + text_value + ');\n';
   return code;
 };
