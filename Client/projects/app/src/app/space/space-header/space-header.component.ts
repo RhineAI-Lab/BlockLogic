@@ -20,6 +20,8 @@ export class SpaceHeaderComponent implements OnInit {
     { text: '联系我们', url: '/#contact' },
   ];
 
+  window = window;
+
   constructor(public state: SpaceState) {}
 
   ngOnInit(): void {}
