@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app",
+            "outputPath": "dist/space",
             "index": "projects/app/src/index.html",
             "main": "projects/app/src/main.ts",
             "polyfills": "projects/app/src/polyfills.ts",
@@ -79,7 +79,8 @@
                   "with": "projects/app/src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/space/"
             },
             "development": {
               "buildOptimizer": false,
