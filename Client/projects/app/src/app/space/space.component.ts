@@ -4,8 +4,12 @@ import { SpaceDebugService } from './services/space-debug.service';
 import { SpaceDevelopService } from './services/space-develop.service';
 import { SpaceState } from './services/space-state.service';
 import { SpaceFileService } from './services/space-file.service';
-import {Location,LocationStrategy, PathLocationStrategy} from "@angular/common";
-import {ActivatedRoute, Route} from "@angular/router";
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-space',
@@ -17,19 +21,21 @@ import {ActivatedRoute, Route} from "@angular/router";
     SpaceState,
     SpaceFileService,
     Location,
-    {provide: LocationStrategy, useClass: PathLocationStrategy}
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
   ],
 })
 export class SpaceComponent implements OnInit, AfterViewInit {
   constructor(
     private developService: SpaceDevelopService,
     public location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-    // @ts-ignore
-    this.location.replaceState(`../space${this.route.snapshot._routerState.url.substr(1)}`);
+    this.location.replaceState(
+      // @ts-ignore
+      `../space${this.route.snapshot._routerState.url.substr(1)}`,
+    );
   }
 
   ngAfterViewInit(): void {
