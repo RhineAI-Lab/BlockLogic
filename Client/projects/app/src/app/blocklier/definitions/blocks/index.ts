@@ -18,3 +18,4 @@ import './ui-btn';
 import './ui-text';
 import './var-function';
 import './widget';
+import './temp';
