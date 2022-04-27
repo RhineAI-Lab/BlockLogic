@@ -10,6 +10,7 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-space',
@@ -32,10 +33,12 @@ export class SpaceComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.location.replaceState(
-      // @ts-ignore
-      `../space${this.route.snapshot._routerState.url.substr(1)}`,
-    );
+    if (environment.production) {
+      this.location.replaceState(
+        // @ts-ignore
+        `../space${this.route.snapshot._routerState.url.substr(1)}`,
+      );
+    }
   }
 
   ngAfterViewInit(): void {
