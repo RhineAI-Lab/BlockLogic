@@ -1,7 +1,6 @@
 import { connectNecessaryArgs, JavaScript } from './_common';
 
 JavaScript['ui_layout'] = function (block: any) {
-  JavaScript.setRunMode_('ui');
   const value = JavaScript.valueToCode(
     block,
     'UI_XML',
@@ -12,7 +11,6 @@ JavaScript['ui_layout'] = function (block: any) {
   return code;
 };
 JavaScript['ui_layout_file'] = function (block: any) {
-  JavaScript.setRunMode_('ui');
   const value = JavaScript.valueToCode(
     block,
     'FILE_PATH',
@@ -38,7 +36,7 @@ JavaScript['ui_get_attr'] = function (block: {
     JavaScript.ORDER_ATOMIC,
     true,
   );
-  const code = 'ui.' + id_value + '.attr(' + name_value + ')';
+  const code = '$ui.' + id_value + '.attr(' + name_value + ')';
   return [code, JavaScript.ORDER_ATOMIC];
 };
 JavaScript['ui_set_attr'] = function (block: {
@@ -58,7 +56,7 @@ JavaScript['ui_set_attr'] = function (block: {
     true,
   );
   const code =
-    'ui.' + id_value + '.attr(' + name_value + ',' + value_value + ');\n';
+    '$ui.' + id_value + '.attr(' + name_value + ',' + value_value + ');\n';
   return code;
 };
 JavaScript['ui_inflate'] = function (block: any) {
@@ -102,17 +100,14 @@ JavaScript['ui_is_ui_thread'] = function (_block: any) {
   return [code, JavaScript.ORDER_ATOMIC];
 };
 JavaScript['ui_finish'] = function (_block: any) {
-  JavaScript.setRunMode_('ui');
   const code = '$ui.finish();\n';
   return code;
 };
 JavaScript['ui_use_android_resources'] = function (_block: any) {
-  JavaScript.setRunMode_('ui');
   const code = '$ui.useAndroidResources();\n';
   return code;
 };
 JavaScript['ui_set_content_view'] = function (block: any) {
-  JavaScript.setRunMode_('ui');
   const view_value = JavaScript.valueToCode(
     block,
     'UI_VIEW',
@@ -151,7 +146,7 @@ JavaScript['ui_status_bar_color'] = function (block: any) {
 };
 JavaScript['ui_run'] = function (block: any) {
   const stat = JavaScript.statementToCode(block, 'STAT');
-  const code = 'ui.run(function(){\n' + stat + '});\n';
+  const code = '$ui.run(function(){\n' + stat + '});\n';
   return code;
 };
 JavaScript['ui_post'] = function (block: any) {
@@ -162,6 +157,6 @@ JavaScript['ui_post'] = function (block: any) {
     true,
   );
   const stat = JavaScript.statementToCode(block, 'STAT');
-  const code = 'ui.post(function(){\n' + stat + '},' + time_value + ');\n';
+  const code = '$ui.post(function(){\n' + stat + '},' + time_value + ');\n';
   return code;
 };

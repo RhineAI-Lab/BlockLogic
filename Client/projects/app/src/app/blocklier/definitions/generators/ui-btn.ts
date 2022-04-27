@@ -10,6 +10,6 @@ JavaScript['ui_btn_on_click'] = function (block: {
     JavaScript.ORDER_ATOMIC,
     true,
   );
-  const code = 'ui.' + id_value + '.on("click",()=>{\n' + stat_value + '});\n';
+  const code = '$ui.' + id_value + '.on("click",()=>{\n' + stat_value + '});\n';
   return code;
 };

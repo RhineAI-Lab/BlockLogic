@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production --aot --build-optimizer",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write \"projects/**/*.{html,less,ts,json}\" \"!projects/**/assets\" \"*.{json,js,ts,md}\"",

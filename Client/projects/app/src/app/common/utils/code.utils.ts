@@ -1,5 +1,6 @@
 import * as esprima from 'esprima';
 import { StringUtils } from './string.utils';
+import * as Blockly from "blockly";
 
 export class CodeUtils {
   static getBlockStartStr(type = 'js'): string {
@@ -21,6 +22,18 @@ export class CodeUtils {
     }
   }
 
+  static workspaceToCode(workspace: Blockly.WorkspaceSvg, type = 'js'): string {
+    let code = '';
+    if (type == 'js') {
+      code = Blockly.JavaScript.workspaceToCode(workspace);
+      if(code.includes('$ui.')){
+        code = '"ui";\n\n' + code;
+      }
+    } else if (type == 'py') {
+      code = Blockly.Python.workspaceToCode(workspace);
+    }
+    return code;
+  }
   static getBlockXml(code: string, type = 'js'): string {
     code = code.replace(/\r\n/g, '\n');
     let i = code.indexOf(CodeUtils.getBlockStartStr(type));

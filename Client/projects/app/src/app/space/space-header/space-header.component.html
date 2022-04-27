@@ -1,5 +1,6 @@
 <div class="layout" [fxShow]="state.isHeaderVisible$ | async">
-  <div fxLayout fxLayoutAlign="space-around center" class="main">
+  <div fxLayout fxLayoutAlign="space-around center" class="main"
+       (click)="window.open('https://logic.autojs.org')">
     <div fxLayout fxLayoutAlign="space-around center" class="left">
       <img class="logo-img" src="assets/logo.png" />
       <span class="logo-text">B-Logic</span>
