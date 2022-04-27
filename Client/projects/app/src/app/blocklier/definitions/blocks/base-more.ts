@@ -6,21 +6,12 @@ const baseHelpUrl = '';
 Blockly.defineBlocksWithJsonArray([
     {
         type: 'base_more_enum',
-        message0: '从 %4 起遍历 %3 作为 %2 并获取索引 %1 \n 执行 %5',
+        message0: '枚举 %1 并获取索引',
         args0: [
-            { type: 'input_value', name: 'KEY', check: 'Object' },
-            { type: 'input_value', name: 'VALUE', check: 'Object' },
             { type: 'input_value', name: 'SEQUENCE', check: 'Array' },
-            { type: 'input_value', name: 'START', check: 'Number' },
-            { type: 'input_statement', name: 'DO' },
         ],
-        args1: [{
-            "type": "input_statement",
-            "name": "DO"
-        }],
         inputsInline: true,
-        previousStatement: null,
-        nextStatement: null,
+        output: 'Array',
         colour: colour,
         tooltip: '遍历可迭代对象并获取索引',
         helpUrl: baseHelpUrl+'',
@@ -29,13 +20,39 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.defineBlocksWithJsonArray([
     {
-        type: 'base_more_new_dict',
-        message0: '创建新字典',
+        type: 'base_more_enum_from',
+        message0: '从 %2 枚举 %1 并获取索引',
+        args0: [
+            { type: 'input_value', name: 'SEQUENCE', check: 'Array' },
+            { type: 'input_value', name: 'START', check: 'Number' },
+        ],
         inputsInline: true,
-        output: 'MAP',
+        output: 'Array',
         colour: colour,
-        tooltip: '创建新字典',
+        tooltip: '从指定索引处，开始遍历可迭代对象，并获取索引',
         helpUrl: baseHelpUrl+'',
     },
 ]);
 
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: 'base_more_new_coll',
+        message0: '创建新 %1 ',
+        args0:[
+            { type: 'field_dropdown', name: 'MODE', options: [
+                ['字典', 'Map'],
+                ['元组', 'Tuple'],
+                ['集合','Set'],
+            ] },
+        ],
+        inputsInline: true,
+        output: [
+            'MAP',
+            'TUPLE',
+            'SET',
+            ],
+        colour: colour,
+        tooltip: '创建新字典、元组、集合',
+        helpUrl: baseHelpUrl+'',
+    },
+]);
