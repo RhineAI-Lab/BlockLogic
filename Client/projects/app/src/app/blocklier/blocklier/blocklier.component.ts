@@ -14,6 +14,7 @@ import 'blockly/blocks';
 import 'blockly/python';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
+import {BlocklierTheme} from "./blocklier-theme";
 
 @Component({
   selector: 'app-blocklier',
@@ -28,31 +29,6 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   workspace!: Blockly.WorkspaceSvg;
   toolbox!: Blockly.IToolbox;
   categories: BlocklierToolboxCategory[] = [];
-
-  theme = Blockly.Theme.defineTheme('b-base', {
-    'base': 'classic',
-    'blockStyles': {
-      'logic_blocks': {
-        'colourPrimary': '#ff0000',
-      },
-      'text_blocks': {
-        'colourPrimary': '#00ff00',
-      },
-    },
-  });
-
-  themeLight = Blockly.Theme.defineTheme('b-light', {
-    'base': 'b-base',
-  });
-
-  themeDark = Blockly.Theme.defineTheme('b-dark', {
-    'base': 'b-base',
-    'componentStyles': {
-      'workspaceBackgroundColour': '#1e1e1e',
-      'flyoutBackgroundColour': '#2b2c2d',
-      'scrollbarColour': '#666',
-    },
-  });
 
   constructor(private httpClient: HttpClient) {}
 
@@ -103,7 +79,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
 
-        this.workspace.setTheme(this.theme);
+        this.workspace.setTheme(BlocklierTheme.themeLight);
         this.toolbox.setVisible(false);
 
         this.init.emit();
@@ -113,10 +89,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
 
   setTheme(isLight: boolean): void {
     if (isLight) {
-      this.workspace.setTheme(this.themeLight);
+      this.workspace.setTheme(BlocklierTheme.themeLight);
       this.toolbox.setVisible(false);
     } else {
-      this.workspace.setTheme(this.themeDark);
+      this.workspace.setTheme(BlocklierTheme.themeDark);
       this.toolbox.setVisible(false);
     }
   }
