@@ -28,7 +28,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   workspace!: Blockly.WorkspaceSvg;
   categories: BlocklierToolboxCategory[] = [];
 
-  theme = Blockly.Theme.defineTheme('base', {
+  theme = Blockly.Theme.defineTheme('b-base', {
     'base': 'classic',
     'blockStyles': {
       'logic_blocks': {
@@ -41,11 +41,16 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   });
 
   themeLight = Blockly.Theme.defineTheme('b-light', {
-    'base': 'base',
+    'base': 'b-base',
   });
 
   themeDark = Blockly.Theme.defineTheme('b-dark', {
-    'base': 'base',
+    'base': 'b-base',
+    'componentStyles': {
+      'workspaceBackgroundColour': '#1e1e1e',
+      'flyoutBackgroundColour': '#2b2c2d',
+      'scrollbarColour': '#666',
+    },
   });
 
   constructor(private httpClient: HttpClient) {}
@@ -71,7 +76,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           grid: {
             spacing: 20,
             length: 6,
-            colour: '#ddd',
+            colour: '#88888866',
             snap: true,
           },
           zoom: {
@@ -85,7 +90,6 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           renderer: BlocklierRenderer.name,
           toolbox: xml,
         });
-        this.init.emit();
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);
         });
@@ -98,8 +102,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
 
-        this.workspace.setTheme(this.themeLight);
+        this.workspace.setTheme(this.themeDark);
         toolbox.setVisible(false);
+
+        this.init.emit();
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
