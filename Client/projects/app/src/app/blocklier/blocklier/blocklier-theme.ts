@@ -44,6 +44,7 @@ export class BlocklierTheme {
     'componentStyles': {
       'workspaceBackgroundColour': '#1e1e1e',
       'flyoutBackgroundColour': '#2b2c2d',
+      'flyoutForegroundColour': '#c6c6c6',
       'scrollbarColour': '#666',
     },
   });

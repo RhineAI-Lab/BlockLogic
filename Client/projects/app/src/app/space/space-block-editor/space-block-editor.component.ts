@@ -67,6 +67,7 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   onInit(): void {
     this.workspace = this.blocklier.workspace
     this.state.theme$.subscribe((v) => {
+      this.categorySelected = undefined;
       setTimeout(() => {
         if (v == ThemeMode.Default) {
           this.blocklier.setTheme(true);

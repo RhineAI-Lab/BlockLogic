@@ -90,11 +90,11 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   setTheme(isLight: boolean): void {
     if (isLight) {
       this.workspace.setTheme(BlocklierTheme.themeLight);
-      this.toolbox.setVisible(false);
     } else {
       this.workspace.setTheme(BlocklierTheme.themeDark);
-      this.toolbox.setVisible(false);
     }
+    this.toolbox.setVisible(false);
+    Blockly.svgResize(this.workspace);
   }
 
   private resolveToolboxCategories(
