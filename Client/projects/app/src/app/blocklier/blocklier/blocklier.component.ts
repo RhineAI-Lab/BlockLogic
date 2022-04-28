@@ -30,7 +30,8 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
 
   constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   ngAfterViewInit(): void {
     let toolboxPath = 'assets/blockly/toolbox/';
@@ -70,13 +71,24 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
         });
 
         const toolbox = this.workspace.getToolbox();
-        toolbox.setVisible(false);
         const flyout = toolbox.getFlyout();
         flyout.autoClose = true;
 
         this.categories = this.resolveToolboxCategories(
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
+
+        const theme = Blockly.Theme.defineTheme('myBaseTheme', {
+          'blockStyles': {
+            'logic_blocks': {
+              'colourPrimary': '#ff0000',
+              'colourSecondary': '#ff0000',
+              'colourTertiary': '#ff0000',
+            },
+          },
+        });
+        this.workspace.setTheme(theme);
+        toolbox.setVisible(false);
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
   }
