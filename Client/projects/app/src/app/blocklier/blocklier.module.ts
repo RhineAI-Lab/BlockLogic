@@ -1,4 +1,4 @@
-// TODO: convert all definitions to the class-based syntax
+import './definitions';
 import './definitions/base/blocks'; // deprecated
 import './definitions/base/generators'; // deprecated
 import './definitions/autojs/blocks'; // deprecated
