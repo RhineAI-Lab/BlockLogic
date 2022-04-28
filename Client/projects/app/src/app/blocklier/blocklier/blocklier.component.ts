@@ -26,32 +26,37 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
+  toolbox!: Blockly.IToolbox;
   categories: BlocklierToolboxCategory[] = [];
 
-  theme = Blockly.Theme.defineTheme('base', {
-    'base': 'classic',
-    'blockStyles': {
-      'logic_blocks': {
-        'colourPrimary': '#ff0000',
+  theme = Blockly.Theme.defineTheme('b-base', {
+    base: 'classic',
+    blockStyles: {
+      logic_blocks: {
+        colourPrimary: '#ff0000',
       },
-      'text_blocks': {
-        'colourPrimary': '#00ff00',
+      text_blocks: {
+        colourPrimary: '#00ff00',
       },
     },
   });
 
   themeLight = Blockly.Theme.defineTheme('b-light', {
-    'base': 'base',
+    base: 'b-base',
   });
 
   themeDark = Blockly.Theme.defineTheme('b-dark', {
-    'base': 'base',
+    base: 'b-base',
+    componentStyles: {
+      workspaceBackgroundColour: '#1e1e1e',
+      flyoutBackgroundColour: '#2b2c2d',
+      scrollbarColour: '#666',
+    },
   });
 
   constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     let toolboxPath = 'assets/blockly/toolbox/';
@@ -71,7 +76,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           grid: {
             spacing: 20,
             length: 6,
-            colour: '#ddd',
+            colour: '#88888866',
             snap: true,
           },
           zoom: {
@@ -85,23 +90,34 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           renderer: BlocklierRenderer.name,
           toolbox: xml,
         });
-        this.init.emit();
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);
         });
 
-        const toolbox = this.workspace.getToolbox();
-        const flyout = toolbox.getFlyout();
+        this.toolbox = this.workspace.getToolbox();
+        const flyout = this.toolbox.getFlyout();
         flyout.autoClose = true;
 
         this.categories = this.resolveToolboxCategories(
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
 
-        this.workspace.setTheme(this.themeLight);
-        toolbox.setVisible(false);
+        this.workspace.setTheme(this.themeDark);
+        this.toolbox.setVisible(false);
+
+        this.init.emit();
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  setTheme(isLight: boolean): void {
+    if (isLight) {
+      this.workspace.setTheme(this.themeLight);
+      this.toolbox.setVisible(false);
+    } else {
+      this.workspace.setTheme(this.themeDark);
+      this.toolbox.setVisible(false);
+    }
   }
 
   private resolveToolboxCategories(
