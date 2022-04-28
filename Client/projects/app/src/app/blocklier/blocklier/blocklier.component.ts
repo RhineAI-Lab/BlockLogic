@@ -28,6 +28,26 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   workspace!: Blockly.WorkspaceSvg;
   categories: BlocklierToolboxCategory[] = [];
 
+  theme = Blockly.Theme.defineTheme('base', {
+    'base': 'classic',
+    'blockStyles': {
+      'logic_blocks': {
+        'colourPrimary': '#ff0000',
+      },
+      'text_blocks': {
+        'colourPrimary': '#00ff00',
+      },
+    },
+  });
+
+  themeLight = Blockly.Theme.defineTheme('b-light', {
+    'base': 'base',
+  });
+
+  themeDark = Blockly.Theme.defineTheme('b-dark', {
+    'base': 'base',
+  });
+
   constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
@@ -78,16 +98,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
 
-        const theme = Blockly.Theme.defineTheme('myBaseTheme', {
-          'blockStyles': {
-            'logic_blocks': {
-              'colourPrimary': '#ff0000',
-              'colourSecondary': '#ff0000',
-              'colourTertiary': '#ff0000',
-            },
-          },
-        });
-        this.workspace.setTheme(theme);
+        this.workspace.setTheme(this.themeLight);
         toolbox.setVisible(false);
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
