@@ -5,4 +5,3 @@ import './console.blocks';
 import './coordinate.blocks';
 import './crypto.blocks';
 import './debug.blocks';
-import './lists.blocks';

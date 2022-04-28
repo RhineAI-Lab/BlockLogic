@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['media_scan_file'] = function (block: any) {
   const value = JavaScript.valueToCode(block, 'PATH', JavaScript.ORDER_MEMBER);

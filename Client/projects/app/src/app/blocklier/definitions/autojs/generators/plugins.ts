@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['$plugins_load'] = function (block: any) {
   const name_value = JavaScript.valueToCode(

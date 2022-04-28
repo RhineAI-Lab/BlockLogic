@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['storages_create'] = function (block: {
   getFieldValue: (arg0: string) => any;

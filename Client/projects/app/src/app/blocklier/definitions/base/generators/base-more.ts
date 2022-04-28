@@ -1,4 +1,4 @@
-import { Python } from './_common';
+import { Python } from '../../_common';
 
 Python['base_more_enum'] = function (block: any) {
     const sequence = Python.valueToCode(block, 'SEQUENCE', Python.ORDER_ATOMIC);
@@ -15,7 +15,7 @@ Python['base_more_enum_from'] = function (block: any) {
 
 Python['base_more_new_coll'] = function (block: any) {
     const mode = block.getFieldValue('MODE');
-    if (mode === 'Map') {
+    if (mode === 'Map') {   
         const code = `dict()`;
         return [code, 0];
     } else if (mode === 'Tuple') {

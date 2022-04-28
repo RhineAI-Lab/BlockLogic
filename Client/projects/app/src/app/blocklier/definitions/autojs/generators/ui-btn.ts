@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['ui_btn_on_click'] = function (block: {
   getFieldValue: (arg0: string) => any;

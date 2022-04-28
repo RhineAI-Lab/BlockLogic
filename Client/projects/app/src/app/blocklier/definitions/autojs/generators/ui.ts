@@ -1,4 +1,4 @@
-import { connectNecessaryArgs, JavaScript } from './_common';
+import { connectNecessaryArgs, JavaScript } from '../../_common';
 
 JavaScript['ui_layout'] = function (block: any) {
   const value = JavaScript.valueToCode(

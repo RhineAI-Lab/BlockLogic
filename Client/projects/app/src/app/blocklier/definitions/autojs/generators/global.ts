@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['globals_sleep'] = function (block: any) {
   const value = JavaScript.valueToCode(block, 'VALUE', JavaScript.ORDER_ATOMIC);

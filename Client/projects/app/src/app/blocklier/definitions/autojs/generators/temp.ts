@@ -1,4 +1,4 @@
-import { Python } from './_common';
+import { Python } from '../../_common';
 
 Python['temp_connect'] = function (block: any) {
   const str1 = Python.valueToCode(block, 'STR1', Python.ORDER_ATOMIC);

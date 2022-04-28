@@ -1,4 +1,4 @@
-import { connectNecessaryArgs, JavaScript } from './_common';
+import { connectNecessaryArgs, JavaScript } from '../../_common';
 
 JavaScript['http_get'] = function (block: any) {
   const url = JavaScript.valueToCode(

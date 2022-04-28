@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['var_function_wc'] = function (block: any) {
   const stat = JavaScript.statementToCode(block, 'STAT');
