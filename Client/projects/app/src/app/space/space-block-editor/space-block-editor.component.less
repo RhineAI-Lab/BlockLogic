@@ -1,117 +1,146 @@
-nz-layout {
-  height: 100%;
-  nz-sider {
-    width: 220px;
-    height: 100%;
-    border-right: 1px solid #cfcfcf;
-    overflow-y: hidden;
-
-    .sidebar-main {
+@import "mixin";
+.themeMixin({
+  :host {
+    nz-layout {
       height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
 
-      ::ng-deep {
-        .ant-menu-item,
-        .ant-menu-submenu-title {
-          margin: 0;
-          height: 32px;
-          font-size: small;
-        }
-        .ant-menu-submenu:hover {
-          color: #00a86b;
-        }
-        .ant-menu-submenu-selected i {
-          color: #00a86b;
-        }
-        .ant-menu-submenu-arrow {
-          color: #000000a0;
-        }
-        .ant-menu-submenu:hover .ant-menu-submenu-arrow {
-          color: #00a86b;
-        }
-        .ant-menu-submenu-arrow::before {
-          transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-            transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-            top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-        .ant-menu-submenu-arrow::after {
-          transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-            transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-            top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-        .ant-menu-item-selected {
-          color: #000000ce;
-        }
-        .ant-menu {
-          background: #ffffff;
-          color: #171717;
-        }
-        .ant-menu-item {
-          background: #ffffff;
-          color: #171717;
-        }
-        .ant-menu-item:hover {
-          color: #00a86b;
-        }
-        .ant-menu-item-selected {
-          background: #00a86b50;
-        }
-      }
+      nz-sider {
+        width: 220px;
+        height: 100%;
+        border-right: 1px solid @divider-obvious;
+        overflow-y: hidden;
 
-      h1 {
-        margin: 20px auto 0;
-        font-size: 1.6rem;
-        font-weight: 300;
-        text-align: center;
-        color: black;
-      }
-      h2 {
-        margin: 0 auto 10px;
-        font-size: 1rem;
-        font-weight: 200;
-        text-align: center;
-      }
-      h1 a {
-        text-decoration: none;
-        color: #324a5b;
-      }
-      h2 a {
-        text-decoration: none;
-        color: #324a5b;
-      }
+        .sidebar-main {
+          height: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          background: @background-base;
+          transition: background-color .4s ease;
 
-      .categories{
-        margin-bottom: 64px;
-        background: #fff;
-        border-right: 0;
-      }
+          ::ng-deep {
+            .ant-menu-item,
+            .ant-menu-submenu-title {
+              margin: 0;
+              height: 32px;
+              font-size: small;
+            }
 
-      .category-icon {
-        width: 12px;
-        height: 12px;
-        border: 2px solid #aaaaaa;
-        margin: auto 4px;
-      }
+            .ant-menu-submenu:hover {
+              color: #00a86b;
+            }
 
-      .category-title {
-        transform: translateY(1px);
-      }
+            .ant-menu-submenu-selected i {
+              color: #00a86b;
+            }
 
-      .tip{
-        display: block;
-        width: 100%;
-        color: #6e6e6e;
-        font-size: 14px;
-        text-align: center;
-      }
+            .ant-menu-submenu-arrow {
+              color: @color-base;
+              transition: color .15s ease;
+            }
 
+            .ant-menu-submenu:hover .ant-menu-submenu-arrow {
+              color: #00a86b;
+            }
+
+            .ant-menu-submenu-arrow::before {
+              transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+              transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+              top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+
+            .ant-menu-submenu-arrow::after {
+              transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+              transform 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+              top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+
+            .ant-menu-item-selected {
+              color: #000000ce;
+            }
+
+            .ant-menu {
+              background: @background-base;
+              transition: background-color .4s ease;
+              color: @color-base;
+              transition: color .15s ease;
+            }
+
+            .ant-menu-item {
+              background: @background-base;
+              transition: background-color .4s ease;
+              color: @color-base;
+              transition: color .15s ease;
+            }
+
+            .ant-menu-item:hover {
+              color: #00a86b;
+            }
+
+            .ant-menu-item-selected {
+              background: #00a86b50;
+            }
+          }
+
+          h1 {
+            margin: 20px auto 0;
+            font-size: 1.6rem;
+            font-weight: 300;
+            text-align: center;
+          }
+
+          h2 {
+            margin: 0 auto 10px;
+            font-size: 1rem;
+            font-weight: 200;
+            text-align: center;
+          }
+
+          h1 a {
+            text-decoration: none;
+            color: @color-base;
+            transition: color .4s ease;
+          }
+
+          h2 a {
+            text-decoration: none;
+            color: @color-base;
+            transition: color .4s ease;
+          }
+
+          .categories {
+            margin-bottom: 64px;
+            background: @background-base;
+            transition: background-color .4s ease;
+            border-right: 0;
+          }
+
+          .category-icon {
+            width: 12px;
+            height: 12px;
+            border: 2px solid #aaaaaa;
+            margin: auto 4px;
+          }
+
+          .category-title {
+            transform: translateY(1px);
+          }
+
+          .tip {
+            display: block;
+            width: 100%;
+            color: #6e6e6e;
+            font-size: 14px;
+            text-align: center;
+          }
+
+        }
+      }
+    }
+
+    ::ng-deep {
+      .blocklyMainBackground {
+        stroke: none;
+      }
     }
   }
-}
-
-::ng-deep {
-  .blocklyMainBackground {
-    stroke: none;
-  }
-}
+});

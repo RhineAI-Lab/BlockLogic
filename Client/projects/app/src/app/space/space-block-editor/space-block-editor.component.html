@@ -37,14 +37,13 @@
           </ul>
         </li>
       </ul>
-      <span class="tip" *ngIf="!state.isLight">暂不支持Block区域夜间模式</span>
     </div>
   </nz-sider>
   <nz-content>
     <app-blocklier
       class="no-select"
       [type]="type"
-      (init)="workspace = blocklier.workspace"
+      (init)="onInit()"
       (change)="onChange($event)"
       #blocklier
     ></app-blocklier>

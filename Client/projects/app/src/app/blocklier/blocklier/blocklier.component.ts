@@ -26,6 +26,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   @Output() change = new EventEmitter();
   @ViewChild('container') container!: ElementRef<HTMLDivElement>;
   workspace!: Blockly.WorkspaceSvg;
+  toolbox!: Blockly.IToolbox;
   categories: BlocklierToolboxCategory[] = [];
 
   theme = Blockly.Theme.defineTheme('b-base', {
@@ -94,20 +95,30 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           this.change.emit(event);
         });
 
-        const toolbox = this.workspace.getToolbox();
-        const flyout = toolbox.getFlyout();
+        this.toolbox = this.workspace.getToolbox();
+        const flyout = this.toolbox.getFlyout();
         flyout.autoClose = true;
 
         this.categories = this.resolveToolboxCategories(
           $host.querySelector<HTMLDivElement>('.blocklyToolboxDiv')!,
         );
 
-        this.workspace.setTheme(this.themeDark);
-        toolbox.setVisible(false);
+        this.workspace.setTheme(this.theme);
+        this.toolbox.setVisible(false);
 
         this.init.emit();
       });
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  setTheme(isLight: boolean): void {
+    if (isLight) {
+      this.workspace.setTheme(this.themeLight);
+      this.toolbox.setVisible(false);
+    } else {
+      this.workspace.setTheme(this.themeDark);
+      this.toolbox.setVisible(false);
+    }
   }
 
   private resolveToolboxCategories(
