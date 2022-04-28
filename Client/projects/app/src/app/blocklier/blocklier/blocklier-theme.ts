@@ -6,10 +6,31 @@ export class BlocklierTheme {
     'base': 'classic',
     'blockStyles': {
       'logic_blocks': {
-        'colourPrimary': '#ff0000',
+        'colourPrimary': '#FFB771',
+      },
+      'loop_blocks': {
+        'colourPrimary': '#52C7CE',
+      },
+      'math_blocks': {
+        'colourPrimary': '#e55e5e',
       },
       'text_blocks': {
-        'colourPrimary': '#00ff00',
+        'colourPrimary': '#518568',
+      },
+      'list_blocks': {
+        'colourPrimary': '#797CDA',
+      },
+      'colour_blocks': {
+        'colourPrimary': '#FFB771',
+      },
+      'variable_blocks': {
+        'colourPrimary': '#E892C5',
+      },
+      'variable_dynamic_blocks': {
+        'colourPrimary': '#eabe86',
+      },
+      'procedure_blocks': {
+        'colourPrimary': '#156780',
       },
     },
   });
