@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['ui_text_set_text'] = function (block: {
   getFieldValue: (arg0: string) => any;

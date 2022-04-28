@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['text_to_int'] = function (block: any) {
   const str_value = JavaScript.valueToCode(

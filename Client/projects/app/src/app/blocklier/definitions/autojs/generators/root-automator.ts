@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['automator_new'] = function (_block: any) {
   const code = 'new RootAutomator()';

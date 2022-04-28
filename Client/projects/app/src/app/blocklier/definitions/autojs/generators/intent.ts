@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['intent_intent'] = function (block: any) {
   const name_value = JavaScript.valueToCode(

@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['simple_click'] = function (block: any) {
   const value_i = JavaScript.valueToCode(

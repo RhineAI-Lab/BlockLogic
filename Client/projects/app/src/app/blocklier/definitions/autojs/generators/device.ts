@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['device_width'] = function (_block: any) {
   const code = 'device.width';

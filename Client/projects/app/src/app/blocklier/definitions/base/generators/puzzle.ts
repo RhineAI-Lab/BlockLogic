@@ -1,4 +1,4 @@
-import { JavaScript, Python } from './_common';
+import { JavaScript, Python } from '../../_common';
 
 JavaScript['puzzle'] = function (block: any) {
   const value_value = JavaScript.valueToCode(

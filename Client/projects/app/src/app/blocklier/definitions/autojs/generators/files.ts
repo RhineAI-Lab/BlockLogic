@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['files_is_file'] = function (block: any) {
   const path_value = JavaScript.valueToCode(

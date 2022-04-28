@@ -1,7 +1,10 @@
 // TODO: convert all definitions to the class-based syntax
-import './definitions';
-import './definitions/blocks'; // deprecated
-import './definitions/generators'; // deprecated
+import './definitions/base/blocks'; // deprecated
+import './definitions/base/generators'; // deprecated
+import './definitions/autojs/blocks'; // deprecated
+import './definitions/autojs/generators'; // deprecated
+import './definitions/dl/blocks'; // deprecated
+import './definitions/dl/generators'; // deprecated
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';

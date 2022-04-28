@@ -1,4 +1,4 @@
-import { JavaScript } from './_common';
+import { JavaScript } from '../../_common';
 
 JavaScript['$power_manager_request_ignore_battery_optimizations2'] =
   function (block: { getFieldValue: (arg0: string) => any }) {
