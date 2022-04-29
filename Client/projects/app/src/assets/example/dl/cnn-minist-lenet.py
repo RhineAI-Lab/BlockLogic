@@ -1,30 +1,30 @@
 import time
 import torch
 import torchvision
+from torchvision import transforms
 from torch import nn
 
 import sys
 sys.path.append("..")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-batch_size_train = 16
-batch_size_test = 8
+BATCH_SIZE = 64
 train_loader = torch.utils.data.DataLoader(
     torchvision.datasets.MNIST('I:/data/', train=True, download=True,
-                               transform=torchvision.transforms.Compose([
-                                   torchvision.transforms.ToTensor(),
-                                   torchvision.transforms.Normalize(
+                               transform=transforms.Compose([
+                                   transforms.ToTensor(),
+                                   transforms.Normalize(
                                        (0.1307,), (0.3081,))
                                ])),
-    batch_size=batch_size_train, shuffle=True)
+    batch_size=BATCH_SIZE, shuffle=True)
 test_loader = torch.utils.data.DataLoader(
     torchvision.datasets.MNIST('I:/data/', train=False, download=True,
-                               transform=torchvision.transforms.Compose([
-                                   torchvision.transforms.ToTensor(),
-                                   torchvision.transforms.Normalize(
+                               transform=transforms.Compose([
+                                   transforms.ToTensor(),
+                                   transforms.Normalize(
                                        (0.1307,), (0.3081,))
                                ])),
-    batch_size=batch_size_test, shuffle=True)
+    batch_size=BATCH_SIZE, shuffle=True)
 
 class LeNet(nn.Module):
     def __init__(self):
