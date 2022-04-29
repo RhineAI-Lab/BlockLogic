@@ -35,6 +35,7 @@ Python['lists_dict_new_coll'] = function (block: any) {
   const code = '{\n' + elements.join(',\n') + '\n}';
   return [code, Python.ORDER_ATOMIC];
 };
+
 Python['lists_indexOf_new'] = function (block: any) {
   // Find an item in the list.
   const value = Python.valueToCode(block, 'VALUE', Python.ORDER_ATOMIC) || '[]';
@@ -70,7 +71,7 @@ Python['lists_indexOf_new'] = function (block: any) {
   return [code, Python.ORDER_FUNCTION_CALL];
 };
 
-Python['lists_getIndex_new'] = function (block: any) {
+Python['lists_getIndex_new1'] = function (block: any) {
   const list = Python.valueToCode(block, 'LIST', Python.ORDER_ATOMIC) || '[]';
   const mode = block.getFieldValue('MODE');
   let index = Python.valueToCode(block, 'INDEX', Python.ORDER_ATOMIC) || '1';
@@ -82,5 +83,27 @@ Python['lists_getIndex_new'] = function (block: any) {
   } else if (mode === 'DEL') {
     code = `${list}.pop(${index})`;
   }
+  return [code, Python.ORDER_ATOMIC]
+};
+
+Python['lists_getIndex_new2'] = function (block: any) {
+  const list = Python.valueToCode(block, 'LIST', Python.ORDER_ATOMIC) || '[]';
+  const mode = block.getFieldValue('MODE');
+  let index = block.getFieldValue('INDEX');
+  let code;
+  if (mode === 'GET') {
+    if (index === 'FIRST') {
+      code = `${list}[0]`
+    } else if (index === 'LAST') {
+      code = `${list}[-1]`
+    } else if (index === 'RANDOM') {
+      Python.provideFunction_('import_random',
+          ['import random']);
+      code = `${list}[random.randint(0, len(${list})-1)]`
+    }
+  } else if (mode === 'DEL') {
+    code = `${list}.pop(${index})`;
+  }
   return [code, 0]
 };
+

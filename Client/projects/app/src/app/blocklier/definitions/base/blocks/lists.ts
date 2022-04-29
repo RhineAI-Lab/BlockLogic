@@ -76,7 +76,7 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: baseHelpUrl + '',
   },
   {
-    type: 'lists_getIndex_new',
+    type: 'lists_getIndex_new1',
     message0: '在 %1 中 %2 第 %3 项',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
@@ -92,6 +92,27 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: '在列表中获取或删除指定索引的元素',
     helpUrl: baseHelpUrl + '',
   },
+  {
+    type: 'lists_getIndex_new2',
+    message0: '在 %1 中 %2 %3',
+    args0: [
+      { type: 'input_value', name: 'LIST', check: 'Array' },
+      { type: 'field_dropdown', name: 'MODE', options: [
+          ['取得', 'GET'],
+          ['移除', 'DEL'],
+        ] },
+      { type: 'field_dropdown', name: 'INDEX', options: [
+          ['第一项', 'FIRST'],
+          ['最后一项', 'LAST'],
+          ['随机一项', 'RANDOM'],
+        ] },
+    ],
+    inputsInline: true,
+    output: 'Number',
+    style: style,
+    tooltip: '在列表中获取或删除指定索引的元素',
+    helpUrl: baseHelpUrl + '',
+  }
 ]);
 
 const LISTS_DICT_NEW_COLL_MUTATOR_MIXIN = {
