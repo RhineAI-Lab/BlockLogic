@@ -6,7 +6,7 @@ const baseHelpUrl = '';
 Blockly.defineBlocksWithJsonArray([
   {
     type: 'lists_new_coll',
-    message0: '创建新 %1 ',
+    message0: '创建空 %1 ',
     args0: [
       {
         type: 'field_dropdown',
@@ -57,6 +57,40 @@ Blockly.defineBlocksWithJsonArray([
     style: style,
     tooltip: '键值对',
     enableContextMenu: false,
+  },
+  {
+    type: 'lists_indexOf_new',
+    message0: '在 %1 中查找 %2 出现的 %3',
+    args0: [
+      { type: 'input_value', name: 'LIST', check: 'Array' },
+      { type: 'field_dropdown', name: 'MODE', options: [
+          ['第一次', 'FIRST'],
+          ['最后一次', 'LAST'],
+        ] },
+      { type: 'input_value', name: 'VALUE', check: null },
+    ],
+    inputsInline: true,
+    output: 'Number',
+    style: style,
+    tooltip: '在列表中查找指定元素的索引',
+    helpUrl: baseHelpUrl + '',
+  },
+  {
+    type: 'lists_getIndex_new',
+    message0: '在 %1 中 %2 第 %3 项',
+    args0: [
+      { type: 'input_value', name: 'LIST', check: 'Array' },
+      { type: 'field_dropdown', name: 'MODE', options: [
+          ['取得', 'GET'],
+          ['移除', 'DEL'],
+        ] },
+      { type: 'input_value', name: 'INDEX', check: 'Number' },
+    ],
+    inputsInline: true,
+    output: 'Number',
+    style: style,
+    tooltip: '在列表中获取或删除指定索引的元素',
+    helpUrl: baseHelpUrl + '',
   },
 ]);
 
@@ -162,3 +196,4 @@ Blockly.Extensions.registerMutator(
   LISTS_DICT_NEW_COLL_MUTATOR_MIXIN,
   LISTS_DICT_NEW_COLL_EXTENSION,
 );
+
