@@ -1,3 +1,4 @@
-import './base-more';
+import './loops';
+import './lists';
 import './puzzle';
 import './var-function';
