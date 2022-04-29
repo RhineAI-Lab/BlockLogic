@@ -37,6 +37,7 @@ export class BlocklierTheme {
 
   static themeLight = Blockly.Theme.defineTheme('b-light', {
     'base': 'b-base',
+    'flyoutForegroundColour': '#2b2b2b',
   });
 
   static themeDark = Blockly.Theme.defineTheme('b-dark', {

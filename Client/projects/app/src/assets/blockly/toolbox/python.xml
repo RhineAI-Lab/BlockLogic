@@ -304,9 +304,10 @@
             </block>
         </category>
         <category name="集合" categorystyle="list_category">
+            <label text="创建:" web-class="setLabel"></label>
             <block type="lists_new_coll"></block>
-            <block type="lists_dict_new_coll"></block>
             <block type="lists_create_with"></block>
+            <block type="lists_dict_new_coll"></block>
             <block type="lists_repeat">
                 <value name="NUM">
                     <shadow type="math_number">
@@ -314,22 +315,14 @@
                     </shadow>
                 </value>
             </block>
-            <block type="lists_length"></block>
-            <sblock type="lists_isEmpty"></sblock>
-            <block type="lists_indexOf_new">
-                <value name="LIST">
-                    <block type="variables_get">
-                        <field name="VAR">list</field>
-                    </block>
+            <block type="lists_split">
+                <value name="DELIM">
+                    <shadow type="text">
+                        <field name="TEXT">,</field>
+                    </shadow>
                 </value>
             </block>
-            <block type="lists_getIndex">
-                <value name="VALUE">
-                    <block type="variables_get">
-                        <field name="VAR">list</field>
-                    </block>
-                </value>
-            </block>
+            <label text="读写:" web-class="setLabel"></label>
             <block type="lists_getIndex_new">
                 <value name="LIST">
                     <block type="variables_get">
@@ -342,29 +335,18 @@
                     </shadow>
                 </value>
             </block>
-            <block type="lists_setIndex">
+            <label text="功能:" web-class="setLabel"></label>
+            <block type="lists_indexOf_new">
                 <value name="LIST">
                     <block type="variables_get">
                         <field name="VAR">list</field>
                     </block>
                 </value>
             </block>
-            <block type="lists_getSublist">
-                <value name="LIST">
-                    <block type="variables_get">
-                        <field name="VAR">list</field>
-                    </block>
-                </value>
-            </block>
-            <block type="lists_split">
-                <value name="DELIM">
-                    <shadow type="text">
-                        <field name="TEXT">,</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="lists_sort"></block>
+            <block type="lists_length"></block>
             <block type="lists_reverse"></block>
+            <block type="lists_sort"></block>
+            <block type="lists_isEmpty"></block>
         </category>
         <category name="自定义块" colour="#888888">
             <block type="puzzle"></block>
@@ -380,5 +362,7 @@
             <block type="puzzle_block"></block>
         </category>
     </category>
-    <category name="深度学习-Python"></category>
+    <category name="深度学习"></category>
+    <category name="多维数组运算"></category>
+    <category name="图像处理"></category>
 </xml>
