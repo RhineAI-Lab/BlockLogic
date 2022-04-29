@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 
-const colour = '#16bbbb';
+const colour = '#52C7CE';
 const baseHelpUrl = '';
 
 Blockly.defineBlocksWithJsonArray([
@@ -30,29 +30,6 @@ Blockly.defineBlocksWithJsonArray([
         output: 'Array',
         colour: colour,
         tooltip: '从指定索引处，开始遍历可迭代对象，并获取索引',
-        helpUrl: baseHelpUrl+'',
-    },
-]);
-
-Blockly.defineBlocksWithJsonArray([
-    {
-        type: 'base_more_new_coll',
-        message0: '创建新 %1 ',
-        args0:[
-            { type: 'field_dropdown', name: 'MODE', options: [
-                ['字典', 'Map'],
-                ['元组', 'Tuple'],
-                ['集合','Set'],
-            ] },
-        ],
-        inputsInline: true,
-        output: [
-            'MAP',
-            'TUPLE',
-            'SET',
-            ],
-        colour: colour,
-        tooltip: '创建新字典、元组、集合',
         helpUrl: baseHelpUrl+'',
     },
 ]);
