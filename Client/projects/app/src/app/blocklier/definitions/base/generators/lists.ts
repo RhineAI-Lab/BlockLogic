@@ -34,10 +34,7 @@ Python['lists_dict_new_coll'] = function (block: any) {
   let elements = [];
   for (let i = 0; i < block.itemCount_; i++) {
     let key = block.getFieldValue('KEY' + i);
-    let value = Python.valueToCode(block, 'ADD' + i, Python.ORDER_ATOMIC, true);
-    if (value.trim().length == 0) {
-      value = "''";
-    }
+    let value = Python.valueToCode(block, 'ADD' + i, Python.ORDER_ATOMIC, true) || "''";
     elements.push(`  '${key}': ${value}`);
   }
   const code = '{\n' + elements.join(',\n') + '\n}';

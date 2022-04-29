@@ -102,7 +102,7 @@ const LISTS_DICT_NEW_COLL_MUTATOR_MIXIN = {
     }
     this.itemCount_ = connections.length;
     this.updateShape_();
-    // TODO: 无法缓存key参数
+    // TODO: 无法缓存key参数[BUG]
     // Reconnect any child blocks.
     for (let i = 0; i < this.itemCount_; i++) {
       Blockly.Mutator.reconnect(connections[i], this, 'ADD' + i);
