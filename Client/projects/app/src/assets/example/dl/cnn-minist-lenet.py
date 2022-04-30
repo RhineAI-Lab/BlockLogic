@@ -4,26 +4,17 @@ import torchvision
 from torchvision import transforms
 from torch import nn
 
-import sys
-sys.path.append("..")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 BATCH_SIZE = 64
+transform = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize((0.1307,), (0.3081,))])
 train_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST('I:/data/', train=True, download=True,
-                               transform=transforms.Compose([
-                                   transforms.ToTensor(),
-                                   transforms.Normalize(
-                                       (0.1307,), (0.3081,))
-                               ])),
+    torchvision.datasets.MNIST('I:/data/', train=True, download=True,transform=transform),
     batch_size=BATCH_SIZE, shuffle=True)
 test_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST('I:/data/', train=False, download=True,
-                               transform=transforms.Compose([
-                                   transforms.ToTensor(),
-                                   transforms.Normalize(
-                                       (0.1307,), (0.3081,))
-                               ])),
+    torchvision.datasets.MNIST('I:/data/', train=False, download=True,transform=transform),
     batch_size=BATCH_SIZE, shuffle=True)
 
 class LeNet(nn.Module):
