@@ -16,7 +16,7 @@ noises= torch.tensor(np.random.normal(0, 1.5, size=labels.size()), dtype=torch.f
 labels += noises
 
 # 定义超参数
-BATCH_SIZE = 10
+BATCH_SIZE = 32
 LEARNING_RATE = 0.01
 NUM_EPOCHS = 10
 
@@ -43,12 +43,12 @@ for epoch in range(NUM_EPOCHS):
         optimizer.step()
     print('epoch %d, loss: %f' % (epoch, l.item()))
 
-# 输出域侧结果
+# 输出训练结果
 pred_w = net[0].weight
 pred_b = net[0].bias
 print('TrainResult:  w=%.4f  h=%.4f'%(pred_w,pred_b))
 
-# 绘制域侧结果
+# 绘制预测结果 (蓝色为数据集值中正确位置，红色为预测位置)
 preds = net(features)
 plt.scatter(features.numpy(),labels.numpy(), alpha=0.5)
 plt.scatter(features.numpy(),preds.detach().numpy(), c='#e36', s=3)

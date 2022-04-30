@@ -7,7 +7,7 @@ from torchvision.transforms import transforms
 import torch.nn as nn
 
 # 定义超参数
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 LEARNING_RATE = 0.001
 NUM_EPOCHS = 10
 
