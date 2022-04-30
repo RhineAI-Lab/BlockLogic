@@ -15,25 +15,26 @@ labels = true_w * features[:, 0] + true_b
 noises= torch.tensor(np.random.normal(0, 1.5, size=labels.size()), dtype=torch.float)
 labels += noises
 
+# 定义超参数
+BATCH_SIZE = 10
+LEARNING_RATE = 0.01
+NUM_EPOCHS = 10
+
 # 读取数据
-batch_size = 10
 dataset = Data.TensorDataset(features, labels)
-data_iter = Data.DataLoader(dataset, batch_size, shuffle=True)
+data_iter = Data.DataLoader(dataset, BATCH_SIZE, shuffle=True)
 
 # 定义模型
 net = nn.Sequential(
     nn.Linear(1, 1),
 )
 
-# 定义损失
+# 定义损失函数和优化器
 loss = nn.MSELoss()
-
-# 定义优化器
-optimizer = optim.SGD(net.parameters(), lr=0.01)
+optimizer = optim.SGD(net.parameters(), lr=LEARNING_RATE)
 
 # 训练
-num_epochs = 10
-for epoch in range(1, num_epochs + 1):
+for epoch in range(NUM_EPOCHS):
     for X, y in data_iter:
         output = net(X)
         l = loss(output, y.view(-1, 1))

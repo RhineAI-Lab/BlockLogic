@@ -4,26 +4,29 @@ import torchvision
 from torchvision import transforms
 from torch import nn
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
+# 定义超参数
 BATCH_SIZE = 64
+LEARNING_RATE = 0.001
+NUM_EPOCHS = 5
+
+# 导入数据集
 transform = transforms.Compose([
     transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,))])
-train_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST('I:/data/', train=True, download=True,transform=transform),
-    batch_size=BATCH_SIZE, shuffle=True)
-test_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.MNIST('I:/data/', train=False, download=True,transform=transform),
-    batch_size=BATCH_SIZE, shuffle=True)
+    transforms.Normalize((0.1307,), (0.3081,))
+])
+train_datasets = torchvision.datasets.MNIST('I:/data/', train=True, download=True, transform=transform)
+train_loader = torch.utils.data.DataLoader(train_datasets, batch_size=BATCH_SIZE, shuffle=True)
+test_datasets = torchvision.datasets.MNIST('I:/data/', train=False, download=True, transform=transform)
+test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=BATCH_SIZE, shuffle=True)
 
+# 定义网络结构
 class LeNet(nn.Module):
     def __init__(self):
         super(LeNet, self).__init__()
         self.conv = nn.Sequential(
-            nn.Conv2d(1, 6, 5), # in_channels, out_channels, kernel_size
+            nn.Conv2d(1, 6, 5),
             nn.Sigmoid(),
-            nn.MaxPool2d(2, 2), # kernel_size, stride
+            nn.MaxPool2d(2, 2),
             nn.Conv2d(6, 16, 5),
             nn.Sigmoid(),
             nn.MaxPool2d(2, 2)
@@ -35,52 +38,53 @@ class LeNet(nn.Module):
             nn.Sigmoid(),
             nn.Linear(84, 10)
         )
-
     def forward(self, img):
         feature = self.conv(img)
         output = self.fc(feature.view(img.shape[0], -1))
         return output
 
-net = LeNet()
+# 构建网络并打印其结构
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+net = LeNet().to(device)
 print(net)
 
+# 创建损失函数和优化器
 loss = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(net.parameters(), lr=LEARNING_RATE)
 
-lr, num_epochs = 0.001, 5
-optimizer = torch.optim.Adam(net.parameters(), lr=lr)
-
-def evaluate_accuracy(data_iter, net, device=None):
+# 测试
+def evaluate_accuracy(data_loader, net, device=None):
     if device is None and isinstance(net, nn.Module):
         device = list(net.parameters())[0].device
     acc_sum, n = 0.0, 0
     with torch.no_grad():
-        for X, y in data_iter:
+        for imgs, labels in data_loader:
             if isinstance(net, nn.Module):
                 net.eval()
-                acc_sum += (net(X.to(device)).argmax(dim=1) == y.to(device)).float().sum().cpu().item()
+                acc_sum += (net(imgs.to(device)).argmax(dim=1) == labels.to(device)).float().sum().cpu().item()
                 net.train()
             else:
                 if('is_training' in net.__code__.co_varnames):
-                    acc_sum += (net(X, is_training=False).argmax(dim=1) == y).float().sum().item()
+                    acc_sum += (net(imgs, is_training=False).argmax(dim=1) == labels).float().sum().item()
                 else:
-                    acc_sum += (net(X).argmax(dim=1) == y).float().sum().item()
-            n += y.shape[0]
+                    acc_sum += (net(imgs).argmax(dim=1) == labels).float().sum().item()
+            n += labels.shape[0]
     return acc_sum / n
 
+# 训练
 print("Training on: ", device)
-net = net.to(device)
-for epoch in range(num_epochs):
+for epoch in range(NUM_EPOCHS):
     train_l_sum, train_acc_sum, n, batch_count, start = 0.0, 0.0, 0, 0, time.time()
-    for X, y in train_loader:
-        X, y = X.to(device), y.to(device)
-        y_hat = net(X)
-        l = loss(y_hat, y)
+    for imgs, labels in train_loader:
+        imgs, labels = imgs.to(device), labels.to(device)
+        preds = net(imgs)
+        l = loss(preds, labels)
         optimizer.zero_grad()
         l.backward()
         optimizer.step()
         train_l_sum += l.cpu().item()
-        train_acc_sum += (y_hat.argmax(dim=1) == y).sum().cpu().item()
-        n += y.shape[0]
+        train_acc_sum += (preds.argmax(dim=1) == labels).sum().cpu().item()
+        n += labels.shape[0]
         batch_count += 1
     test_acc = evaluate_accuracy(test_loader, net)
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f, time %.1f sec'

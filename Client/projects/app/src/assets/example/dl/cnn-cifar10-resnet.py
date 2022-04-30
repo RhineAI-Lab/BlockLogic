@@ -11,7 +11,7 @@ BATCH_SIZE = 32
 LEARNING_RATE = 0.001
 NUM_EPOCHS = 10
 
-# 获取数据集
+# 导入数据集
 transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
@@ -23,13 +23,13 @@ test_loader = torch.utils.data.DataLoader(dataset=test_datasets, batch_size=BATC
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
 # 显示部分数据集示例
-for i, (images, labels) in enumerate(train_datasets):
+for i, (imgs, labels) in enumerate(train_datasets):
     plt.subplot(3,3,i+1)
     plt.tight_layout()
     plt.title(str(classes[labels]))
-    images = images.numpy().transpose(1, 2, 0)
-    images = np.clip(images,0,1)
-    plt.imshow(images)
+    imgs = imgs.numpy().transpose(1, 2, 0)
+    imgs = np.clip(imgs, 0, 1)
+    plt.imshow(imgs)
     plt.xticks([])
     plt.yticks([])
     if i==8: break
@@ -66,33 +66,33 @@ def evaluate_accuracy(data_loader, net, device=None):
         device = list(net.parameters())[0].device
     acc_sum, n = 0.0, 0
     with torch.no_grad():
-        for X, y in data_loader:
+        for imgs, labels in data_loader:
             if isinstance(net, nn.Module):
                 net.eval()
-                acc_sum += (net(X.to(device)).argmax(dim=1) == y.to(device)).float().sum().cpu().item()
+                acc_sum += (net(imgs.to(device)).argmax(dim=1) == labels.to(device)).float().sum().cpu().item()
                 net.train()
             else:
                 if('is_training' in net.__code__.co_varnames):
-                    acc_sum += (net(X, is_training=False).argmax(dim=1) == y).float().sum().item()
+                    acc_sum += (net(imgs, is_training=False).argmax(dim=1) == labels).float().sum().item()
                 else:
-                    acc_sum += (net(X).argmax(dim=1) == y).float().sum().item()
-            n += y.shape[0]
+                    acc_sum += (net(imgs).argmax(dim=1) == labels).float().sum().item()
+            n += labels.shape[0]
     return acc_sum / n
 
 # 训练
 print("Training on: ", device)
 for epoch in range(NUM_EPOCHS):
     train_l_sum, train_acc_sum, n, batch_count, start = 0.0, 0.0, 0, 0, time.time()
-    for img, label in train_loader:
-        img, label = img.to(device), label.to(device)
-        pred = net(img)
-        l = loss(pred, label)
+    for imgs, labels in train_loader:
+        imgs, labels = imgs.to(device), labels.to(device)
+        preds = net(imgs)
+        l = loss(preds, labels)
         optimizer.zero_grad()
         l.backward()
         optimizer.step()
         train_l_sum += l.cpu().item()
-        train_acc_sum += (pred.argmax(dim=1) == label).sum().cpu().item()
-        n += label.shape[0]
+        train_acc_sum += (preds.argmax(dim=1) == labels).sum().cpu().item()
+        n += labels.shape[0]
         batch_count += 1
     test_acc = evaluate_accuracy(test_loader, net)
     print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f, time %.1f sec'
