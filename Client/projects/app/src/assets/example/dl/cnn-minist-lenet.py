@@ -14,9 +14,9 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
 ])
-train_datasets = torchvision.datasets.MNIST('I:/data/', train=True, download=True, transform=transform)
+train_datasets = torchvision.datasets.MNIST('I:\data', train=True, download=True, transform=transform)
 train_loader = torch.utils.data.DataLoader(train_datasets, batch_size=BATCH_SIZE, shuffle=True)
-test_datasets = torchvision.datasets.MNIST('I:/data/', train=False, download=True, transform=transform)
+test_datasets = torchvision.datasets.MNIST('I:\data', train=False, download=True, transform=transform)
 test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=BATCH_SIZE, shuffle=True)
 
 # 定义网络结构

@@ -16,9 +16,9 @@ transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize((0.1307,), (0.3081,))
 ])
-train_datasets = torchvision.datasets.CIFAR10('I:/data/', train=True, download=True, transform=transform)
+train_datasets = torchvision.datasets.CIFAR10('I:\data', train=True, download=True, transform=transform)
 train_loader = torch.utils.data.DataLoader(dataset=train_datasets, batch_size=BATCH_SIZE, shuffle=True)
-test_datasets = torchvision.datasets.CIFAR10('I:/data/', train=False, download=True, transform=transform)
+test_datasets = torchvision.datasets.CIFAR10('I:\data', train=False, download=True, transform=transform)
 test_loader = torch.utils.data.DataLoader(dataset=test_datasets, batch_size=BATCH_SIZE, shuffle=True)
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
