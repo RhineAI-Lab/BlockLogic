@@ -47,9 +47,9 @@ test_dataloader = DataLoader(test_datasets, batch_size=BATCH_SIZE,
                              shuffle=True, collate_fn=collate_batch)
 
 # 定义模型
-class BiRNN(nn.Module):
+class TextClassificationModel(nn.Module):
     def __init__(self, vocab_size, embed_dim, num_class):
-        super(BiRNN, self).__init__()
+        super(TextClassificationModel, self).__init__()
         self.embedding = nn.EmbeddingBag(vocab_size, embed_dim, sparse=True)
         self.fc = nn.Linear(embed_dim, num_class)
         self.init_weights()
@@ -68,7 +68,7 @@ class BiRNN(nn.Module):
 num_class = len(set([label for (label, text) in train_iter]))
 vocab_size = len(vocab)
 emsize = 64
-model = BiRNN(vocab_size, emsize, num_class).to(device)
+model = TextClassificationModel(vocab_size, emsize, num_class).to(device)
 loss = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=LR)
 scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.1)
