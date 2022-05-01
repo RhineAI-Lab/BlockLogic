@@ -5,9 +5,9 @@ from torchvision import transforms
 from torch import nn
 
 # 定义超参数
+EPOCHS = 5
+LR = 0.001
 BATCH_SIZE = 32
-LEARNING_RATE = 0.001
-NUM_EPOCHS = 5
 
 # 导入数据集
 transform = transforms.Compose([
@@ -50,7 +50,7 @@ print(net)
 
 # 创建损失函数和优化器
 loss = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(net.parameters(), lr=LEARNING_RATE)
+optimizer = torch.optim.Adam(net.parameters(), lr=LR)
 
 # 测试
 def evaluate_accuracy(data_loader, net, device=None):
@@ -73,7 +73,7 @@ def evaluate_accuracy(data_loader, net, device=None):
 
 # 训练
 print("Training on: ", device)
-for epoch in range(NUM_EPOCHS):
+for epoch in range(EPOCHS):
     train_l_sum, train_acc_sum, n, batch_count, start = 0.0, 0.0, 0, 0, time.time()
     for imgs, labels in train_loader:
         imgs, labels = imgs.to(device), labels.to(device)
