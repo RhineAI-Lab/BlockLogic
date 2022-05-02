@@ -1,0 +1,8 @@
+
+Client/projects/app/src/assets/example/dl/mengzi-t5-base/spiece.model
+Client/projects/app/src/assets/example/dl/mengzi-t5-base/pytorch_model.bin
+Client/projects/app/src/assets/example/dl/mengzi-t5-base/spiece.vocab
+Client/projects/app/src/assets/example/dl/csl/csl_title_train.json
+Client/projects/app/src/assets/example/dl/csl/csl_title_test.json
+Client/projects/app/src/assets/example/dl/csl/csl_title_predict.json
+Client/projects/app/src/assets/example/dl/csl/csl_title_dev.json
