@@ -432,15 +432,9 @@
             <block type="lists_isEmpty"></block>
         </category>
         <category name="自定义块" colour="#888888">
-            <block type="puzzle"></block>
             <block type="explain"></block>
             <block type="explain_multi"></block>
-            <block type="puzzle_block_attr"></block>
-            <block type="puzzle_block"></block>
-            <block type="puzzle_block_attr"></block>
-            <block type="puzzle_block"></block>
-            <block type="puzzle_block_attr"></block>
-            <block type="puzzle_block"></block>
+            <block type="puzzle"></block>
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
         </category>

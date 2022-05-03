@@ -14,7 +14,7 @@ JavaScript['puzzle'] = function (block: any) {
 JavaScript['explain'] = function (block: {
   getFieldValue: (arg0: string) => string;
 }) {
-  const code = '//' + block.getFieldValue('TEXT') + '\n';
+  const code = '// ' + block.getFieldValue('TEXT') + '\n';
   return code;
 };
 
@@ -57,7 +57,7 @@ Python['puzzle'] = function (block: any) {
 Python['explain'] = function (block: {
   getFieldValue: (arg0: string) => string;
 }) {
-  const code = '#' + block.getFieldValue('TEXT') + '\n';
+  const code = '# ' + block.getFieldValue('TEXT') + '\n';
   return code;
 };
 
