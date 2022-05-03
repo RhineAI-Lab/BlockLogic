@@ -149,7 +149,7 @@ def train_and_predict_rnn_pytorch(model, num_hiddens, vocab_size, device,
                     char_to_idx))
 
 num_epochs, num_steps, batch_size, lr, clipping_theta = 480, 35, 32, 1e2, 1e-2
-pred_period, pred_len, prefixes = 20, 50, ['我其实爱的是她', '不分开', '今天天气真的好棒']
+pred_period, pred_len, prefixes = 20, 50, ['你', '我']
 
 train_and_predict_rnn_pytorch(model, num_hiddens, vocab_size, device,
                                 corpus_indices, idx_to_char, char_to_idx,

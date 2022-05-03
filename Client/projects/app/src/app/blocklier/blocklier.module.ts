@@ -14,6 +14,16 @@ import * as ZH from 'blockly/msg/zh-hans';
 
 import { BlocklierComponent } from './blocklier/blocklier.component';
 
+// @ts-ignore
+ZH.PROCEDURES_DEFNORETURN_PROCEDURE = 'doSomething';
+// @ts-ignore
+ZH.PROCEDURES_DEFRETURN_PROCEDURE = 'doSomething';
+// @ts-ignores
+ZH.LISTS_CREATE_WITH_INPUT_WITH = '创建列表';
+// @ts-ignore
+ZH.TEXT_JOIN_TITLE_CREATEWITH = '创建多行文本';
+// @ts-ignore
+ZH.PROCEDURES_DEFNORETURN_COMMENT = '暂无注释';
 Blockly.setLocale(ZH);
 
 @NgModule({
