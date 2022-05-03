@@ -15,7 +15,7 @@ Blockly.defineBlocksWithJsonArray([
         "defaultType": "Number"
       }
     ],
-    "colour": colour,
+    "style": "math_blocks",
     "output": "Number",
   },
   {
@@ -35,7 +35,7 @@ Blockly.defineBlocksWithJsonArray([
         "check": "Number"
       }
     ],
-    "colour": colour,
+    "style": "math_blocks",
     "previousStatement": null,
     "nextStatement": null,
   },
@@ -56,7 +56,7 @@ Blockly.defineBlocksWithJsonArray([
         "check": "Number"
       }
     ],
-    "colour": colour,
+    "style": "math_blocks",
     "previousStatement": null,
     "nextStatement": null,
   },
@@ -72,7 +72,7 @@ Blockly.defineBlocksWithJsonArray([
         "defaultType": "String"
       }
     ],
-    "colour": colour,
+    "style": "text_blocks",
     "output": "String",
   },
   {
@@ -92,7 +92,7 @@ Blockly.defineBlocksWithJsonArray([
         "check": "String"
       }
     ],
-    "colour": colour,
+    "style": "text_blocks",
     "previousStatement": null,
     "nextStatement": null,
   },
@@ -113,7 +113,7 @@ Blockly.defineBlocksWithJsonArray([
         "check": "String"
       }
     ],
-    "colour": colour,
+    "style": "text_blocks",
     "previousStatement": null,
     "nextStatement": null,
   },
@@ -129,7 +129,7 @@ Blockly.defineBlocksWithJsonArray([
         "defaultType": "Boolean"
       }
     ],
-    "colour": colour,
+    "style": "logic_blocks",
     "output": "Boolean",
   },
   {
@@ -149,7 +149,7 @@ Blockly.defineBlocksWithJsonArray([
         "check": "Boolean"
       }
     ],
-    "colour": colour,
+    "style": "logic_blocks",
     "previousStatement": null,
     "nextStatement": null,
   }
