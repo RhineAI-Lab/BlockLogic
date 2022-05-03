@@ -1,0 +1,27 @@
+
+定义模型[name]
+statement{init}
+statement{forward}
+
+class [name](nn.Module):
+    def __init__(self, kwargs):
+        super([name], self).__init__()
+        {init}
+    def forward(self, x):
+        {forward}
+        return x
+
+
+创建模型[定义列表]
+model = [name](kwargs)
+
+定义并创建模型[name]
+
+
+创建[顺序模型/列表模型]
+statement{inner}
+
+
+net = [name](xxx)
+y = net(x)
+

@@ -85,7 +85,54 @@
             </block>
             <block type="controls_flow_statements"></block>
         </category>
-        <category name="变量" categorystyle="variable_category" custom="VARIABLE"></category>
+        <category name="变量" categorystyle="variable_category">
+            <label text="通用变量" style="varLabel"></label>
+            <block type="variables_get">
+                <field name="VAR">a</field>
+            </block>
+            <block type="variables_set">
+                <field name="VAR">a</field>
+            </block>
+            <label text="数学变量" style="varLabel"></label>
+            <block type="variables_get_number"></block>
+            <block type="variables_set_number">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="variables_add_number">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <label text="文本变量" style="varLabel"></label>
+            <block type="variables_get_string"></block>
+            <block type="variables_set_string">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="variables_add_string">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <label text="布尔值变量" style="varLabel"></label>
+            <block type="variables_get_boolean"></block>
+            <block type="variables_set_boolean">
+                <value name="VALUE">
+                    <shadow type="logic_boolean"></shadow>
+                </value>
+            </block>
+        </category>
         <category name="函数" categorystyle="procedure_category" custom="PROCEDURE"></category>
         <category name="逻辑" categorystyle="logic_category">
             <block type="controls_if"></block>
