@@ -1,4 +1,4 @@
-import {Python} from '../../_common';
+import { Python } from '../../_common';
 
 Python['lists_new_coll'] = function (block: any) {
   const mode = block.getFieldValue('MODE');
@@ -29,7 +29,8 @@ Python['lists_dict_new_coll'] = function (block: any) {
   let elements = [];
   for (let i = 0; i < block.itemCount_; i++) {
     let key = block.getFieldValue('KEY' + i);
-    let value = Python.valueToCode(block, 'ADD' + i, Python.ORDER_ATOMIC, true) || "''";
+    let value =
+      Python.valueToCode(block, 'ADD' + i, Python.ORDER_ATOMIC, true) || "''";
     elements.push(`  '${key}': ${value}`);
   }
   const code = '{\n' + elements.join(',\n') + '\n}';
@@ -83,7 +84,7 @@ Python['lists_getIndex_new1'] = function (block: any) {
   } else if (mode === 'DEL') {
     code = `${list}.pop(${index})`;
   }
-  return [code, Python.ORDER_ATOMIC]
+  return [code, Python.ORDER_ATOMIC];
 };
 
 Python['lists_getIndex_new2'] = function (block: any) {
@@ -93,18 +94,17 @@ Python['lists_getIndex_new2'] = function (block: any) {
   let code;
   if (mode === 'GET') {
     if (index === 'FIRST') {
-      code = `${list}[0]`
+      code = `${list}[0]`;
     } else if (index === 'LAST') {
-      code = `${list}[-1]`
+      code = `${list}[-1]`;
     } else if (index === 'RANDOM') {
-      Python.provideFunction_('import_random',
-          ['import random']);
-      code = `${list}[random.randint(0, len(${list})-1)]`
+      Python.provideFunction_('import_random', ['import random']);
+      code = `${list}[random.randint(0, len(${list})-1)]`;
     }
   } else if (mode === 'DEL') {
     code = `${list}.pop(${index})`;
   }
-  return [code, Python.ORDER_ATOMIC]
+  return [code, Python.ORDER_ATOMIC];
 };
 
 Python['lists_setValue_new1'] = function (block: any) {
@@ -112,8 +112,8 @@ Python['lists_setValue_new1'] = function (block: any) {
   let index = Python.valueToCode(block, 'INDEX', Python.ORDER_ATOMIC) || '1';
   const value = Python.valueToCode(block, 'VALUE', Python.ORDER_ATOMIC) || '0';
   index = parseInt(index) - 1;
-  return `${list}[${index}] = ${value}`
-}
+  return `${list}[${index}] = ${value}\n`;
+};
 
 Python['lists_setValue_new2'] = function (block: any) {
   const list = Python.valueToCode(block, 'LIST', Python.ORDER_ATOMIC) || '[]';
@@ -121,13 +121,12 @@ Python['lists_setValue_new2'] = function (block: any) {
   const value = Python.valueToCode(block, 'VALUE', Python.ORDER_ATOMIC) || '0';
   let code;
   if (index === 'FIRST') {
-    code = `${list}[0] = ${value}`
+    code = `${list}[0] = ${value}`;
   } else if (index === 'LAST') {
-    code = `${list}[-1] = ${value}`
-  } else if (index === 'RANDOM'){
-    Python.provideFunction_('import_random',
-        ['import random']);
-    code = `${list}[random.randint(0, len(${list})-1)] = ${value}`
+    code = `${list}[-1] = ${value}`;
+  } else if (index === 'RANDOM') {
+    Python.provideFunction_('import_random', ['import random']);
+    code = `${list}[random.randint(0, len(${list})-1)] = ${value}`;
   }
-  return code
-}
+  return code + '\n';
+};

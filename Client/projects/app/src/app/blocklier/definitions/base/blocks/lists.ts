@@ -63,10 +63,14 @@ Blockly.defineBlocksWithJsonArray([
     message0: '列表 %1 中查找 %2 出现的 %3',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
-      { type: 'field_dropdown', name: 'MODE', options: [
+      {
+        type: 'field_dropdown',
+        name: 'MODE',
+        options: [
           ['第一次', 'FIRST'],
           ['最后一次', 'LAST'],
-        ] },
+        ],
+      },
       { type: 'input_value', name: 'VALUE', check: null },
     ],
     inputsInline: true,
@@ -80,10 +84,14 @@ Blockly.defineBlocksWithJsonArray([
     message0: '列表 %1 中 %2 第 %3 项',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
-      { type: 'field_dropdown', name: 'MODE', options: [
+      {
+        type: 'field_dropdown',
+        name: 'MODE',
+        options: [
           ['取得', 'GET'],
           ['移除', 'DEL'],
-        ] },
+        ],
+      },
       { type: 'input_value', name: 'INDEX', check: 'Number' },
     ],
     inputsInline: true,
@@ -97,15 +105,23 @@ Blockly.defineBlocksWithJsonArray([
     message0: '列表 %1 中 %2 %3',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
-      { type: 'field_dropdown', name: 'MODE', options: [
+      {
+        type: 'field_dropdown',
+        name: 'MODE',
+        options: [
           ['取得', 'GET'],
           ['移除', 'DEL'],
-        ] },
-      { type: 'field_dropdown', name: 'INDEX', options: [
+        ],
+      },
+      {
+        type: 'field_dropdown',
+        name: 'INDEX',
+        options: [
           ['第一项', 'FIRST'],
           ['最后一项', 'LAST'],
           ['随机一项', 'RANDOM'],
-        ] },
+        ],
+      },
     ],
     inputsInline: true,
     output: 'Number',
@@ -118,7 +134,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '列表 %1 中 设置 第 %2 项为 %3',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
-      { type: 'input_value', name: 'INDEX', check: 'Number'},
+      { type: 'input_value', name: 'INDEX', check: 'Number' },
       { type: 'input_value', name: 'VALUE', check: null },
     ],
     inputsInline: true,
@@ -133,11 +149,15 @@ Blockly.defineBlocksWithJsonArray([
     message0: '列表 %1 中 设置 %2 为 %3',
     args0: [
       { type: 'input_value', name: 'LIST', check: 'Array' },
-      { type: 'field_dropdown', name: 'INDEX', options: [
+      {
+        type: 'field_dropdown',
+        name: 'INDEX',
+        options: [
           ['第一项', 'FIRST'],
           ['最后一项', 'LAST'],
           ['随机一项', 'RANDOM'],
-        ]},
+        ],
+      },
       { type: 'input_value', name: 'VALUE', check: null },
     ],
     inputsInline: true,
@@ -251,4 +271,3 @@ Blockly.Extensions.registerMutator(
   LISTS_DICT_NEW_COLL_MUTATOR_MIXIN,
   LISTS_DICT_NEW_COLL_EXTENSION,
 );
-
