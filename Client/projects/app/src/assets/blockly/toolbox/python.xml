@@ -457,6 +457,16 @@
         <category name="优化器"></category>
         <category name="训练/测试"></category>
     </category>
-    <category name="多维数据运算"></category>
+    <category name="多维数据运算">
+        <category name="transforms变换">
+            <block type="transforms_compose">
+                <value name="LIST">
+                    <block type="variables_get">
+                        <field name="VAR">list</field>
+                    </block>
+                </value>
+            </block>
+        </category>
+    </category>
     <category name="图像处理"></category>
 </xml>
