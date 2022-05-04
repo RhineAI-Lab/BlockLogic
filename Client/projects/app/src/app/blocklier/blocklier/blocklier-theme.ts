@@ -30,8 +30,11 @@ export class BlocklierTheme {
         'colourPrimary': '#e35881',
       },
       'procedure_blocks': {
-        'colourPrimary': '#f56a6a',
+        'colourPrimary': '#dc6161',
       },
+      'module_blocks': {
+        'colourPrimary': '#f85c5c',
+      }
     },
   });
 

@@ -439,7 +439,24 @@
             <block type="puzzle_block"></block>
         </category>
     </category>
-    <category name="深度学习"></category>
-    <category name="多维数组运算"></category>
+    <category name="深度学习">
+        <category name="数据集"></category>
+        <category name="模型">
+            <block type="modules_define">
+                <value name="VALUE"></value>
+            </block>
+            <block type="modules_call">
+                <field name="VAR">net</field>
+            </block>
+            <block type="modules_get">
+                <field name="VAR">net</field>
+            </block>
+        </category>
+        <category name="内置层"></category>
+        <category name="损失函数"></category>
+        <category name="优化器"></category>
+        <category name="训练/测试"></category>
+    </category>
+    <category name="多维数据运算"></category>
     <category name="图像处理"></category>
 </xml>
