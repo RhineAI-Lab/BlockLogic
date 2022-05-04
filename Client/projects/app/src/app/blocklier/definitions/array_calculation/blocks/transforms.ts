@@ -29,5 +29,18 @@ Blockly.defineBlocksWithJsonArray([
         style: style,
         tooltip: '将图像或者ndarray转换为张量',
         helpUrl: baseHelpUrl + ''
+    },
+    {
+        type:'transforms_topilimage',
+        message0: '将 %1 转换为图像',
+        args0: [
+            {type: 'input_value', name: 'TENSOR', check: 'Array'}
+        ],
+        inputsInline: true,
+        previousStatement: null,
+        nextStatement: null,
+        style: style,
+        tooltip: '将张量转换为图像',
+        helpUrl: baseHelpUrl + ''
     }
 ])

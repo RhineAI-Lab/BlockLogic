@@ -13,3 +13,10 @@ Python['transforms_totensor'] = function (block: any) {
     const code = `transforms.ToTensor()(${image})`;
     return code + '\n' ;
 }
+
+Python['transforms_topilimage'] = function (block: any) {
+    const tensor = Python.valueToCode(block, 'TENSOR', Python.ORDER_ATOMIC, true) || 'None';
+    Python.provideFunction_('import_transforms', ['import transforms']);
+    const code = `transforms.ToPILImage()(${tensor})`;
+    return code + '\n' ;
+}

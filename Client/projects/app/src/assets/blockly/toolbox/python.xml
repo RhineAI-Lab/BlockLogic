@@ -473,6 +473,13 @@
                     </block>
                 </value>
             </block>
+            <block type="transforms_topilimage">
+                <value name="TENSOR">
+                    <block type="variables_get">
+                        <field name="VAR">tensor</field>
+                    </block>
+                </value>
+            </block>
         </category>
     </category>
     <category name="图像处理"></category>
