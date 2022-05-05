@@ -1,5 +1,5 @@
 <xml>
-    <category name="基础-Python">
+    <category name="语法-Python">
         <category name="常用语句" colour="#aaaaaa">
             <block type="text_print">
                 <value name="TEXT">
@@ -466,14 +466,13 @@
         </category>
         <category name="模型">
             <label text="对象" style="dlLabel"></label>
-            <block type="modules_define">
-            </block>
-            <block type="modules_call"></block>
             <block type="modules_set"></block>
+            <block type="modules_call"></block>
             <block type="modules_get"></block>
-            <label text="功能" style="dlLabel"></label>
+            <label text="创建" style="dlLabel"></label>
+            <block type="modules_define"></block>
+            <block type="modules_sequential"></block>
         </category>
-        <category name="内置层"></category>
         <category name="损失函数"></category>
         <category name="优化器"></category>
         <category name="训练/测试"></category>
