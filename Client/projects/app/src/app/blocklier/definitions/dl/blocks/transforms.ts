@@ -18,7 +18,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: baseHelpUrl + ''
     },
     {
-        type:'transforms_totensor',
+        type:'transforms_toTensor',
         message0: '将 %1 转换为张量',
         args0: [
             {type: 'input_value', name: 'IMAGE', check: 'Array'}
@@ -31,7 +31,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: baseHelpUrl + ''
     },
     {
-        type:'transforms_topilimage',
+        type:'transforms_toPILImage',
         message0: '将 %1 转换为图像',
         args0: [
             {type: 'input_value', name: 'TENSOR', check: 'Array'}

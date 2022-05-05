@@ -41,8 +41,6 @@ JavaScript['puzzle_block'] = function (block: {
   return code;
 };
 
-
-
 Python['puzzle'] = function (block: any) {
   const value_value = Python.valueToCode(
     block,
@@ -65,7 +63,7 @@ Python['explain_multi'] = function (block: {
   getFieldValue: (arg0: string) => any;
 }) {
   const value = block.getFieldValue('TEXT');
-  const code = '\"\"\"\n' + value + '\n\"\"\"\n';
+  const code = '"""\n' + value + '\n"""\n';
   return code;
 };
 

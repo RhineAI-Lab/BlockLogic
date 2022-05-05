@@ -1,1 +1,2 @@
 import './module';
+import './transforms';

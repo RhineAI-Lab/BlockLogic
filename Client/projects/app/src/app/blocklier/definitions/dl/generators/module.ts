@@ -1,18 +1,22 @@
 import { Python } from '../../_common';
-import * as Blockly from "blockly";
+import * as Blockly from 'blockly';
 
-Python['modules_define'] = function(block: any) {
-  const varName = Python.nameDB_.getName(block.getFieldValue('VAR'),
-    Blockly.VARIABLE_CATEGORY_NAME);
+Python['modules_define'] = function (block: any) {
+  const varName = Python.nameDB_.getName(
+    block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME,
+  );
   let statementsInit = Python.statementToCode(block, 'INIT');
   statementsInit = Python.addIndent(statementsInit);
-  const valueInput = Python.valueToCode(block, 'INPUT', Python.ORDER_ATOMIC) || 'x';
+  const valueInput =
+    Python.valueToCode(block, 'INPUT', Python.ORDER_ATOMIC) || 'x';
   let statementsForward = Python.statementToCode(block, 'FORWARD');
   statementsForward = Python.addIndent(statementsForward);
-  const valueOutput = Python.valueToCode(block, 'OUTPUT', Python.ORDER_ATOMIC) || valueInput;
+  const valueOutput =
+    Python.valueToCode(block, 'OUTPUT', Python.ORDER_ATOMIC) || valueInput;
 
   let className = 'MyModule';
-  if(Python.moduleClassIndex != 1){
+  if (Python.moduleClassIndex != 1) {
     className = className + Python.moduleClassIndex;
   }
   Python.moduleClassIndex += 1;
@@ -30,13 +34,15 @@ Python['modules_define'] = function(block: any) {
 };
 
 Python['modules_call'] = function (block: any) {
-  const varName = Python.nameDB_.getName(block.getFieldValue('VAR'),
-    Blockly.VARIABLE_CATEGORY_NAME);
-  const argument0 = Python.valueToCode(block, 'VALUE',
-    Python.ORDER_NONE) || '0';
+  const varName = Python.nameDB_.getName(
+    block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME,
+  );
+  const argument0 =
+    Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '0';
   const code = varName + '(' + argument0 + ')';
   return [code, Python.ORDER_ATOMIC];
-}
+};
 
 Python['modules_get'] = Python.get;
 Python['modules_set'] = Python.set;

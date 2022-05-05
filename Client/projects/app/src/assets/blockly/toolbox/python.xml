@@ -449,14 +449,14 @@
                     </block>
                 </value>
             </block>
-            <block type="transforms_totensor">
+            <block type="transforms_toTensor">
                 <value name="IMAGE">
                     <block type="variables_get">
                         <field name="VAR">image</field>
                     </block>
                 </value>
             </block>
-            <block type="transforms_topilimage">
+            <block type="transforms_toPILImage">
                 <value name="TENSOR">
                     <block type="variables_get">
                         <field name="VAR">tensor</field>
@@ -466,8 +466,7 @@
         </category>
         <category name="模型">
             <label text="对象" style="dlLabel"></label>
-            <block type="modules_define">
-            </block>
+            <block type="modules_define"></block>
             <block type="modules_call"></block>
             <block type="modules_set"></block>
             <block type="modules_get"></block>
