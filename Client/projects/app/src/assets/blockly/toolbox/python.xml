@@ -442,21 +442,23 @@
     <category name="深度学习">
         <category name="数据集"></category>
         <category name="模型">
+            <label text="对象" style="dlLabel"></label>
             <block type="modules_define">
-                <value name="VALUE"></value>
             </block>
-            <block type="modules_call">
-                <field name="VAR">net</field>
-            </block>
-            <block type="modules_get">
-                <field name="VAR">net</field>
-            </block>
+            <block type="modules_call"></block>
+            <block type="modules_set"></block>
+            <block type="modules_get"></block>
+            <label text="功能" style="dlLabel"></label>
         </category>
         <category name="内置层"></category>
         <category name="损失函数"></category>
         <category name="优化器"></category>
         <category name="训练/测试"></category>
     </category>
-    <category name="多维数据运算"></category>
+    <category name="多维数据运算">
+        <category name="张量"></category>
+        <category name="Numpy"></category>
+        <category name="转换"></category>
+    </category>
     <category name="图像处理"></category>
 </xml>

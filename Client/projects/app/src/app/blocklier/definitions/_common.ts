@@ -1,8 +1,23 @@
 import * as _javascript from 'blockly/javascript';
 import * as _python from 'blockly/python';
+import * as Blockly from "blockly";
 
 export const JavaScript = _javascript as any;
 export const Python = _python as any;
+
+Python.get = function(block: any) {
+  const code = Python.nameDB_.getName(block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME);
+  return [code, Python.ORDER_ATOMIC];
+};
+
+Python.set = function(block: any) {
+  const argument0 = Python.valueToCode(block, 'VALUE',
+    Python.ORDER_NONE) || '0';
+  const varName = Python.nameDB_.getName(block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME);
+  return varName + ' = ' + argument0 + '\n';
+};
 
 export function connectNecessaryArgs(
   args: string | any[],
@@ -25,4 +40,14 @@ export function connectNecessaryArgs(
     code = ',' + code;
   }
   return code;
+}
+
+Python.addIndent = function (code: string, indent = '  '): string {
+  if(code.length == 0) {
+    return code;
+  }
+  if(code.lastIndexOf('\n') === code.length - 1) {
+    code = code.substring(0, code.length - 1);
+  }
+  return code.split('\n').map(line => indent + line).join('\n')+'\n';
 }

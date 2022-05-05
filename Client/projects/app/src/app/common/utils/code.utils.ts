@@ -30,6 +30,8 @@ export class CodeUtils {
         code = '"ui";\n\n' + code;
       }
     } else if (type == 'py') {
+      // @ts-ignore
+      Blockly.Python.moduleClassIndex = 1;
       code = Blockly.Python.workspaceToCode(workspace);
     }
     return code;
