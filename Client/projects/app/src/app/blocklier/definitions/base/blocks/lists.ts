@@ -153,6 +153,7 @@ Blockly.defineBlocksWithJsonArray([
         type: 'field_dropdown',
         name: 'INDEX',
         options: [
+          ['新增一项', 'ADD'],
           ['第一项', 'FIRST'],
           ['最后一项', 'LAST'],
           ['随机一项', 'RANDOM'],

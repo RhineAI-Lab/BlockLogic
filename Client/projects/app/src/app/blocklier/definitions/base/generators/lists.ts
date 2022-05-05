@@ -120,7 +120,9 @@ Python['lists_setValue_new2'] = function (block: any) {
   const index = block.getFieldValue('INDEX');
   const value = Python.valueToCode(block, 'VALUE', Python.ORDER_ATOMIC) || '0';
   let code;
-  if (index === 'FIRST') {
+  if (index === 'ADD') {
+    code = `${list}.append(${value})`;
+  } else if (index === 'FIRST') {
     code = `${list}[0] = ${value}`;
   } else if (index === 'LAST') {
     code = `${list}[-1] = ${value}`;

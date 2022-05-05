@@ -441,6 +441,29 @@
     </category>
     <category name="深度学习">
         <category name="数据集"></category>
+        <category name="数据增强">
+            <block type="transforms_compose">
+                <value name="LIST">
+                    <block type="variables_get">
+                        <field name="VAR">list</field>
+                    </block>
+                </value>
+            </block>
+            <block type="transforms_totensor">
+                <value name="IMAGE">
+                    <block type="variables_get">
+                        <field name="VAR">image</field>
+                    </block>
+                </value>
+            </block>
+            <block type="transforms_topilimage">
+                <value name="TENSOR">
+                    <block type="variables_get">
+                        <field name="VAR">tensor</field>
+                    </block>
+                </value>
+            </block>
+        </category>
         <category name="模型">
             <label text="对象" style="dlLabel"></label>
             <block type="modules_define">
@@ -458,7 +481,6 @@
     <category name="多维数据运算">
         <category name="张量"></category>
         <category name="Numpy"></category>
-        <category name="转换"></category>
     </category>
     <category name="图像处理"></category>
 </xml>
