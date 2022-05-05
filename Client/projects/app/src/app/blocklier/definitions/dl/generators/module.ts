@@ -46,3 +46,15 @@ Python['modules_call'] = function (block: any) {
 
 Python['modules_get'] = Python.get;
 Python['modules_set'] = Python.set;
+
+Python['modules_sequential'] = function(block: any) {
+  Python.provideFunction_('from_torch_import_nn', ['from torch import nn']);
+  const elements = new Array(block.itemCount_);
+  for (let i = 0; i < block.itemCount_; i++) {
+    elements[i] =
+      Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || 'None';
+  }
+  let code = '[\n  ' + elements.join(',\n  ') + '\n]';
+  code = 'nn.Sequential(' + code + ')';
+  return [code, Python.ORDER_ATOMIC];
+}
