@@ -446,7 +446,7 @@
             <block type="transforms_set"></block>
             <block type="transforms_call"></block>
             <block type="transforms_get"></block>
-            <label text="功能" style="dlLabel"></label>
+            <label text="连接" style="dlLabel"></label>
             <block type="transforms_compose">
                 <value name="LIST">
                     <block type="variables_get">
@@ -454,6 +454,7 @@
                     </block>
                 </value>
             </block>
+            <label text="功能" style="dlLabel"></label>
             <block type="transforms_toTensor">
                 <value name="IMAGE">
                     <block type="variables_get">

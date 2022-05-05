@@ -39,7 +39,7 @@ Python['modules_call'] = function (block: any) {
     Blockly.VARIABLE_CATEGORY_NAME,
   );
   const argument0 =
-    Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '0';
+    Python.valueToCode(block, 'INPUT', Python.ORDER_NONE) || '0';
   const code = varName + '(' + argument0 + ')';
   return [code, Python.ORDER_ATOMIC];
 };
