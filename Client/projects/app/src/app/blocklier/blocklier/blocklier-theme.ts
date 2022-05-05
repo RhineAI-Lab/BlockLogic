@@ -34,7 +34,10 @@ export class BlocklierTheme {
       },
       'module_blocks': {
         'colourPrimary': '#f85c5c',
-      }
+      },
+      'transforms_blocks': {
+        'colourPrimary': '#38b793',
+      },
     },
   });
 
