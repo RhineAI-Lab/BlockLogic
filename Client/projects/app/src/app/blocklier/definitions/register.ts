@@ -16,7 +16,7 @@ for (const codeType of codeTypes) {
   codeTypesAdd.push(codeType + 'Code');
 }
 
-const generatorKeys = ['import'];
+const generatorKeys = ['import','order'];
 
 let debugMode = true;
 const opt: any = {};

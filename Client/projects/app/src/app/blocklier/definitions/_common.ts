@@ -64,7 +64,7 @@ Python.defaultValue = function (type: string) {
   if (type === 'Number') {
     return '0';
   } else if (type === 'String') {
-    return '\'\'';
+    return '\'\\\'\\\'\'';
   } else if (type === 'Boolean') {
     return 'False';
   } else if (type === 'Array') {

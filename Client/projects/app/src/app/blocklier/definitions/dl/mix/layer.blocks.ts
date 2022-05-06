@@ -17,7 +17,10 @@ nn.Linear($A0, $A1, bias=$A2)
 prefix: test
 
 null: block
-测试块 {str} 选择[aa/AAA:aaa/BBB:bbb] 颜色(colour) 输入{R:input}
+测试块 (input) (checkbox) {str} 选择[AAA:aaa/BBB] 输入{R:num}
 inline: 0
+Python
+import: from temp import test
+test('$A0', $A1, $A2, '$A3', $A4)
 
 `);
