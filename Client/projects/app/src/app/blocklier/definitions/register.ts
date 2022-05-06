@@ -52,16 +52,29 @@ export const defineBlocksWithText = function (blocks: string): void {
 function registerBlock(item: string): void {
   const block: any = {};
   const lines = item.split('\n');
-  block.type = opt.prefix + '_' + getValue(lines[0]);
-  const check = getKey(lines[0]);
-  if (check == 'STAT') {
+  if(lines[0].includes(':')){
+    block.type = opt.prefix + '_' + getKey(lines[0]);
+    const check = getValue(lines[0]);
+    if (check == 'STAT') {
+      block.previousStatement = null;
+      block.nextStatement = null;
+    } else if (check == 'PREV') {
+      block.previousStatement = null;
+    } else if (check == 'NEXT') {
+      block.nextStatement = null;
+    } else if (check == 'SINGLE') {
+    } else {
+      block.output = parseCheck(check);
+    }
+  }else{
+    block.type = opt.prefix + '_' + lines[0].trim();
     block.previousStatement = null;
     block.nextStatement = null;
-  } else {
-    block.output = parseCheck(check);
   }
   block.style = opt.style;
-  block.helpUrl = opt.help;
+  if (opt.help.length>0){
+    block.helpUrl = opt.help;
+  }
   if (opt.colour != 'null') {
     block.colour = opt.colour;
   }
@@ -92,7 +105,7 @@ function registerBlock(item: string): void {
         const keyI = blockKeys.indexOf(key);
         if (keyI == -1) continue;
         if (key == 'help') {
-          block.helpUrl = block.helpUrl + getValue(line);
+          block.helpUrl = block.helpUrl ? block.helpUrl : '' + getValue(line);
         } else if (key == 'inline') {
           block.inputsInline = eval(getValue(line));
         } else {
@@ -261,7 +274,7 @@ function parseArgs(msg: string, argStart: number): any {
       }
     } else if (startChar == '{') {
       if (checkKeys(inner, alignKeys)) {
-        const key = getKey(inner);
+        const key = getValue(inner);
         if (key == 'L') {
           arg.align = 'LEFT';
         } else if (key == 'R') {
@@ -271,7 +284,7 @@ function parseArgs(msg: string, argStart: number): any {
         } else if (['LEFT', 'RIGHT', 'CENTER'].includes(key)) {
           arg.align = key;
         }
-        inner = getValue(inner);
+        inner = getKey(inner);
       }
       if (inner == 'STAT') {
         arg.type = 'input_statement';
