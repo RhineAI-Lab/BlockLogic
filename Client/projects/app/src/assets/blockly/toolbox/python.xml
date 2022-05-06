@@ -471,13 +471,15 @@
             </block>
         </category>
         <category name="模型">
-            <label text="对象" style="dlLabel"></label>
+            <label text="对象变量" style="dlLabel"></label>
             <block type="modules_set"></block>
             <block type="modules_call"></block>
             <block type="modules_get"></block>
             <label text="创建" style="dlLabel"></label>
             <block type="modules_define"></block>
             <block type="modules_sequential"></block>
+            <label text="内置层" style="dlLabel"></label>
+            <block type="layers_linear"></block>
         </category>
         <category name="损失函数"></category>
         <category name="优化器"></category>

@@ -5252,7 +5252,7 @@
     );
     this.blockId = a ? a.id : null;
     this.isStart = b;
-    this.blocks = c;
+    this.layerBlocks = c;
   };
   Blockly.utils.object.inherits(
     Blockly.Events.BlockDrag,
