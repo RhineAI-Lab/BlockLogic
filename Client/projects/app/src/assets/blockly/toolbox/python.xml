@@ -471,6 +471,7 @@
             </block>
         </category>
         <category name="模型">
+            <block type="test_block"></block>
             <label text="对象变量" style="dlLabel"></label>
             <block type="modules_set"></block>
             <block type="modules_call"></block>

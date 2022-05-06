@@ -1,12 +1,14 @@
-
+import { Python, JavaScript } from './_common';
 import * as Blockly from 'blockly';
 
-const modeKeys = ['prefix', 'style', 'url'];
+const modeKeys = ['prefix', 'style', 'url', 'colour'];
 
-const blockKeys = ['style', 'inline', 'help', 'tip', 'mutator'];
-const blockKeysTruth = ['style', 'inline', 'helpUrl', 'tooltip', 'mutator'];
+const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline'];
+const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
 const fieldKeys = ['input', 'checkbox', 'image', 'angle', 'colour', 'label'];
+
+const alignKeys = ['L', 'R', 'C'];
 
 const codeTypes = ['Python', 'JavaScript', 'PHP', 'Dart', 'Lua'];
 const codeTypesAdd: Array<string> = [];
@@ -16,9 +18,11 @@ for (const codeType of codeTypes) {
 
 const generatorKeys = ['import'];
 
-let prefix = 'unknown';
-let style = 'default_blocks';
-let help = '';
+const opt: any = {};
+opt.prefix = 'unknown';
+opt.style = 'default_blocks';
+opt.help = '';
+opt.colour = 'null';
 
 export const defineBlocksWithText = function (blocks: string): void {
   const list = blocks.split(/\n\s*\n/);
@@ -28,12 +32,8 @@ export const defineBlocksWithText = function (blocks: string): void {
     if (modeKeys.includes(getKey(item.split('\n')[0]))) {
       for (const line of item.split('\n')) {
         const key = getKey(line);
-        if (key == 'prefix') {
-          prefix = getValue(line);
-        } else if (key == 'style') {
-          style = getValue(line);
-        } else if (key == 'help') {
-          help = getValue(line);
+        if (modeKeys.includes(key)) {
+          opt[key] = getValue(line);
         } else {
           console.warn('unknown key: ' + key);
         }
@@ -46,13 +46,13 @@ export const defineBlocksWithText = function (blocks: string): void {
       }
     }
   }
-}
+};
 
 function registerBlock(item: string): void {
   const block: any = {};
   const lines = item.split('\n');
   console.log(lines);
-  block.type = prefix + '_' + getValue(lines[0]);
+  block.type = opt.prefix + '_' + getValue(lines[0]);
   const check = getKey(lines[0]);
   if (check == 'STAT') {
     block.previousStatement = null;
@@ -60,8 +60,11 @@ function registerBlock(item: string): void {
   } else {
     block.output = parseCheck(check);
   }
-  block.style = style;
-  block.helpUrl = help;
+  block.style = opt.style;
+  block.helpUrl = opt.help;
+  if (opt.colour != 'null') {
+    block.colour = opt.colour;
+  }
   let mode = 'msg';
   let msgN = 0;
   let generators = [];
@@ -82,12 +85,14 @@ function registerBlock(item: string): void {
       block['message' + msgN] = res[0];
       block['args' + msgN] = res[1];
     } else if (mode == 'key') {
-      if (lines.includes(':')) {
+      if (line.includes(':')) {
         const key = getKey(line);
         const keyI = blockKeys.indexOf(key);
         if (keyI == -1) continue;
         if (key == 'help') {
           block.helpUrl = block.helpUrl + getValue(line);
+        } else if (key == 'inline') {
+          block.inputsInline = eval(getValue(line));
         } else {
           block[blockKeysTruth[keyI]] = getValue(line);
         }
@@ -110,7 +115,14 @@ function registerBlock(item: string): void {
 }
 
 function registerGenerator(type: string, code: string, block: any): void {
+  const lines = code.split('\n');
   if (type.startsWith('Python')) {
+    for (let i = 0; i < lines.length; i++) {
+      if (checkKeys(lines[i], generatorKeys)) {
+        lines.shift();
+        i--;
+      }
+    }
     if (type == 'PythonCode') {
     } else if (type == 'Python') {
     }
@@ -134,9 +146,9 @@ function parseArgs(msg: string): any {
     if (end == -1) continue;
     findStart = end + 1;
 
-    const inner = msg.substring(start + 1, end).trim();
+    let inner = msg.substring(start + 1, end).trim();
     const arg: any = {};
-    arg.name = 'C'+args.length
+    arg.name = 'C' + args.length;
     if (startChar == '(') {
       if (inner.startsWith('var ')) {
         arg.type = 'field_variable';
@@ -155,18 +167,38 @@ function parseArgs(msg: string): any {
       }
     } else if (startChar == '[') {
       arg.type = 'field_dropdown';
+      arg.options = [];
+      const optionsStr = inner.split('/');
+      for (const option of optionsStr) {
+        if (option.includes(':')) {
+          arg.options.push([getKey(option), getValue(option)]);
+        } else {
+          arg.options.push([option, option]);
+        }
+      }
     } else if (startChar == '{') {
+      if (checkKeys(inner, alignKeys)) {
+        const key = getKey(inner);
+        if (key == 'L') {
+          arg.align = 'LEFT';
+        } else if (key == 'R') {
+          arg.align = 'RIGHT';
+        } else if (key == 'C') {
+          arg.align = 'CENTRE';
+        }
+        inner = getValue(inner);
+      }
       if (inner == 'STAT') {
         arg.type = 'input_statement';
       } else {
         arg.type = 'input_value';
+        arg.check = parseCheck(inner);
       }
     }
 
     args.push(arg);
-    msg = msg.substring(0, start) + '%'+args.length + msg.substring(end + 1);
-    findStart -= inner.length + 2 -1 - (''+args.length).length;
-
+    msg = msg.substring(0, start) + '%' + args.length + msg.substring(end + 1);
+    findStart -= inner.length + 2 - 1 - ('' + args.length).length;
   }
   return [msg, args];
 }
@@ -208,5 +240,3 @@ function getValue(block: string): string {
   if (i == -1) return '';
   return block.substring(i + 1).trim();
 }
-
-

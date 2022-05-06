@@ -1,19 +1,24 @@
 import {defineBlocksWithText} from "../../register";
 
-const blocks = `
+defineBlocksWithText(`
 
 prefix: layers
 style: module_blocks
 help: https://pytorch.org/docs/stable/generated/
 
 Module: linear
-线性连接层 输入{num} 输出{num} 偏差(checkbox)
+线性连接层   IO{num}{num} 偏差(checkbox)
+inline: 0
 help: torch.nn.Linear.html#torch.nn.Linear
 tip: 创建线性连接层，此处输入输出为输入输出的维度大小。
 Python
 import: from torch import nn
 nn.Linear($c0, $c1, bias=$c2)
 
-`;
+prefix: test
 
-defineBlocksWithText(blocks);
+null: block
+测试块 {str} 选择[aa/AAA:aaa/BBB:bbb] 颜色(colour) 输入{R:input}
+inline: 0
+
+`);
