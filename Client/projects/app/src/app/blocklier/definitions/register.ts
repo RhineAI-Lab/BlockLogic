@@ -241,7 +241,7 @@ function parseArgs(msg: string, argStart: number): any {
     while (end > 0 && msg[end - 1] == '\\') {
       end = msg.indexOf(endChar, end + 1);
     }
-    if (end == -1) continue;
+    if (end == -1) break;
     findStart = end + 1;
 
     let inner = msg.substring(start + 1, end).trim();
@@ -288,6 +288,7 @@ function parseArgs(msg: string, argStart: number): any {
         }
       }
     } else if (startChar == '{') {
+      let inKey = inner;
       if (inner.includes(':')) {
         const key = getValue(inner);
         if (key == 'L') {
@@ -299,13 +300,13 @@ function parseArgs(msg: string, argStart: number): any {
         } else if (['LEFT', 'RIGHT', 'CENTER'].includes(key)) {
           arg.align = key;
         }
-        inner = getKey(inner);
+        inKey = getKey(inner);
       }
-      if (inner == 'STAT') {
+      if (inKey == 'STAT') {
         arg.type = 'input_statement';
       } else {
         arg.type = 'input_value';
-        arg.check = parseCheck(inner);
+        arg.check = parseCheck(inKey);
       }
     }
     args.push(arg);

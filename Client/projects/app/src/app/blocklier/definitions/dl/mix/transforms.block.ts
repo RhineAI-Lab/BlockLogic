@@ -5,11 +5,12 @@ defineBlocksWithText(`
 prefix: transforms
 style: transforms_blocks
 
-tensor: RandomCrop
-随机裁剪{TENSOR} 尺寸为{num}
+RandomCrop: Transforms
+随机裁剪 尺寸{num,Array} 边距{num,Array}
 inline: 1
-tip: 指定尺寸对图片进行随机裁剪
+tip: 对图片进行随机裁剪
 Python
 import: from torchvision import transforms
-$0.RandomCrop(size=$1)
+transforms.RandomCrop(size=$A0,padding=$A1)
+
 `);
