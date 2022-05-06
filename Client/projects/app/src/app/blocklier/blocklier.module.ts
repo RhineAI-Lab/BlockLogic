@@ -5,6 +5,7 @@ import './definitions/autojs/blocks'; // deprecated
 import './definitions/autojs/generators'; // deprecated
 import './definitions/dl/blocks'; // deprecated
 import './definitions/dl/generators'; // deprecated
+import './definitions/register';
 
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
