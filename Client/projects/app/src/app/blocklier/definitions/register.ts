@@ -1,9 +1,9 @@
 import { Python, JavaScript } from './_common';
 import * as Blockly from 'blockly';
 
-const modeKeys = ['prefix', 'style', 'url', 'colour'];
+const modeKeys = ['prefix', 'style', 'help'];
 
-const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline'];
+const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour'];
 const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
 const fieldKeys = ['input', 'checkbox', 'image', 'angle', 'colour', 'label'];
@@ -116,7 +116,11 @@ function registerBlock(item: string): void {
 
 function registerGenerator(type: string, code: string, block: any): void {
   const lines = code.split('\n');
+  let func = null;
+  let funcStr = `func = function(block){\ncode='';\n`;
+  let order = 0;
   if (type.startsWith('Python')) {
+    order = Python.ORDER_ATOMIC;
     for (let i = 0; i < lines.length; i++) {
       if (checkKeys(lines[i], generatorKeys)) {
         lines.shift();
@@ -127,6 +131,14 @@ function registerGenerator(type: string, code: string, block: any): void {
     } else if (type == 'Python') {
     }
   }
+  if(block.output === undefined){
+    funcStr += `return code;\n}`;
+  }else{
+    funcStr += `return [code,${order}];\n}`;
+  }
+  eval(funcStr);
+  Python[block.type] = func;
+  console.log(Python[block.type]);
 }
 
 function parseArgs(msg: string): any {

@@ -13,7 +13,7 @@ help: torch.nn.Linear.html#torch.nn.Linear
 tip: 创建线性连接层，此处输入输出为输入输出的维度大小。
 Python
 import: from torch import nn
-nn.Linear($c0, $c1, bias=$c2)
+nn.Linear($0, $1, bias=$2)
 
 prefix: test
 
