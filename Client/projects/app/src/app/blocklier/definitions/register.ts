@@ -168,7 +168,11 @@ function registerGenerator(type: string, code: string, block: any): void {
             '_',
           )}'] = '${value}';\n`;
         } else if (key == 'order') {
-          order = Python['ORDER_' + value];
+          if(value.match(/^[0-9]+$/)) {
+            order = parseInt(value);
+          }else{
+            order = Python['ORDER_' + value];
+          }
         }
         lines.splice(i, 1);
         i--;
