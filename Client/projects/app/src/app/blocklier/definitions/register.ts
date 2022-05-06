@@ -160,7 +160,7 @@ function parseArgs(msg: string): any {
 
     let inner = msg.substring(start + 1, end).trim();
     const arg: any = {};
-    arg.name = 'C' + args.length;
+    arg.name = 'A' + args.length;
     if (startChar == '(') {
       if (inner.startsWith('var ')) {
         arg.type = 'field_variable';
