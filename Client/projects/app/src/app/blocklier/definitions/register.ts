@@ -6,7 +6,7 @@ const modeKeys = ['prefix', 'style', 'help'];
 const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour'];
 const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
-const fieldKeys = ['input', 'checkbox', 'image', 'angle', 'colour', 'label'];
+const fieldKeys = ['input', 'number', 'checkbox', 'image', 'angle', 'colour', 'label'];
 
 const alignKeys = ['L', 'R', 'C'];
 
@@ -197,12 +197,14 @@ function registerGenerator(type: string, code: string, block: any): void {
       fs += `${code}\n`;
     } else if (type == 'Python') {
       for (let i = 0; i < argNum; i++) {
-        const reg = new RegExp('\\$A' + i + '[^0-9]');
-        const res = code.match(reg);
+        let res = code.match(new RegExp('\\$A' + i + '([^0-9]|$)'));
         if (res == null || res.index == null) {
           continue;
         }
-        const len = res[0].length - 1;
+        let len = res[0].length - 1;
+        if(res.index+res.length+1 == code.length){
+          len++;
+        }
         code =
           code.substring(0, res.index) +
           '${A' +
@@ -258,6 +260,19 @@ function parseArgs(msg: string, argStart: number): any {
         }
       } else if (fieldKeys.includes(inner)) {
         arg.type = 'field_' + inner;
+      } else if (inner.includes(':') && fieldKeys.includes(getKey(inner))) {
+        const key = getKey(inner);
+        const value = getValue(inner);
+        arg.type = 'field_' + key;
+        if(key=='input'){
+          arg.text = value;
+        }else if(key=='number'){
+          arg.value = parseInt(value);
+        }else if(key=='checkbox'){
+          arg.checked = eval(value);
+        }else if(key=='angle'){
+          arg.angle = parseInt(value);
+        }
       } else {
         console.warn('unknown arg: (' + inner + ')');
       }
@@ -273,7 +288,7 @@ function parseArgs(msg: string, argStart: number): any {
         }
       }
     } else if (startChar == '{') {
-      if (checkKeys(inner, alignKeys)) {
+      if (inner.includes(':')) {
         const key = getValue(inner);
         if (key == 'L') {
           arg.align = 'LEFT';

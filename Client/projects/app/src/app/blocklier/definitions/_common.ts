@@ -61,18 +61,20 @@ Python.checkboxToCode = function (code: string) {
 }
 
 Python.defaultValue = function (type: string) {
+  let returnStr = '';
   if (type === 'Number') {
-    return '0';
+    returnStr = '0';
   } else if (type === 'String') {
-    return '\'\\\'\\\'\'';
+    returnStr =  '\\\'\\\'';
   } else if (type === 'Boolean') {
-    return 'False';
+    returnStr =  'False';
   } else if (type === 'Array') {
-    return '[]';
+    returnStr =  '[]';
   } else if (type === 'Object') {
-    return '{}';
+    returnStr =  '{}';
   }else {
-    return 'None';
+    returnStr =  'None';
   }
+  return '\''+returnStr+'\'';
 }
 
