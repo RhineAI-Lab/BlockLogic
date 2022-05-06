@@ -51,3 +51,28 @@ Python.addIndent = function (code: string, indent = '  '): string {
   }
   return code.split('\n').map(line => indent + line).join('\n')+'\n';
 }
+
+Python.checkboxToCode = function (code: string) {
+  if(code=='TRUE') {
+    return 'True';
+  }else{
+    return 'False';
+  }
+}
+
+Python.defaultValue = function (type: string) {
+  if (type === 'Number') {
+    return '0';
+  } else if (type === 'String') {
+    return '\'\'';
+  } else if (type === 'Boolean') {
+    return 'False';
+  } else if (type === 'Array') {
+    return '[]';
+  } else if (type === 'Object') {
+    return '{}';
+  }else {
+    return 'None';
+  }
+}
+

@@ -18,6 +18,7 @@ for (const codeType of codeTypes) {
 
 const generatorKeys = ['import'];
 
+let debugMode = true;
 const opt: any = {};
 opt.prefix = 'unknown';
 opt.style = 'default_blocks';
@@ -51,7 +52,6 @@ export const defineBlocksWithText = function (blocks: string): void {
 function registerBlock(item: string): void {
   const block: any = {};
   const lines = item.split('\n');
-  console.log(lines);
   block.type = opt.prefix + '_' + getValue(lines[0]);
   const check = getKey(lines[0]);
   if (check == 'STAT') {
@@ -67,6 +67,7 @@ function registerBlock(item: string): void {
   }
   let mode = 'msg';
   let msgN = 0;
+  let argStart = 0;
   let generators = [];
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -81,9 +82,10 @@ function registerBlock(item: string): void {
       }
     }
     if (mode == 'msg') {
-      const res = parseArgs(line);
+      const res = parseArgs(line, argStart);
       block['message' + msgN] = res[0];
       block['args' + msgN] = res[1];
+      argStart = res.length;
     } else if (mode == 'key') {
       if (line.includes(':')) {
         const key = getKey(line);
@@ -103,7 +105,9 @@ function registerBlock(item: string): void {
       }
     }
   }
-  console.log(block);
+  if (debugMode) {
+    console.log(block);
+  }
   Blockly.defineBlocksWithJsonArray([block]);
   for (let i = 0; i < generators.length; i++) {
     const start = generators[i];
@@ -116,32 +120,95 @@ function registerBlock(item: string): void {
 
 function registerGenerator(type: string, code: string, block: any): void {
   const lines = code.split('\n');
-  let func = null;
-  let funcStr = `func = function(block){\ncode='';\n`;
+  let func = function () {};
+  let Gene = null;
+  if (type.startsWith('Python')) {
+    Gene = Python;
+  } else if (type.startsWith('JavaScript')) {
+    Gene = JavaScript;
+  }
+  let fs = `func = function(block){\ncode='';\n\n`;
+  let argNum = 0;
+  for (let i = 0; ; i++) {
+    if (block['args' + i]) {
+      for (const arg of block['args' + i]) {
+        if (arg.type == 'input_value') {
+          fs += `let ${arg.name} = Gene.valueToCode(block, '${arg.name}', Gene.ORDER_ATOMIC) || ${Gene.defaultValue(arg.check)}\n`;
+        } else if (arg.type == 'input_statement') {
+          fs += `let ${arg.name} = Gene.statementToCode(block, '${arg.name}') || '\\n'\n`;
+        } else if (arg.type == 'input_dummy') {
+          fs += `let ${arg.name} = ''\n`;
+        } else if (arg.type == 'field_checkbox') {
+          fs += `let ${arg.name} = Gene.checkboxToCode(block.getFieldValue('${arg.name}'))\n`;
+        } else if (arg.type.startsWith('field_')) {
+          fs += `let ${arg.name} = block.getFieldValue('${arg.name}')\n`;
+        }
+        argNum++;
+      }
+    } else {
+      break;
+    }
+  }
+  let first = true;
   let order = 0;
   if (type.startsWith('Python')) {
     order = Python.ORDER_ATOMIC;
     for (let i = 0; i < lines.length; i++) {
       if (checkKeys(lines[i], generatorKeys)) {
-        lines.shift();
+        const line = lines[i];
+        const key = getKey(line);
+        const value = getValue(line);
+        if (key == 'import') {
+          if (first) {
+            fs += '\n';
+            first = false;
+          }
+          fs += `Gene.definitions_['${value.replace(
+            / /g,
+            '_',
+          )}'] = '${value}';\n`;
+        } else if (key == 'order') {
+          order = Python['ORDER_' + value];
+        }
+        lines.splice(i, 1);
         i--;
       }
     }
+    fs += '\n';
+    code = lines.join('\n');
     if (type == 'PythonCode') {
+      fs += `${code}\n`;
     } else if (type == 'Python') {
+      for (let i = 0; i < argNum; i++) {
+        const reg = new RegExp('\\$A' + i + '[^0-9]');
+        const res = code.match(reg);
+        if (res == null || res.index == null) {
+          continue;
+        }
+        const len = res[0].length - 1;
+        code =
+          code.substring(0, res.index) +
+          '${A' +
+          i +
+          '}' +
+          code.substring(res.index + len);
+      }
+      fs += `code = \`${code}\`\n`;
     }
   }
-  if(block.output === undefined){
-    funcStr += `return code;\n}`;
-  }else{
-    funcStr += `return [code,${order}];\n}`;
+  if (block.output === undefined) {
+    fs += `\nreturn code;\n}`;
+  } else {
+    fs += `\nreturn [code,${order}];\n}`;
   }
-  eval(funcStr);
+  if (debugMode) {
+    console.log(fs);
+  }
+  eval(fs);
   Python[block.type] = func;
-  console.log(Python[block.type]);
 }
 
-function parseArgs(msg: string): any {
+function parseArgs(msg: string, argStart: number): any {
   const args = [];
   let findStart = 0;
   for (;;) {
@@ -160,7 +227,7 @@ function parseArgs(msg: string): any {
 
     let inner = msg.substring(start + 1, end).trim();
     const arg: any = {};
-    arg.name = 'C' + args.length;
+    arg.name = 'A' + (argStart + args.length);
     if (startChar == '(') {
       if (inner.startsWith('var ')) {
         arg.type = 'field_variable';
@@ -197,6 +264,8 @@ function parseArgs(msg: string): any {
           arg.align = 'RIGHT';
         } else if (key == 'C') {
           arg.align = 'CENTRE';
+        } else if (['LEFT', 'RIGHT', 'CENTER'].includes(key)) {
+          arg.align = key;
         }
         inner = getValue(inner);
       }
@@ -207,10 +276,13 @@ function parseArgs(msg: string): any {
         arg.check = parseCheck(inner);
       }
     }
-
     args.push(arg);
-    msg = msg.substring(0, start) + '%' + args.length + msg.substring(end + 1);
-    findStart -= inner.length + 2 - 1 - ('' + args.length).length;
+    msg =
+      msg.substring(0, start) +
+      '%' +
+      (argStart + args.length) +
+      msg.substring(end + 1);
+    findStart -= inner.length + 1 - (argStart + args.length + '').length;
   }
   return [msg, args];
 }

@@ -8,12 +8,11 @@ help: https://pytorch.org/docs/stable/generated/
 
 Module: linear
 线性连接层   IO{num}{num} 偏差(checkbox)
-inline: 0
 help: torch.nn.Linear.html#torch.nn.Linear
 tip: 创建线性连接层，此处输入输出为输入输出的维度大小。
 Python
 import: from torch import nn
-nn.Linear($0, $1, bias=$2)
+nn.Linear($A0, $A1, bias=$A2)
 
 prefix: test
 

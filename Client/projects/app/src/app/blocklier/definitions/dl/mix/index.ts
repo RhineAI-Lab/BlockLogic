@@ -1,1 +1,1 @@
-import './layer.blocks'
+import './layer.blocks';
