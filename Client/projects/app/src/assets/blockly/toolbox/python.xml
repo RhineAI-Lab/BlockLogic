@@ -469,6 +469,18 @@
                     </block>
                 </value>
             </block>
+            <block type="transforms_RandomCrop">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">image</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="math_number">
+                        <field name="NUM">640</field>
+                    </block>
+                </value>
+            </block>
         </category>
         <category name="模型">
             <block type="test_block"></block>
