@@ -1,6 +1,6 @@
-import {defineBlocksWithText} from "../../register";
+import {defineBlocksWithDt} from "../../register";
 
-defineBlocksWithText(`
+defineBlocksWithDt(`
 
 prefix: layers
 style: module_blocks

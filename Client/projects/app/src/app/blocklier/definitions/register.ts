@@ -24,7 +24,7 @@ opt.style = 'default_blocks';
 opt.help = '';
 opt.colour = 'null';
 
-export const defineBlocksWithText = function (blocks: string, debugMode = false): void {
+export const defineBlocksWithDt = function (blocks: string, debugMode = false): void {
   // 处理统一换行符
   blocks = blocks.replace(/\r\n/g, '\n');
   blocks = blocks.replace(/\r/g, '\n');

@@ -1,6 +1,6 @@
-import {defineBlocksWithText} from "../../register";
+import {defineBlocksWithDt} from "../../register";
 
-defineBlocksWithText(`
+defineBlocksWithDt(`
 
 prefix: transforms
 style: transforms_blocks
