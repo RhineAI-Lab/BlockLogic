@@ -18,14 +18,21 @@ for (const codeType of codeTypes) {
 
 const generatorKeys = ['import','order'];
 
-let debugMode = true;
 const opt: any = {};
 opt.prefix = 'unknown';
 opt.style = 'default_blocks';
 opt.help = '';
 opt.colour = 'null';
 
-export const defineBlocksWithText = function (blocks: string): void {
+export const defineBlocksWithText = function (blocks: string, debugMode = false): void {
+  // 处理统一换行符
+  blocks = blocks.replace(/\r\n/g, '\n');
+  blocks = blocks.replace(/\r/g, '\n');
+  // 过滤注释内容
+  blocks = blocks.replace(/\n\/\/.*\n/g,'\n');
+  blocks = blocks.replace(/\/\/.*\n/g,'\n');
+  blocks = blocks.replace(/\/\*.*?\*\//g,'\n');
+  // 分单元
   const list = blocks.split(/\n\s*\n/);
   for (let item of list) {
     item = item.trim();
@@ -41,7 +48,7 @@ export const defineBlocksWithText = function (blocks: string): void {
       }
     } else {
       try {
-        registerBlock(item);
+        registerBlock(item, debugMode);
       } catch (e) {
         console.error(e);
       }
@@ -49,7 +56,7 @@ export const defineBlocksWithText = function (blocks: string): void {
   }
 };
 
-function registerBlock(item: string): void {
+function registerBlock(item: string, debugMode: boolean): void {
   const block: any = {};
   const lines = item.split('\n');
   if(lines[0].includes(':')){
@@ -127,11 +134,11 @@ function registerBlock(item: string): void {
     const end = generators[i + 1] || lines.length;
     const type = lines[start];
     const code = lines.slice(start + 1, end).join('\n');
-    registerGenerator(type, code, block);
+    registerGenerator(type, code, block, debugMode);
   }
 }
 
-function registerGenerator(type: string, code: string, block: any): void {
+function registerGenerator(type: string, code: string, block: any, debugMode: boolean): void {
   const lines = code.split('\n');
   let func = function () {};
   let Gene = null;
