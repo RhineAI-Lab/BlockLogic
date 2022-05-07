@@ -471,14 +471,14 @@
             </block>
             <block type="transforms_RandomCrop">
                 <value name="A0">
-                    <block type="variables_get">
-                        <field name="VAR">image</field>
-                    </block>
+                    <shadow type="math_number">
+                        <field name="NUM">640</field>
+                    </shadow>
                 </value>
                 <value name="A1">
-                    <block type="math_number">
-                        <field name="NUM">640</field>
-                    </block>
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
                 </value>
             </block>
         </category>

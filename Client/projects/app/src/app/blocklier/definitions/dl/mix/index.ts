@@ -1,2 +1,3 @@
 import './layer.blocks';
-import './transforms.block';
+import './transforms.blocks';
+import './example.blocks';

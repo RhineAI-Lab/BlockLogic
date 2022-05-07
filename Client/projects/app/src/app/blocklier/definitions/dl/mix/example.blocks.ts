@@ -4,7 +4,7 @@ defineBlocksWithDt(`
 
 prefix: test
 
-block: null
+block: any
 测试块 (input: 666) (checkbox: true) {str} 选择[AAA:aaa/BBB] 输入{num:R} 执行{STAT}
 inline: 0
 Python

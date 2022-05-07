@@ -332,9 +332,10 @@ function parseCheck(
   mustArray = false,
 ): string | Array<string> | null {
   if (str == 'null') return null;
+  if (str == 'any') return null;
   const list: Array<string> = [];
   if (str.length == 0) return list;
-  for (let item of str.split('|')) {
+  for (let item of str.split(',')) {
     item = item.trim();
     item = item.replace('num', 'Number');
     item = item.replace('str', 'String');

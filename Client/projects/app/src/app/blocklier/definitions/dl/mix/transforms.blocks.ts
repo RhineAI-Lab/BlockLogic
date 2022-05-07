@@ -13,4 +13,4 @@ Python
 import: from torchvision import transforms
 transforms.RandomCrop(size=$A0,padding=$A1)
 
-`);
+`, true);
