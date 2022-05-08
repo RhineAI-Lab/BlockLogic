@@ -3,7 +3,7 @@ import * as Blockly from 'blockly';
 
 const modeKeys = ['prefix', 'style', 'help'];
 
-const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour'];
+const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour','extensions'];
 const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
 const fieldKeys = [
@@ -98,6 +98,7 @@ function registerBlock(item: string, debugMode: boolean): void {
   }
   let mode = 'msg';
   let msgN = 0;
+  let argsN = 0;
   let generators = [];
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -115,10 +116,11 @@ function registerBlock(item: string, debugMode: boolean): void {
       }
     }
     if (mode == 'msg') {
-      const res = parseArgs(line, msgN);
+      const res = parseArgs(line, argsN);
       block['message' + msgN] = res[0];
       block['args' + msgN] = res[1];
       msgN++;
+      argsN += res[1].length;
     } else if (mode == 'key') {
       if (line.includes(':')) {
         const key = getKey(line);
@@ -257,7 +259,7 @@ function registerGenerator(
   Python[block.type] = func;
 }
 
-function parseArgs(msg: string, msgN: number = 0): any {
+function parseArgs(msg: string, argsN: number = 0): any {
   const args = [];
   let findStart = 0;
   for (;;) {
@@ -276,7 +278,7 @@ function parseArgs(msg: string, msgN: number = 0): any {
 
     let inner = msg.substring(start + 1, end).trim();
     const arg: any = {};
-    arg.name = 'L' + msgN + 'A' + args.length;
+    arg.name = 'A' + (argsN + args.length);
     if (startChar == '(') {
       if (inner.startsWith('var ')) {
         arg.type = 'field_variable';

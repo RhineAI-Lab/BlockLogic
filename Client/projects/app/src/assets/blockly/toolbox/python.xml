@@ -494,17 +494,27 @@
                 </value>
             </block>
         </category>
-        <category name="模型">
+        <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>
             <block type="modules_set"></block>
             <block type="modules_call"></block>
             <block type="modules_get"></block>
             <label text="创建" style="dlLabel"></label>
             <block type="modules_define"></block>
-            <block type="modules_sequential_create_e"></block>
-            <block type="modules_sequential_e"></block>
-            <block type="modules_list_connector"></block>
-            <label text="内置层" style="dlLabel"></label>
+            <label text="容器" style="dlLabel"></label>
+            <block type="modules_sequential_create_e">
+                <statement name="A1">
+                    <block type="modules_list_connector"></block>
+                </statement>
+            </block>
+            <block type="modules_sequential_e">
+                <statement name="A0">
+                    <block type="modules_list_connector"></block>
+                </statement>
+            </block>
+        </category>
+        <category name="内置模型/层">
+            <label text="简洁使用(属性IO为输入输出尺寸)" style="dlLabel"></label>
             <block type="layers_linear"></block>
         </category>
         <category name="损失函数"></category>
