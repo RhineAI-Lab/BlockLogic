@@ -6,7 +6,15 @@ const modeKeys = ['prefix', 'style', 'help'];
 const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour'];
 const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
-const fieldKeys = ['input', 'number', 'checkbox', 'image', 'angle', 'colour', 'label'];
+const fieldKeys = [
+  'input',
+  'number',
+  'checkbox',
+  'image',
+  'angle',
+  'colour',
+  'label',
+];
 
 const alignKeys = ['L', 'R', 'C'];
 
@@ -16,7 +24,7 @@ for (const codeType of codeTypes) {
   codeTypesAdd.push(codeType + 'Code');
 }
 
-const generatorKeys = ['import','order'];
+const generatorKeys = ['import', 'order'];
 
 const opt: any = {};
 opt.prefix = 'unknown';
@@ -24,14 +32,17 @@ opt.style = 'default_blocks';
 opt.help = '';
 opt.colour = 'null';
 
-export const defineBlocksWithDt = function (blocks: string, debugMode = false): void {
+export const defineBlocksWithDt = function (
+  blocks: string,
+  debugMode = false,
+): void {
   // 处理统一换行符
   blocks = blocks.replace(/\r\n/g, '\n');
   blocks = blocks.replace(/\r/g, '\n');
   // 过滤注释内容
-  blocks = blocks.replace(/\n\/\/.*\n/g,'\n');
-  blocks = blocks.replace(/\/\/.*\n/g,'\n');
-  blocks = blocks.replace(/\/\*.*?\*\//g,'\n');
+  blocks = blocks.replace(/\n\/\/.*\n/g, '\n');
+  blocks = blocks.replace(/\/\/.*\n/g, '\n');
+  blocks = blocks.replace(/\/\*.*?\*\//g, '\n');
   // 分单元
   const list = blocks.split(/\n\s*\n/);
   for (let item of list) {
@@ -59,7 +70,7 @@ export const defineBlocksWithDt = function (blocks: string, debugMode = false): 
 function registerBlock(item: string, debugMode: boolean): void {
   const block: any = {};
   const lines = item.split('\n');
-  if(lines[0].includes(':')){
+  if (lines[0].includes(':')) {
     block.type = opt.prefix + '_' + getKey(lines[0]);
     const check = getValue(lines[0]);
     if (check == 'STAT') {
@@ -73,13 +84,13 @@ function registerBlock(item: string, debugMode: boolean): void {
     } else {
       block.output = parseCheck(check);
     }
-  }else{
+  } else {
     block.type = opt.prefix + '_' + lines[0].trim();
     block.previousStatement = null;
     block.nextStatement = null;
   }
   block.style = opt.style;
-  if (opt.help.length>0){
+  if (opt.help.length > 0) {
     block.helpUrl = opt.help;
   }
   if (opt.colour != 'null') {
@@ -104,7 +115,7 @@ function registerBlock(item: string, debugMode: boolean): void {
       }
     }
     if (mode == 'msg') {
-      const res = parseArgs(line);
+      const res = parseArgs(line, msgN);
       block['message' + msgN] = res[0];
       block['args' + msgN] = res[1];
       msgN++;
@@ -140,9 +151,15 @@ function registerBlock(item: string, debugMode: boolean): void {
   }
 }
 
-function registerGenerator(type: string, code: string, block: any, debugMode: boolean): void {
+function registerGenerator(
+  type: string,
+  code: string,
+  block: any,
+  debugMode: boolean,
+): void {
   const lines = code.split('\n');
   let func = function () {};
+  const BlocklyT = Blockly;
   let Gene = null;
   if (type.startsWith('Python')) {
     Gene = Python;
@@ -155,15 +172,19 @@ function registerGenerator(type: string, code: string, block: any, debugMode: bo
     if (block['args' + i]) {
       for (const arg of block['args' + i]) {
         if (arg.type == 'input_value') {
-          fs += `let ${arg.name} = Gene.valueToCode(block, '${arg.name}', Gene.ORDER_ATOMIC) || ${Gene.defaultValue(arg.check)}\n`;
+          fs += `let A${argNum} = Gene.valueToCode(block, '${
+            arg.name
+          }', Gene.ORDER_ATOMIC) || ${Gene.defaultValue(arg.check)}\n`;
         } else if (arg.type == 'input_statement') {
-          fs += `let ${arg.name} = Gene.statementToCode(block, '${arg.name}') || '\\n'\n`;
+          fs += `let A${argNum} = Gene.statementToCode(block, '${arg.name}') || '\\n'\n`;
         } else if (arg.type == 'input_dummy') {
-          fs += `let ${arg.name} = ''\n`;
+          fs += `let A${argNum} = ''\n`;
+        } else if (arg.type == 'field_variable') {
+          fs += `let A${argNum} = Gene.nameDB_.getName(block.getFieldValue('${arg.name}'),BlocklyT.VARIABLE_CATEGORY_NAME)\n`;
         } else if (arg.type == 'field_checkbox') {
-          fs += `let ${arg.name} = Gene.checkboxToCode(block.getFieldValue('${arg.name}'))\n`;
+          fs += `let A${argNum} = Gene.checkboxToCode(block.getFieldValue('${arg.name}'))\n`;
         } else if (arg.type.startsWith('field_')) {
-          fs += `let ${arg.name} = block.getFieldValue('${arg.name}')\n`;
+          fs += `let A${argNum} = block.getFieldValue('${arg.name}')\n`;
         }
         argNum++;
       }
@@ -190,9 +211,9 @@ function registerGenerator(type: string, code: string, block: any, debugMode: bo
             '_',
           )}'] = '${value}';\n`;
         } else if (key == 'order') {
-          if(value.match(/^[0-9]+$/)) {
+          if (value.match(/^[0-9]+$/)) {
             order = parseInt(value);
-          }else{
+          } else {
             order = Python['ORDER_' + value];
           }
         }
@@ -211,7 +232,7 @@ function registerGenerator(type: string, code: string, block: any, debugMode: bo
           continue;
         }
         let len = res[0].length - 1;
-        if(res.index+res.length+1 == code.length){
+        if (res.index + res.length + 1 == code.length) {
           len++;
         }
         code =
@@ -236,7 +257,7 @@ function registerGenerator(type: string, code: string, block: any, debugMode: bo
   Python[block.type] = func;
 }
 
-function parseArgs(msg: string, argStart: number = 0): any {
+function parseArgs(msg: string, msgN: number = 0): any {
   const args = [];
   let findStart = 0;
   for (;;) {
@@ -255,7 +276,7 @@ function parseArgs(msg: string, argStart: number = 0): any {
 
     let inner = msg.substring(start + 1, end).trim();
     const arg: any = {};
-    arg.name = 'A' + (argStart + args.length);
+    arg.name = 'L' + msgN + 'A' + args.length;
     if (startChar == '(') {
       if (inner.startsWith('var ')) {
         arg.type = 'field_variable';
@@ -273,13 +294,13 @@ function parseArgs(msg: string, argStart: number = 0): any {
         const key = getKey(inner);
         const value = getValue(inner);
         arg.type = 'field_' + key;
-        if(key=='input'){
+        if (key == 'input') {
           arg.text = value;
-        }else if(key=='number'){
+        } else if (key == 'number') {
           arg.value = parseInt(value);
-        }else if(key=='checkbox'){
+        } else if (key == 'checkbox') {
           arg.checked = eval(value);
-        }else if(key=='angle'){
+        } else if (key == 'angle') {
           arg.angle = parseInt(value);
         }
       } else {
@@ -319,12 +340,8 @@ function parseArgs(msg: string, argStart: number = 0): any {
       }
     }
     args.push(arg);
-    msg =
-      msg.substring(0, start) +
-      '%' +
-      (argStart + args.length) +
-      msg.substring(end + 1);
-    findStart -= inner.length + 1 - (argStart + args.length + '').length;
+    msg = msg.substring(0, start) + '%' + args.length + msg.substring(end + 1);
+    findStart -= inner.length + 1 - (args.length + '').length;
   }
   return [msg, args];
 }
