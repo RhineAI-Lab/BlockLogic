@@ -515,9 +515,12 @@
         </category>
         <category name="内置模型/层">
             <label text="简洁使用 (属性IO为输入输出尺寸)" style="dlLabel"></label>
-            <block type="layers_linear_e"></block>
+            <block type="layers_linear"></block>
+            <block type="layers_conv"></block>
+            <block type="layers_sigmoid"></block>
+            <block type="layers_relu"></block>
             <label text="完整使用" style="dlLabel"></label>
-            <block type="layers_linear">
+            <block type="layers_linear_full">
                 <value name="A0">
                     <shadow type="math_number">
                         <field name="NUM">10</field>
@@ -529,6 +532,7 @@
                     </shadow>
                 </value>
             </block>
+            <block type="layers_conv_full"></block>
         </category>
         <category name="损失函数"></category>
         <category name="优化器"></category>

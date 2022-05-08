@@ -6,15 +6,46 @@ prefix: layers
 style: module_blocks
 help: https://pytorch.org/docs/stable/generated/
 
-linear_e: Module
-线性层   IO(number:10)(number:10)
-
 linear: Module
+线性层   IO(number:10)(number:10)
+help: torch.nn.Linear.html#torch.nn.Linear
+tip: 创建线性连接层，此处输入输出为输入输出的维度大小。
+
+linear_full: Module
 线性层   IO{num}{num} 偏差(checkbox:true)
 help: torch.nn.Linear.html#torch.nn.Linear
 tip: 创建线性连接层，此处输入输出为输入输出的维度大小。
 Python
 import: from torch import nn
 nn.Linear($A0, $A1, bias=$A2)
+
+conv: Module
+卷积层[2d/3d/1d]   IO(number:16)(number:33) 卷积核(number:3)
+Python
+import: from torch import nn
+nn.Conv$A0($A1, $A2, $A3)
+
+conv_full: Module
+[卷积层:Conv/懒卷积层:LazyConv/转置卷积层:ConvTranspose/转置懒卷积层:LazyConvTranspose][2d/3d/1d]   IO{num}{num} 卷积核{num,Array}
+步长{num,Array} 填充{num,Array} 填充模式[zeros/reflect/replicate/circular]
+Python
+import: from torch import nn
+nn.$A0$A1($A2, $A3, $A4, $A5, $A6, '$A7')
+
+sigmoid: Module
+Sigmoid层
+help: torch.nn.Sigmoid.html#torch.nn.Sigmoid
+tip: 创建Sigmoid层，用于激活数据，使数据非线性化。
+Python
+import: from torch import nn
+nn.Sigmoid()
+
+relu: Module
+ReLU层   覆盖(checkbox:false)
+help: torch.nn.ReLU.html#torch.nn.ReLU
+tip: 创建ReLU层，用于激活数据，使数据非线性化。
+Python
+import: from torch import nn
+nn.ReLU($A0)
 
 `, true);
