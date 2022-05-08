@@ -37,6 +37,9 @@ export class BlocklierTheme {
       module_blocks: {
         colourPrimary: '#f85c5c',
       },
+      layer_blocks: {
+        colourPrimary: '#ff7a41',
+      },
       transforms_blocks: {
         colourPrimary: '#38b793',
       },

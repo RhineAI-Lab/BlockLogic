@@ -517,8 +517,10 @@
             <label text="简洁使用 (属性IO为输入输出尺寸)" style="dlLabel"></label>
             <block type="layers_linear"></block>
             <block type="layers_conv"></block>
+            <block type="layers_pool"></block>
             <block type="layers_sigmoid"></block>
             <block type="layers_relu"></block>
+            <block type="layers_dropout"></block>
             <label text="完整使用" style="dlLabel"></label>
             <block type="layers_linear_full">
                 <value name="A0">
@@ -533,6 +535,7 @@
                 </value>
             </block>
             <block type="layers_conv_full"></block>
+            <block type="layers_pool_full"></block>
         </category>
         <category name="损失函数"></category>
         <category name="优化器"></category>
