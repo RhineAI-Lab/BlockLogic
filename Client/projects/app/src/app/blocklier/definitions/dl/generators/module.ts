@@ -21,7 +21,7 @@ Python['modules_define'] = function (block: any) {
   }
   Python.moduleClassIndex += 1;
 
-  Python.provideFunction_('from_torch_import_nn', ['from torch import nn']);
+  Python.definitions_['from_torch_import_nn'] = 'from torch import nn';
   let code = 'class ' + className + '(nn.Module):\n';
   code += '  def __init__(self):\n';
   code += '    super(' + className + ', self).__init__()\n';
@@ -29,7 +29,8 @@ Python['modules_define'] = function (block: any) {
   code += '  def forward(self, ' + valueInput + '):\n';
   code += statementsForward;
   code += '    return ' + valueOutput + '\n';
-  code += varName + ' = ' + className + '()\n';
+  Python.provideFunction_('Module-'+className, [code]);
+  code = varName + ' = ' + className + '()\n';
   return code;
 };
 

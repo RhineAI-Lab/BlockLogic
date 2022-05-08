@@ -61,7 +61,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: 'modules_define',
-    message0: '定义模型 %1 %2 %3 调用输入 %4 %5 返回 %6',
+    message0: '定义模型 %1 %2 %3 调用:    输入 %4 %5 返回 %6',
     args0: [
       {
         type: 'field_variable',

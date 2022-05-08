@@ -29,7 +29,7 @@ class LeNet(nn.Module):
             nn.MaxPool2d(2, 2),
             nn.Conv2d(6, 16, 5),
             nn.Sigmoid(),
-            nn.MaxPool2d(2, 2)
+            nn.MaxPool2d(2, 2),
         )
         self.fc = nn.Sequential(
             nn.Linear(16*4*4, 120),

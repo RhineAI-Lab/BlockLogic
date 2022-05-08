@@ -495,14 +495,15 @@
             </block>
         </category>
         <category name="模型">
-            <block type="test_block"></block>
             <label text="对象变量" style="dlLabel"></label>
             <block type="modules_set"></block>
             <block type="modules_call"></block>
             <block type="modules_get"></block>
             <label text="创建" style="dlLabel"></label>
             <block type="modules_define"></block>
-            <block type="modules_sequential"></block>
+            <block type="modules_sequential_create_e"></block>
+            <block type="modules_sequential_e"></block>
+            <block type="modules_list_connector"></block>
             <label text="内置层" style="dlLabel"></label>
             <block type="layers_linear"></block>
         </category>

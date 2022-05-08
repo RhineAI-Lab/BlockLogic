@@ -87,7 +87,6 @@ function registerBlock(item: string, debugMode: boolean): void {
   }
   let mode = 'msg';
   let msgN = 0;
-  let argStart = 0;
   let generators = [];
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -96,16 +95,19 @@ function registerBlock(item: string, debugMode: boolean): void {
       if (checkKeys(line, blockKeys)) {
         mode = 'key';
       }
+      if (codeTypes.includes(line) || codeTypesAdd.includes(line)) {
+        mode = 'code';
+      }
     } else if (mode == 'key') {
       if (codeTypes.includes(line) || codeTypesAdd.includes(line)) {
         mode = 'code';
       }
     }
     if (mode == 'msg') {
-      const res = parseArgs(line, argStart);
+      const res = parseArgs(line);
       block['message' + msgN] = res[0];
       block['args' + msgN] = res[1];
-      argStart = res.length;
+      msgN++;
     } else if (mode == 'key') {
       if (line.includes(':')) {
         const key = getKey(line);
@@ -234,7 +236,7 @@ function registerGenerator(type: string, code: string, block: any, debugMode: bo
   Python[block.type] = func;
 }
 
-function parseArgs(msg: string, argStart: number): any {
+function parseArgs(msg: string, argStart: number = 0): any {
   const args = [];
   let findStart = 0;
   for (;;) {
@@ -309,7 +311,7 @@ function parseArgs(msg: string, argStart: number): any {
         }
         inKey = getKey(inner);
       }
-      if (inKey == 'STAT') {
+      if (inKey == 'STAT' || inKey == '') {
         arg.type = 'input_statement';
       } else {
         arg.type = 'input_value';
