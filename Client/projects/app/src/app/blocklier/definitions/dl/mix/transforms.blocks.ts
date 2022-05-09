@@ -63,6 +63,14 @@ tip: 指定概率，对图片进行随机垂直翻转
 Python
 import: from torchvision import transforms
 transforms.RandomVerticalFlip(p=$A0)
+
+RandomRotation: Transforms
+随机旋转 区间从{num}到{num}
+inline: 1
+tip: 对图片进行随机旋转
+Python
+import: from torchvision import transforms
+transforms.RandomRotation(degrees=($A0,$A1))
 `);
 
 defineBlocksWithDt(`
