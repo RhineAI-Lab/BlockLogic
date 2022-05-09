@@ -71,6 +71,15 @@ tip: 对图片进行随机旋转
 Python
 import: from torchvision import transforms
 transforms.RandomRotation(degrees=($A0,$A1))
+
+Resize: Transforms
+修改分辨率 高为{num} 宽为{num}
+inline: 1
+tip: 修改图像的分辨率
+Python
+import: from torchvision import transforms
+transforms.Resize(size=[$A0,$A1])
+
 `);
 
 defineBlocksWithDt(`
