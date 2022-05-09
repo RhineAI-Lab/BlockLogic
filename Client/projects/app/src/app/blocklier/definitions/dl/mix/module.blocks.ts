@@ -1,6 +1,7 @@
-import {defineBlocksWithDt} from "../../register";
+import { defineBlocksWithDt } from '../../register';
 
-defineBlocksWithDt(`
+defineBlocksWithDt(
+  `
 
 prefix: modules
 style: module_blocks
@@ -25,4 +26,6 @@ list_connector
 Python
 $A0,\\n
 
-`, true);
+`,
+  true,
+);

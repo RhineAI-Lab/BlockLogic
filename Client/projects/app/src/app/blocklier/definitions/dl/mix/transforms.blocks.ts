@@ -1,6 +1,7 @@
-import {defineBlocksWithDt} from "../../register";
+import { defineBlocksWithDt } from '../../register';
 
-defineBlocksWithDt(`
+defineBlocksWithDt(
+  `
 
 prefix: transforms
 style: transforms_blocks
@@ -13,6 +14,7 @@ Python
 import: from torchvision import transforms
 transforms.RandomCrop(size=$A0,padding=$A1)
 
+<<<<<<< Updated upstream
 CenterCrop: Transforms
 中心裁剪 尺寸{num,Array}
 inline: 1
@@ -87,8 +89,7 @@ tip: 进行归一化
 Python
 import: from torchvision import transforms
 transforms.Normalize(mean=$A0,std=$A1)
-`);
 
-defineBlocksWithDt(`
-
-`,true);
+`,
+  true,
+);

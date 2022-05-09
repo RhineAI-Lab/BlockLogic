@@ -431,6 +431,18 @@
             <block type="lists_sort"></block>
             <block type="lists_isEmpty"></block>
         </category>
+        <category name="对象" categorystyle="class_category">
+            <label text="定义/构造" web-class="classLabel"></label>
+            <block type="class_define"></block>
+            <block type="class_new"></block>
+            <block type="class_define_func"></block>
+            <block type="class_define_func_init"></block>
+            <block type="class_func_return"></block>
+            <label text="对象属性" web-class="classLabel"></label>
+            <block type="class_attr_get"></block>
+            <block type="class_attr_set"></block>
+            <block type="class_attr_call"></block>
+        </category>
         <category name="自定义块" colour="#888888">
             <block type="explain"></block>
             <block type="explain_multi"></block>

@@ -22,6 +22,9 @@ export class BlocklierTheme {
       list_blocks: {
         colourPrimary: '#38b793',
       },
+      class_blocks: {
+        colourPrimary: '#7052e3',
+      },
       colour_blocks: {
         colourPrimary: '#939393',
       },

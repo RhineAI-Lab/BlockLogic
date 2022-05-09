@@ -1,6 +1,7 @@
-import {defineBlocksWithDt} from "../../register";
+import { defineBlocksWithDt } from '../../register';
 
-defineBlocksWithDt(`
+defineBlocksWithDt(
+  `
 
 prefix: layers
 style: layer_blocks
@@ -113,4 +114,6 @@ import: from torchvision import models
 models.efficientnet_$A0(pretrained=$A1)
 
 
-`, true);
+`,
+  true,
+);

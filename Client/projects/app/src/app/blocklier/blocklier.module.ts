@@ -1,6 +1,7 @@
 import './definitions';
 import './definitions/base/blocks'; // deprecated
 import './definitions/base/generators'; // deprecated
+import './definitions/base/mix'; // deprecated
 import './definitions/autojs/blocks'; // deprecated
 import './definitions/autojs/generators'; // deprecated
 import './definitions/dl/blocks'; // deprecated
