@@ -80,4 +80,37 @@ Python
 import: from torch import nn
 nn.$A0($A1, $A2)
 
+rnn: Module
+RNN层   输入(number:10) 隐藏大小(number:10) 层数(number:2)
+help: torch.nn.RNN.html#torch.nn.RNN
+tip: 创建RNN层。
+Python
+import: from torch import nn
+nn.RNN($A0, $A1, $A2)
+
+lstm: Module
+LSTM层   输入(number:10) 隐藏大小(number:10) 层数(number:2)
+help: torch.nn.LSTM.html#torch.nn.LSTM
+tip: 创建LSTM层。
+Python
+import: from torch import nn
+nn.LSTM($A0, $A1, $A2)
+
+help: https://pytorch.org/vision/0.12/
+
+vision: Module
+视觉模型[resnet18/alexnet/vgg16].  预训练(checkbox:true)
+help: models.html
+Python
+import: from torchvision import models
+models.$A0(pretrained=$A1)
+
+efficient: Module
+高效模型[b0/b1/b2/b3/b4/b5/b6/b7].  预训练(checkbox:true)
+help: models.html
+Python
+import: from torchvision import models
+models.efficientnet_$A0(pretrained=$A1)
+
+
 `, true);

@@ -521,6 +521,11 @@
             <block type="layers_sigmoid"></block>
             <block type="layers_relu"></block>
             <block type="layers_dropout"></block>
+            <label text="高级" style="dlLabel"></label>
+            <block type="layers_rnn"></block>
+            <block type="layers_lstm"></block>
+            <block type="layers_vision"></block>
+            <block type="layers_efficient"></block>
             <label text="完整使用" style="dlLabel"></label>
             <block type="layers_linear_full">
                 <value name="A0">
