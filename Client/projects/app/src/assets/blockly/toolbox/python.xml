@@ -36,7 +36,7 @@
             <block type="explain"></block>
             <block type="puzzle_block"></block>
         </category>
-        <category name="循环" categorystyle="loop_category">
+        <category name="循环" categorystyle="loop_blocks">
             <block type="controls_repeat_ext">
                 <value name="TIMES">
                     <shadow type="math_number">

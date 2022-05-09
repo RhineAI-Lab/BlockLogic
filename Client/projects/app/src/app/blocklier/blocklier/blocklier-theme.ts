@@ -8,10 +8,10 @@ export class BlocklierTheme {
         colourPrimary: '#38b793',
       },
       logic_blocks: {
-        colourPrimary: '#4faf38',
+        colourPrimary: '#45a92d',
       },
       loop_blocks: {
-        colourPrimary: '#4274d5',
+        colourPrimary: '#487ce3',
       },
       math_blocks: {
         colourPrimary: '#3d98e3',
@@ -64,3 +64,24 @@ export class BlocklierTheme {
     },
   });
 }
+
+function getColorFromTheme(key: string): string {
+  const style = BlocklierTheme.theme.blockStyles[key + '_blocks'];
+  return style ? style.colourPrimary : '#aaaaaa';
+}
+export const colorMap = new Map<string, string>();
+colorMap.set('常用语句', '#888888');
+colorMap.set('循环', getColorFromTheme('loop'));
+colorMap.set('变量', getColorFromTheme('variable'));
+colorMap.set('函数', getColorFromTheme('procedure'));
+colorMap.set('逻辑', getColorFromTheme('logic'));
+colorMap.set('数学', getColorFromTheme('math'));
+colorMap.set('文本', getColorFromTheme('text'));
+colorMap.set('集合', getColorFromTheme('list'));
+colorMap.set('对象', getColorFromTheme('class'));
+colorMap.set('自定义块', '#aaaaaa');
+colorMap.set('数据增强', getColorFromTheme('transforms'));
+colorMap.set('模型定义', getColorFromTheme('module'));
+colorMap.set('内置模型/层', getColorFromTheme('layer'));
+colorMap.set('', getColorFromTheme(''));
+//TODO: 添加js模式颜色

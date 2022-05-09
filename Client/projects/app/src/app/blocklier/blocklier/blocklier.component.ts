@@ -14,7 +14,7 @@ import 'blockly/blocks';
 import 'blockly/python';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
-import {BlocklierTheme} from "./blocklier-theme";
+import { BlocklierTheme, colorMap } from './blocklier-theme';
 
 @Component({
   selector: 'app-blocklier',
@@ -32,8 +32,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
 
   constructor(private httpClient: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     let toolboxPath = 'assets/blockly/toolbox/';
@@ -68,26 +67,29 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           toolbox: xml,
         });
         this.workspace.registerButtonCallback('varCreateAny', (button) => {
-          this.createVariable(button,undefined);
+          this.createVariable(button, undefined);
         });
         this.workspace.registerButtonCallback('varCreateNumber', (button) => {
-          this.createVariable(button,'Number');
+          this.createVariable(button, 'Number');
         });
         this.workspace.registerButtonCallback('varCreateBoolean', (button) => {
-          this.createVariable(button,'Boolean');
+          this.createVariable(button, 'Boolean');
         });
         this.workspace.registerButtonCallback('varCreateString', (button) => {
-          this.createVariable(button,'String');
+          this.createVariable(button, 'String');
         });
         this.workspace.registerButtonCallback('varCreateArray', (button) => {
-          this.createVariable(button,'Array');
+          this.createVariable(button, 'Array');
         });
         this.workspace.registerButtonCallback('varCreateModule', (button) => {
-          this.createVariable(button,'Module');
+          this.createVariable(button, 'Module');
         });
-        this.workspace.registerButtonCallback('varCreateTransforms', (button) => {
-          this.createVariable(button,'Transforms');
-        });
+        this.workspace.registerButtonCallback(
+          'varCreateTransforms',
+          (button) => {
+            this.createVariable(button, 'Transforms');
+          },
+        );
 
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);
@@ -137,8 +139,8 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       const children = this.resolveToolboxCategories($host, depth + 1);
       if (children.length) $row.click(); // expand the child categories.
       const name = $label.innerHTML;
-      const colorRgba = $row.style.borderLeftColor;
-      const color = colorRgba ? rgba2hex(colorRgba) : '#aaaaaa';
+      let color = colorMap.get(name);
+      color = color ? color : '#aaaaaa';
       results.push({ name, depth, $host, $row, children, color });
     }
     return results;
@@ -146,7 +148,11 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
   }
 
   createVariable(button: any, type: string | undefined): void {
-    Blockly.Variables.createVariableButtonHandler(button.getTargetWorkspace(), undefined, type);
+    Blockly.Variables.createVariableButtonHandler(
+      button.getTargetWorkspace(),
+      undefined,
+      type,
+    );
   }
 }
 
