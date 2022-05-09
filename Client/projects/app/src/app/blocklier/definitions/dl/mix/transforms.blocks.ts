@@ -47,6 +47,14 @@ tip: 对图片进行上下左右以及中心裁剪，然后水平/垂直翻转�
 Python
 import: from torchvision import transforms
 transforms.TenCrop(size=$A0,vertical_flip=$A1)
+
+RandomHorizontalFlip: Transforms
+随机水平翻转 概率为{num}
+inline: 1
+tip: 指定概率，对图片进行随机水平翻转
+Python
+import: from torchvision import transforms
+transforms.RandomHorizontalFlip(p=$A0)
 `);
 
 defineBlocksWithDt(`
