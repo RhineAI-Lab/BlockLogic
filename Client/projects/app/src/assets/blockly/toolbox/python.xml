@@ -531,6 +531,13 @@
                     </shadow>
                 </value>
             </block>
+            <block type="transforms_RandomVerticalFlip">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">0.5</field>
+                    </shadow>
+                </value>
+            </block>
         </category>
         <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>
