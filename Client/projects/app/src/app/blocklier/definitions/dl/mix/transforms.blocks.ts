@@ -14,7 +14,6 @@ Python
 import: from torchvision import transforms
 transforms.RandomCrop(size=$A0,padding=$A1)
 
-<<<<<<< Updated upstream
 CenterCrop: Transforms
 中心裁剪 尺寸{num,Array}
 inline: 1

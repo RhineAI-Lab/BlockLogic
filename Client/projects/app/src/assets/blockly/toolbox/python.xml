@@ -87,6 +87,7 @@
         </category>
         <category name="变量" categorystyle="variable_category">
             <label text="通用变量" style="varLabel"></label>
+            <button text="创建通用变量" callbackKey="varCreateAny"></button>
             <block type="variables_get">
                 <field name="VAR">a</field>
             </block>
@@ -94,6 +95,7 @@
                 <field name="VAR">a</field>
             </block>
             <label text="数学变量" style="varLabel"></label>
+            <button text="创建数字变量" callbackKey="varCreateNumber"></button>
             <block type="variables_get_number"></block>
             <block type="variables_set_number">
                 <value name="VALUE">
@@ -110,6 +112,7 @@
                 </value>
             </block>
             <label text="文本变量" style="varLabel"></label>
+            <button text="创建文本变量" callbackKey="varCreateString"></button>
             <block type="variables_get_string"></block>
             <block type="variables_set_string">
                 <value name="VALUE">
@@ -126,6 +129,7 @@
                 </value>
             </block>
             <label text="布尔值变量" style="varLabel"></label>
+            <button text="创建布尔值变量" callbackKey="varCreateBoolean"></button>
             <block type="variables_get_boolean"></block>
             <block type="variables_set_boolean">
                 <value name="VALUE">
@@ -454,7 +458,8 @@
     <category name="深度学习">
         <category name="数据集"></category>
         <category name="数据增强">
-            <label text="对象" style="dlLabel"></label>
+            <label text="对象变量" style="dlLabel"></label>
+            <button text="创建数据增强对象" callbackKey="varCreateTransforms"></button>
             <block type="transforms_set"></block>
             <block type="transforms_call"></block>
             <block type="transforms_get"></block>
@@ -589,6 +594,7 @@
         </category>
         <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>
+            <button text="创建模型对象" callbackKey="varCreateModule"></button>
             <block type="modules_set"></block>
             <block type="modules_call"></block>
             <block type="modules_get"></block>

@@ -67,6 +67,28 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
           renderer: BlocklierRenderer.name,
           toolbox: xml,
         });
+        this.workspace.registerButtonCallback('varCreateAny', (button) => {
+          this.createVariable(button,undefined);
+        });
+        this.workspace.registerButtonCallback('varCreateNumber', (button) => {
+          this.createVariable(button,'Number');
+        });
+        this.workspace.registerButtonCallback('varCreateBoolean', (button) => {
+          this.createVariable(button,'Boolean');
+        });
+        this.workspace.registerButtonCallback('varCreateString', (button) => {
+          this.createVariable(button,'String');
+        });
+        this.workspace.registerButtonCallback('varCreateArray', (button) => {
+          this.createVariable(button,'Array');
+        });
+        this.workspace.registerButtonCallback('varCreateModule', (button) => {
+          this.createVariable(button,'Module');
+        });
+        this.workspace.registerButtonCallback('varCreateTransforms', (button) => {
+          this.createVariable(button,'Transforms');
+        });
+
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);
         });
@@ -121,6 +143,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
     }
     return results;
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
+  }
+
+  createVariable(button: any, type: string | undefined): void {
+    Blockly.Variables.createVariableButtonHandler(button.getTargetWorkspace(), undefined, type);
   }
 }
 
