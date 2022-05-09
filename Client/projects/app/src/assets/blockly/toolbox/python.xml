@@ -36,7 +36,7 @@
             <block type="explain"></block>
             <block type="puzzle_block"></block>
         </category>
-        <category name="循环" categorystyle="loop_blocks">
+        <category name="循环" categorystyle="loop_category">
             <block type="controls_repeat_ext">
                 <value name="TIMES">
                     <shadow type="math_number">
@@ -85,59 +85,6 @@
             </block>
             <block type="controls_flow_statements"></block>
         </category>
-        <category name="变量" categorystyle="variable_category">
-            <label text="通用变量" style="varLabel"></label>
-            <button text="创建通用变量" callbackKey="varCreateAny"></button>
-            <block type="variables_get">
-                <field name="VAR">a</field>
-            </block>
-            <block type="variables_set">
-                <field name="VAR">a</field>
-            </block>
-            <label text="数学变量" style="varLabel"></label>
-            <button text="创建数字变量" callbackKey="varCreateNumber"></button>
-            <block type="variables_get_number"></block>
-            <block type="variables_set_number">
-                <value name="VALUE">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="variables_add_number">
-                <value name="VALUE">
-                    <shadow type="math_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                </value>
-            </block>
-            <label text="文本变量" style="varLabel"></label>
-            <button text="创建文本变量" callbackKey="varCreateString"></button>
-            <block type="variables_get_string"></block>
-            <block type="variables_set_string">
-                <value name="VALUE">
-                    <shadow type="text">
-                        <field name="TEXT"></field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="variables_add_string">
-                <value name="VALUE">
-                    <shadow type="text">
-                        <field name="TEXT"></field>
-                    </shadow>
-                </value>
-            </block>
-            <label text="布尔值变量" style="varLabel"></label>
-            <button text="创建布尔值变量" callbackKey="varCreateBoolean"></button>
-            <block type="variables_get_boolean"></block>
-            <block type="variables_set_boolean">
-                <value name="VALUE">
-                    <shadow type="logic_boolean"></shadow>
-                </value>
-            </block>
-        </category>
-        <category name="函数" categorystyle="procedure_category" custom="PROCEDURE"></category>
         <category name="逻辑" categorystyle="logic_category">
             <block type="controls_if"></block>
             <block type="logic_compare"></block>
@@ -435,7 +382,60 @@
             <block type="lists_sort"></block>
             <block type="lists_isEmpty"></block>
         </category>
-        <category name="对象" categorystyle="class_category">
+        <category name="变量" categorystyle="variable_category">
+            <label text="通用变量" style="varLabel"></label>
+            <button text="创建通用变量" callbackKey="varCreateAny"></button>
+            <block type="variables_get">
+                <field name="VAR">a</field>
+            </block>
+            <block type="variables_set">
+                <field name="VAR">a</field>
+            </block>
+            <label text="数学变量" style="varLabel"></label>
+            <button text="创建数字变量" callbackKey="varCreateNumber"></button>
+            <block type="variables_get_number"></block>
+            <block type="variables_set_number">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="variables_add_number">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <label text="文本变量" style="varLabel"></label>
+            <button text="创建文本变量" callbackKey="varCreateString"></button>
+            <block type="variables_get_string"></block>
+            <block type="variables_set_string">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="variables_add_string">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <label text="布尔值变量" style="varLabel"></label>
+            <button text="创建布尔值变量" callbackKey="varCreateBoolean"></button>
+            <block type="variables_get_boolean"></block>
+            <block type="variables_set_boolean">
+                <value name="VALUE">
+                    <shadow type="logic_boolean"></shadow>
+                </value>
+            </block>
+        </category>
+        <category name="函数" categorystyle="procedure_category" custom="PROCEDURE"></category>
+        <category name="对象">
             <label text="定义/构造" web-class="classLabel"></label>
             <block type="class_define"></block>
             <block type="class_new"></block>

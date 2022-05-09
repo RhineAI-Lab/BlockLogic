@@ -90,5 +90,5 @@ import: from torchvision import transforms
 transforms.Normalize(mean=$A0,std=$A1)
 
 `,
-  true,
+  false,
 );

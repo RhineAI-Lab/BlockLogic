@@ -115,5 +115,5 @@ models.efficientnet_$A0(pretrained=$A1)
 
 
 `,
-  true,
+  false,
 );
