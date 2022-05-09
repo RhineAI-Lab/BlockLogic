@@ -562,6 +562,18 @@
                     </shadow>
                 </value>
             </block>
+            <block type="transforms_Normalize">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">maen</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="variables_get">
+                        <field name="VAR">std</field>
+                    </block>
+                </value>
+            </block>
         </category>
         <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>

@@ -80,6 +80,13 @@ Python
 import: from torchvision import transforms
 transforms.Resize(size=[$A0,$A1])
 
+Normalize: Tensor
+归一化 均值{Array} 方差{Array}
+inline: 1
+tip: 进行归一化
+Python
+import: from torchvision import transforms
+transforms.Normalize(mean=$A0,std=$A1)
 `);
 
 defineBlocksWithDt(`
