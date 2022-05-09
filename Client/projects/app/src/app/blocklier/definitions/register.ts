@@ -214,7 +214,7 @@ function registerGenerator(
           )}'] = '${value}';\n`;
         } else if (key == 'order') {
           if (value.match(/^[0-9]+$/)) {
-            order = parseInt(value);
+            order = parseFloat(value);
           } else {
             order = Python['ORDER_' + value];
           }
@@ -299,11 +299,11 @@ function parseArgs(msg: string, argsN: number = 0): any {
         if (key == 'input') {
           arg.text = value;
         } else if (key == 'number') {
-          arg.value = parseInt(value);
+          arg.value = parseFloat(value);
         } else if (key == 'checkbox') {
           arg.checked = eval(value);
         } else if (key == 'angle') {
-          arg.angle = parseInt(value);
+          arg.angle = parseFloat(value);
         }
       } else {
         console.warn('unknown arg: (' + inner + ')');
