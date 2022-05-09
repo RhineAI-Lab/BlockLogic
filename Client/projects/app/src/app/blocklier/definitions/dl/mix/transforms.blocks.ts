@@ -31,6 +31,14 @@ tip: 对图片进行随机裁剪
 Python
 import: from torchvision import transforms
 transforms.RandomResizedCrop(size=$A0,scale=($A1，$A2))
+
+FiveCrop: Transforms
+上下左右中心裁剪 尺寸{num,Array}
+inline: 1
+tip: 对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor
+Python
+import: from torchvision import transforms
+transforms.FiveCrop(size=$A0)
 `);
 
 defineBlocksWithDt(`
