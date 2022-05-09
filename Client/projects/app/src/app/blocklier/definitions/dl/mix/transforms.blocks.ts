@@ -32,7 +32,7 @@ Python
 import: from torchvision import transforms
 transforms.RandomResizedCrop(size=$A0,scale=($A1，$A2))
 
-FiveCrop: Transforms
+FiveCrop: Tensor
 上下左右中心裁剪 尺寸{num,Array}
 inline: 1
 tip: 对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor
@@ -40,7 +40,7 @@ Python
 import: from torchvision import transforms
 transforms.FiveCrop(size=$A0)
 
-TenCrop: Transforms
+TenCrop: Tensor
 上下左右中心裁剪 尺寸{num,Array} 再[水平:False/垂直:True]翻转
 inline: 1
 tip: 对图片进行上下左右以及中心裁剪，然后水平/垂直翻转，获得10张图片，返回一个4D-tensor
