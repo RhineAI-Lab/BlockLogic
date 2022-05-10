@@ -2,7 +2,6 @@ import { defineBlocksWithDt } from '../../register';
 
 defineBlocksWithDt(
   `
-
 prefix: transforms
 style: transforms_blocks
 
@@ -33,7 +32,7 @@ Python
 import: from torchvision import transforms
 transforms.RandomResizedCrop(size=$A0,scale=($A1，$A2))
 
-FiveCrop: Tensor
+FiveCrop: Transforms
 上下左右中心裁剪 尺寸{num,Array}
 inline: 1
 tip: 对图片进行上下左右以及中心裁剪，获得5张图片，返回一个4D-tensor
@@ -41,7 +40,7 @@ Python
 import: from torchvision import transforms
 transforms.FiveCrop(size=$A0)
 
-TenCrop: Tensor
+TenCrop: Transforms
 上下左右中心裁剪 尺寸{num,Array} 再[水平:False/垂直:True]翻转
 inline: 1
 tip: 对图片进行上下左右以及中心裁剪，然后水平/垂直翻转，获得10张图片，返回一个4D-tensor
@@ -81,7 +80,7 @@ Python
 import: from torchvision import transforms
 transforms.Resize(size=[$A0,$A1])
 
-Normalize: Tensor
+Normalize: Transforms
 归一化 均值{Array} 方差{Array}
 inline: 1
 tip: 进行归一化
@@ -89,6 +88,29 @@ Python
 import: from torchvision import transforms
 transforms.Normalize(mean=$A0,std=$A1)
 
+ColorJitter: Transforms
+修改[亮度:brightness/对比度:contrast/饱和度:saturation/色相:hue] 区间从{num}到{num}
+inline: 1
+tip: 进行修改亮度/对比度/饱和度/色相
+Python
+import: from torchvision import transforms
+transforms.ColorJitte($A0=($A1,$A2))
+
+Grayscale: Transforms
+转换为灰度图 通道数为[1/3]
+inline: 1
+tip: 转换为灰度图
+Python
+import: from torchvision import transforms
+transforms.Grayscale(num_output_channels=$A0)
+
+RandomGrayscale: Transforms
+转换为灰度图 通道数为[1/3] 概率为{num}
+inline: 1
+tip: 转换为灰度图
+Python
+import: from torchvision import transforms
+transforms.Grayscale(num_output_channels=$A0, p=$A1)
 `,
   false,
 );
