@@ -1,8 +1,6 @@
 import { defineBlocksWithDt } from '../../register';
 
-defineBlocksWithDt(
-  `
-
+defineBlocksWithDt(`
 prefix: transforms
 style: transforms_blocks
 
@@ -88,6 +86,17 @@ tip: 进行归一化
 Python
 import: from torchvision import transforms
 transforms.Normalize(mean=$A0,std=$A1)
+
+ColorJitter: Tensor
+修改[亮度:brightness/对比度:contrast/饱和度:saturation/色相:hue] 区间从{num}到{num}
+inline: 1
+tip: 进行修改亮度/对比度/饱和度/色相
+Python
+import: from torchvision import transforms
+transforms.ColorJitte($A0=($A1,$A2))
+
+
+
 
 `,
   false,
