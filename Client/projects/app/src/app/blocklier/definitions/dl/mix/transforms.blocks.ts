@@ -1,6 +1,7 @@
 import { defineBlocksWithDt } from '../../register';
 
-defineBlocksWithDt(`
+defineBlocksWithDt(
+  `
 prefix: transforms
 style: transforms_blocks
 
@@ -103,7 +104,13 @@ Python
 import: from torchvision import transforms
 transforms.Grayscale(num_output_channels=$A0)
 
-
+RandomGrayscale: Transforms
+转换为灰度图 通道数为[1/3] 概率为{num}
+inline: 1
+tip: 转换为灰度图
+Python
+import: from torchvision import transforms
+transforms.Grayscale(num_output_channels=$A0, p=$A1)
 `,
   false,
 );

@@ -34,7 +34,7 @@
             </block>
             <block type="logic_compare"/>
             <block type="explain"/>
-            <block type="puzzle_block"></block>
+            <block type="puzzle_block"/>
         </category>
         <category name="循环" categorystyle="loop_category">
             <block type="controls_repeat_ext">
@@ -44,8 +44,8 @@
                     </shadow>
                 </value>
             </block>
-            <block type="controls_repeat"></block>
-            <block type="controls_whileUntil"></block>
+            <block type="controls_repeat"/>
+            <block type="controls_whileUntil"/>
             <block type="controls_for">
                 <value name="FROM">
                     <shadow type="math_number">
@@ -83,16 +83,16 @@
                     </shadow>
                 </value>
             </block>
-            <block type="controls_flow_statements"></block>
+            <block type="controls_flow_statements"/>
         </category>
         <category name="逻辑" categorystyle="logic_category">
-            <block type="controls_if"></block>
-            <block type="logic_compare"></block>
-            <block type="logic_operation"></block>
-            <block type="logic_negate"></block>
-            <block type="logic_boolean"></block>
-            <block type="logic_null"></block>
-            <block type="logic_ternary"></block>
+            <block type="controls_if"/>
+            <block type="logic_compare"/>
+            <block type="logic_operation"/>
+            <block type="logic_negate"/>
+            <block type="logic_boolean"/>
+            <block type="logic_null"/>
+            <block type="logic_ternary"/>
         </category>
         <category name="数学" categorystyle="math_category">
             <block type="math_number" gap="32">
@@ -124,7 +124,7 @@
                     </shadow>
                 </value>
             </block>
-            <block type="math_constant"></block>
+            <block type="math_constant"/>
             <block type="math_number_property">
                 <value name="NUMBER_TO_CHECK">
                     <shadow type="math_number">
@@ -604,7 +604,13 @@
                 </value>
             </block>
             <block type="transforms_Grayscale"></block>
-            
+            <block type="transforms_RandomGrayscale">
+                <value name="A1">
+                    <shadow type="math_number">
+                        <field name="NUM">0.5</field>
+                    </shadow>
+                </value>
+            </block>
         </category>
         <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>
@@ -663,5 +669,5 @@
         <category name="张量"></category>
         <category name="Numpy"></category>
     </category>
-    <category name="图像处理"></category>
+    <category name="图像处理"/>
 </xml>
