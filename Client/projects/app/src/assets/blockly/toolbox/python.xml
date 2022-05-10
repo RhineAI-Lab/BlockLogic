@@ -8,7 +8,7 @@
                     </shadow>
                 </value>
             </block>
-            <block type="controls_if"></block>
+            <block type="controls_if"/>
             <block type="controls_repeat_ext">
                 <value name="TIMES">
                     <shadow type="math_number">
@@ -19,7 +19,7 @@
             <block type="math_number" gap="32">
                 <field name="NUM">123</field>
             </block>
-            <block type="text"></block>
+            <block type="text"/>
             <block type="math_arithmetic">
                 <value name="A">
                     <shadow type="math_number">
@@ -32,8 +32,8 @@
                     </shadow>
                 </value>
             </block>
-            <block type="logic_compare"></block>
-            <block type="explain"></block>
+            <block type="logic_compare"/>
+            <block type="explain"/>
             <block type="puzzle_block"></block>
         </category>
         <category name="循环" categorystyle="loop_category">
@@ -63,7 +63,7 @@
                     </shadow>
                 </value>
             </block>
-            <block type="controls_forEach"></block>
+            <block type="controls_forEach"/>
             <block type="base_more_enum">
                 <value name="SEQUENCE">
                     <block type="variables_get">
@@ -603,6 +603,8 @@
                     </shadow>
                 </value>
             </block>
+            <block type="transforms_Grayscale"></block>
+            
         </category>
         <category name="模型定义">
             <label text="对象变量" style="dlLabel"></label>

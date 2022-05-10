@@ -94,6 +94,16 @@ tip: 进行修改亮度/对比度/饱和度/色相
 Python
 import: from torchvision import transforms
 transforms.ColorJitte($A0=($A1,$A2))
+
+Grayscale: Transforms
+转换为灰度图 通道数为[1/3]
+inline: 1
+tip: 转换为灰度图
+Python
+import: from torchvision import transforms
+transforms.Grayscale(num_output_channels=$A0)
+
+
 `,
   false,
 );
