@@ -17,6 +17,24 @@ get: Learner
 Python
 $A0
 
+create
+创建学习器(var learner:Learner) 损失:{Loss}优化器:{Optimizer:R}
+inline: false
+Python
+$A0 = $A1, $A2
+
+use
+执行学习器(var learner:Learner) 实际值:{Tensor}预测值:{Tensor:R}赋值损失结果到{num:R}
+inline: false
+Python
+optimizer, loss_f = $A0
+l = loss_f($A1, $A2)
+optimizer.zero_grad()
+l.backward()
+optimizer.step()
+$A3 = l.cpu().item()
+
+
 prefix: optimizer
 
 new: Optimizer,Function
