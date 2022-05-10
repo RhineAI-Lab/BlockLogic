@@ -38,8 +38,8 @@ $A3 = l.cpu().item()
 prefix: optimizer
 
 new: Optimizer,Function
-创建[SGD/Adam/RMSprop]优化器 模型{Module} 学习率{num}
-inline: true
+创建[SGD/Adam/RMSprop]优化器 模型:{Module} 学习率:{num:R}
+inline: false
 Python
 import: from torch import optim
 optim.$A0($A1.parameters(), $A2)

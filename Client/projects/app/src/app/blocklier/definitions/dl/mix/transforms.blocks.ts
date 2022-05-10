@@ -80,13 +80,21 @@ Python
 import: from torchvision import transforms
 transforms.Resize(size=[$A0,$A1])
 
-Normalize: Transforms
-归一化 均值{Array} 方差{Array}
+NormalizeRgb: Transforms
+多通道归一化 均值{Array} 方差{Array}
 inline: 1
 tip: 进行归一化
 Python
 import: from torchvision import transforms
 transforms.Normalize(mean=$A0,std=$A1)
+
+Normalize: Transforms
+归一化 均值{num} 方差{num}
+inline: 1
+tip: 进行归一化
+Python
+import: from torchvision import transforms
+transforms.Normalize(mean=($A0,),std=($A1,))
 
 ColorJitter: Transforms
 修改[亮度:brightness/对比度:contrast/饱和度:saturation/色相:hue] 区间从{num}到{num}

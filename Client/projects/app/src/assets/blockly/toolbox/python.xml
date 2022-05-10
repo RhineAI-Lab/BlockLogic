@@ -593,6 +593,7 @@
                     </shadow>
                 </value>
             </block>
+            <block type="transforms_NormalizeRgb"></block>
             <block type="transforms_ColorJitter">
                 <value name="A1">
                     <shadow type="math_number">
