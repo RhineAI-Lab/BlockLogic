@@ -90,6 +90,12 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
             this.createVariable(button, 'Transforms');
           },
         );
+        this.workspace.registerButtonCallback(
+          'varCreateLearner',
+          (button) => {
+            this.createVariable(button, 'Learner');
+          },
+        );
 
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);

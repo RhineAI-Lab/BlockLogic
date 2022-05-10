@@ -46,6 +46,9 @@ export class BlocklierTheme {
       transforms_blocks: {
         colourPrimary: '#38b793',
       },
+      learner_blocks: {
+        colourPrimary: '#5360ee',
+      },
     },
   });
 
@@ -83,5 +86,6 @@ colorMap.set('自定义块', '#aaaaaa');
 colorMap.set('数据增强', getColorFromTheme('transforms'));
 colorMap.set('模型定义', getColorFromTheme('module'));
 colorMap.set('内置模型/层', getColorFromTheme('layer'));
+colorMap.set('学习', getColorFromTheme('learner'));
 colorMap.set('', getColorFromTheme(''));
 //TODO: 添加js模式颜色

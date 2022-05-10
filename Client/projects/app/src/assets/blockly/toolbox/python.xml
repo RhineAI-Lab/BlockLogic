@@ -1,5 +1,5 @@
 <xml>
-    <category name="语法-Python">
+    <category name="基础-Python">
         <category name="常用语句" colour="#aaaaaa">
             <block type="text_print">
                 <value name="TEXT">
@@ -382,6 +382,8 @@
             <block type="lists_sort"></block>
             <block type="lists_isEmpty"></block>
         </category>
+    </category>
+    <category name="进阶语法-Python">
         <category name="变量" categorystyle="variable_category">
             <label text="通用变量" style="varLabel"></label>
             <button text="创建通用变量" callbackKey="varCreateAny"></button>
@@ -456,7 +458,7 @@
         </category>
     </category>
     <category name="深度学习">
-        <category name="数据集"></category>
+        <category name="导入数据"></category>
         <category name="数据增强">
             <label text="对象变量" style="dlLabel"></label>
             <button text="创建数据增强对象" callbackKey="varCreateTransforms"></button>
@@ -641,8 +643,16 @@
             <block type="layers_conv_full"></block>
             <block type="layers_pool_full"></block>
         </category>
-        <category name="损失函数"></category>
-        <category name="优化器"></category>
+        <category name="学习">
+            <label text="对象变量" style="dlLabel"></label>
+            <button text="创建学习对象" callbackKey="varCreateLearner"></button>
+            <block type="learner_set"></block>
+            <block type="learner_get"></block>
+            <label text="损失函数" style="dlLabel"></label>
+            <block type="loss_new"></block>
+            <label text="优化器" style="dlLabel"></label>
+            <block type="optimizer_new"></block>
+        </category>
         <category name="训练/测试"></category>
     </category>
     <category name="多维数据运算">
