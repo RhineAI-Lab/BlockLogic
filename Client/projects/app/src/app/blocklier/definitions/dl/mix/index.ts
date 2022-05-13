@@ -3,3 +3,4 @@ import './transforms.blocks';
 import './example.blocks';
 import './module.blocks';
 import './learner.blocks';
+import './data.blocks';

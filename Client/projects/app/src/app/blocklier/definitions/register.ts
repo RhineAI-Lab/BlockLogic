@@ -244,7 +244,11 @@ function registerGenerator(
           '}' +
           code.substring(res.index + len);
       }
-      fs += `code = \`${code}\`\n`;
+      if(block.output === undefined){
+        fs += `code = \`${code}\`\n`;
+      }else {
+        fs += `code = \`${code}\`\n`;
+      }
     }
   }
   if (block.output === undefined) {
