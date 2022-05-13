@@ -53,5 +53,5 @@ import: from torch import nn
 nn.$A0()
 
 `,
-  true,
+  false,
 );
