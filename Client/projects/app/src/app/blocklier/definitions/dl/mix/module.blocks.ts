@@ -26,6 +26,18 @@ list_connector
 Python
 $A0,\\n
 
+device: Device
+设备:[建议设备:'cuda' if torch.cuda.is_available() else 'cpu'/CPU:'cpu'/CUDA:'cuda']
+Python
+import: import torch
+torch.device($A0)
+
+module_to_device
+转换{Module,Tensor}到设备{Device}
+inline: false
+Python
+$A0 = $A0.to($A1)
+
 `,
   false,
 );

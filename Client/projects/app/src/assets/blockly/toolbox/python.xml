@@ -674,6 +674,22 @@
                     <block type="modules_list_connector"></block>
                 </statement>
             </block>
+            <label text="设备" style="dlLabel"></label>
+            <block type="modules_device"></block>
+            <block type="variables_set">
+                <field name="VAR">device</field>
+                <value name="VALUE">
+                    <block type="modules_device"></block>
+                </value>
+            </block>
+            <block type="variables_get">
+                <field name="VAR">device</field>
+            </block>
+            <block type="modules_module_to_device">
+                <value name="A0">
+                    <block type="modules_device"></block>
+                </value>
+            </block>
         </category>
         <category name="内置模型/层">
             <label text="简洁使用 (属性IO为输入输出尺寸)" style="dlLabel"></label>
