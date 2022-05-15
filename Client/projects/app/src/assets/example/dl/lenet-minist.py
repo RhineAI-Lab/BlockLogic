@@ -1,92 +1,41 @@
-import time
 import torch
-import torchvision
 from torchvision import transforms
+from torchvision import datasets
+from torch.utils import data
 from torch import nn
 
-# 定义超参数
+EPOCHS = None
+trans = None
+net = None
+LR = None
+train_loader = None
+test_loader = None
+BATCH_SIZE = None
+device = None
+
+class MyModule(nn.Module):
+    def __init__(self):
+        super(MyModule, self).__init__()
+    def forward(self, x):
+        return x
+
+
 EPOCHS = 5
 LR = 0.001
 BATCH_SIZE = 32
-
-# 导入数据集
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.1307,), (0.3081,))
-])
-train_datasets = torchvision.datasets.MNIST('I:\data', train=True, download=True, transform=transform)
-train_loader = torch.utils.data.DataLoader(train_datasets, batch_size=BATCH_SIZE, shuffle=True)
-test_datasets = torchvision.datasets.MNIST('I:\data', train=False, download=True, transform=transform)
-test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=BATCH_SIZE, shuffle=True)
-
-# 定义网络结构
-class LeNet(nn.Module):
-    def __init__(self):
-        super(LeNet, self).__init__()
-        self.conv = nn.Sequential(
-            nn.Conv2d(1, 6, 5),
-            nn.Sigmoid(),
-            nn.MaxPool2d(2, 2),
-            nn.Conv2d(6, 16, 5),
-            nn.Sigmoid(),
-            nn.MaxPool2d(2, 2),
-        )
-        self.fc = nn.Sequential(
-            nn.Linear(16*4*4, 120),
-            nn.Sigmoid(),
-            nn.Linear(120, 84),
-            nn.Sigmoid(),
-            nn.Linear(84, 10)
-        )
-    def forward(self, img):
-        feature = self.conv(img)
-        output = self.fc(feature.view(img.shape[0], -1))
-        return output
-
-# 构建网络并打印其结构
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-net = LeNet().to(device)
-print(net)
 
-# 创建损失函数和优化器
-loss = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(net.parameters(), lr=LR)
+trans = transforms.Compose([
+    transforms.ToTensor(),
+    transforms.Normalize(mean=(0.2,),std=(0.3,))
+])
+train_datasets = datasets.MNIST(root='./data', train=True, download=True, transform=trans)
+train_loader = data.DataLoader(train_datasets, batch_size=16, shuffle=True)
+test_datasets = datasets.$A0(root=$A1, train=False, download=$A2, transform=trans)
+test_loader = data.DataLoader(test_datasets, batch_size=$A3, shuffle=False)
+net = MyModule()
 
-# 测试
-def evaluate_accuracy(data_loader, net, device=None):
-    if device is None and isinstance(net, nn.Module):
-        device = list(net.parameters())[0].device
-    acc_sum, n = 0.0, 0
-    with torch.no_grad():
-        for imgs, labels in data_loader:
-            if isinstance(net, nn.Module):
-                net.eval()
-                acc_sum += (net(imgs.to(device)).argmax(dim=1) == labels.to(device)).float().sum().cpu().item()
-                net.train()
-            else:
-                if('is_training' in net.__code__.co_varnames):
-                    acc_sum += (net(imgs, is_training=False).argmax(dim=1) == labels).float().sum().item()
-                else:
-                    acc_sum += (net(imgs).argmax(dim=1) == labels).float().sum().item()
-            n += labels.shape[0]
-    return acc_sum / n
 
-# 训练
-print("Training on: ", device)
-for epoch in range(EPOCHS):
-    train_l_sum, train_acc_sum, n, batch_count, start = 0.0, 0.0, 0, 0, time.time()
-    for imgs, labels in train_loader:
-        imgs, labels = imgs.to(device), labels.to(device)
-        preds = net(imgs)
-        l = loss(preds, labels)
-        optimizer.zero_grad()
-        l.backward()
-        optimizer.step()
-        train_l_sum += l.cpu().item()
-        train_acc_sum += (preds.argmax(dim=1) == labels).sum().cpu().item()
-        n += labels.shape[0]
-        batch_count += 1
-    test_acc = evaluate_accuracy(test_loader, net)
-    print('epoch %d, loss %.4f, train acc %.3f, test acc %.3f, time %.1f sec'
-          % (epoch + 1, train_l_sum / batch_count, train_acc_sum / n, test_acc, time.time() - start))
 
+#------ 图形块结构记录 请勿随意修改 ------
+"""<xml xmlns="https://logic.autojs.org/xml"><variables><variable type="Number" id="p}j*:grKH_lse0*vmlI5">EPOCHS</variable><variable type="Transforms" id="J.pI3`?(fq`=H4QNG)8s">trans</variable><variable type="Module" id="z-^Kkbx_Y7[8p%BS;NQZ">net</variable><variable type="Number" id="VT7FBuFk7tIkjZ=$I[$+">LR</variable><variable type="DataLoader" id="-_``}~[45xmtk,~p_mg_">train_loader</variable><variable type="DataLoader" id="i-wZ=?)*LugZ5e2]nM9y">test_loader</variable><variable type="Number" id="Yp/peRX$9oJAYN{A0%QF">BATCH_SIZE</variable><variable id="8u~!6cngUk3zLPx/@;G,">device</variable></variables><block type="variables_set_number" id="Q^)B8M+AXz/VE|YVv+tw" x="310" y="150"><field name="VAR" id="p}j*:grKH_lse0*vmlI5" variabletype="Number">EPOCHS</field><value name="VALUE"><shadow type="math_number" id="C@-p=z2JQ?`?P/kIA40$"><field name="NUM">5</field></shadow></value><next><block type="variables_set_number" id="H[ygz;8xpN!0Nv7tY|2h"><field name="VAR" id="VT7FBuFk7tIkjZ=$I[$+" variabletype="Number">LR</field><value name="VALUE"><shadow type="math_number" id="8;u%C!X7hF[NIB#`1eZY"><field name="NUM">0.001</field></shadow></value><next><block type="variables_set_number" id="jgtCMkgDWtd+dB;w)u[6"><field name="VAR" id="Yp/peRX$9oJAYN{A0%QF" variabletype="Number">BATCH_SIZE</field><value name="VALUE"><shadow type="math_number" id="jUK0pQMR?@se,QkRCM+/"><field name="NUM">32</field></shadow></value><next><block type="variables_set" id="FS^i7,:ML}V6QJ^lwe#k"><field name="VAR" id="8u~!6cngUk3zLPx/@;G,">device</field><value name="VALUE"><block type="modules_device" id="7@miNnitZzTdEPR7dc_0"><field name="A0">'cuda' if torch.cuda.is_available() else 'cpu'</field></block></value></block></next></block></next></block></next></block><block type="transforms_set" id="B)tH1#b)av1kHt!r/z--" x="310" y="310"><field name="VAR" id="J.pI3`?(fq`=H4QNG)8s" variabletype="Transforms">trans</field><value name="VALUE"><block type="transforms_compose" id=",r0/{RYi+I}HAf}?*u4F"><mutation items="2"></mutation><value name="ADD0"><block type="transforms_toTensor" id="oFT$k:7xU;5A9#rQ^[vv"></block></value><value name="ADD1"><block type="transforms_Normalize" id="aVRS_fZlg8^]$SQcZABZ"><value name="A0"><shadow type="math_number" id="/n[eZ-iV|X.7z77D.rT@"><field name="NUM">0.2</field></shadow></value><value name="A1"><shadow type="math_number" id="cF)cDQuXZcvkt;!-97,X"><field name="NUM">0.3</field></shadow></value></block></value></block></value><next><block type="data_mix_create" id="s0e*OtH=uY{f7W$lXAL."><field name="A0">MNIST</field><field name="A2">TRUE</field><field name="A4" id="-_``}~[45xmtk,~p_mg_" variabletype="DataLoader">train_loader</field><field name="A6" id="i-wZ=?)*LugZ5e2]nM9y" variabletype="DataLoader">test_loader</field><value name="A1"><shadow type="text" id="Vg+bIpbG0Cs%=|_ZZ7S^"><field name="TEXT">./data</field></shadow></value><value name="A3"><shadow type="math_number" id="%~iLM?I/chUL94mCWYtK"><field name="NUM">16</field></shadow></value><value name="A5"><block type="transforms_get" id=",,Iq}bFA9*4t%UhER^^_"><field name="VAR" id="J.pI3`?(fq`=H4QNG)8s" variabletype="Transforms">trans</field></block></value><value name="A7"><block type="transforms_get" id="TY7$XvE#B|Wj6KdCQ]Io"><field name="VAR" id="J.pI3`?(fq`=H4QNG)8s" variabletype="Transforms">trans</field></block></value></block></next></block><block type="modules_define" id="}v-jZWn0W~|qPnC]EXUP" x="310" y="550"><field name="VAR" id="z-^Kkbx_Y7[8p%BS;NQZ" variabletype="Module">net</field></block></xml>"""

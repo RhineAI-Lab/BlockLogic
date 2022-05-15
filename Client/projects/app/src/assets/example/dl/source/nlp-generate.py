@@ -7,8 +7,8 @@ def read_json(input_file: str) -> list:
         lines = f.readlines()
     return list(map(json.loads, lines))
 
-trainset = read_json(r"csl\csl_title_train.json")
-test = read_json(r"csl\csl_title_dev.json")
+trainset = read_json(r"../csl/csl_title_train.json")
+test = read_json(r"../csl/csl_title_dev.json")
 
 random.shuffle(trainset)
 train = trainset[:2500]
@@ -17,7 +17,7 @@ print('训练集大小：%d个训练样本'%(len(train)))
 print('开发集大小：%d个训练样本'%(len(dev)))
 print('每个训练样本的原始格式如下：\n',train[1])
 
-model_path = r"mengzi-t5-base"
+model_path = r"../mengzi-t5-base"
 Mengzi_tokenizer = T5Tokenizer.from_pretrained(model_path)
 Mengzi_model = T5ForConditionalGeneration.from_pretrained(model_path)
 
@@ -106,7 +106,7 @@ trainer.train()
 trainer.save_model("test/best") # 保存最好的模型
 
 # 开始推理
-test = read_json(r"csl\csl_title_dev.json")
+test = read_json(r"../csl/csl_title_dev.json")
 
 def preprocess(items):
     inputs = []
