@@ -229,20 +229,22 @@ function registerGenerator(
       fs += `${code}\n`;
     } else if (type == 'Python') {
       for (let i = 0; i < argNum; i++) {
-        let res = code.match(new RegExp('\\$A' + i + '([^0-9]|$)'));
-        if (res == null || res.index == null) {
-          continue;
+        while(true){
+          let res = code.match(new RegExp('\\$A' + i + '([^0-9]|$)'));
+          if (res == null || res.index == null) {
+            break;
+          }
+          let len = res[0].length - 1;
+          if (res.index + res.length + 1 == code.length) {
+            len++;
+          }
+          code =
+            code.substring(0, res.index) +
+            '${A' +
+            i +
+            '}' +
+            code.substring(res.index + len);
         }
-        let len = res[0].length - 1;
-        if (res.index + res.length + 1 == code.length) {
-          len++;
-        }
-        code =
-          code.substring(0, res.index) +
-          '${A' +
-          i +
-          '}' +
-          code.substring(res.index + len);
       }
       if(block.output === undefined){
         fs += `code = \`${code}\`\n`;

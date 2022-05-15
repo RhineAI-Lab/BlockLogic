@@ -61,6 +61,7 @@ Python.checkboxToCode = function (code: string) {
 }
 
 Python.defaultValue = function (type: string) {
+  type = type || '';
   let returnStr = '';
   if (type.includes('Number')) {
     returnStr = '0';
