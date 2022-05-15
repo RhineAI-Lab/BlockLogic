@@ -662,7 +662,18 @@
             <block type="modules_call"></block>
             <block type="modules_get"></block>
             <label text="创建" style="dlLabel"></label>
-            <block type="modules_define"></block>
+            <block type="modules_define">
+                <value name="INPUT">
+                    <block type="tensor_get">
+                        <field name="A0" variabletype="Tensor">x</field>
+                    </block>
+                </value>
+                <value name="OUTPUT">
+                    <block type="tensor_get">
+                        <field name="A0" variabletype="Tensor">x</field>
+                    </block>
+                </value>
+            </block>
             <label text="容器" style="dlLabel"></label>
             <block type="modules_sequential_create_e">
                 <statement name="A1">
