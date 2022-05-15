@@ -745,5 +745,15 @@
         <category name="张量"></category>
         <category name="Numpy"></category>
     </category>
-    <category name="图像处理"/>
+    <category name="图像处理">
+        <category name="读写文件">
+            <block type="cv2_imread">
+                <value name="A0">
+                    <block type="text">
+                        <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
+        </category>
+    </category>
 </xml>
