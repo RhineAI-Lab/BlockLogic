@@ -747,6 +747,13 @@
             <button text="创建张量" callbackKey="varCreateTensor"></button>
             <block type="tensor_set"></block>
             <block type="tensor_get"></block>
+            <label text="创建" style="dlLabel"></label>
+            <block type="tensor_create_shape"></block>
+            <block type="tensor_create_like"></block>
+            <block type="tensor_create_from"></block>
+            <label text="功能" style="dlLabel"></label>v
+            <block type="tensor_shape_get"></block>
+            <block type="tensor_shape_set"></block>
         </category>
         <category name="Numpy"></category>
     </category>

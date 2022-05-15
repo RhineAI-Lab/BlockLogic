@@ -2,7 +2,7 @@ from torchvision import transforms
 import torch
 import numpy as np
 
-a = np.array([[3,4,5],[6,7,8]])
-l = transforms.ToTensor()(a)
-print(l)
+a = torch.randn([3,4])
+print(a)
+print(a.view([3,-1]))
 
