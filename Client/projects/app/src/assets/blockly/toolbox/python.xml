@@ -666,12 +666,12 @@
             <label text="容器" style="dlLabel"></label>
             <block type="modules_sequential_create_e">
                 <statement name="A1">
-                    <block type="modules_list_connector"></block>
+                    <block type="modules_sequential"></block>
                 </statement>
             </block>
             <block type="modules_sequential_e">
                 <statement name="A0">
-                    <block type="modules_list_connector"></block>
+                    <block type="modules_sequential"></block>
                 </statement>
             </block>
             <label text="设备" style="dlLabel"></label>

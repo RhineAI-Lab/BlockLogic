@@ -24,7 +24,7 @@ import: from torch import nn
 nn.Linear($A0, $A1, bias=$A2)
 
 conv: Module
-卷积层[2d/3d/1d].  IO(number:16)(number:33) 卷积核(number:3)
+卷积层[2d/3d/1d]  IO(number:16)(number:33) 卷积核(number:3)
 help: torch.nn.Conv2d.html#torch.nn.Conv2d
 Python
 import: from torch import nn

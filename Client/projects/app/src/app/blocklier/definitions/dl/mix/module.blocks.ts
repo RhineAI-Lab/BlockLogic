@@ -15,7 +15,7 @@ import: from torch import nn
 nn.Sequential(\n$A0)
 
 sequential_create_e
-创建顺序模型(var net:Module)
+顺序模型(var net:Module)
 {}
 Python
 import: from torch import nn
@@ -27,14 +27,14 @@ Python
 $A0,\\n
 
 device: Device
-设备:[建议设备:'cuda' if torch.cuda.is_available() else 'cpu'/CPU:'cpu'/CUDA:'cuda']
+设备[推荐设备:'cuda' if torch.cuda.is_available() else 'cpu'/CPU:'cpu'/CUDA:'cuda']
 Python
 import: import torch
 torch.device($A0)
 
 module_to_device
 转换{Module,Tensor}到设备{Device}
-inline: false
+inline: true
 Python
 $A0 = $A0.to($A1)
 

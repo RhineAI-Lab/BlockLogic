@@ -104,7 +104,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: 'modules_sequential',
-    output: 'Module',
+    previousStatement: null,
     style: style,
     helpUrl: '',
     tooltip:
@@ -212,7 +212,7 @@ const MODULES_SEQUENTIAL_MUTATOR_MIXIN = {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const input = this.appendValueInput('ADD' + i).setCheck('Module');
         if (i == 0) {
-          input.appendField('顺序模型');
+          input.appendField('');
         }
       }
     }

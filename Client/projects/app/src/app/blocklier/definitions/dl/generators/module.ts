@@ -29,8 +29,7 @@ Python['modules_define'] = function (block: any) {
   code += '  def forward(self, ' + valueInput + '):\n';
   code += statementsForward;
   code += '    return ' + valueOutput + '\n';
-  Python.provideFunction_('Module-'+className, [code]);
-  code = varName + ' = ' + className + '()\n';
+  code += varName + ' = ' + className + '()\n';
   return code;
 };
 
@@ -49,13 +48,12 @@ Python['modules_get'] = Python.get;
 Python['modules_set'] = Python.set;
 
 Python['modules_sequential'] = function (block: any) {
-  Python.provideFunction_('from_torch_import_nn', ['from torch import nn']);
+  Python.definitions_['from_torch_import_nn'] = 'from torch import nn';
   const elements = new Array(block.itemCount_);
   for (let i = 0; i < block.itemCount_; i++) {
     elements[i] =
       Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || 'None';
   }
-  let code = elements.join(',\n');
-  code = 'nn.Sequential([\n' + Python.addIndent(code) + '])';
-  return [code, Python.ORDER_ATOMIC];
+  let code = elements.join(',\n')+'\n';
+  return code;
 };
