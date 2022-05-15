@@ -197,7 +197,7 @@ const TRANSFORMS_COMPOSE_MUTATOR_MIXIN = {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const input = this.appendValueInput('ADD' + i).setCheck('Transforms');
         if (i == 0) {
-          input.appendField('连接变换');
+          input.appendField('连接');
         }
       }
     }

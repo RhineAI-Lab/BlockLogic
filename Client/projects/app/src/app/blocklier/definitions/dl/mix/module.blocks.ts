@@ -15,7 +15,7 @@ import: from torch import nn
 nn.Sequential(\n$A0)
 
 sequential_create_e
-顺序模型(var net:Module)
+创建顺序模型(var net:Module)
 {}
 Python
 import: from torch import nn
