@@ -24,7 +24,7 @@ import: from torch import nn
 nn.Linear($A0, $A1, bias=$A2)
 
 conv: Module
-卷积层[2d/3d/1d]  IO(number:16)(number:33) 卷积核(number:3)
+卷积层[2d/3d/1d]  IO(number:16)(number:33) 卷积核大小(number:3)
 help: torch.nn.Conv2d.html#torch.nn.Conv2d
 Python
 import: from torch import nn
@@ -41,7 +41,7 @@ import: from torch import nn
 nn.$A0$A1($A2, $A3, $A4, $A5, $A7, '$A6')
 
 pool: Module
-[最大:Max/平均:Avg]池化层[2d/3d/1d].  卷积核(number:3)
+[最大:Max/平均:Avg]池化层[2d/3d/1d]  核大小(number:3)
 help: torch.nn.MaxPool2d.html#torch.nn.MaxPool2d
 tip: 创建池化层，用于压缩数据。
 Python
