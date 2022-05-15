@@ -247,9 +247,9 @@ function registerGenerator(
         }
       }
       if(block.output === undefined){
-        fs += `code = \`${code}\`\n`;
+        fs += `code = \`${code}\\n\``;
       }else {
-        fs += `code = \`${code}\`\n`;
+        fs += `code = \`${code}\``;
       }
     }
   }
