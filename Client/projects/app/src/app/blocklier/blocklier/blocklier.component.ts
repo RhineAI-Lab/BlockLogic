@@ -84,6 +84,12 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
         this.workspace.registerButtonCallback('varCreateModule', (button) => {
           this.createVariable(button, 'Module');
         });
+        this.workspace.registerButtonCallback('varCreateTensor', (button) => {
+          this.createVariable(button, 'Tensor');
+        });
+        this.workspace.registerButtonCallback('varCreateNumpy', (button) => {
+          this.createVariable(button, 'Numpy');
+        });
         this.workspace.registerButtonCallback(
           'varCreateTransforms',
           (button) => {

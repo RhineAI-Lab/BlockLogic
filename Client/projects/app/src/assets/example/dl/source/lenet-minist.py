@@ -53,21 +53,13 @@ loss = torch.nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(net.parameters(), lr=LR)
 
 # 测试
-def evaluate_accuracy(data_loader, net, device=None):
-    if device is None and isinstance(net, nn.Module):
-        device = list(net.parameters())[0].device
+def evaluate_accuracy(data_loader, net):
     acc_sum, n = 0.0, 0
     with torch.no_grad():
         for imgs, labels in data_loader:
-            if isinstance(net, nn.Module):
-                net.eval()
-                acc_sum += (net(imgs.to(device)).argmax(dim=1) == labels.to(device)).float().sum().cpu().item()
-                net.train()
-            else:
-                if('is_training' in net.__code__.co_varnames):
-                    acc_sum += (net(imgs, is_training=False).argmax(dim=1) == labels).float().sum().item()
-                else:
-                    acc_sum += (net(imgs).argmax(dim=1) == labels).float().sum().item()
+            net.eval()
+            acc_sum += (net(imgs.to(device)).argmax(dim=1) == labels.to(device)).float().sum().cpu().item()
+            net.train()
             n += labels.shape[0]
     return acc_sum / n
 

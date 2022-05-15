@@ -5,3 +5,4 @@ import './module.blocks';
 import './learner.blocks';
 import './data.blocks';
 import './opencv.blocks';
+import './tensor.blocks';

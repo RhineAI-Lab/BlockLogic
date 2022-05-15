@@ -742,7 +742,12 @@
         <category name="训练/测试"></category>
     </category>
     <category name="多维数据运算">
-        <category name="张量"></category>
+        <category name="张量">
+            <label text="张量变量" style="dlLabel"></label>
+            <button text="创建张量" callbackKey="varCreateTensor"></button>
+            <block type="tensor_set"></block>
+            <block type="tensor_get"></block>
+        </category>
         <category name="Numpy"></category>
     </category>
     <category name="图像处理">
