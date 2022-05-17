@@ -802,6 +802,13 @@
                     </block>
                 </value>
             </block>
+            <block type="cv2_imshow">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
+                    </block>
+                </value>
+            </block>
         </category>
     </category>
 </xml>
