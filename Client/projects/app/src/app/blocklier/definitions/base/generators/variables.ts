@@ -32,3 +32,18 @@ Python['variables_add_string'] = function (block: any) {
   );
   return varName + ' += ' + argument0 + '\n';
 };
+
+Python['variables_split'] = function (block: any) {
+  const varName = Python.nameDB_.getName(
+    block.getFieldValue('VAR'),
+    Blockly.VARIABLE_CATEGORY_NAME,
+  );
+  const elements = new Array(block.itemCount_);
+  for (let i = 0; i < block.itemCount_; i++) {
+    elements[i] =
+      Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || '_';
+  }
+  let code = elements.join(', ');
+  code = code + ' = ' + varName;
+  return code;
+};

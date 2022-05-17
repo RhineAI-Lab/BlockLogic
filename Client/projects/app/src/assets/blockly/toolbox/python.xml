@@ -393,6 +393,7 @@
             <block type="variables_set">
                 <field name="VAR">a</field>
             </block>
+            <block type="variables_split"></block>
             <label text="数学变量" style="varLabel"></label>
             <button text="创建数字变量" callbackKey="varCreateNumber"></button>
             <block type="variables_get_number"></block>

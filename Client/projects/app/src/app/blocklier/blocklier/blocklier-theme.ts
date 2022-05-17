@@ -23,7 +23,7 @@ export class BlocklierTheme {
         colourPrimary: '#38b793',
       },
       class_blocks: {
-        colourPrimary: '#7052e3',
+        colourPrimary: '#7658ee',
       },
       colour_blocks: {
         colourPrimary: '#939393',
@@ -53,10 +53,10 @@ export class BlocklierTheme {
         colourPrimary: '#3abcd3',
       },
       tensor_blocks: {
-        colourPrimary: '#2dceb6',
+        colourPrimary: '#3abcd3',
       },
       numpy_blocks: {
-        colourPrimary: '#2dceb6',
+        colourPrimary: '#3abcd3',
       },
     },
   });
