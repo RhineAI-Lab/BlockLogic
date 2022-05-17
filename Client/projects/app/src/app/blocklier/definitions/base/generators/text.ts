@@ -34,34 +34,34 @@ JavaScript['number_to_text'] = function (block: any) {
 };
 
 Python['text_to_int'] = function (block: any) {
-  const str_value = JavaScript.valueToCode(
+  const str_value = Python.valueToCode(
     block,
     'STR',
-    JavaScript.ORDER_ATOMIC,
+    Python.ORDER_ATOMIC,
     true,
   );
   const code = 'int(' + str_value + ',10)';
-  return [code, JavaScript.ORDER_ATOMIC];
+  return [code, Python.ORDER_ATOMIC];
 };
 
 Python['text_to_float'] = function (block: any) {
-  const str_value = JavaScript.valueToCode(
+  const str_value = Python.valueToCode(
     block,
     'STR',
-    JavaScript.ORDER_ATOMIC,
+    Python.ORDER_ATOMIC,
     true,
   );
   const code = 'float(' + str_value + ')';
-  return [code, JavaScript.ORDER_ATOMIC];
+  return [code, Python.ORDER_ATOMIC];
 };
 
 Python['number_to_text'] = function (block: any) {
-  const str_value = JavaScript.valueToCode(
+  const str_value = Python.valueToCode(
     block,
     'NUM',
-    JavaScript.ORDER_ATOMIC,
+    Python.ORDER_ATOMIC,
     true,
   );
   const code = 'str(' + str_value + ')';
-  return [code, JavaScript.ORDER_ATOMIC];
+  return [code, Python.ORDER_ATOMIC];
 };
