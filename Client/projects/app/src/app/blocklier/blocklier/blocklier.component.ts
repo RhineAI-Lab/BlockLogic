@@ -153,7 +153,8 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       const name = $label.innerHTML;
       let color = colorMap.get(name);
       color = color ? color : '#aaaaaa';
-      results.push({ name, depth, $host, $row, children, color });
+      let open = i == 0;
+      results.push({ name, depth, $host, $row, children, color, open });
     }
     return results;
     /* eslint-enable @typescript-eslint/no-non-null-assertion */
@@ -192,6 +193,7 @@ export interface BlocklierToolboxCategory {
   name: string;
   color: string;
   depth: number;
+  open: boolean;
   $host: HTMLDivElement;
   $row: HTMLDivElement;
   children: BlocklierToolboxCategory[];
