@@ -394,6 +394,15 @@
             <block type="lists_sort"></block>
             <block type="lists_isEmpty"></block>
         </category>
+        <category name="时间">
+            <block type="time_sleep">
+                <value name="A0">
+                    <block type="math_number">
+                        <field name="NUM">1</field>
+                    </block>
+                </value>
+            </block>
+        </category>
     </category>
     <category name="进阶语法-Python">
         <category name="变量" categorystyle="variable_category">
@@ -789,6 +798,25 @@
                 <value name="A0">
                     <block type="text">
                         <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
+            <block type="cv2_imwrite">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="text">
+                        <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
+            <block type="cv2_imshow">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
                     </block>
                 </value>
             </block>
