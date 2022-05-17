@@ -1,3 +1,4 @@
 import './class.blocks';
-import './loops.block';
+import './loops.blocks';
 import './time.blocks';
+import './math.blocks';

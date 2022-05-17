@@ -32,7 +32,8 @@ export class CodeUtils {
     } else if (type == 'py') {
       // @ts-ignore
       Blockly.Python.moduleClassIndex = 1;
-      code = Blockly.Python.workspaceToCode(workspace);
+      code = "# -*- coding:utf-8 -*-\n"
+      code += Blockly.Python.workspaceToCode(workspace);
     }
     return code;
   }

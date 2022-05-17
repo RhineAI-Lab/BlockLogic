@@ -151,6 +151,7 @@
                     </shadow>
                 </value>
             </block>
+            <block type="math_round_with"></block>
             <block type="math_on_list"></block>
             <block type="math_modulo">
                 <value name="DIVIDEND">
