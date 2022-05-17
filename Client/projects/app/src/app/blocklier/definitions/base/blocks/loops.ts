@@ -14,9 +14,6 @@ Blockly.defineBlocksWithJsonArray([
     tooltip: '遍历可迭代对象并获取索引',
     helpUrl: baseHelpUrl + '',
   },
-]);
-
-Blockly.defineBlocksWithJsonArray([
   {
     type: 'base_more_enum_from',
     message0: '从 %2 枚举 %1 并获取索引',
@@ -31,3 +28,4 @@ Blockly.defineBlocksWithJsonArray([
     helpUrl: baseHelpUrl + '',
   },
 ]);
+

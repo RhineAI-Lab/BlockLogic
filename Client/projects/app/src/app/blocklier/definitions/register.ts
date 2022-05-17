@@ -178,7 +178,7 @@ function registerGenerator(
             arg.name
           }', Gene.ORDER_ATOMIC) || ${Gene.defaultValue(arg.check)}\n`;
         } else if (arg.type == 'input_statement') {
-          fs += `let A${argNum} = Gene.statementToCode(block, '${arg.name}') || 'pass\\n'\n`;
+          fs += `let A${argNum} = Gene.statementToCode(block, '${arg.name}') || '  pass\\n'\n`;
         } else if (arg.type == 'input_dummy') {
           fs += `let A${argNum} = ''\n`;
         } else if (arg.type == 'field_variable') {
