@@ -212,6 +212,18 @@
             <block type="text"></block>
             <block type="text_multiline"></block>
             <block type="text_join"></block>
+            <block type="text_connect">
+                <value name="A0">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="A1">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
             <block type="text_to_int"></block>
             <block type="text_to_float"></block>
             <block type="number_to_text"></block>
@@ -306,6 +318,7 @@
                     </shadow>
                 </value>
             </block>
+            <block type="text_output_more"></block>
             <block type="text_prompt_ext">
                 <value name="TEXT">
                     <shadow type="text">

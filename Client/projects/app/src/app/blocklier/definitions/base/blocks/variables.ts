@@ -34,7 +34,6 @@ Blockly.defineBlocksWithJsonArray([
     previousStatement: null,
     nextStatement: null,
     style: 'variable_blocks',
-    tooltip: '单个变换',
     enableContextMenu: false,
   },
   {

@@ -1,4 +1,5 @@
 import { JavaScript, Python } from '../../_common';
+import * as Blockly from "blockly";
 
 JavaScript['text_to_int'] = function (block: any) {
   const str_value = JavaScript.valueToCode(
@@ -64,4 +65,15 @@ Python['number_to_text'] = function (block: any) {
   );
   const code = 'str(' + str_value + ')';
   return [code, Python.ORDER_ATOMIC];
+};
+
+Python['text_output_more'] = function (block: any) {
+  const elements = new Array(block.itemCount_);
+  for (let i = 0; i < block.itemCount_; i++) {
+    elements[i] =
+      Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || '\'\'';
+  }
+  let code = elements.join(', ');
+  code = 'print(' + code + ')\n';
+  return code;
 };
