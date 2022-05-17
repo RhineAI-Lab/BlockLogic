@@ -790,6 +790,18 @@
                     </block>
                 </value>
             </block>
+            <block type="cv2_imwrite">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="text">
+                        <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
         </category>
     </category>
 </xml>
