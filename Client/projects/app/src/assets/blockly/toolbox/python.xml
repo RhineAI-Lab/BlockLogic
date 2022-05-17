@@ -402,6 +402,21 @@
                     </block>
                 </value>
             </block>
+            <block type="time_nowtime"/>
+            <block type="time_changetostr">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">tuple</field>
+                    </block>
+                </value>
+            </block>
+            <block type="time_changetostruct">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">99999</field>
+                    </shadow>
+                </value>
+            </block>
         </category>
     </category>
     <category name="进阶语法-Python">
