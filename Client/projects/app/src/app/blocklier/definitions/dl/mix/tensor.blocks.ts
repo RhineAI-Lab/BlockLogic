@@ -43,11 +43,16 @@ shape_get: Array
 Python
 $A0.shape
 
+length: num
+(var x: Tensor)的长度
+Python
+$A0.shape[0]
+
 shape_set
 修改(var x: Tensor)的形状为{Array}
 inline: true
 Python
-$A0.view($A1)
+$A0 = $A0.view($A1)
 
 `,
   true,

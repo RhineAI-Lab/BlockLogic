@@ -11,7 +11,6 @@ import './root-automator';
 import './setting';
 import './simple';
 import './storages';
-import './text';
 import './ui';
 import './ui-btn';
 import './ui-text';

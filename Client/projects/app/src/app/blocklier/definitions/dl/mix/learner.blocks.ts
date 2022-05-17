@@ -27,13 +27,18 @@ use
 执行学习器(var learner:Learner) 实际值:{Tensor}预测值:{Tensor:R}赋值损失结果到{num:R}
 inline: false
 Python
-optimizer, loss_f = $A0
-l = loss_f($A1, $A2)
+loss_f, optimizer = $A0
+l = loss_f($A2, $A1)
 optimizer.zero_grad()
 l.backward()
 optimizer.step()
 $A3 = l.cpu().item()
 
+onehot_acc: num
+计算one-hot正确数量 预测值:{Tensor:R}正确值:{Tensor:R}
+inline: false
+Python
+($A0.argmax(dim=1) == $A1).sum().cpu().item()
 
 prefix: optimizer
 

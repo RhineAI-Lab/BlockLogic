@@ -758,6 +758,7 @@
                     </block>
                 </value>
             </block>
+            <block type="learner_onehot_acc"></block>
             <label text="损失函数" style="dlLabel"></label>
             <block type="loss_new"></block>
             <label text="优化器" style="dlLabel"></label>
@@ -778,6 +779,7 @@
             <label text="功能" style="dlLabel"></label>v
             <block type="tensor_shape_get"></block>
             <block type="tensor_shape_set"></block>
+            <block type="tensor_length"></block>
         </category>
         <category name="Numpy"></category>
     </category>

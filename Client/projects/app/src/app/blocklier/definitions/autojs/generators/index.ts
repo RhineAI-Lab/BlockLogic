@@ -6,7 +6,6 @@ import './media';
 import './power-manager';
 import './root-automator';
 import './simple';
-import './text';
 import './dialog';
 import './global';
 import './plugins';

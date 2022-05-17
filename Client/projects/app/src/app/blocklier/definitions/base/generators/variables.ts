@@ -9,17 +9,15 @@ Python['variables_get_boolean'] = Python.get;
 Python['variables_set_boolean'] = Python.set;
 
 Python['variables_add_number'] = function (block: any) {
-  const argument0 = parseInt(
-    Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '1',
-  );
+  const argument0 = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '1';
   const varName = Python.nameDB_.getName(
     block.getFieldValue('VAR'),
     Blockly.VARIABLE_CATEGORY_NAME,
   );
-  if (argument0 >= 0) {
+  if (isNaN(argument0) || argument0 >= 0) {
     return varName + ' += ' + argument0 + '\n';
   } else {
-    return varName + ' -= ' + -argument0 + '\n';
+    return varName + ' -= ' + -parseInt(argument0) + '\n';
   }
 };
 
@@ -44,6 +42,6 @@ Python['variables_split'] = function (block: any) {
       Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || '_';
   }
   let code = elements.join(', ');
-  code = code + ' = ' + varName;
+  code = code + ' = ' + varName + '\n';
   return code;
 };
