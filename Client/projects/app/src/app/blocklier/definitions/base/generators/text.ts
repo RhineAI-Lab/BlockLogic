@@ -1,5 +1,4 @@
 import { JavaScript, Python } from '../../_common';
-import * as Blockly from "blockly";
 
 JavaScript['text_to_int'] = function (block: any) {
   const str_value = JavaScript.valueToCode(

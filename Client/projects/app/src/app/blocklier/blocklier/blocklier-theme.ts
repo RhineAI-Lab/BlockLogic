@@ -8,16 +8,16 @@ export class BlocklierTheme {
         colourPrimary: '#38b793',
       },
       logic_blocks: {
-        colourPrimary: '#45a92d',
+        colourPrimary: '#daa00d',
       },
       loop_blocks: {
-        colourPrimary: '#487ce3',
+        colourPrimary: '#3ca823',
       },
       math_blocks: {
         colourPrimary: '#3d98e3',
       },
       text_blocks: {
-        colourPrimary: '#e07d35',
+        colourPrimary: '#f38637',
       },
       list_blocks: {
         colourPrimary: '#38b793',
