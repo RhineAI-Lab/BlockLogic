@@ -8,16 +8,16 @@ export class BlocklierTheme {
         colourPrimary: '#38b793',
       },
       logic_blocks: {
-        colourPrimary: '#daa00d',
+        colourPrimary: '#45a92d',
       },
       loop_blocks: {
-        colourPrimary: '#3ca823',
+        colourPrimary: '#487ce3',
       },
       math_blocks: {
         colourPrimary: '#3d98e3',
       },
       text_blocks: {
-        colourPrimary: '#f38637',
+        colourPrimary: '#e07d35',
       },
       list_blocks: {
         colourPrimary: '#38b793',
@@ -47,7 +47,7 @@ export class BlocklierTheme {
         colourPrimary: '#38b793',
       },
       learner_blocks: {
-        colourPrimary: '#5360ee',
+        colourPrimary: '#009561',
       },
       data_blocks: {
         colourPrimary: '#3abcd3',
