@@ -37,6 +37,7 @@
     "monaco-editor-nls": "^2.0.0",
     "monaco-editor-textmate": "^3.0.0",
     "monaco-textmate": "^3.0.1",
+    "ng-terminal": "^5.0.0",
     "ng-zorro-antd": "^13.1.1",
     "ngx-monaco-editor": "^12.0.0",
     "node-polyfill-webpack-plugin": "^1.1.4",

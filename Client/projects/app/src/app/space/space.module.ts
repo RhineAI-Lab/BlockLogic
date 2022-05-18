@@ -74,6 +74,7 @@ import { SpaceSidebarUiAttributeComponent } from './space-sidebar-ui-attribute/s
 import { SpaceSidebarUiTreeComponent } from './space-sidebar-ui-tree/space-sidebar-ui-tree.component';
 import { SpaceSidebarUiStructureComponent } from './space-sidebar-ui-structure/space-sidebar-ui-structure.component';
 import { SpacePageManagerComponent } from './space-page-manager/space-page-manager.component';
+import {NgTerminalModule} from "ng-terminal";
 
 const icons: IconDefinition[] = [
   ApiFill,
@@ -162,6 +163,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     NzModalModule,
     NzEmptyModule,
     MonacoEditorModule.forRoot(monacoConfig),
+    NgTerminalModule,
   ],
   providers: [
     {
