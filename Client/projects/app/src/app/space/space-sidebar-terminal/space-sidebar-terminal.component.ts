@@ -14,8 +14,8 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
 
   static lightTheme: ITheme = {
     background: '#ffffff',
-    foreground: '#171717',
-    cursor: '#171717',
+    foreground: '#222222',
+    cursor: '#222222',
     selection: '#76aee7',
   };
   static darkTheme: ITheme = {
@@ -32,18 +32,20 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.options = this.terminal.underlying.options;
     this.options.fontSize = 12;
+    this.options.lineHeight = 1.4;
     this.options.letterSpacing = 1;
-    this.options.fontWeight = '600';
-    this.options.lineHeight = 1.3;
+    // this.options.fontFamily = 'Monaco';
     this.options.cursorStyle = 'bar';
     this.options.cursorBlink = true;
 
     this.state.theme$.subscribe((v) => {
       setTimeout(() => {
         if (v == ThemeMode.Default) {
+          this.options.fontWeight = '600';
           this.options.theme = SpaceSidebarTerminalComponent.lightTheme;
           this.updateBorderColor();
         } else {
+          this.options.fontWeight = 'normal';
           this.options.theme = SpaceSidebarTerminalComponent.darkTheme;
           this.updateBorderColor();
         }
