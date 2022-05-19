@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FunctionsUsingCSI, NgTerminal } from 'ng-terminal';
-import {ITerminalOptions} from "xterm";
+import { ITerminalOptions, ITheme } from 'xterm';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 
 @Component({
   selector: 'app-space-sidebar-terminal',
@@ -11,7 +12,20 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
   @ViewChild('terminal', { static: true }) terminal!: NgTerminal;
   options: ITerminalOptions = {};
 
-  constructor() {}
+  static lightTheme: ITheme = {
+    background: '#ffffff',
+    foreground: '#171717',
+    cursor: '#171717',
+    selection: '#76aee7',
+  };
+  static darkTheme: ITheme = {
+    background: '#1e1e1e',
+    foreground: '#c6c6c6',
+    cursor: '#c6c6c6',
+    selection: '#b4daff',
+  };
+
+  constructor(private state: SpaceState) {}
 
   ngOnInit() {}
 
@@ -19,8 +33,24 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
     this.options = this.terminal.underlying.options;
     this.options.fontSize = 12;
     this.options.letterSpacing = 1;
+    this.options.fontWeight = '600';
+    this.options.lineHeight = 1.3;
+    this.options.cursorStyle = 'bar';
+    this.options.cursorBlink = true;
 
-    this.writeln('终端初始化完成');
+    this.state.theme$.subscribe((v) => {
+      setTimeout(() => {
+        if (v == ThemeMode.Default) {
+          this.options.theme = SpaceSidebarTerminalComponent.lightTheme;
+          this.updateBorderColor();
+        } else {
+          this.options.theme = SpaceSidebarTerminalComponent.darkTheme;
+          this.updateBorderColor();
+        }
+      }, 200);
+    });
+
+    this.writeln('Terminal initialized.');
     this.terminal.write('$ ');
     this.terminal.keyEventInput.subscribe((e) => {
       // console.log('keyboard event:' + e.domEvent.keyCode + ', ' + e.key);
@@ -51,5 +81,17 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
   }
   writerNextLine(): void {
     this.terminal.write('\n' + FunctionsUsingCSI.cursorColumn(1)); // \r\n
+  }
+
+  updateBorderColor(): void {
+    const color = this.options.theme?.background ?? '#1e1e1e';
+    const updateList = 'left right top bottom'.split(' ');
+    for (const update of updateList) {
+      (
+        document.getElementsByClassName(
+          'resize-handle-' + update,
+        )[0] as HTMLElement
+      ).style.background = color;
+    }
   }
 }
