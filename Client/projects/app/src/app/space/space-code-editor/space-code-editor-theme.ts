@@ -3,7 +3,7 @@ export class CodeEditorTheme {
     base: 'vs-dark',
     inherit: true,
     rules: [
-      { token: '', foreground: '#facc72', background: '1E1E1E' },
+      { token: '', foreground: '#e8d4a1', background: '1E1E1E' },
       { token: 'invalid', foreground: '#f44747' },
       { token: 'emphasis', fontStyle: 'italic' },
       { token: 'strong', fontStyle: 'bold' },

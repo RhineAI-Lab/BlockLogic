@@ -53,11 +53,9 @@ export class SpaceSidebarTerminalComponent implements OnInit, AfterViewInit {
     this.writeln('Terminal initialized.');
     this.terminal.write('$ ');
     this.terminal.keyEventInput.subscribe((e) => {
-      // console.log('keyboard event:' + e.domEvent.keyCode + ', ' + e.key);
-
+      // console.log('keyboard event:' + e.domEvent.keyCode + ' ' + e.key);
       const ev = e.domEvent;
       const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
-
       if (ev.keyCode === 13) {
         this.writerNextLine();
         this.writePrefix();
