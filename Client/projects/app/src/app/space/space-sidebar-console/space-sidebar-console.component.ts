@@ -38,12 +38,12 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   resolveOutput(output: SandboxOutput): void {
     const content = output.data.map((data) => this.stringify(data)).join(' ');
     this.lines.push(
-      `${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}: ${content}`,
+      `${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}:  ${content}`,
     );
   }
   resolveValue(output: string): void {
     this.lines.push(
-      `${this.getTime()} [OnLine]/Python: ${output}`,
+      `${this.getTime()} [OnLine]/Python:  ${output}`,
     );
   }
   resolveStringWithTime(text: string): void {
