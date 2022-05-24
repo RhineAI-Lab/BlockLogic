@@ -1,5 +1,6 @@
 package com.hraps.blocklogic.service;
 
+import com.google.gson.JsonArray;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class TaskService {
         println("AddTask: "+task.describeMsg());
     }
 
-    public Task getWaitedTask() {
+    public Task getWaitedTask(String runnerId, String runnerMsg) {
         for (Task task : taskList) {
             if (task.state.equals(TaskState.WAITING)) {
-                task.state = TaskState.RUNNING;
+                task.startRun(runnerId, runnerMsg);
                 println("RunTask: "+task.describeMsg());
                 return task;
             }
@@ -31,29 +32,31 @@ public class TaskService {
         return null;
     }
 
-    public ArrayList<TaskResult> getTaskResults(String taskId, int startId){
+    public JsonArray getTaskResults(String taskId, int startId){
         Task task = getTask(taskId);
         if (task == null) {
             return null;
         }
-        ArrayList<TaskResult> results = new ArrayList<>();
+        JsonArray results = new JsonArray();
         for (int i = startId; i < task.results.size(); i++) {
-            results.add(task.results.get(i));
+            results.add(task.results.get(i).toJsonObject());
         }
         return results;
     }
 
-    public boolean updateTaskResult(String taskId, TaskResult result){
-        int resultId = result.id;
+    public int updateTaskResult(String taskId, String runnerId, int id, String type, String msg, long time) {
         for(Task task : taskList){
             if(task.id == taskId){
-                task.updateResults(result);
+                if(runnerId != task.runnerId){
+                    return -1;
+                }
+                task.updateResults(new Task.TaskResult(id, type, msg, time));
                 println("UpdateTask: "+task.describeMsg());
-                println("TaskResult: "+result.type+" "+result.msg);
-                return true;
+                println("TaskResult: "+type+"-"+msg);
+                return 0;
             }
         }
-        return false;
+        return -2;
     }
 
     private void println(String msg){
@@ -62,7 +65,7 @@ public class TaskService {
         }
     }
 
-    private Task getTask(String taskId){
+    public Task getTask(String taskId){
         for(Task task : taskList){
             if(task.id == taskId){
                 return task;
