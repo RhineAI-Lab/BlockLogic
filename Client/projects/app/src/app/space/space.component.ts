@@ -11,6 +11,7 @@ import {
 } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { SpaceRunnerService } from './services/space-runner.service';
 
 @Component({
   selector: 'app-space',
@@ -19,6 +20,7 @@ import { environment } from '../../environments/environment';
   providers: [
     SpaceDevelopService,
     SpaceDebugService,
+    SpaceRunnerService,
     SpaceState,
     SpaceFileService,
     Location,

@@ -11,6 +11,7 @@ import { SpaceState } from './space-state.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CodeUtils, XmlResult } from '../../common/utils/code.utils';
 import { Python } from '../../python/python.class';
+import { SpaceRunnerService } from './space-runner.service';
 
 @Injectable()
 export class SpaceDevelopService {
@@ -21,8 +22,9 @@ export class SpaceDevelopService {
   readonly runMode$ = new BehaviorSubject<SpaceRunMode>(SpaceRunMode.Browser);
   readonly unfoldXml$ = new BehaviorSubject<boolean>(false);
   readonly debugEvents = this.debugService.events$;
+  readonly runnerEvents = this.runnerService.events$;
   readonly output$ = new Subject<any>();
-  readonly debugOutput$ = new Subject<string>();
+  readonly stringOutput = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
   readonly closeEvent$ = new Subject<ProjectFile>();
 
@@ -36,10 +38,12 @@ export class SpaceDevelopService {
   constructor(
     private state: SpaceState,
     private debugService: SpaceDebugService,
+    private runnerService: SpaceRunnerService,
     private httpClient: HttpClient,
     private notification: NzNotificationService,
   ) {
     this.subscribeDebugEvents();
+    this.subscribeRunnerEvents();
     this.state.editorMode$.subscribe((mode) => {
       if (mode == SpaceEditorMode.Design) {
         this.freshXmlList();
@@ -101,36 +105,44 @@ export class SpaceDevelopService {
   run(): void {
     this.showConsole$.next();
     if (this.runMode$.getValue() == SpaceRunMode.Browser) {
-      if (this.targetFile$.getValue().type == 'js'){
+      if (this.targetFile$.getValue().type == 'js') {
         this.sandboxOfLastRun?.destroy();
         const sandbox = new Sandbox();
         sandbox.output$.subscribe({
           next: this.output$.next.bind(this.output$),
           error: this.output$.error.bind(this.output$),
         });
-        this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
+        this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
         sandbox.run(this.targetFile$.getValue().code);
         this.sandboxOfLastRun = sandbox;
-      }else if (this.targetFile$.getValue().type == 'py'){
+      } else if (this.targetFile$.getValue().type == 'py') {
         const python = new Python();
         python.output$.subscribe({
           next: this.output$.next.bind(this.output$),
           error: this.output$.error.bind(this.output$),
         });
-        this.debugOutput$.next(this.targetFile$.getValue().path + ' 开始运行');
-        python.run(this.targetFile$.getValue().code)
+        this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
+        python.run(this.targetFile$.getValue().code);
       }
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
-      if (this.debugService.connected) {
-        this.debugService.runFile(
+      if (this.targetFile$.getValue().type == 'js') {
+        if (this.debugService.connected) {
+          this.debugService.runFile(
+            this.targetFile$.getValue().name,
+            this.targetCode,
+          );
+        } else {
+          this.notify(
+            '设备未连接',
+            'error',
+            '使用设备运行模式运行，请先连接设备。',
+          );
+        }
+      } else if (this.targetFile$.getValue().type == 'py') {
+        this.runnerService.run(
+          'TEMP',
+          this.targetFile$.getValue().code,
           this.targetFile$.getValue().name,
-          this.targetCode,
-        );
-      } else {
-        this.notify(
-          '设备未连接',
-          'error',
-          '使用设备运行模式运行，请先连接设备。',
         );
       }
     }
@@ -203,7 +215,17 @@ export class SpaceDevelopService {
             break;
           }
         }
-        this.debugOutput$.next(text);
+        this.stringOutput.next(text);
+      }
+    });
+  }
+
+  private subscribeRunnerEvents(): void {
+    this.runnerEvents.subscribe((event) => {
+      if (event.type == 'start') {
+      } else if (event.type == 'end') {
+      } else if (event.type == 'error') {
+      } else if (event.type == 'output') {
       }
     });
   }
