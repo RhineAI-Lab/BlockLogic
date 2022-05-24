@@ -58,7 +58,7 @@ public class TaskService {
                 }
                 task.updateResults(new Task.TaskResult(id, type, msg, time));
                 println("UpdateTask: "+task.describeMsg());
-                println("TaskResult: "+type+"-"+msg);
+                println("TaskResult: "+type+"  "+msg);
                 return 0;
             }
         }
