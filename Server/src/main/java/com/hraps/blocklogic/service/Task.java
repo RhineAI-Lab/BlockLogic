@@ -1,6 +1,5 @@
 package com.hraps.blocklogic.service;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -39,6 +38,13 @@ public class Task {
     public void updateResults(TaskResult result){
         while(results.size() - 1 < result.id){
             results.add(new TaskResult(results.size(), TaskResultType.UNKNOWN, "", -1));
+        }
+        if(result.type == TaskResultType.START) {
+            this.startTime = result.time;
+        }
+        if(result.type == TaskResultType.END) {
+            this.endTime = result.time;
+            this.state = TaskState.FINISHED;
         }
         results.set(result.id, result);
     }

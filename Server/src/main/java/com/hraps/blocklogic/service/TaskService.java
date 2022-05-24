@@ -22,6 +22,12 @@ public class TaskService {
     }
 
     public Task getWaitedTask(String runnerId, String runnerMsg) {
+        // Test task
+        if (taskList.size() == 0) {
+            Task task = new Task("test", "temp.py", "Server", "127.0.0.1", "print('Hello World')\n");
+            taskList.add(task);
+        }
+
         for (Task task : taskList) {
             if (task.state.equals(TaskState.WAITING)) {
                 task.startRun(runnerId, runnerMsg);
