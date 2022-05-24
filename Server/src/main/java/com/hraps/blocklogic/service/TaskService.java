@@ -52,8 +52,8 @@ public class TaskService {
 
     public int updateTaskResult(String taskId, String runnerId, int id, String type, String msg, long time) {
         for(Task task : taskList){
-            if(task.id == taskId){
-                if(runnerId != task.runnerId){
+            if(task.id.equals(taskId)){
+                if(!runnerId.equals(task.runnerId)){
                     return -1;
                 }
                 task.updateResults(new Task.TaskResult(id, type, msg, time));
@@ -73,7 +73,7 @@ public class TaskService {
 
     public Task getTask(String taskId){
         for(Task task : taskList){
-            if(task.id == taskId){
+            if(task.id.equals(taskId)){
                 return task;
             }
         }

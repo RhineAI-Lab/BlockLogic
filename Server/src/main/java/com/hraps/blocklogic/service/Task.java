@@ -39,10 +39,10 @@ public class Task {
         while(results.size() - 1 < result.id){
             results.add(new TaskResult(results.size(), TaskResultType.UNKNOWN, "", -1));
         }
-        if(result.type == TaskResultType.START) {
+        if(result.type.equals(TaskResultType.START)) {
             this.startTime = result.time;
         }
-        if(result.type == TaskResultType.END) {
+        if(result.type.equals(TaskResultType.END)) {
             this.endTime = result.time;
             this.state = TaskState.FINISHED;
         }
