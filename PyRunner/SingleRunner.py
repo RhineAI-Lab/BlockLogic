@@ -32,37 +32,28 @@ def run_thread(index=-1):
     f.write(response['value']['code'])
     f.close()
 
+    id = 0
+    def upload_result(type, msg):
+        global id
+        id += 1
+        return http_get('runner/result/add', {
+            'task': task,
+            'id': id-1,
+            'type': type,
+            'msg': msg,
+            'time': java_time()
+        })
+
     cmd = 'python ' + file
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    http_get('runner/result/add',{
-        'task': task,
-        'id': 0,
-        'type': 'start',
-        'msg': name,
-        'time': java_time()
-    })
-    id = 1
+    upload_result('start',name)
     while popen.poll() is None:
         line_b = popen.stdout.readline()
         line = str(line_b,'UTF-8')
-        print('t'+str(index)+' run: '+line)
-        http_get('runner/result/add',{
-            'task': task,
-            'id': id,
-            'type': 'output',
-            'msg': line,
-            'time': java_time()
-        })
-        id += 1
+        print('T'+str(index)+' run: '+line)
+        upload_result('output',line)
         time.sleep(0.1)
-    http_get('runner/result/add',{
-        'task': task,
-        'id': id,
-        'type': 'end',
-        'msg': name,
-        'time': java_time()
-    })
-
+    upload_result('end',name)
 
 
 def start():
