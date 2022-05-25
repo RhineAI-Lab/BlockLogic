@@ -20,9 +20,9 @@ public class PyRunnerController {
     @RequestMapping(value = {"/api/runner/add"})
     public String addTask(
             HttpServletRequest request,
-            @RequestParam(name="user",defaultValue = "TEMP-0") String user,
+            @RequestParam(name="user", defaultValue = "TEMP") String user,
             @RequestParam(name="code") String code,
-            @RequestParam(name="file",defaultValue = "temp.txt") String name
+            @RequestParam(name="file", defaultValue = "temp.txt") String name
     ) {
         taskService.addTask(request.getRemoteAddr(), user, code, name);
         return makeResultJson();

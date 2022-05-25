@@ -10,7 +10,7 @@ train_device = 'RTX-A4000'
 test_mode = True
 if test_mode:
     server_ip = '127.0.0.1:8000'
-    threads_num = 4
+    threads_num = 1
 
 
 def http_get(interface, params):
@@ -19,44 +19,63 @@ def http_get(interface, params):
 def java_time():
     return int(time.time()*1000)
 
-def run_thread(index=-1):
-    response = http_get('runner/get', {'msg': train_device})
-    print(response)
-    if response['result'] != 200:
-        return
+def run_thread(index):
+    while True:
+        response = http_get('runner/get', {'msg': train_device})
+        if response['result'] == 201:
+            time.sleep(1)
+            continue
+        print('T'+str(index)+' Task: '+str(response))
+        if response['result'] != 200:
+            continue
 
-    task = response['value']['id']
-    name = response['value']['name']
-    file = 'Temp' + str(index) + '-' + name
-    f = open(file, "w")
-    f.write(response['value']['code'])
-    f.close()
+        task = response['value']['id']
+        name = response['value']['name']
+        file = 'Temp' + str(index) + '-' + name
+        f = open(file, "w")
+        f.write(response['value']['code'])
+        f.close()
 
-    id = 0
-    def upload_result(type, msg):
-        global id
-        id += 1
-        return http_get('runner/result/add', {
-            'task': task,
-            'id': id-1,
-            'type': type,
-            'msg': msg,
-            'time': java_time()
-        })
+        def upload_result(type, msg, id):
+            return http_get('runner/result/add', {
+                'task': task,
+                'id': id,
+                'type': type,
+                'msg': msg,
+                'time': java_time()
+            })
 
-    cmd = 'python ' + file
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-    upload_result('start',name)
-    while popen.poll() is None:
-        line_b = popen.stdout.readline()
-        line = str(line_b,'UTF-8')
-        print('T'+str(index)+' run: '+line)
-        upload_result('output',line)
-        time.sleep(0.1)
-    upload_result('end',name)
+        cmd = 'python ' + file
+        popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        upload_result('start', name, 0)
+        id = 0
+        continue_flag = True
+        last_time = -1
+        while continue_flag:
+            try:
+                line_b = popen.stdout.readline()
+                if len(line_b) != 0:
+                    line = str(line_b,'UTF-8')
+                    if line.endswith('\n') and len(line)>1:
+                        line = line[:len(line)-1]
+                    print('T'+str(index)+' Run'+str(id)+': '+line)
+                    threading.Thread(target=upload_result, args=('output', line, id)).start()
+
+                id+=1
+                if last_time==-1 and not popen.poll() is None and len(line_b)==0:
+                    last_time = time.time()
+                if last_time!=-1 and last_time+0.3<time.time():
+                    break
+            except Exception as e:
+                print('T'+str(index)+' Run'+str(id)+': '+str(e))
+        upload_result('end', name, id)
+        print('T'+str(index)+' TaskEnd')
 
 
 def start():
     for i in range(threads_num):
-        threading.Thread(target=run_thread(), name="RunThread-" + str(i), args=(i,))
+        threading.Thread(target=run_thread, name="RunThread-" + str(i), args=(i,)).start()
 start()
+
+while True:
+    pass
