@@ -48,7 +48,7 @@ def run_thread(index):
         cmd = 'python ' + file
         popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         upload_result('start', name, 0)
-        id = 0
+        id = 1
         continue_flag = True
         last_time = -1
         while continue_flag:
@@ -60,8 +60,8 @@ def run_thread(index):
                         line = line[:len(line)-1]
                     print('T'+str(index)+' Run'+str(id)+': '+line)
                     threading.Thread(target=upload_result, args=('output', line, id)).start()
+                    id+=1
 
-                id+=1
                 if last_time==-1 and not popen.poll() is None and len(line_b)==0:
                     last_time = time.time()
                 if last_time!=-1 and last_time+0.3<time.time():

@@ -24,8 +24,10 @@ public class PyRunnerController {
             @RequestParam(name="code") String code,
             @RequestParam(name="file", defaultValue = "temp.txt") String name
     ) {
-        taskService.addTask(request.getRemoteAddr(), user, code, name);
-        return makeResultJson();
+        String id = taskService.addTask(request.getRemoteAddr(), user, code, name);
+        JsonObject result = new JsonObject();
+        result.addProperty("id", id);
+        return makeResultJson(result);
     }
 
     @RequestMapping(value = {"/api/runner/get"})

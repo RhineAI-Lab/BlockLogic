@@ -144,6 +144,7 @@ export class SpaceDevelopService {
           this.targetFile$.getValue().code,
           this.targetFile$.getValue().name,
         );
+        this.stringOutput.next(this.targetFile$.getValue().path + ' 任务上传');
       }
     }
   }
@@ -223,9 +224,13 @@ export class SpaceDevelopService {
   private subscribeRunnerEvents(): void {
     this.runnerEvents.subscribe((event) => {
       if (event.type == 'start') {
+        this.stringOutput.next( this.targetFile$.getValue().path+ ' 开始运行');
       } else if (event.type == 'end') {
+        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行完成 用时'+(event.time/1000).toFixed(2)+'s');
       } else if (event.type == 'error') {
+        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行错误 '+event.msg);
       } else if (event.type == 'output') {
+        this.stringOutput.next('[Origin]/Python: '+event.msg);
       }
     });
   }

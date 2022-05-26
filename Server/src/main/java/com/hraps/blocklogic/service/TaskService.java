@@ -15,10 +15,11 @@ public class TaskService {
 
     int taskStartId = 0;
 
-    public void addTask(String ip, String user, String code, String name) {
+    public String addTask(String ip, String user, String code, String name) {
         Task task = new Task(bid+"-"+taskStartId, name, user, ip, code);
         taskList.add(task);
         println("AddTask: "+task.describeMsg());
+        return task.id;
     }
 
     public Task getWaitedTask(String runnerId, String runnerMsg) {
@@ -57,7 +58,7 @@ public class TaskService {
                     return -1;
                 }
                 task.updateResults(new Task.TaskResult(id, type, msg, time));
-                println("UpdateResult: "+task.id+"  "+type+"  "+msg);
+                println("UpdateResult: "+task.id+"  "+type+"-"+id+"  "+msg);
                 return 0;
             }
         }
