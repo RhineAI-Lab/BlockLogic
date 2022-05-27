@@ -1,6 +1,6 @@
 import * as esprima from 'esprima';
 import { StringUtils } from './string.utils';
-import * as Blockly from "blockly";
+import * as Blockly from 'blockly';
 
 export class CodeUtils {
   static pyCodingStr = '# -*- coding:utf-8 -*-\n';
@@ -28,13 +28,13 @@ export class CodeUtils {
     let code = '';
     if (type == 'js') {
       code = Blockly.JavaScript.workspaceToCode(workspace);
-      if(code.includes('$ui.')){
+      if (code.includes('$ui.')) {
         code = '"ui";\n\n' + code;
       }
     } else if (type == 'py') {
       // @ts-ignore
       Blockly.Python.moduleClassIndex = 1;
-      code = "# -*- coding:utf-8 -*-\n"
+      code = '# -*- coding:utf-8 -*-\n';
       code += Blockly.Python.workspaceToCode(workspace);
     }
     return code;

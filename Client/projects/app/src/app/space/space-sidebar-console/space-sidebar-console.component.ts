@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Subscription } from 'rxjs';
 
-import { SandboxOutput} from '../../common/sandbox.class';
+import { SandboxOutput } from '../../common/sandbox.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 
 @Component({
@@ -18,15 +18,20 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   constructor(private developService: SpaceDevelopService) {}
 
   ngOnInit(): void {
-    this.subscription = this.developService.output$.subscribe((output) => {
-      if(output.type && output.data) {
-        this.resolveOutput(output);
-      }else if(typeof output === 'string') {
-        this.resolveValue(output);
-      }
+    this.subscription = this.developService.output$.subscribe({
+      next: (output) => {
+        if (output.type && output.data) {
+          this.resolveOutput(output);
+        } else if (typeof output === 'string') {
+          this.resolveValue(output);
+        }
+      },
+      error: (error) => {
+        this.resolveError(error);
+      },
     });
     this.developService.stringOutput.subscribe((output) => {
-      console.log(output);
+      // TODO: 支持多行输出
       this.resolveStringWithTime(output);
     });
     this.resolveStringWithTime('控制台初始化完成');
@@ -36,16 +41,20 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  resolveOutput(output: SandboxOutput): void {
+  resolveOutput(output: SandboxOutput, isOnline = true): void {
     const content = output.data.map((data) => this.stringify(data)).join(' ');
+    const prefix = isOnline ? 'OnLine' : 'Origin';
     this.lines.push(
-      `${this.getTime()} [OnLine]/${output.type[0].toUpperCase()}:  ${content}`,
+      `${this.getTime()} [${prefix}]/${output.type[0].toUpperCase()}:  ${content}`,
     );
   }
-  resolveValue(output: string): void {
-    this.lines.push(
-      `${this.getTime()} [OnLine]/Python:  ${output}`,
-    );
+  resolveValue(output: string, isOnline = true): void {
+    const prefix = isOnline ? 'OnLine' : 'Origin';
+    this.lines.push(`${this.getTime()} [${prefix}]/Output:  ${output}`);
+  }
+  resolveError(output: string, isOnline = true): void {
+    const prefix = isOnline ? 'OnLine' : 'Origin';
+    this.lines.push(`${this.getTime()} [${prefix}]/Error:\n${output}`);
   }
   resolveStringWithTime(text: string): void {
     this.lines.push(this.getTime() + ' ' + text);

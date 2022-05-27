@@ -224,13 +224,18 @@ export class SpaceDevelopService {
   private subscribeRunnerEvents(): void {
     this.runnerEvents.subscribe((event) => {
       if (event.type == 'start') {
-        this.stringOutput.next( this.targetFile$.getValue().path+ ' 开始运行');
+        this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
       } else if (event.type == 'end') {
-        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行完成 用时'+(event.time/1000).toFixed(2)+'s');
+        this.stringOutput.next(
+          this.targetFile$.getValue().path +
+            ' 运行完成 用时' +
+            (event.time / 1000).toFixed(2) +
+            's',
+        );
       } else if (event.type == 'error') {
-        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行错误\n'+event.msg);
+        this.stringOutput.next('[Origin]/Error:  \n' + event.msg);
       } else if (event.type == 'output') {
-        this.stringOutput.next('[Origin]/Python: '+event.msg);
+        this.stringOutput.next('[Origin]/Output: ' + event.msg);
       }
     });
   }
