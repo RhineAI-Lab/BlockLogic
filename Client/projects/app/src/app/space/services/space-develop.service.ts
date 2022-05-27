@@ -102,7 +102,7 @@ export class SpaceDevelopService {
     }
   }
 
-  run(): void {
+  async run(): Promise<void> {
     this.showConsole$.next();
     if (this.runMode$.getValue() == SpaceRunMode.Browser) {
       if (this.targetFile$.getValue().type == 'js') {
@@ -122,7 +122,13 @@ export class SpaceDevelopService {
           error: this.output$.error.bind(this.output$),
         });
         this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
-        python.run(this.targetFile$.getValue().code);
+        await python.run(this.targetFile$.getValue().code);
+        this.stringOutput.next(
+          this.targetFile$.getValue().path +
+          ' 运行完成 用时' +
+          ((new Date().getTime() - python.startTime) / 1000).toFixed(2) +
+          's',
+        );
       }
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
       if (this.targetFile$.getValue().type == 'js') {

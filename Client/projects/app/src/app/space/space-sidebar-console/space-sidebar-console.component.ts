@@ -20,8 +20,18 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.developService.output$.subscribe({
       next: (output) => {
-        if (output.type && output.data) {
-          this.resolveOutput(output);
+        if (output.type && output.type!='error') {
+          if (typeof output.data === 'string') {
+            this.resolveValue(output.data);
+          }else{
+            this.resolveOutput(output);
+          }
+        } else if (output.type && output.type=='error') {
+          if (typeof output.data === 'string') {
+            this.resolveValue(output.data);
+          }else {
+            this.resolveError(output.data);
+          }
         } else if (typeof output === 'string') {
           this.resolveValue(output);
         }

@@ -1,4 +1,4 @@
-import {Observable, Subject} from "rxjs";
+import { Observable, Subject } from 'rxjs';
 
 export class Python {
   static useLogPython = false;
@@ -12,27 +12,32 @@ export class Python {
     return document.getElementsByClassName('brython-runner').length > 0;
   }
 
-  runner: BrythonRunner;
-  output$ = new Subject<any>();
+  runner?: BrythonRunner;
+  output$ = new Subject<PythonOutput>();
+
+  startTime = -1;
 
   constructor() {
     if (!Python.inited) {
       Python.init();
     }
+  }
+
+  async run(code: string): Promise<void> {
     this.runner = new BrythonRunner({
       onInit: () => {
         Python.ifLog('Python inited');
       },
       stdout: {
         write: (content: any) => {
-          this.output$.next(content);
+          this.output$.next({ type: 'log', data: content });
           Python.ifLog('Python Output: ' + content);
         },
         flush() {},
       },
       stderr: {
         write: (content: any) => {
-          this.output$.error(content);
+          this.output$.next({ type: 'error', data: content });
           Python.ifLog('Python Error: ' + content);
         },
         flush() {},
@@ -45,11 +50,9 @@ export class Python {
         },
       },
     });
-  }
-
-  run(code: string): void {
-    if(Python.inited) {
-      this.runner.runCode(code);
+    if (Python.inited) {
+      this.startTime = new Date().getTime();
+      await this.runner.runCode(code);
     } else {
       console.error('Python is not initialized');
     }
@@ -60,7 +63,11 @@ export class Python {
       console.log(text);
     }
   }
+}
 
+interface PythonOutput {
+  type: 'log' | 'error';
+  data: any;
 }
 
 declare class BrythonRunner {
