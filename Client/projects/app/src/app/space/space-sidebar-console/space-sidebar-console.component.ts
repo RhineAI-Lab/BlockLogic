@@ -26,6 +26,7 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
       }
     });
     this.developService.stringOutput.subscribe((output) => {
+      console.log(output);
       this.resolveStringWithTime(output);
     });
     this.resolveStringWithTime('控制台初始化完成');

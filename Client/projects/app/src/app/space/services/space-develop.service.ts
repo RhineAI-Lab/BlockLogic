@@ -228,7 +228,7 @@ export class SpaceDevelopService {
       } else if (event.type == 'end') {
         this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行完成 用时'+(event.time/1000).toFixed(2)+'s');
       } else if (event.type == 'error') {
-        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行错误 '+event.msg);
+        this.stringOutput.next( this.targetFile$.getValue().path+ ' 运行错误\n'+event.msg);
       } else if (event.type == 'output') {
         this.stringOutput.next('[Origin]/Python: '+event.msg);
       }

@@ -2,6 +2,7 @@ import threading
 import requests
 import subprocess
 import time
+import os
 
 server_ip = 'logic.autojs.org'
 threads_num = 16
@@ -50,28 +51,37 @@ def run_thread(index):
             })
 
         cmd = 'python ' + file
-        popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+        popen = subprocess.Popen(cmd,
+                                 stdout=subprocess.PIPE,
+                                 stdin=subprocess.PIPE,
+                                 stderr=subprocess.PIPE,
+                                 shell=True)
         upload_result('start', name, 0)
         id = 1
         continue_flag = True
         last_time = -1
         while continue_flag:
             try:
-                line_b = popen.stdout.readline()
+                is_err = True
+                line_b = popen.stderr.read()
+                if not line_b:
+                    is_err = False
+                    line_b = popen.stdout.readline()
+
                 if len(line_b) != 0:
                     line = str(line_b,'UTF-8')
                     if line.endswith('\n') and len(line)>1:
                         line = line[:len(line)-1]
-                    print('T'+str(index)+' Run'+str(id)+': '+line)
-                    threading.Thread(target=upload_result, args=('output', line, id)).start()
+                    print('T'+str(index)+(' Error' if is_err else ' Output')+str(id)+': '+line)
+                    threading.Thread(target=upload_result, args=('error' if is_err else 'output', line, id)).start()
                     id+=1
 
-                if last_time==-1 and not popen.poll() is None and len(line_b)==0:
+                if last_time==-1 and not popen.poll() is None and (is_err or len(line_b)==0):
                     last_time = time.time()
                 if last_time!=-1 and last_time+0.3<time.time():
                     break
             except Exception as e:
-                print('T'+str(index)+' Run'+str(id)+': '+str(e))
+                print('T'+str(index)+' Error'+str(id)+': '+str(e))
         upload_result('end', name, id)
         print('T'+str(index)+' TaskEnd')
 

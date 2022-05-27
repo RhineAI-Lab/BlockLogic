@@ -47,8 +47,7 @@ export class SpaceRunnerService {
               startTime = output.time;
             }else if (output.type == 'error'){
               this.events$.next({type: 'error', msg: output.msg, time: output.time});
-              continue_flag = false;
-              break;
+              params.start = output.id + 1;
             }else if (output.type == 'end'){
               this.events$.next({type: 'end', msg: output.msg, time: output.time - startTime});
               continue_flag = false;
