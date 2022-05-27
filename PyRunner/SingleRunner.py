@@ -21,7 +21,11 @@ def java_time():
 
 def run_thread(index):
     while True:
-        response = http_get('runner/get', {'msg': train_device})
+        try:
+            response = http_get('runner/get', {'msg': train_device})
+        except Exception as e:
+            time.sleep(1)
+            continue
         if response['result'] == 201:
             time.sleep(1)
             continue

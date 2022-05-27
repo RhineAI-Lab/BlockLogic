@@ -3,6 +3,8 @@ import { StringUtils } from './string.utils';
 import * as Blockly from "blockly";
 
 export class CodeUtils {
+  static pyCodingStr = '# -*- coding:utf-8 -*-\n';
+
   static getBlockStartStr(type = 'js'): string {
     if (type === 'js') {
       return '//------ 图形块结构记录 请勿随意修改 ------\n/*';
@@ -70,6 +72,20 @@ export class CodeUtils {
     } else {
       return '';
     }
+  }
+
+  static getSendCode(code: string, type: string = 'py'): string {
+    code = code.replace(/\r\n/g, '\n');
+    let i = code.indexOf(CodeUtils.getBlockStartStr(type));
+    if (i != -1) {
+      code = code.substring(0, i);
+    }
+    if (type == 'py') {
+      if (!code.startsWith(this.pyCodingStr)) {
+        code = this.pyCodingStr + code;
+      }
+    }
+    return code;
   }
 
   static getXmlCodeList(code: string): XmlResult[] {

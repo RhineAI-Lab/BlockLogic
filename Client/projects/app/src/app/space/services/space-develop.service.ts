@@ -141,7 +141,7 @@ export class SpaceDevelopService {
       } else if (this.targetFile$.getValue().type == 'py') {
         this.runnerService.run(
           'TEMP',
-          this.targetFile$.getValue().code,
+          CodeUtils.getSendCode(this.targetFile$.getValue().code),
           this.targetFile$.getValue().name,
         );
         this.stringOutput.next(this.targetFile$.getValue().path + ' 任务上传');

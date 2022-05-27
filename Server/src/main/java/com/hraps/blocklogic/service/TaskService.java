@@ -17,6 +17,7 @@ public class TaskService {
 
     public String addTask(String ip, String user, String code, String name) {
         Task task = new Task(bid+"-"+taskStartId, name, user, ip, code);
+        taskStartId++;
         taskList.add(task);
         println("AddTask: "+task.describeMsg());
         return task.id;
