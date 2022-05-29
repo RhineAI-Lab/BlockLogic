@@ -2,11 +2,13 @@
 
 # IDEs and editors
 .idea/
+data/
 .project
 .classpath
 .c9/
 *.launch
 .settings/
+Temp*.py
 *.sublime-workspace
 
 # Visual Studio Code

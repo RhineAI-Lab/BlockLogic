@@ -22,7 +22,7 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
       next: (output) => {
         if (output.type && output.type!='error') {
           if (typeof output.data === 'string') {
-            this.resolveValue(output.data);
+            this.resolveString(output.data);
           }else{
             this.resolveOutput(output);
           }
@@ -33,7 +33,7 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
             this.resolveError(output.data);
           }
         } else if (typeof output === 'string') {
-          this.resolveValue(output);
+          this.resolveString(output);
         }
       },
       error: (error) => {
@@ -41,8 +41,11 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
       },
     });
     this.developService.stringOutput.subscribe((output) => {
-      // TODO: 支持多行输出
-      this.resolveStringWithTime(output);
+      if(output.startsWith('NO-TIME ')){
+        this.resolveString(output.substring(8));
+      }else{
+        this.resolveStringWithTime(output);
+      }
     });
     this.resolveStringWithTime('控制台初始化完成');
   }

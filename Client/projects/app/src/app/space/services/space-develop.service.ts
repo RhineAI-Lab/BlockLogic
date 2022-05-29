@@ -241,7 +241,7 @@ export class SpaceDevelopService {
       } else if (event.type == 'error') {
         this.stringOutput.next('[Origin]/Error:  \n' + event.msg);
       } else if (event.type == 'output') {
-        this.stringOutput.next('[Origin]/Output: ' + event.msg);
+        this.stringOutput.next('NO-TIME '+event.msg);
       }
     });
   }

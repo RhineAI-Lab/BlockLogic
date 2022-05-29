@@ -36,9 +36,9 @@ export class SpaceRunnerService {
             responseType: 'json',
           })
           .toPromise();
-        console.log(result);
         if (result.result == 200) {
           for (const output of result.value) {
+            console.log(output);
             if (output.type == 'output') {
               this.events$.next({
                 type: 'output',
