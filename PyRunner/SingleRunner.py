@@ -87,8 +87,11 @@ def run_thread(index):
 
 
 def start():
-    for i in range(threads_num):
-        threading.Thread(target=run_thread, name="RunThread-" + str(i), args=(i,)).start()
+    if test_mode:
+        for i in range(threads_num):
+            threading.Thread(target=run_thread, name="RunThread-" + str(i), args=(i,)).start()
+    else:
+        run_thread(0)
 start()
 
 while True:
