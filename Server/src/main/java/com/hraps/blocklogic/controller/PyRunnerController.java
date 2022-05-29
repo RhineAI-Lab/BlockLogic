@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 @RestController
 public class PyRunnerController {
@@ -24,10 +26,16 @@ public class PyRunnerController {
             @RequestParam(name="code") String code,
             @RequestParam(name="file", defaultValue = "temp.txt") String name
     ) {
-        String id = taskService.addTask(request.getRemoteAddr(), user, code, name);
-        JsonObject result = new JsonObject();
-        result.addProperty("id", id);
-        return makeResultJson(result);
+        try {
+            code = URLDecoder.decode(code, "UTF-8");
+            System.out.println(code);
+            String id = taskService.addTask(request.getRemoteAddr(), user, code, name);
+            JsonObject result = new JsonObject();
+            result.addProperty("id", id);
+            return makeResultJson(result);
+        }catch (UnsupportedEncodingException e){
+            return makeResultJson(201, "Decode error");
+        }
     }
 
     @RequestMapping(value = {"/api/runner/get"})

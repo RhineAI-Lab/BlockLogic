@@ -2,7 +2,6 @@ import threading
 import requests
 import subprocess
 import time
-import os
 
 server_ip = 'logic.autojs.org'
 threads_num = 16
@@ -36,8 +35,9 @@ def run_thread(index):
 
         task = response['value']['id']
         name = response['value']['name']
+        # print(response['value']['code'])
         file = 'Temp' + str(index) + '-' + name
-        f = open(file, "w")
+        f = open(file, "w", encoding="utf-8")
         f.write(response['value']['code'])
         f.close()
 
