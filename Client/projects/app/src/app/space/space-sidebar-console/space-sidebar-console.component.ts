@@ -50,6 +50,12 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
     this.resolveStringWithTime('控制台初始化完成');
   }
 
+  encodeHtml(text: string): string {
+    text = text.replace(/ /g, '&nbsp;');
+    text = text.replace(/\n/g, '<br>');
+    return text;
+  }
+
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
   }
