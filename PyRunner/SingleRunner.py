@@ -4,13 +4,12 @@ import subprocess
 import time
 
 server_ip = 'logic.autojs.org'
-threads_num = 16
+threads_num = 8
 train_device = 'RTX-A4000'
 
 test_mode = True
 if test_mode:
     server_ip = '127.0.0.1:8000'
-    threads_num = 1
 
 
 def http_get(interface, params):
@@ -49,6 +48,18 @@ def run_thread(index):
                 'msg': msg,
                 'time': java_time()
             })
+        def force_upload_result(type, msg, id):
+            for i in range(200):
+                try:
+                    response = upload_result(type, msg, id)
+                    if response['result']==200:
+                        break
+                    else:
+                        print(response)
+                except Exception as e:
+                    print(e)
+                    time.sleep(0.5)
+                    continue
 
         cmd = 'python ' + file
         popen = subprocess.Popen(cmd,
@@ -56,7 +67,7 @@ def run_thread(index):
                                  stdin=subprocess.PIPE,
                                  stderr=subprocess.PIPE,
                                  shell=True)
-        upload_result('start', name, 0)
+        force_upload_result('start', name, 0)
         id = 1
         continue_flag = True
         last_time = -1
@@ -73,7 +84,7 @@ def run_thread(index):
                     if line.endswith('\n') and len(line)>1:
                         line = line[:len(line)-1]
                     print('T'+str(index)+(' Error' if is_err else ' Output')+str(id)+': '+line)
-                    threading.Thread(target=upload_result, args=('error' if is_err else 'output', line, id)).start()
+                    threading.Thread(target=force_upload_result, args=('error' if is_err else 'output', line, id)).start()
                     id+=1
 
                 if last_time==-1 and not popen.poll() is None and (is_err or len(line_b)==0):
@@ -82,7 +93,7 @@ def run_thread(index):
                     break
             except Exception as e:
                 print('T'+str(index)+' Error'+str(id)+': '+str(e))
-        upload_result('end', name, id)
+        force_upload_result('end', name, id)
         print('T'+str(index)+' TaskEnd')
 
 

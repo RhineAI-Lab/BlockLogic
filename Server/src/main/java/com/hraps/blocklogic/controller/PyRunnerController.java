@@ -28,7 +28,7 @@ public class PyRunnerController {
     ) {
         try {
             code = URLDecoder.decode(code, "UTF-8");
-            System.out.println(code);
+            // System.out.println(code);
             String id = taskService.addTask(request.getRemoteAddr(), user, code, name);
             JsonObject result = new JsonObject();
             result.addProperty("id", id);

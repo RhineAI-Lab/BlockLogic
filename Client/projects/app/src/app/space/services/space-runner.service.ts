@@ -73,21 +73,21 @@ export class SpaceRunnerService {
         } else if (result.result == 202) {
           continue;
         } else if (result.result == 601) {
-          this.events$.next({ type: 'error', msg: '任务不存在', time: -1 });
+          this.events$.next({ type: 'run_error', msg: '任务不存在', time: -1 });
           break;
         } else {
-          this.events$.next({ type: 'error', msg: '网络连接错误', time: -1 });
+          this.events$.next({ type: 'run_error', msg: '网络连接错误', time: -1 });
           break;
         }
       }
     } catch (e) {
-      this.events$.next({ type: 'error', msg: '任务上传失败', time: -1 });
+      this.events$.next({ type: 'run_error', msg: '任务上传失败', time: -1 });
     }
   }
 }
 
 interface RunnerEvents {
-  type: 'push' | 'output' | 'input' | 'start' | 'end' | 'error';
+  type: 'push' | 'output' | 'input' | 'start' | 'end' | 'error' | 'run_error';
   time: number;
   msg: string;
 }

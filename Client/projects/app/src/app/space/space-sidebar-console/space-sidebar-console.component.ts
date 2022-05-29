@@ -73,6 +73,10 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   }
   resolveError(output: string, isOnline = true): void {
     const prefix = isOnline ? 'OnLine' : 'Origin';
+    this.lines.push(`${this.getTime()} [${prefix}]/Error:  ${output}`);
+  }
+  resolveErrorNextLine(output: string, isOnline = true): void {
+    const prefix = isOnline ? 'OnLine' : 'Origin';
     this.lines.push(`${this.getTime()} [${prefix}]/Error:\n${output}`);
   }
   resolveStringWithTime(text: string): void {

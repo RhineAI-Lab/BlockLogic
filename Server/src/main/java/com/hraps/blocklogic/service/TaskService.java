@@ -47,7 +47,14 @@ public class TaskService {
         }
         JsonArray results = new JsonArray();
         for (int i = startId; i < task.results.size(); i++) {
-            results.add(task.results.get(i).toJsonObject());
+            Task.TaskResult result = task.results.get(i);
+            if(result.type=="unknown"){
+                break;
+            }
+            results.add(result.toJsonObject());
+        }
+        if(results.size()>0){
+            println("GetTaskResults: "+task.describeMsg()+" "+startId+"~"+(startId+results.size()));
         }
         return results;
     }

@@ -239,7 +239,9 @@ export class SpaceDevelopService {
             's',
         );
       } else if (event.type == 'error') {
-        this.stringOutput.next('[Origin]/Error:  \n' + event.msg);
+        this.stringOutput.next('[Origin]/Error:\n' + event.msg);
+      } else if (event.type == 'run_error') {
+        this.stringOutput.next('[Origin]/Error:  ' + event.msg);
       } else if (event.type == 'output') {
         this.stringOutput.next('NO-TIME '+event.msg);
       }
