@@ -4,10 +4,13 @@ import subprocess
 import time
 
 server_ip = 'logic.autojs.org'
-threads_num = 8
+threads_num = 16
 train_device = 'RTX-A4000'
 
+use_err = False
+multiple_threads = True
 test_mode = True
+
 if test_mode:
     server_ip = '127.0.0.1:8000'
 
@@ -28,6 +31,7 @@ class State():
 
 
 def run_thread(index):
+    print('Start thread:',index)
     while True:
         try:
             response = http_get('runner/get', {'msg': train_device})
@@ -71,7 +75,10 @@ def run_thread(index):
                     continue
 
         cmd = 'python ' + file
-        popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        if use_err:
+            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        else:
+            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         force_upload_result('start', name, 0)
         def popen_subscribe(is_err, state):
             while state.continue_flag:
@@ -95,16 +102,17 @@ def run_thread(index):
                         state.continue_flag = False
                 except Exception as e:
                     print('T' + str(index) +' RunError' + str(state.id) + ': ' + str(e))
-            if is_err:
+            if not is_err:
                 force_upload_result('end', name, state.id)
                 print('T'+str(index)+' TaskEnd')
         state = State(1)
-        threading.Thread(target=popen_subscribe, args=(True, state)).start()
+        if use_err:
+            threading.Thread(target=popen_subscribe, args=(True, state)).start()
         popen_subscribe(False, state)
 
 
 def start():
-    if test_mode:
+    if multiple_threads:
         for i in range(threads_num):
             threading.Thread(target=run_thread, name="RunThread-" + str(i), args=(i,)).start()
     else:
