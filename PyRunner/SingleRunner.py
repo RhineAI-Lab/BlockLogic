@@ -18,6 +18,15 @@ def http_get(interface, params):
 def java_time():
     return int(time.time()*1000)
 
+class State():
+    id = 0
+    continue_flag = True
+    last_time = -1
+
+    def __init__(self, id):
+        self.id = id
+
+
 def run_thread(index):
     while True:
         try:
@@ -62,39 +71,36 @@ def run_thread(index):
                     continue
 
         cmd = 'python ' + file
-        popen = subprocess.Popen(cmd,
-                                 stdout=subprocess.PIPE,
-                                 stdin=subprocess.PIPE,
-                                 stderr=subprocess.PIPE,
-                                 shell=True)
+        popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
         force_upload_result('start', name, 0)
-        id = 1
-        continue_flag = True
-        last_time = -1
-        while continue_flag:
-            try:
-                is_err = True
-                line_b = popen.stderr.read()
-                if not line_b:
-                    is_err = False
-                    line_b = popen.stdout.readline()
+        def popen_subscribe(is_err, state):
+            while state.continue_flag:
+                try:
+                    if is_err:
+                        line_b = popen.stderr.read()
+                    else:
+                        line_b = popen.stdout.readline()
 
-                if len(line_b) != 0:
-                    line = str(line_b,'UTF-8')
-                    if line.endswith('\n') and len(line)>1:
-                        line = line[:len(line)-1]
-                    print('T'+str(index)+(' Error' if is_err else ' Output')+str(id)+': '+line)
-                    threading.Thread(target=force_upload_result, args=('error' if is_err else 'output', line, id)).start()
-                    id+=1
+                    if line_b and len(line_b) != 0:
+                        line = str(line_b,'UTF-8')
+                        if line.endswith('\n') and len(line)>1:
+                            line = line[:len(line)-1]
+                        print('T' + str(index) + (' Error' if is_err else ' Output') + str(state.id) + ': ' + line)
+                        threading.Thread(target=force_upload_result, args=('error' if is_err else 'output', line, state.id)).start()
+                        state.id+=1
 
-                if last_time==-1 and not popen.poll() is None and (is_err or len(line_b)==0):
-                    last_time = time.time()
-                if last_time!=-1 and last_time+0.3<time.time():
-                    break
-            except Exception as e:
-                print('T'+str(index)+' Error'+str(id)+': '+str(e))
-        force_upload_result('end', name, id)
-        print('T'+str(index)+' TaskEnd')
+                    if state.last_time==-1 and not popen.poll() is None and (is_err or len(line_b) == 0):
+                        state.last_time = time.time()
+                    if state.last_time!=-1 and state.last_time+0.3<time.time():
+                        state.continue_flag = False
+                except Exception as e:
+                    print('T' + str(index) +' RunError' + str(state.id) + ': ' + str(e))
+            if is_err:
+                force_upload_result('end', name, state.id)
+                print('T'+str(index)+' TaskEnd')
+        state = State(1)
+        threading.Thread(target=popen_subscribe, args=(True, state)).start()
+        popen_subscribe(False, state)
 
 
 def start():
