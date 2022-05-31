@@ -6,3 +6,5 @@ Client/projects/app/src/assets/example/dl/csl/csl_title_train.json
 Client/projects/app/src/assets/example/dl/csl/csl_title_test.json
 Client/projects/app/src/assets/example/dl/csl/csl_title_predict.json
 Client/projects/app/src/assets/example/dl/csl/csl_title_dev.json
+.idea/BlockLogic.iml
+.idea/modules.xml
