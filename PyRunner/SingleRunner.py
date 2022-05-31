@@ -7,9 +7,9 @@ server_ip = 'logic.autojs.org'
 threads_num = 16
 train_device = 'RTX-A4000'
 
-use_err = False
+use_err = True
 multiple_threads = True
-test_mode = True
+test_mode = False
 
 if test_mode:
     server_ip = '127.0.0.1:8000'
@@ -75,17 +75,20 @@ def run_thread(index):
                     continue
 
         cmd = 'python ' + file
+        print('fds')
         if use_err:
-            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, close_fds=True)
         else:
-            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+            popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, close_fds=True)
         force_upload_result('start', name, 0)
         def popen_subscribe(is_err, state):
             while state.continue_flag:
                 try:
                     if is_err:
+                        popen.stderr.flush()
                         line_b = popen.stderr.read()
                     else:
+                        popen.stdout.flush()
                         line_b = popen.stdout.readline()
 
                     if line_b and len(line_b) != 0:
