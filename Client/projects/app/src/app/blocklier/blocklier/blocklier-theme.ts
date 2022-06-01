@@ -58,6 +58,12 @@ export class BlocklierTheme {
       numpy_blocks: {
         colourPrimary: '#3abcd3',
       },
+      time_blocks: {
+        colourPrimary: '#38b793',
+      },
+      opencv_blocks: {
+        colourPrimary: '#52c5e8',
+      }
     },
   });
 
@@ -99,4 +105,6 @@ colorMap.set('学习', getColorFromTheme('learner'));
 colorMap.set('张量', getColorFromTheme('tensor'));
 colorMap.set('Numpy', getColorFromTheme('numpy'));
 colorMap.set('导入数据', getColorFromTheme('data'));
+colorMap.set('时间', getColorFromTheme('time'));
+colorMap.set('图像读写', getColorFromTheme('opencv'));
 //TODO: 添加js模式颜色

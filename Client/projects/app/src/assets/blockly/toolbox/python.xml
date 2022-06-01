@@ -33,6 +33,13 @@
                 </value>
             </block>
             <block type="logic_compare"/>
+            <block type="time_sleep">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
             <block type="explain"/>
             <block type="puzzle_block"/>
         </category>
@@ -408,30 +415,6 @@
             <block type="lists_sort"></block>
             <block type="lists_isEmpty"></block>
         </category>
-        <category name="时间">
-            <block type="time_sleep">
-                <value name="A0">
-                    <block type="math_number">
-                        <field name="NUM">1</field>
-                    </block>
-                </value>
-            </block>
-            <block type="time_nowtime"/>
-            <block type="time_changetostr">
-                <value name="A0">
-                    <block type="variables_get">
-                        <field name="VAR">tuple</field>
-                    </block>
-                </value>
-            </block>
-            <block type="time_changetostruct">
-                <value name="A0">
-                    <shadow type="math_number">
-                        <field name="NUM">99999</field>
-                    </shadow>
-                </value>
-            </block>
-        </category>
     </category>
     <category name="进阶语法-Python">
         <category name="变量" categorystyle="variable_category">
@@ -507,6 +490,63 @@
             <block type="puzzle_block_attr"></block>
             <block type="puzzle_block"></block>
         </category>
+    </category>
+    <category name="功能">
+        <category name="时间">
+            <block type="time_sleep">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="time_now_time"/>
+            <block type="time_to_str">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">tuple</field>
+                    </block>
+                </value>
+            </block>
+            <block type="time_to_struct">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
+        <category name="文件读写"></category>
+        <category name="图像读写">
+            <block type="cv2_imread">
+                <value name="A0">
+                    <block type="text">
+                        <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
+            <block type="cv2_imwrite">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="text">
+                        <field name="TEXT">1.jpg</field>
+                    </block>
+                </value>
+            </block>
+            <block type="cv2_imshow">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">img</field>
+                    </block>
+                </value>
+            </block>
+        </category>
+        <category name="图像处理"></category>
+        <category name="图表绘制"></category>
     </category>
     <category name="深度学习">
         <category name="导入数据">
@@ -804,7 +844,7 @@
         </category>
         <category name="训练/测试"></category>
     </category>
-    <category name="多维数据运算">
+    <category name="多维运算">
         <category name="张量">
             <label text="张量变量" style="dlLabel"></label>
             <button text="创建张量" callbackKey="varCreateTensor"></button>
@@ -820,35 +860,5 @@
             <block type="tensor_length"></block>
         </category>
         <category name="Numpy"></category>
-    </category>
-    <category name="图像处理">
-        <category name="读写文件">
-            <block type="cv2_imread">
-                <value name="A0">
-                    <block type="text">
-                        <field name="TEXT">1.jpg</field>
-                    </block>
-                </value>
-            </block>
-            <block type="cv2_imwrite">
-                <value name="A0">
-                    <block type="variables_get">
-                        <field name="VAR">img</field>
-                    </block>
-                </value>
-                <value name="A1">
-                    <block type="text">
-                        <field name="TEXT">1.jpg</field>
-                    </block>
-                </value>
-            </block>
-            <block type="cv2_imshow">
-                <value name="A0">
-                    <block type="variables_get">
-                        <field name="VAR">img</field>
-                    </block>
-                </value>
-            </block>
-        </category>
     </category>
 </xml>
