@@ -589,6 +589,8 @@
             </block>
             <label text="导入器" web-class="dlLabel"></label>
             <block type="data_loader_create"></block>
+            <label text="遍历数据集" web-class="dlLabel"></label>
+            <block type="data_for_dataloader"></block>
         </category>
         <category name="数据增强">
             <label text="对象变量" style="dlLabel"></label>

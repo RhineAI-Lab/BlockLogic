@@ -33,7 +33,7 @@ import: import torch
 torch.device($A0)
 
 module_to_device
-转换{Module,Tensor}到设备{Device}
+转换{Module,Tensor}到设备(var device: Device)
 inline: true
 Python
 $A0 = $A0.to($A1)
