@@ -1,0 +1,7 @@
+space: Client\projects\app\src\app\space
+block: Client\projects\app\src\app\blocklier\definitions
+client: Client\projects\app\src
+runner: PyRunner
+server: Server\src\main\java\com\hraps\blocklogic
+res: Server\src\main\resources
+nginx: Server\nginx.conf
