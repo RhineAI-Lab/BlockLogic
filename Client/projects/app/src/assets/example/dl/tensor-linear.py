@@ -1,55 +1,16 @@
-import torch.utils.data as Data
+# -*- coding:utf-8 -*-
 import torch
-import torch.nn as nn
-import numpy as np
-import torch.optim as optim
-import matplotlib.pyplot as plt
 
-# 生成数据
-num_inputs = 1
-num_examples = 500
-true_w = 2.6
-true_b = 4.2
-features = torch.tensor(np.random.normal(0, 1, (num_examples, num_inputs)), dtype=torch.float)
-labels = true_w * features[:, 0] + true_b
-noises= torch.tensor(np.random.normal(0, 1.5, size=labels.size()), dtype=torch.float)
-labels += noises
+x = None
+y_true = None
+y = None
 
-# 定义超参数
-BATCH_SIZE = 32
-LEARNING_RATE = 0.01
-NUM_EPOCHS = 10
 
-# 读取数据
-dataset = Data.TensorDataset(features, labels)
-data_iter = Data.DataLoader(dataset, BATCH_SIZE, shuffle=True)
+x = torch.rand([1000]) * 10
+y_true = x * 2 + 6
+y = y_true + torch.randn([1000])
 
-# 定义模型
-net = nn.Sequential(
-    nn.Linear(1, 1),
-)
 
-# 定义损失函数和优化器
-loss = nn.MSELoss()
-optimizer = optim.SGD(net.parameters(), lr=LEARNING_RATE)
 
-# 训练
-for epoch in range(NUM_EPOCHS):
-    for X, y in data_iter:
-        output = net(X)
-        l = loss(output, y.view(-1, 1))
-        optimizer.zero_grad()
-        l.backward()
-        optimizer.step()
-    print('epoch %d, loss: %f' % (epoch, l.item()))
-
-# 输出训练结果
-pred_w = net[0].weight
-pred_b = net[0].bias
-print('TrainResult:  w=%.4f  h=%.4f'%(pred_w,pred_b))
-
-# 绘制预测结果 (蓝色为数据集值中正确位置，红色为预测位置)
-preds = net(features)
-plt.scatter(features.numpy(),labels.numpy(), alpha=0.5)
-plt.scatter(features.numpy(),preds.detach().numpy(), c='#e36', s=3)
-plt.show()
+#------ 图形块结构记录 请勿随意修改 ------
+"""<xml xmlns="https://logic.autojs.org/xml"><variables><variable type="Tensor" id="RPy_qD6p]*%K!)UTb}ZT">x</variable><variable type="Tensor" id="P7?ylm$[ojwcA(jGgFd2">y_true</variable><variable type="Tensor" id="L(7vd*PnSZ*SXpW*hb6A">y</variable></variables><block type="tensor_set" id="otI96Y%.tTs:)G7SU.#o" x="70" y="210"><field name="A0" id="RPy_qD6p]*%K!)UTb}ZT" variabletype="Tensor">x</field><value name="A1"><block type="math_calculate" id=".UVGrJQlBwG[EG!_cXEu"><field name="A1">*</field><value name="A0"><shadow type="math_number" id="j3-A-9AYt;R))I2#~}sj"><field name="NUM">1</field></shadow><block type="tensor_create_shape" id="(/-QOxsht7=,l49u0uXK"><field name="A0">rand</field><value name="A1"><block type="lists_new_num" id="d2A3$iooHYAXNRM9d0QV"><mutation items="1"></mutation><field name="ADD0">1000</field></block></value></block></value><value name="A2"><shadow type="math_number" id="{=,QO6D~1neb6d*pb%T8"><field name="NUM">10</field></shadow></value></block></value><next><block type="tensor_set" id="a.$^rZ:]gFl]YTLp%fb@"><field name="A0" id="P7?ylm$[ojwcA(jGgFd2" variabletype="Tensor">y_true</field><value name="A1"><block type="math_calculate" id="`MP[I4:3!#[/I$=]+?8x"><field name="A1">+</field><value name="A0"><shadow type="math_number"><field name="NUM">1</field></shadow><block type="math_calculate" id="Sde[bWe(QgL1UX/T4XZz"><field name="A1">*</field><value name="A0"><shadow type="math_number"><field name="NUM">1</field></shadow><block type="tensor_get" id="KT|So[ld3$pEefnt=5|w"><field name="A0" id="RPy_qD6p]*%K!)UTb}ZT" variabletype="Tensor">x</field></block></value><value name="A2"><shadow type="math_number" id="~`gG!%H5biQ{{GxRX6*3"><field name="NUM">2</field></shadow></value></block></value><value name="A2"><shadow type="math_number" id=";Uk}qq)g|;mjr9#0mh3{"><field name="NUM">6</field></shadow></value></block></value><next><block type="tensor_set" id="W^G|2F6b!w/l-j08+,R^"><field name="A0" id="L(7vd*PnSZ*SXpW*hb6A" variabletype="Tensor">y</field><value name="A1"><block type="math_calculate" id="sh57-9K2U^aMO};)5`1_"><field name="A1">+</field><value name="A0"><shadow type="math_number" id="{eTLxu!adZ_kD+D;`2F9"><field name="NUM">1</field></shadow><block type="tensor_get" id="=TBe%}3LPeu+qG-{ZH~^"><field name="A0" id="P7?ylm$[ojwcA(jGgFd2" variabletype="Tensor">y_true</field></block></value><value name="A2"><shadow type="math_number" id="c^pNX@S]$$5i{pJ{=3dc"><field name="NUM">1</field></shadow><block type="tensor_create_shape" id="c77sy!x~GE72y#!9YJX0"><field name="A0">randn</field><value name="A1"><block type="lists_new_num" id="]tW#kO|0zA?VHD^usw+:"><mutation items="1"></mutation><field name="ADD0">1000</field></block></value></block></value></block></value></block></next></block></next></block></xml>"""
