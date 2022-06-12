@@ -59,6 +59,39 @@ Blockly.defineBlocksWithJsonArray([
     enableContextMenu: false,
   },
   {
+    type: 'lists_new_num',
+    output: 'Array',
+    style: style,
+    helpUrl: '',
+    tooltip: '设置多个初始值',
+    mutator: 'lists_new_num_mutator',
+  },
+  {
+    type: 'lists_new_num_container',
+    message0: '数组 %1 %2',
+    args0: [
+      {
+        type: 'input_dummy',
+      },
+      {
+        type: 'input_statement',
+        name: 'STACK',
+      },
+    ],
+    style: style,
+    tooltip: '放所需数量的块至内部',
+    enableContextMenu: false,
+  },
+  {
+    type: 'lists_new_num_item',
+    message0: '元素',
+    previousStatement: null,
+    nextStatement: null,
+    style: style,
+    tooltip: '元素',
+    enableContextMenu: false,
+  },
+  {
     type: 'lists_indexOf_new',
     message0: '列表 %1 中查找 %2 出现的 %3',
     args0: [
@@ -271,4 +304,101 @@ Blockly.Extensions.registerMutator(
   'lists_dict_new_coll_mutator',
   LISTS_DICT_NEW_COLL_MUTATOR_MIXIN,
   LISTS_DICT_NEW_COLL_EXTENSION,
+);
+
+const LISTS_NEW_NUM_MUTATOR_MIXIN = {
+  mutationToDom: function (this: any) {
+    const container = Blockly.utils.xml.createElement('mutation');
+    container.setAttribute('items', this.itemCount_);
+    return container;
+  },
+  domToMutation: function (this: any, xmlElement: any) {
+    this.itemCount_ = parseInt(xmlElement.getAttribute('items'), 10);
+    this.updateShape_();
+  },
+  decompose: function (this: any, workspace: any) {
+    const containerBlock = workspace.newBlock('lists_new_num_container');
+    containerBlock.initSvg();
+    let connection = containerBlock.getInput('STACK').connection;
+    for (let i = 0; i < this.itemCount_; i++) {
+      const itemBlock = workspace.newBlock('lists_new_num_item');
+      itemBlock.initSvg();
+      connection.connect(itemBlock.previousConnection);
+      connection = itemBlock.nextConnection;
+    }
+    return containerBlock;
+  },
+  compose: function (this: any, containerBlock: any) {
+    let itemBlock = containerBlock.getInputTargetBlock('STACK');
+    // Count number of inputs.
+    const connections = [];
+    const keys = [];
+    while (itemBlock && !itemBlock.isInsertionMarker()) {
+      connections.push(itemBlock.valueConnection_);
+      keys.push(itemBlock.valueKey);
+      itemBlock =
+        itemBlock.nextConnection && itemBlock.nextConnection.targetBlock();
+    }
+    // Disconnect any children that don't belong.
+    const values = new Map();
+    for (let i = 0; i < this.itemCount_; i++) {
+      const value = this.getFieldValue('ADD' + i);
+      value && values.set('ADD' + i, value);
+    }
+    this.itemCount_ = connections.length;
+    this.updateShape_();
+    // Reconnect any child blocks.
+    for (let i = 0; i < this.itemCount_; i++) {
+      const value = values.get('ADD' + i);
+      value && this.setFieldValue(value, 'ADD' + i);
+    }
+  },
+  saveConnections: function (this: any, containerBlock: any) {
+    let itemBlock = containerBlock.getInputTargetBlock('STACK');
+    let i = 0;
+    while (itemBlock) {
+      const input = this.getInput('ADD' + i);
+      itemBlock.valueKey = this.getFieldValue('KEY' + i);
+      itemBlock.valueConnection_ = input && input.connection.targetConnection;
+      i++;
+      itemBlock =
+        itemBlock.nextConnection && itemBlock.nextConnection.targetBlock();
+    }
+  },
+  updateShape_: function (this: any) {
+    if (this.itemCount_ && this.getInput('EMPTY')) {
+      this.removeInput('EMPTY');
+    } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+      this.appendDummyInput('EMPTY')
+        .appendField(this.newQuote_(true))
+        .appendField(this.newQuote_(false));
+    }
+    let input = this.appendDummyInput('EMPTY');
+    input.appendField('数组 ')
+    // Add new inputs.
+    let i;
+    for (i = 0; i < this.itemCount_; i++) {
+      input = input.appendField(new Blockly.FieldNumber(0), 'ADD' + i);
+    }
+    // Remove deleted inputs.
+    while (this.getInput('ADD' + i)) {
+      input.removeField('ADD' + i);
+      i++;
+    }
+  },
+};
+
+const LISTS_NEW_NUM_EXTENSION = function (this: any) {
+  // Add the quote mixin for the itemCount_ = 0 case.
+  // Initialize the mutator values.
+  this.itemCount_ = 2;
+  this.updateShape_();
+  // Configure the mutator UI.
+  this.setMutator(new Blockly.Mutator(['lists_new_num_item']));
+};
+
+Blockly.Extensions.registerMutator(
+  'lists_new_num_mutator',
+  LISTS_NEW_NUM_MUTATOR_MIXIN,
+  LISTS_NEW_NUM_EXTENSION,
 );

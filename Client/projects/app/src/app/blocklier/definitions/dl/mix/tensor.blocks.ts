@@ -18,14 +18,14 @@ Python
 $A0
 
 create_shape: Tensor
-创建张量 默认填充[0:zeros,1:ones,空:empty,0-1均匀随机:rand,正态分布随机:randn] 形状为{Array}
+创建张量 填充[0:zeros/1:ones/空:empty/0到1随机:rand/正态分布随机:randn] 形状为{Array}
 help: #creation-ops
 Python
 import: import torch
 torch.$A0($A1)
 
 create_like: Tensor
-创建张量 默认填充[0:zeros,1:ones,空:empty,0-1均匀随机:rand,正态分布随机:randn] 形状等同于{Tensor}
+创建张量 填充[0:zeros/1:ones/空:empty/0到1随机:rand/正态分布随机:randn] 形状等同于{Tensor}
 help: #creation-ops
 Python
 import: import torch

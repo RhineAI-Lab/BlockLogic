@@ -37,6 +37,16 @@ Python['lists_dict_new_coll'] = function (block: any) {
   return [code, Python.ORDER_ATOMIC];
 };
 
+Python['lists_new_num'] = function (block: any) {
+  let elements = [];
+  for (let i = 0; i < block.itemCount_; i++) {
+    let value = block.getFieldValue('ADD'+i)
+    elements.push(value)
+  }
+  const code = '[' + elements.join(', ') + ']';
+  return [code, Python.ORDER_ATOMIC];
+};
+
 Python['lists_indexOf_new'] = function (block: any) {
   // Find an item in the list.
   const value = Python.valueToCode(block, 'VALUE', Python.ORDER_ATOMIC) || '[]';

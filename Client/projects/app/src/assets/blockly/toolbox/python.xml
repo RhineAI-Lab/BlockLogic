@@ -106,7 +106,7 @@
         </category>
         <category name="逻辑" categorystyle="logic_category">
             <block type="controls_if"/>
-            <block type="logic_compare"/>
+            <block type="logic_compare_plus"/>
             <block type="logic_operation"/>
             <block type="logic_negate"/>
             <block type="logic_boolean"/>
@@ -117,13 +117,13 @@
             <block type="math_number" gap="32">
                 <field name="NUM">123</field>
             </block>
-            <block type="math_arithmetic">
-                <value name="A">
+            <block type="math_calculate">
+                <value name="A0">
                     <shadow type="math_number">
                         <field name="NUM">1</field>
                     </shadow>
                 </value>
-                <value name="B">
+                <value name="A1">
                     <shadow type="math_number">
                         <field name="NUM">1</field>
                     </shadow>
@@ -339,6 +339,7 @@
             <block type="lists_new_coll"></block>
             <block type="lists_create_with"></block>
             <block type="lists_dict_new_coll"></block>
+            <block type="lists_new_num"></block>
             <block type="lists_repeat">
                 <value name="NUM">
                     <shadow type="math_number">
@@ -846,7 +847,7 @@
         </category>
         <category name="训练/测试"></category>
     </category>
-    <category name="多维运算">
+    <category name="张量运算">
         <category name="张量">
             <label text="张量变量" style="dlLabel"></label>
             <button text="创建张量" callbackKey="varCreateTensor"></button>
@@ -856,7 +857,8 @@
             <block type="tensor_create_shape"></block>
             <block type="tensor_create_like"></block>
             <block type="tensor_create_from"></block>
-            <label text="功能" style="dlLabel"></label>v
+            <label text="功能" style="dlLabel"></label>
+            <block type="lists_new_num"></block>
             <block type="tensor_shape_get"></block>
             <block type="tensor_shape_set"></block>
             <block type="tensor_length"></block>
