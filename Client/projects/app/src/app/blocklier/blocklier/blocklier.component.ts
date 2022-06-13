@@ -14,7 +14,7 @@ import 'blockly/blocks';
 import 'blockly/python';
 
 import { BlocklierRenderer } from '../blocklier-renderer';
-import { BlocklierTheme, colorMap } from './blocklier-theme';
+import { BlocklierTheme, colorsMap, themeColor } from './blocklier-theme';
 
 @Component({
   selector: 'app-blocklier',
@@ -96,12 +96,9 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
             this.createVariable(button, 'Transforms');
           },
         );
-        this.workspace.registerButtonCallback(
-          'varCreateLearner',
-          (button) => {
-            this.createVariable(button, 'Learner');
-          },
-        );
+        this.workspace.registerButtonCallback('varCreateLearner', (button) => {
+          this.createVariable(button, 'Learner');
+        });
 
         this.workspace.addChangeListener((event: Event) => {
           this.change.emit(event);
@@ -151,7 +148,10 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       const children = this.resolveToolboxCategories($host, depth + 1);
       if (children.length) $row.click(); // expand the child categories.
       const name = $label.innerHTML;
-      let color = colorMap.get(name);
+      let color = colorsMap.get(name);
+      if (color && !color.startsWith('#')) {
+        color = themeColor(color);
+      }
       color = color ? color : '#aaaaaa';
       let open = i == 0;
       results.push({ name, depth, $host, $row, children, color, open });

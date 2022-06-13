@@ -63,7 +63,7 @@ export class BlocklierTheme {
       },
       opencv_blocks: {
         colourPrimary: '#52c5e8',
-      }
+      },
     },
   });
 
@@ -83,28 +83,30 @@ export class BlocklierTheme {
   });
 }
 
-function getColorFromTheme(key: string): string {
+export function themeColor(key: string): string {
   const style = BlocklierTheme.theme.blockStyles[key + '_blocks'];
   return style ? style.colourPrimary : '#aaaaaa';
 }
-export const colorMap = new Map<string, string>();
-colorMap.set('常用语句', '#888888');
-colorMap.set('循环', getColorFromTheme('loop'));
-colorMap.set('变量', getColorFromTheme('variable'));
-colorMap.set('函数', getColorFromTheme('procedure'));
-colorMap.set('逻辑', getColorFromTheme('logic'));
-colorMap.set('数学', getColorFromTheme('math'));
-colorMap.set('文本', getColorFromTheme('text'));
-colorMap.set('集合', getColorFromTheme('list'));
-colorMap.set('对象', getColorFromTheme('class'));
-colorMap.set('自定义块', '#aaaaaa');
-colorMap.set('数据增强', getColorFromTheme('transforms'));
-colorMap.set('模型定义', getColorFromTheme('module'));
-colorMap.set('内置模型/层', getColorFromTheme('layer'));
-colorMap.set('学习', getColorFromTheme('learner'));
-colorMap.set('张量', getColorFromTheme('tensor'));
-colorMap.set('Numpy', getColorFromTheme('numpy'));
-colorMap.set('导入数据', getColorFromTheme('data'));
-colorMap.set('时间', getColorFromTheme('time'));
-colorMap.set('图像读写', getColorFromTheme('opencv'));
-//TODO: 添加js模式颜色
+
+export const colorsMap = new Map([
+  ['常用语句', '#888888'],
+  ['循环', 'loop'],
+  ['变量', 'variable'],
+  ['函数', 'procedure'],
+  ['逻辑', 'logic'],
+  ['数学', 'math'],
+  ['文本', 'text'],
+  ['集合', 'list'],
+  ['列表', 'list'],
+  ['对象', 'class'],
+  ['自定义块', '#aaaaaa'],
+  ['数据增强', 'transforms'],
+  ['模型定义', 'module'],
+  ['内置模型/层', 'layer'],
+  ['学习', 'learner'],
+  ['张量', 'tensor'],
+  ['Numpy', 'numpy'],
+  ['导入数据', 'data'],
+  ['时间', 'time'],
+  ['图像读写', 'opencv'],
+]);
