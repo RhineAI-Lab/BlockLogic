@@ -84,6 +84,9 @@ export class BlocklierTheme {
 }
 
 export function themeColor(key: string): string {
+  if (key.startsWith('#')){
+    return key
+  }
   const style = BlocklierTheme.theme.blockStyles[key + '_blocks'];
   return style ? style.colourPrimary : '#aaaaaa';
 }

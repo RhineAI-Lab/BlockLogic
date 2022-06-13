@@ -149,10 +149,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       if (children.length) $row.click(); // expand the child categories.
       const name = $label.innerHTML;
       let color = colorsMap.get(name);
-      if (color && !color.startsWith('#')) {
-        color = themeColor(color);
-      }
-      color = color ? color : '#aaaaaa';
+      color = color ? themeColor(color) : '#aaaaaa';
       let open = i == 0;
       results.push({ name, depth, $host, $row, children, color, open });
     }
