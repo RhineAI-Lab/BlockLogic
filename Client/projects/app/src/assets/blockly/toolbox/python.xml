@@ -552,6 +552,8 @@
     <category name="深度学习">
         <category name="导入数据">
             <label text="对象变量" web-class="dlLabel"></label>
+            <block type="data_var_dataset"></block>
+            <block type="data_var_dataloader"></block>
             <label text="一体导入" web-class="dlLabel"></label>
             <block type="data_mix_create">
                 <value name="A1">
@@ -588,8 +590,15 @@
                     </block>
                 </value>
             </block>
+            <block type="data_dataset_tensor_create"></block>
             <label text="导入器" web-class="dlLabel"></label>
-            <block type="data_loader_create"></block>
+            <block type="data_loader_create">
+                <value name="A3">
+                    <shadow type="math_number">
+                        <field name="NUM">16</field>
+                    </shadow>
+                </value>
+            </block>
             <label text="遍历数据集" web-class="dlLabel"></label>
             <block type="data_for_dataloader"></block>
         </category>

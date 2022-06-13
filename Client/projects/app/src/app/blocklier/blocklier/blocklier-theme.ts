@@ -50,7 +50,7 @@ export class BlocklierTheme {
         colourPrimary: '#009561',
       },
       data_blocks: {
-        colourPrimary: '#3abcd3',
+        colourPrimary: '#487ce3',
       },
       tensor_blocks: {
         colourPrimary: '#3abcd3',
