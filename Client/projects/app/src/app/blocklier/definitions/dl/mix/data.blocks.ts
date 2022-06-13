@@ -41,7 +41,7 @@ dataset_tensor_create
 创建(var datasets: Dataset)为张量数据集 特征:{Tensor}
 标签:{Tensor:R}
 Python
-import: import torch.utils.data as Data
+import: from torch.utils import data
 $A0 = Data.TensorDataset($A1, $A2)
 
 loader_create

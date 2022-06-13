@@ -16,14 +16,16 @@ Python['data_for_dataloader'] = function (block: any) {
     Blockly.VARIABLE_CATEGORY_NAME,
   );
   const statements = Python.statementToCode(block, 'STAT');
-  let code = `for iter_num, (${elements.join(', ')}) in enumerate(${dataloader}):\n`;
+  let code = `for iter_num, (${elements.join(
+    ', ',
+  )}) in enumerate(${dataloader}):\n`;
   code += `  ${elements.join(', ')} = `;
-  for (const element of elements) {
-    code += `${element}.to(${device})`;
-    if (element !== elements[elements.length - 1]) {
+  for (const ei in elements) {
+    code += `${elements[ei]}.to(${device})`;
+    if (ei != elements.length - 1 + '') {
       code += ', ';
     }
   }
-  code += `\n`+statements;
+  code += `\n` + statements;
   return code;
 };

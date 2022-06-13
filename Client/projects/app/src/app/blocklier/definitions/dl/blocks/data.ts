@@ -124,7 +124,7 @@ const DATA_FOR_DATALOADER_MUTATOR_MIXIN = {
               ),
               'DATA_LOADER',
             )
-            .appendField('设备')
+            .appendField(' [设备')
             .appendField(
               new Blockly.FieldVariable(
                 'device',
@@ -134,7 +134,7 @@ const DATA_FOR_DATALOADER_MUTATOR_MIXIN = {
               ),
               'DEVICE',
             )
-            .appendField('至');
+            .appendField('] 至');
         }
       }
     }

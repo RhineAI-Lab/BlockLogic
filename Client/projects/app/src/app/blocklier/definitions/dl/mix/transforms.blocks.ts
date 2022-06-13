@@ -115,7 +115,7 @@ inline: 1
 tip: 转换为灰度图
 Python
 import: from torchvision import transforms
-transforms.Grayscale(num_output_channels=$A0, p=$A1)
+transforms.Grayscale(num_output_channels=$A0 , p=$A1)
 `,
   false,
 );
