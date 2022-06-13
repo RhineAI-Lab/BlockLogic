@@ -42,7 +42,7 @@ dataset_tensor_create
 标签:{Tensor:R}
 Python
 import: from torch.utils import data
-$A0 = Data.TensorDataset($A1, $A2)
+$A0 = data.TensorDataset($A1, $A2)
 
 loader_create
 创建导入器(var dataloader: DataLoader) 数据集{Dataset} 打乱(checkbox) 批次大小{num:R}
