@@ -64,6 +64,9 @@ export class BlocklierTheme {
       opencv_blocks: {
         colourPrimary: '#52c5e8',
       },
+      console_blocks: {
+        colourPrimary: '#0eaf9e',
+      }
     },
   });
 

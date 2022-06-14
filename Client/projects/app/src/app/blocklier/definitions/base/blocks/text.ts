@@ -29,14 +29,14 @@ Blockly.defineBlocksWithJsonArray([
     type: 'text_output_more',
     previousStatement: null,
     nextStatement: null,
-    style: 'text_blocks',
+    style: 'console_blocks',
     helpUrl: '',
     tooltip: '多信息输出。',
     mutator: 'output_more_mutator',
   },
   {
     type: 'text_output_more_container',
-    message0: '输出',
+    message0: '输出 %1 %2',
     args0: [
       {
         type: 'input_dummy',
@@ -46,7 +46,7 @@ Blockly.defineBlocksWithJsonArray([
         name: 'STACK',
       },
     ],
-    style: 'text_blocks',
+    style: 'console_blocks',
     tooltip: '放所需数量的块至内部',
     enableContextMenu: false,
   },
@@ -55,13 +55,13 @@ Blockly.defineBlocksWithJsonArray([
     message0: '信息',
     previousStatement: null,
     nextStatement: null,
-    style: 'text_blocks',
+    style: 'console_blocks',
     enableContextMenu: false,
   },
 ]);
 
 
-const OUTPUT_MORE_MUTATOR_MIXIN = {
+const TEXT_OUTPUT_MORE_MUTATOR_MIXIN = {
   mutationToDom: function (this: any) {
     const container = Blockly.utils.xml.createElement('mutation');
     container.setAttribute('items', this.itemCount_);
@@ -72,11 +72,11 @@ const OUTPUT_MORE_MUTATOR_MIXIN = {
     this.updateShape_();
   },
   decompose: function (this: any, workspace: any) {
-    const containerBlock = workspace.newBlock('output_more_container');
+    const containerBlock = workspace.newBlock('text_output_more_container');
     containerBlock.initSvg();
     let connection = containerBlock.getInput('STACK').connection;
     for (let i = 0; i < this.itemCount_; i++) {
-      const itemBlock = workspace.newBlock('output_more_item');
+      const itemBlock = workspace.newBlock('text_output_more_item');
       itemBlock.initSvg();
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
@@ -147,18 +147,18 @@ const OUTPUT_MORE_MUTATOR_MIXIN = {
   },
 };
 
-const OUTPUT_MORE_EXTENSION = function (this: any) {
+const TEXT_OUTPUT_MORE_EXTENSION = function (this: any) {
   // Add the quote mixin for the itemCount_ = 0 case.
   // Initialize the mutator values.
-  this.itemCount_ = 2;
+  this.itemCount_ = 1;
   this.updateShape_();
   // Configure the mutator UI.
-  this.setMutator(new Blockly.Mutator(['output_more_item']));
+  this.setMutator(new Blockly.Mutator(['text_output_more_item']));
 };
 
 Blockly.Extensions.registerMutator(
   'output_more_mutator',
-  OUTPUT_MORE_MUTATOR_MIXIN,
-  OUTPUT_MORE_EXTENSION,
+  TEXT_OUTPUT_MORE_MUTATOR_MIXIN,
+  TEXT_OUTPUT_MORE_EXTENSION,
 );
 

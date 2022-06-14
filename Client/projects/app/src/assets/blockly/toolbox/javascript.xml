@@ -9,6 +9,7 @@
                     </shadow>
                 </value>
             </block>
+            <block type="text_output_more"></block>
             <block type="console_output">
                 <value name="CONTENT">
                     <shadow type="text"></shadow>
@@ -290,22 +291,17 @@
                 </value>
             </block>
             <label text="Input/Output:" web-class="ioLabel"></label>
-            <block type="text_print">
-                <value name="TEXT">
+            <block type="console_output">
+                <value name="CONTENT">
                     <shadow type="text">
                         <field name="TEXT">abc</field>
                     </shadow>
                 </value>
             </block>
-            <block type="text_prompt_ext">
-                <value name="TEXT">
-                    <shadow type="text">
-                        <field name="TEXT">abc</field>
-                    </shadow>
-                </value>
-            </block>
+            <block type="text_output_more"></block>
         </category>
         <category name="列表" categorystyle="list_category">
+            <label text="创建" web-class="listsLabel"></label>
             <block type="lists_create_with">
                 <mutation items="0"></mutation>
             </block>
@@ -317,6 +313,7 @@
                     </shadow>
                 </value>
             </block>
+            <label text="读写" web-class="listsLabel"></label>
             <block type="lists_getIndex_new1">
                 <value name="LIST">
                     <block type="variables_get">
@@ -365,6 +362,7 @@
                     </shadow>
                 </value>
             </block>
+            <label text="功能" web-class="listsLabel"></label>
             <block type="lists_length"></block>
             <block type="lists_isEmpty"></block>
             <block type="lists_indexOf">
@@ -904,6 +902,7 @@
                     <shadow type="math_number"></shadow>
                 </value>
             </block>
+            <block type="text_output_more"></block>
             <block type="console_output">
                 <value name="CONTENT">
                     <shadow type="text"></shadow>
@@ -1186,13 +1185,9 @@
 
     <category name="运行交互">
         <category name="控制台" colour="0eaf9e">
+            <label text="控制台" web-class="consoleLabel"></label>
             <block type="console_show"></block>
             <block type="console_clear"></block>
-            <block type="console_output">
-                <value name="CONTENT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
             <block type="console_time">
                 <value name="NAME">
                     <shadow type="text"></shadow>
@@ -1222,6 +1217,14 @@
                     </shadow>
                 </value>
             </block>
+            <label text="輸出" web-class="consoleLabel"></label>
+            <block type="console_output">
+                <value name="CONTENT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="text_output_more"></block>
+            <label text="配置" web-class="consoleLabel"></label>
             <block type="console_config"></block>
             <block type="console_config_path">
                 <value name="VALUE">

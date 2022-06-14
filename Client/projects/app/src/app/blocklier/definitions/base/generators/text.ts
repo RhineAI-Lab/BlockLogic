@@ -66,6 +66,17 @@ Python['number_to_text'] = function (block: any) {
   return [code, Python.ORDER_ATOMIC];
 };
 
+JavaScript['text_output_more'] = function (block: any) {
+  const elements = new Array(block.itemCount_);
+  for (let i = 0; i < block.itemCount_; i++) {
+    elements[i] =
+      JavaScript.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || '\'\'';
+  }
+  let code = elements.join(' + ');
+  code = 'log(' + code + ')\n';
+  return code;
+};
+
 Python['text_output_more'] = function (block: any) {
   const elements = new Array(block.itemCount_);
   for (let i = 0; i < block.itemCount_; i++) {

@@ -2,7 +2,6 @@ console.show();
 //设置一些基本属性
 console.setGlobalLogConfig({
   'path':'/sdcard/file.txt',
-  console.setSize(500,500);
 });
 //不同等级的信息在控制台上会有不同的颜色
 console.verbose('观察信息');
