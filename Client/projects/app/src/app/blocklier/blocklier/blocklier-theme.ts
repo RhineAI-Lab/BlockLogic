@@ -17,7 +17,7 @@ export class BlocklierTheme {
         colourPrimary: '#3d98e3',
       },
       text_blocks: {
-        colourPrimary: '#e07d35',
+        colourPrimary: '#dc7f3b',
       },
       list_blocks: {
         colourPrimary: '#38b793',
@@ -64,9 +64,73 @@ export class BlocklierTheme {
       opencv_blocks: {
         colourPrimary: '#52c5e8',
       },
+
       console_blocks: {
         colourPrimary: '#0eaf9e',
-      }
+      },
+      device_blocks: {
+        colourPrimary: '#3264e1',
+      },
+      // dialog_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // files_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // global_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // http_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // intent_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // media_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // plugins_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // power_manager_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // root_automator_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // setting_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // simple_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // storages_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // temp_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // ui_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // widget_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // app_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // auto_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // coordinate_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // crypto_blocks: {
+      //   colourPrimary: '#',
+      // },
+      // debug_blocks: {
+      //   colourPrimary: '#',
+      // },
     },
   });
 
@@ -106,6 +170,7 @@ export const colorsMap = new Map([
   ['列表', 'list'],
   ['对象', 'class'],
   ['自定义块', '#aaaaaa'],
+
   ['数据增强', 'transforms'],
   ['模型定义', 'module'],
   ['内置模型/层', 'layer'],
@@ -115,4 +180,7 @@ export const colorsMap = new Map([
   ['导入数据', 'data'],
   ['时间', 'time'],
   ['图像读写', 'opencv'],
+
+  ['设备', 'device'],
+  ['', ''],
 ]);

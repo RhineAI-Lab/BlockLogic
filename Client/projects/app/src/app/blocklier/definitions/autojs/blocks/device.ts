@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 
-const colour = '#3264e1';
+const style = 'device_blocks'
 const colour2 = '#698a8a';
 const baseHelpUrl = 'https://pro.autojs.org/docs/#/zh-cn/device?id=';
 
@@ -179,7 +179,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_brightness',
     message0: '当前的亮度',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前的(手动)亮度。范围为0~255。',
     helpUrl: baseHelpUrl + 'devicegetbrightness',
   },
@@ -187,7 +187,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_brightness_mode',
     message0: '当前亮度模式',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前亮度模式，0为手动亮度，1为自动亮度。',
     helpUrl: baseHelpUrl + 'devicegetbrightnessmode',
   },
@@ -195,7 +195,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_set_brightness',
     message0: '设置当前亮度 %1',
     args0: [{ type: 'input_value', name: 'BRIGHTNESS', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '设置当前手动亮度，范围0~255。如果当前是自动亮度模式，该函数不会影响屏幕的亮度。\n    此函数需要"修改系统设置"的权限。如果没有该权限，会抛出SecurityException并跳转到权限设置界面。',
     helpUrl: baseHelpUrl + 'devicesetbrightnessb',
@@ -206,7 +206,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_set_brightness_mode',
     message0: '设置当前亮度模式 %1',
     args0: [{ type: 'input_value', name: 'BRIGHTNESS_MODE', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '设置当前亮度模式，0为手动，1为自动。\n    此函数需要"修改系统设置"的权限。如果没有该权限，会抛出SecurityException并跳转到权限设置界面。',
     helpUrl: baseHelpUrl + 'devicesetbrightnessmodemode',
@@ -217,7 +217,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_music_volume',
     message0: '返回当前媒体音量',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前媒体音量，范围0~255',
     helpUrl: baseHelpUrl + 'devicegetmusicvolume',
   },
@@ -225,7 +225,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_notification_volume',
     message0: '返回当前通知音量',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前通知音量，范围0~255。',
     helpUrl: baseHelpUrl + 'devicegetnotificationvolume',
   },
@@ -233,7 +233,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_alarm_volume',
     message0: '返回当前闹钟音量',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前闹钟音量，范围0~255。',
     helpUrl: baseHelpUrl + 'devicegetalarmvolume',
   },
@@ -241,7 +241,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_get_music_max_volume',
     message0: '返回媒体音量的最大值。',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回媒体音量的最大值',
     helpUrl: baseHelpUrl + 'devicegetmusicmaxvolume',
   },
@@ -249,7 +249,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'get_notification_max_volume',
     message0: '返回通知音量的最大值',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回通知音量的最大值。',
     helpUrl: baseHelpUrl + 'devicegetnotificationmaxvolume',
   },
@@ -257,7 +257,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'get_alarm_max_volume',
     message0: '返回闹钟音量的最大值',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回闹钟音量的最大值。',
     helpUrl: baseHelpUrl + 'devicegetalarmmaxvolume',
   },
@@ -265,7 +265,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_set_music_volume',
     message0: '设置当前媒体音量 %1',
     args0: [{ type: 'input_value', name: 'VOLUME', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '设置当前媒体音量，范围0~255。\n    此函数需要"修改系统设置"的权限。如果没有该权限，会抛出SecurityException并跳转到权限设置界面。',
     helpUrl: baseHelpUrl + 'devicesetmusicvolumevolume',
@@ -276,7 +276,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_set_notification_volume',
     message0: '设置当前通知音量 %1',
     args0: [{ type: 'input_value', name: 'VOLUME', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '设置当前通知音量，范围0~255。 \n    此函数需要"修改系统设置"的权限。如果没有该权限，会抛出SecurityException并跳转到权限设置界面。',
     helpUrl: baseHelpUrl + 'devicesetnotificationvolumevolume',
@@ -287,7 +287,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'device_set_alarm_volume',
     message0: '设置当前闹钟音量 %1',
     args0: [{ type: 'input_value', name: 'VOLUME', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '设置当前闹钟音量，范围0~255。 \n    此函数需要"修改系统设置"的权限。如果没有该权限，会抛出SecurityException并跳转到权限设置界面。',
     helpUrl: baseHelpUrl + 'devicesetalarmvolumevolume',
@@ -298,7 +298,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'get_battery',
     message0: '返回当前电量百分比',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回当前电量百分比 0.0~100.0的浮点数',
     helpUrl: baseHelpUrl + 'devicegetbattery',
   },
@@ -306,7 +306,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'is_charging',
     message0: '返回设备是否正在充电',
     output: 'Boolean',
-    colour: colour,
+    style: style,
     tooltip: '返回设备是否正在充电',
     helpUrl: baseHelpUrl + 'deviceischarging',
   },
@@ -314,7 +314,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'get_total_mem',
     message0: '返回设备内存总量',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回设备内存总量，单位字节(B)。1MB = 1024 * 1024B。',
     helpUrl: baseHelpUrl + 'devicegettotalmem',
   },
@@ -322,7 +322,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'get_avail_mem',
     message0: '返回设备当前可用的内存',
     output: 'Number',
-    colour: colour,
+    style: style,
     tooltip: '返回设备当前可用的内存，单位字节(B)。',
     helpUrl: baseHelpUrl + 'devicegetavailmem',
   },
@@ -330,7 +330,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'is_screen_on',
     message0: '返回设备屏幕是否是亮着的',
     output: 'Boolean',
-    colour: colour,
+    style: style,
     tooltip:
       '返回设备屏幕是否是亮着的 \n 需要注意的是，类似于vivo xplay系列的息屏时钟不属于"屏幕亮着"的情况，虽然屏幕确实亮着但只能显示时钟而且不可交互，此时isScreenOn()也会返回false。',
     helpUrl: baseHelpUrl + 'deviceisscreenon',
@@ -338,7 +338,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: 'wake_up',
     message0: '唤醒设备',
-    colour: colour,
+    style: style,
     tooltip: '唤醒设备。包括唤醒设备CPU、屏幕等。可以用来点亮屏幕。',
     helpUrl: baseHelpUrl + 'devicewakeup',
     previousStatement: null,
@@ -347,7 +347,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: 'wake_up_if_needed',
     message0: '有需要则唤醒设备',
-    colour: colour,
+    style: style,
     tooltip: '如果屏幕没有点亮，则唤醒设备。',
     helpUrl: baseHelpUrl + 'devicewakeupifneeded',
     previousStatement: null,
@@ -357,7 +357,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'keep_screen_on',
     message0: '保持屏幕常亮 时间(ms): %1',
     args0: [{ type: 'input_value', name: 'TIMEOUT', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '保持屏幕常亮，设置-1为永久。\n    此函数无法阻止用户使用锁屏键等正常关闭屏幕，只能使得设备在无人操作的情况下保持屏幕常亮；同时，如果此函数调用时屏幕没有点亮，则会唤醒屏幕。',
     helpUrl: baseHelpUrl + 'devicekeepscreenontimeout',
@@ -368,7 +368,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'keep_screen_dim',
     message0: '保持屏幕常亮[允许变暗省电] 时间(ms): %1',
     args0: [{ type: 'input_value', name: 'TIMEOUT', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '保持屏幕常亮，设置-1为永久。\n 但允许屏幕变暗来节省电量。此函数可以用于定时脚本唤醒屏幕操作，不需要用户观看屏幕，可以让屏幕变暗来节省电量。',
     helpUrl: baseHelpUrl + 'devicekeepscreendimtimeout',
@@ -378,7 +378,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: 'cancel_keeping_awake',
     message0: '取消设备保持唤醒状态',
-    colour: colour,
+    style: style,
     tooltip:
       '取消设备保持唤醒状态。用于取消device.keepScreenOn(), device.keepScreenDim()等函数设置的屏幕常亮。',
     helpUrl: baseHelpUrl + 'devicecancelkeepingawake',
@@ -389,7 +389,7 @@ Blockly.defineBlocksWithJsonArray([
     type: 'vibrate',
     message0: '震动 时间(ms): %1',
     args0: [{ type: 'input_value', name: 'TIME', check: 'Number' }],
-    colour: colour,
+    style: style,
     tooltip:
       '保持屏幕常亮。\n 但允许屏幕变暗来节省电量。此函数可以用于定时脚本唤醒屏幕操作，不需要用户观看屏幕，可以让屏幕变暗来节省电量。',
     helpUrl: baseHelpUrl + 'devicevibratems',
@@ -399,7 +399,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: 'cancel_vibration',
     message0: '取消震动',
-    colour: colour,
+    style: style,
     tooltip: '取消设备保持唤醒状态。用于取消保持震动的效果。',
     helpUrl: baseHelpUrl + 'devicecancelvibration',
     previousStatement: null,
