@@ -1,8 +1,14 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {filter, race, take} from 'rxjs';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { filter, race, take } from 'rxjs';
 
-import {StringUtils} from '../../common/utils/string.utils';
+import { StringUtils } from '../../common/utils/string.utils';
 import {
   SpaceEditorMode,
   SpaceLayoutMode,
@@ -10,17 +16,17 @@ import {
   SpaceRunMode,
   SpaceSaveMode,
 } from '../common/space-modes.enums';
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceState, ThemeMode} from '../services/space-state.service';
-import {SpaceFileService} from '../services/space-file.service';
-import {XmlResult} from '../../common/utils/code.utils';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
+import { SpaceFileService } from '../services/space-file.service';
+import { XmlResult } from '../../common/utils/code.utils';
 
 @Component({
   selector: 'app-space-tool-bar',
   templateUrl: './space-tool-bar.component.html',
   styleUrls: ['./space-tool-bar.component.less'],
 })
-export class SpaceToolBarComponent implements OnInit {
+export class SpaceToolBarComponent implements OnInit, AfterViewInit {
   RunMode = SpaceRunMode;
   SaveMode = SpaceSaveMode;
   OpenMode = SpaceOpenMode;
@@ -33,17 +39,16 @@ export class SpaceToolBarComponent implements OnInit {
   @ViewChild('openProjectBtn') openProjectBtn!: ElementRef;
   @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
-  _brightTheme = true;
-  onChangeTheme () {
-    this._brightTheme = !this.brightTheme
+  brightTheme = true;
+  changeTheme(isBrightTheme: boolean) {
+    if (isBrightTheme == (this.state.theme$.getValue() == ThemeMode.Default)) {
+      return;
+    }
+    this.state.theme$.next(
+      isBrightTheme ? ThemeMode.Default : ThemeMode.Dark,
+    );
   }
-  get brightTheme() {
-    return this._brightTheme;
-  }
-  set brightTheme(value) {
-    this._brightTheme = value;
-    this.state.theme$.next(value ? ThemeMode.Default : ThemeMode.Dark);
-  }
+
   holdBox: boolean = this.state.holdBox$.getValue();
   syncCode: boolean = this.developService.syncCode;
   unfoldXml: boolean = this.developService.unfoldXml$.getValue();
@@ -55,10 +60,10 @@ export class SpaceToolBarComponent implements OnInit {
   get editorMode() {
     return this.state.editorMode$.getValue();
   }
-  get layoutMode () {
+  get layoutMode() {
     return this.state.layoutMode$.getValue();
   }
-  get isBlockFile () {
+  get isBlockFile() {
     return this.layoutMode != SpaceLayoutMode.Unspecified;
   }
   get isEditorLogicMode() {
@@ -87,6 +92,11 @@ export class SpaceToolBarComponent implements OnInit {
     private notification: NzNotificationService,
   ) {}
 
+  ngAfterViewInit(): void {
+    this.state.theme$.subscribe((v) => {
+      this.brightTheme = v == ThemeMode.Default;
+    });
+  }
   ngOnInit(): void {}
 
   onRun(): void {

@@ -78,10 +78,20 @@
   <app-toolbar-divider></app-toolbar-divider>
   <app-icon-button
     color="#5A76D4"
+    [size]="20"
     nz-tooltip="深色主题"
     nzTooltipPlacement="bottom"
-    (click)="onChangeTheme()"
+    (click)="changeTheme(false)"
+    [hidden]="!brightTheme"
   >icon-nightmode-fill</app-icon-button>
+  <app-icon-button
+    color="#5A76D4"
+    [size]="18"
+    nz-tooltip="亮色主题"
+    nzTooltipPlacement="bottom"
+    (click)="changeTheme(true)"
+    [hidden]="brightTheme"
+  >icon-Daytimemode-fill</app-icon-button>
   <app-icon-button
     color="#5A76D4"
     nz-tooltip="分享"
