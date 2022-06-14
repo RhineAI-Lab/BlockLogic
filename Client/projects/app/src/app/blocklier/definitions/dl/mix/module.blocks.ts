@@ -38,6 +38,11 @@ inline: true
 Python
 $A0 = $A0.to($A1)
 
+get_para:Map
+模型(var net:Module)的参数
+Python
+$A0.state_dict()
+
 `,
   false,
 );

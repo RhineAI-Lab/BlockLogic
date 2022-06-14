@@ -790,6 +790,8 @@
                     <block type="modules_sequential"></block>
                 </statement>
             </block>
+            <label text="功能" style="dlLabel"></label>
+            <block type="modules_get_para"></block>
             <label text="设备" style="dlLabel"></label>
             <block type="modules_device"></block>
             <block type="variables_set">
