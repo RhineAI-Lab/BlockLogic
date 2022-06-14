@@ -9,7 +9,13 @@
                     </shadow>
                 </value>
             </block>
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
             <block type="console_output">
                 <value name="CONTENT">
                     <shadow type="text"></shadow>
@@ -298,7 +304,13 @@
                     </shadow>
                 </value>
             </block>
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
         </category>
         <category name="列表" categorystyle="list_category">
             <label text="创建" web-class="listsLabel"></label>
@@ -902,7 +914,13 @@
                     <shadow type="math_number"></shadow>
                 </value>
             </block>
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
             <block type="console_output">
                 <value name="CONTENT">
                     <shadow type="text"></shadow>
@@ -1223,7 +1241,13 @@
                     <shadow type="text"></shadow>
                 </value>
             </block>
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
             <label text="配置" web-class="consoleLabel"></label>
             <block type="console_config"></block>
             <block type="console_config_path">

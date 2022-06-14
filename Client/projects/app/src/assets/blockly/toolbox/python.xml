@@ -1,7 +1,13 @@
 <xml>
     <category name="基础-Python">
         <category name="常用语句" colour="#aaaaaa">
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
             <block type="controls_if"/>
             <block type="controls_repeat_ext">
                 <value name="TIMES">
@@ -312,7 +318,13 @@
                 </value>
             </block>
             <label text="Input/Output:" web-class="ioLabel"></label>
-            <block type="text_output_more"></block>
+            <block type="text_output_more">
+                <value name="ADD0">
+                    <block type="text">
+                        <field name="TEXT"></field>
+                    </block>
+                </value>
+            </block>
             <block type="text_input_new">
                 <value name="A1">
                     <shadow type="text">

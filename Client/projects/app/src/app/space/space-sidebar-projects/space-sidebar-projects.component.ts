@@ -172,13 +172,14 @@ console.log('HelloWorld');
         defaultCode = 'console.log("HelloWorld");';
       } else if (this.newType == NewType.PythonDl) {
         defaultCode = `
+# -*- coding:utf-8 -*-
 for count in range(10):
   print('HelloWorld')
 
 
 
 #------ 图形块结构记录 请勿随意修改 ------
-"""<xml xmlns="https://logic.autojs.org/xml"><block type="controls_repeat_ext" id="k9:CL2)i{,N3IeQhpe{\`" x="50" y="50"><value name="TIMES"><shadow type="math_number" id="k;7vI.h/6LuMX*.J-,d5"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="text_print" id="[,^VcEO[-}eig%To2bOb"><value name="TEXT"><shadow type="text" id="-W:gLQDVx9|!XCu!vbq("><field name="TEXT">HelloWorld</field></shadow></value></block></statement></block></xml>"""
+"""<xml xmlns="https://logic.autojs.org/xml"><block type="controls_repeat_ext" id="k9:CL2)i{,N3IeQhpe{\`" x="50" y="50"><value name="TIMES"><shadow type="math_number" id="k;7vI.h/6LuMX*.J-,d5"><field name="NUM">10</field></shadow></value><statement name="DO"><block type="text_output_more" id="A5j[!XEgO|iH9MXW{Per"><mutation items="1"></mutation><value name="ADD0"><block type="text" id="+Ae^CviEg=Df/||z;(/0"><field name="TEXT">HelloWorld</field></block></value></block></statement></block></xml>"""
         `;
       } else if (this.newType == NewType.Python) {
         defaultCode = 'print("HelloWorld");';
