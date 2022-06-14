@@ -44,9 +44,7 @@ export class SpaceToolBarComponent implements OnInit, AfterViewInit {
     if (isBrightTheme == (this.state.theme$.getValue() == ThemeMode.Default)) {
       return;
     }
-    this.state.theme$.next(
-      isBrightTheme ? ThemeMode.Default : ThemeMode.Dark,
-    );
+    this.state.theme$.next(isBrightTheme ? ThemeMode.Default : ThemeMode.Dark);
   }
 
   holdBox: boolean = this.state.holdBox$.getValue();

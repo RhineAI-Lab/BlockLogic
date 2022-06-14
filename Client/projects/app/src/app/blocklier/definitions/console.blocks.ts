@@ -64,7 +64,7 @@ export class ConsoleClearBlock
   type: 'console_output',
   lines: [
     {
-      message: '%1 輸出 %2',
+      message: '%1 输出 %2',
       args: [
         {
           type: 'field_dropdown',

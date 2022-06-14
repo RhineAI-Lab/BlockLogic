@@ -681,11 +681,14 @@
             </block>
         </category>
         <category name="基于控件操作" colour="#2195f1">
-            <block type="widget_do_text">
-                <value name="VALUE">
+            <label text="快捷使用" web-class="widgetLabel"></label>
+            <block type="widget_do_text"></block>
+            <block type="widget_do_input">
+                <value name="INPUT">
                     <shadow type="text"></shadow>
                 </value>
             </block>
+            <label text="选择器" web-class="widgetLabel"></label>
             <block type="puzzle"></block>
             <block type="widget_algorithm"></block>
             <block type="widget_attr_selector">
@@ -695,13 +698,24 @@
             </block>
             <block type="widget_status_selector"></block>
             <block type="widget_selectors_join"></block>
+            <label text="查找器" web-class="widgetLabel"></label>
             <block type="widget_find_one"></block>
             <block type="widget_find_once"></block>
             <block type="widget_until_find"></block>
             <block type="widget_find"></block>
             <block type="widget_exists"></block>
             <block type="widget_wait"></block>
+            <label text="操作" web-class="widgetLabel"></label>
             <block type="widget_operate"></block>
+            <block type="widget_set_text">
+                <value name="TEXT">
+                    <shadow type="text"></shadow>
+                </value>
+            </block>
+            <block type="widget_get_attr"></block>
+            <block type="widget_parent"></block>
+            <block type="widget_children"></block>
+            <label text="示例" web-class="widgetLabel"></label>
             <block type="puzzle">
                 <value name="VALUE">
                     <block type="widget_operate">
@@ -719,14 +733,6 @@
                     </block>
                 </value>
             </block>
-            <block type="widget_set_text">
-                <value name="TEXT">
-                    <shadow type="text"></shadow>
-                </value>
-            </block>
-            <block type="widget_get_attr"></block>
-            <block type="widget_parent"></block>
-            <block type="widget_children"></block>
         </category>
         <category name="快捷控件操作" colour="#90b01f">
             <block type="puzzle"></block>
@@ -814,7 +820,6 @@
             </block>
             <block type="intent_get_installed_apps"></block>
         </category>
-        <!-- TODO: repeat category App here -->
     </category>
 
     <category name="界面控制">

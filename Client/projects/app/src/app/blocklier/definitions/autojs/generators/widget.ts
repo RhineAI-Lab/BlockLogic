@@ -5,21 +5,39 @@ JavaScript['widget_do_text'] = function (block: {
 }) {
   const dropdown_attr = block.getFieldValue('ATTR');
   const dropdown_way = block.getFieldValue('WAY');
-  const text_value = JavaScript.valueToCode(
-    block,
-    'VALUE',
-    JavaScript.ORDER_ATOMIC,
-    true,
-  );
+  const text_value = block.getFieldValue('VALUE');
   const dropdown_meth = block.getFieldValue('METH');
   const code =
     dropdown_attr +
     dropdown_way +
-    '(' +
+    '(\'' +
     text_value +
-    ').findOne().' +
+    '\').findOne().' +
     dropdown_meth +
     '();\n';
+  return code;
+};
+
+JavaScript['widget_do_input'] = function (block: {
+  getFieldValue: (arg0: string) => any;
+}) {
+  const dropdown_attr = block.getFieldValue('ATTR');
+  const dropdown_way = block.getFieldValue('WAY');
+  const text_value = block.getFieldValue('VALUE');
+  const input = JavaScript.valueToCode(
+    block,
+    'INPUT',
+    JavaScript.ORDER_ATOMIC,
+    true,
+  );
+  const code =
+    dropdown_attr +
+    dropdown_way +
+    '(\'' +
+    text_value +
+    '\').findOne().setText(' +
+    input +
+    ');\n';
   return code;
 };
 

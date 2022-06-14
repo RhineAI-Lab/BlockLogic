@@ -31,7 +31,7 @@ Blockly.defineBlocksWithJsonArray([
           ['正则匹配', 'Matches'],
         ],
       },
-      { type: 'input_value', name: 'VALUE', check: 'String' },
+      { type: 'field_input', name: 'VALUE'},
       {
         type: 'field_dropdown',
         name: 'METH',
@@ -53,6 +53,41 @@ Blockly.defineBlocksWithJsonArray([
           ['显示', 'show'],
         ],
       },
+    ],
+    previousStatement: null,
+    nextStatement: null,
+    colour: colour,
+    tooltip: '快捷进行控件操作',
+    helpUrl: baseHelpUrl + 'uiselectortextstr',
+  },
+  {
+    type: 'widget_do_input',
+    message0: '找到 %1 %2 %3 的控件 并输入 %4',
+    args0: [
+      {
+        type: 'field_dropdown',
+        name: 'ATTR',
+        options: [
+          ['ID', 'id'],
+          ['文本', 'text'],
+          ['描述', 'desc'],
+          ['类名', 'className'],
+          ['包名', 'packageName'],
+        ],
+      },
+      {
+        type: 'field_dropdown',
+        name: 'WAY',
+        options: [
+          ['等于', ''],
+          ['包含', 'Contains'],
+          ['开头是', 'StartsWith'],
+          ['结尾是', 'EndsWith'],
+          ['正则匹配', 'Matches'],
+        ],
+      },
+      { type: 'field_input', name: 'VALUE'},
+      { type: 'input_value', name: 'INPUT', check: 'String' },
     ],
     previousStatement: null,
     nextStatement: null,
@@ -256,7 +291,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: 'widget_selectors_join',
-    message0: '多条件',
+    message0: '',
     output: 'UiSelector',
     colour: colour,
     helpUrl: '',
@@ -265,7 +300,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     type: 'widget_selectors_join_container',
-    message0: '条件组 %1 %2',
+    message0: '条件数量 %1 %2',
     args0: [
       {
         type: 'input_dummy',
@@ -397,6 +432,9 @@ const WIDGET_SELECTORS_JOIN_MUTATOR_MIXIN = {
         const input = this.appendValueInput('ADD' + i).setAlign(
           Blockly.ALIGN_RIGHT,
         );
+        if (i == 0) {
+          input.appendField('多条件');
+        }
       }
     }
     // Remove deleted inputs.
