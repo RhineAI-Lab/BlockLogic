@@ -416,6 +416,7 @@
             <block type="lists_isEmpty"></block>
         </category>
     </category>
+
     <category name="进阶语法-Python">
         <category name="变量" categorystyle="variable_category">
             <label text="通用变量" style="varLabel"></label>
@@ -491,6 +492,7 @@
             <block type="puzzle_block"></block>
         </category>
     </category>
+
     <category name="功能">
         <category name="时间">
             <block type="time_sleep">
@@ -546,10 +548,11 @@
             </block>
         </category>
         <category name="图像处理"></category>
-        <category name="图表绘制"></category>
+        <category name="图表"></category>
     </category>
+
     <category name="深度学习">
-        <category name="导入数据">
+        <category name="数据导入">
             <label text="对象变量" web-class="dlLabel"></label>
             <block type="data_var_dataset"></block>
             <block type="data_var_dataloader"></block>
@@ -855,6 +858,7 @@
         </category>
         <category name="训练/测试"></category>
     </category>
+
     <category name="张量运算">
         <category name="张量">
             <label text="张量变量" style="dlLabel"></label>
