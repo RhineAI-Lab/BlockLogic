@@ -1,5 +1,4 @@
 <div class="layout hr-ant" fxLayout>
-  <label nz-checkbox [(ngModel)]="brightTheme">亮色主题</label>
   <label nz-checkbox *ngIf="isBlockFile"
     [(ngModel)]="holdBox"
     (ngModelChange)="onChangeHoldBox()"
@@ -78,10 +77,16 @@
   </nz-button-group>
   <app-toolbar-divider></app-toolbar-divider>
   <app-icon-button
-      color="#995599"
-      nz-tooltip="分享"
-      nzTooltipPlacement="bottom"
-      (click)="onShare()"
+    color="#5A76D4"
+    nz-tooltip="深色主题"
+    nzTooltipPlacement="bottom"
+    (click)="onChangeTheme()"
+  >icon-nightmode-fill</app-icon-button>
+  <app-icon-button
+    color="#5A76D4"
+    nz-tooltip="分享"
+    nzTooltipPlacement="bottom"
+    (click)="onShare()"
   >icon-share</app-icon-button>
   <div class="middle-space" fxFlex="grow"></div>
   <nz-input-group

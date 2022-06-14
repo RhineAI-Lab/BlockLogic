@@ -179,7 +179,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
 export class SpaceModule {
   constructor(iconService: NzIconService) {
     iconService.fetchFromIconfont({
-      scriptUrl: 'https://at.alicdn.com/t/font_3294553_ml83t1vx2b.js',
+      scriptUrl: 'assets/icons/iconfont.js',
     });
   }
 }

@@ -34,6 +34,9 @@ export class SpaceToolBarComponent implements OnInit {
   @ViewChild('saveProjectBtn') saveProjectBtn!: ElementRef;
 
   _brightTheme = true;
+  onChangeTheme () {
+    this._brightTheme = !this.brightTheme
+  }
   get brightTheme() {
     return this._brightTheme;
   }
