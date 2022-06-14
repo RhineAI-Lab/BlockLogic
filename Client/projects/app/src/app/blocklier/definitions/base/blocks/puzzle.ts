@@ -1,6 +1,7 @@
 import * as Blockly from 'blockly';
 
-const colour = '#999999';
+const style = 'puzzle_blocks';
+const style2 = 'notes_blocks'
 
 Blockly.defineBlocksWithJsonArray([
   {
@@ -9,7 +10,7 @@ Blockly.defineBlocksWithJsonArray([
     args0: [{ type: 'input_value', name: 'VALUE' }],
     previousStatement: null,
     nextStatement: null,
-    colour: colour,
+    style: style,
     tooltip: '用于将属性块封装成语句',
   },
   {
@@ -18,7 +19,7 @@ Blockly.defineBlocksWithJsonArray([
     args0: [{ type: 'field_input', name: 'TEXT', text: '' }],
     previousStatement: null,
     nextStatement: null,
-    colour: '#555555',
+    style: style2,
     tooltip: '单行注释',
   },
   {
@@ -27,7 +28,7 @@ Blockly.defineBlocksWithJsonArray([
     args0: [{ type: 'field_multilinetext', name: 'TEXT', text: '' }],
     previousStatement: null,
     nextStatement: null,
-    colour: '#555555',
+    style: style2,
     tooltip: '多行注释',
   },
   {
@@ -35,7 +36,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '%1',
     args0: [{ type: 'field_multilinetext', name: 'TEXT', text: '' }],
     output: null,
-    colour: colour,
+    style: style,
     tooltip: '自定义有参代码块',
   },
   {
@@ -44,7 +45,7 @@ Blockly.defineBlocksWithJsonArray([
     args0: [{ type: 'field_multilinetext', name: 'TEXT', text: '' }],
     previousStatement: null,
     nextStatement: null,
-    colour: colour,
+    style: style,
     tooltip: '自定义代码块',
   },
 ]);

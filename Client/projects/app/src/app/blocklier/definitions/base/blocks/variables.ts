@@ -1,13 +1,13 @@
 import * as Blockly from 'blockly';
 
-const colour = '#449999';
+const style = 'variable_blocks';
 
 Blockly.defineBlocksWithJsonArray([
   {
     type: 'variables_split',
     previousStatement: null,
     nextStatement: null,
-    style: 'variable_blocks',
+    style: style,
     helpUrl: '',
     tooltip: '将一个合并变量拆成多个。',
     mutator: 'variables_split_mutator',
@@ -24,7 +24,7 @@ Blockly.defineBlocksWithJsonArray([
         name: 'STACK',
       },
     ],
-    style: 'variable_blocks',
+    style: style,
     tooltip: '放所需数量的块至内部',
     enableContextMenu: false,
   },
@@ -33,7 +33,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '变量',
     previousStatement: null,
     nextStatement: null,
-    style: 'variable_blocks',
+    style: style,
     enableContextMenu: false,
   },
   {

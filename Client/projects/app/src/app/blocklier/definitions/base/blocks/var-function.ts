@@ -1,13 +1,13 @@
 import * as Blockly from 'blockly';
 
-const colour = '#0eaf9e';
+const style = 'var_function_blocks';
 
 Blockly.defineBlocksWithJsonArray([
   {
     type: 'var_function_wc',
     message0: '无参函数 %1 %2',
     args0: [{ type: 'input_dummy' }, { type: 'input_statement', name: 'STAT' }],
-    colour: colour,
+    style: style,
     output: 'Function',
     tooltip: '无参函数',
     helpUrl: '',
@@ -15,7 +15,7 @@ Blockly.defineBlocksWithJsonArray([
   {
     type: 'var_function',
     message0: '有参函数',
-    colour: colour,
+    style: style,
     output: 'Function',
     tooltip: '有参函数，填写对应数量的输入变量用于函数输入',
     helpUrl: '',
@@ -33,7 +33,7 @@ Blockly.defineBlocksWithJsonArray([
         name: 'STACK',
       },
     ],
-    colour: colour,
+    style: style,
     tooltip: '输入变量。',
   },
   {
@@ -41,7 +41,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '变量',
     previousStatement: null,
     nextStatement: null,
-    colour: colour,
+    style: style,
     tooltip: '变量。',
   },
   {
@@ -49,7 +49,7 @@ Blockly.defineBlocksWithJsonArray([
     message0: '返回 %1 ',
     previousStatement: null,
     args0: [{ type: 'input_value', name: 'VALUE', check: null }],
-    colour: colour,
+    style: style,
     tooltip: '函数返回。',
   },
 ]);

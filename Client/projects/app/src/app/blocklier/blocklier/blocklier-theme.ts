@@ -2,6 +2,7 @@ import * as Blockly from 'blockly';
 
 const colorChooseTool = '#d7ac87';
 
+// Each line: [style name] [color] [categories name 1 2...]
 export class BlocklierTheme {
   private static blockColors = `
 default 38b793 默认
@@ -15,6 +16,8 @@ colour d7ac87 颜色
 variable e35881 变量
 procedure dc6161 函数
 puzzle 888888 自定义块
+notes 555555 注释
+var_function 0eaf9e 定义函数
 
 module f85c5c 模型定义
 layer ff7a41 内置模型/层

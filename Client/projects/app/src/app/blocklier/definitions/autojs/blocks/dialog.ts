@@ -1,6 +1,6 @@
 import * as Blockly from 'blockly';
 
-const colour = '#9abc86';
+const style = 'dialog_blocks';
 const baseHelpUrl = 'https://pro.autojs.org/docs/#/zh-cn/dialogs?id=';
 
 Blockly.defineBlocksWithJsonArray([
@@ -28,7 +28,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     output: null,
     tooltip: '显示一个提示对话框',
@@ -58,7 +58,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     output: null,
     tooltip: '显示一个带输入框的对话框',
@@ -89,7 +89,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     output: null,
     tooltip: '显示一个列表对话框',
@@ -125,7 +125,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
@@ -162,7 +162,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
@@ -200,7 +200,7 @@ Blockly.defineBlocksWithJsonArray([
         align: 'right',
       },
     ],
-    colour: colour,
+    style: style,
     inputsInline: false,
     previousStatement: null,
     nextStatement: null,
