@@ -1,4 +1,4 @@
-import {defineBlocksWithDt} from "../../register";
+import { defineBlocksWithDt } from '../../register';
 
 defineBlocksWithDt(`
 

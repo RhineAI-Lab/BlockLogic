@@ -518,7 +518,48 @@
                 </value>
             </block>
         </category>
-        <category name="文件读写"></category>
+        <category name="文件读写">
+            <block type="file_open">
+                <value name="A1">
+                    <block type="text">
+                        <field name="TEXT">path</field>
+                    </block>
+                </value>
+            </block>
+            <block type="file_close">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">a</field>
+                    </block>
+                </value>
+            </block>
+            <block type="file_read">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">a</field>
+                    </block>
+                </value>
+            </block>
+            <block type="file_readlines">
+                <value name="A0">
+                    <block type="variables_get">
+                        <field name="VAR">a</field>
+                    </block>
+                </value>
+            </block>
+            <block type="file_write">
+                <value name="A0">
+                    <block type="text">
+                        <field name="TEXT">Hello World!</field>
+                    </block>
+                </value>
+                <value name="A1">
+                    <block type="variables_get">
+                        <field name="VAR">a</field>
+                    </block>
+                </value>
+            </block>
+        </category>
         <category name="图像读写">
             <block type="cv2_imread">
                 <value name="A0">
@@ -547,7 +588,20 @@
                 </value>
             </block>
         </category>
-        <category name="图像处理"></category>
+        <category name="图像处理">
+            <block type="transforms_Resize">
+                <value name="A0">
+                    <shadow type="math_number">
+                        <field name="NUM">640</field>
+                    </shadow>
+                </value>
+                <value name="A1">
+                    <shadow type="math_number">
+                        <field name="NUM">640</field>
+                    </shadow>
+                </value>
+            </block>
+        </category>
         <category name="图表"></category>
     </category>
 
@@ -711,18 +765,6 @@
                 <value name="A1">
                     <shadow type="math_number">
                         <field name="NUM">90</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="transforms_Resize">
-                <value name="A0">
-                    <shadow type="math_number">
-                        <field name="NUM">640</field>
-                    </shadow>
-                </value>
-                <value name="A1">
-                    <shadow type="math_number">
-                        <field name="NUM">640</field>
                     </shadow>
                 </value>
             </block>
