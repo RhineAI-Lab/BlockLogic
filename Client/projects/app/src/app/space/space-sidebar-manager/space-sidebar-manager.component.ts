@@ -2,7 +2,7 @@ import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { SpaceState, ThemeMode } from '../services/space-state.service';
 import { SpaceComponent } from '../space.component';
-import { SpaceSidebarConsoleComponent } from '../space-sidebar-console/space-sidebar-console.component';
+import { SpaceSidebarConsoleOldComponent } from '../space-sidebar-console-old/space-sidebar-console-old.component';
 import { SpaceSidebarProjectsComponent } from '../space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from '../space-sidebar-terminal/space-sidebar-terminal.component';
 import { SpaceDevelopService } from '../services/space-develop.service';
@@ -39,7 +39,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     this.use({
       name: '控制台',
       icon: 'code',
-      component: SpaceSidebarConsoleComponent,
+      component: SpaceSidebarConsoleOldComponent,
       tooltip: '程序输出控制台',
       position: 'right-top',
       width: 380,
@@ -115,7 +115,7 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
     });
     this.developService.targetFile$.subscribe((file) => {
       this.items.forEach((item) => {
-        if (item.name.startsWith(" UI ")) item.showTab = file.type=='js';
+        if (item.name.startsWith(' UI ')) item.showTab = file.type == 'js';
       });
     });
   }

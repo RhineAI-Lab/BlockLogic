@@ -9,7 +9,8 @@ Python['variables_get_boolean'] = Python.get;
 Python['variables_set_boolean'] = Python.set;
 
 Python['variables_add_number'] = function (block: any) {
-  const argument0 = Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '1';
+  const argument0 =
+    Python.valueToCode(block, 'VALUE', Python.ORDER_NONE) || '1';
   const varName = Python.nameDB_.getName(
     block.getFieldValue('VAR'),
     Blockly.VARIABLE_CATEGORY_NAME,

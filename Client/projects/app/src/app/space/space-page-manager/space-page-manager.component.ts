@@ -1,14 +1,26 @@
-import {AfterViewInit, Component, ComponentRef, Injector, OnInit,} from '@angular/core';
-import {Page, SpaceCenterComponent,} from '../space-center/space-center.component';
-import {CdkPortalOutletAttachedRef, ComponentPortal,} from '@angular/cdk/portal';
-import {CodeType, ProjectFile} from '../../common/project-file.class';
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceFileService} from '../services/space-file.service';
-import {SpaceState} from '../services/space-state.service';
-import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
-import {CodeUtils} from '../../common/utils/code.utils';
-import {wait} from '../../common/promisify.utils';
-import {SpaceToolBarButtonType} from '../space-tool-bar/space-tool-bar.component';
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  Injector,
+  OnInit,
+} from '@angular/core';
+import {
+  Page,
+  SpaceCenterComponent,
+} from '../space-center/space-center.component';
+import {
+  CdkPortalOutletAttachedRef,
+  ComponentPortal,
+} from '@angular/cdk/portal';
+import { CodeType, ProjectFile } from '../../common/project-file.class';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceFileService } from '../services/space-file.service';
+import { SpaceState } from '../services/space-state.service';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
+import { CodeUtils } from '../../common/utils/code.utils';
+import { wait } from '../../common/promisify.utils';
+import { SpaceToolBarButtonType } from '../space-tool-bar/space-tool-bar.component';
 
 @Component({
   selector: 'app-space-page-manager',
@@ -82,10 +94,10 @@ export class SpacePageManagerComponent implements OnInit, AfterViewInit {
       page = this.pages[index];
       this.targetPage = page;
     }
-    if(page.state) {
+    if (page.state) {
       this.state.layoutMode$.next(page.state.layoutMode$.getValue());
       this.state.editorMode$.next(page.state.editorMode$.getValue());
-    }else{
+    } else {
       this.state.layoutMode$.next(SpaceLayoutMode.Unspecified);
       this.state.editorMode$.next(SpaceEditorMode.Logic);
     }

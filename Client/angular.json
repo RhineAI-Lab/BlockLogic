@@ -51,9 +51,7 @@
               }
             ],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "projects/app/src/styles/themes"
-              ]
+              "includePaths": ["projects/app/src/styles/themes"]
             },
             "scripts": [],
             "serviceWorker": true,

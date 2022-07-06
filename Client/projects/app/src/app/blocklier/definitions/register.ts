@@ -3,7 +3,15 @@ import * as Blockly from 'blockly';
 
 const modeKeys = ['prefix', 'style', 'help'];
 
-const blockKeys = ['style', 'tip', 'mutator', 'help', 'inline', 'colour','extensions'];
+const blockKeys = [
+  'style',
+  'tip',
+  'mutator',
+  'help',
+  'inline',
+  'colour',
+  'extensions',
+];
 const blockKeysTruth = ['style', 'tooltip', 'mutator'];
 
 const fieldKeys = [
@@ -229,7 +237,7 @@ function registerGenerator(
       fs += `${code}\n`;
     } else if (type == 'Python') {
       for (let i = 0; i < argNum; i++) {
-        while(true){
+        while (true) {
           let res = code.match(new RegExp('\\$A' + i + '([^0-9]|$)'));
           if (res == null || res.index == null) {
             break;
@@ -246,9 +254,9 @@ function registerGenerator(
             code.substring(res.index + len);
         }
       }
-      if(block.output === undefined){
+      if (block.output === undefined) {
         fs += `code = \`${code}\\n\``;
-      }else {
+      } else {
         fs += `code = \`${code}\``;
       }
     }

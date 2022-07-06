@@ -2,14 +2,16 @@
   <nz-sider nzTheme="light">
     <div class="sidebar-main no-select">
       <h1>
+        <a target="_blank" href="https://logic.autojs.org">BlockLogic</a>
+      </h1>
+      <h2 *ngIf="type == 'py'"><a>Python DL</a></h2>
+      <h2 *ngIf="type == 'js'">
         <a
           target="_blank"
-          href="https://logic.autojs.org"
-          >BlockLogic</a
+          href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0"
+          >Auto.Js Pro</a
         >
-      </h1>
-      <h2 *ngIf="type=='py'"><a>Python DL</a></h2>
-      <h2 *ngIf="type=='js'"><a target="_blank" href="https://pro.autojs.org/docs/#/zh-cn/?id=%e7%bb%bc%e8%bf%b0">Auto.Js Pro</a></h2>
+      </h2>
       <ul class="categories" nz-menu nzMode="inline" [nzSelectable]="false">
         <li
           nz-submenu

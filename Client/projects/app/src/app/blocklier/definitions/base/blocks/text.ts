@@ -60,7 +60,6 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
-
 const TEXT_OUTPUT_MORE_MUTATOR_MIXIN = {
   mutationToDom: function (this: any) {
     const container = Blockly.utils.xml.createElement('mutation');
@@ -133,7 +132,7 @@ const TEXT_OUTPUT_MORE_MUTATOR_MIXIN = {
     for (i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const input = this.appendValueInput('ADD' + i)
+        const input = this.appendValueInput('ADD' + i);
         if (i == 0) {
           input.appendField('输出');
         }
@@ -161,4 +160,3 @@ Blockly.Extensions.registerMutator(
   TEXT_OUTPUT_MORE_MUTATOR_MIXIN,
   TEXT_OUTPUT_MORE_EXTENSION,
 );
-

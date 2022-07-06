@@ -374,7 +374,7 @@ const LISTS_NEW_NUM_MUTATOR_MIXIN = {
         .appendField(this.newQuote_(false));
     }
     let input = this.appendDummyInput('EMPTY');
-    input.appendField('数组 ')
+    input.appendField('数组 ');
     // Add new inputs.
     let i;
     for (i = 0; i < this.itemCount_; i++) {

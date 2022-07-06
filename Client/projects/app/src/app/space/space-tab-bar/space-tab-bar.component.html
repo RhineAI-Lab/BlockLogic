@@ -4,11 +4,7 @@
     <div class="tabs">
       <div
         *ngFor="let item of tabs"
-        [ngClass]="
-          item.selected
-            ? 'tab tab-selected'
-            : 'tab'
-        "
+        [ngClass]="item.selected ? 'tab tab-selected' : 'tab'"
         (click)="onTabClick(item)"
         (contextmenu)="contextMenu($event, menu)"
       >

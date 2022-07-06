@@ -9,32 +9,32 @@ export class StringUtils {
   //数上一个换行符距离
   static countLastN(str: string, start: number): number {
     for (let i = start; i >= 0; i--) {
-      if(str.charAt(i)==='\n'){
-        return start-i
+      if (str.charAt(i) === '\n') {
+        return start - i;
       }
     }
     return start;
-  };
+  }
 
   //查找上一个非空字符坐标
-  static getLastNotSpaceIndex(str: string,index: number): number {
-    for(let i=index;i>=0;i--){
-      if(!StringUtils.isSpaceChar(str.charAt(i))){
-        return i
+  static getLastNotSpaceIndex(str: string, index: number): number {
+    for (let i = index; i >= 0; i--) {
+      if (!StringUtils.isSpaceChar(str.charAt(i))) {
+        return i;
       }
     }
     return -1;
-  };
+  }
 
   //数开头[空类字符]数
   static countLikeSpaceFront(str: string): number {
     for (let i = 0; i < str.length; i++) {
-      if(!StringUtils.isSpaceChar(str.charAt(i))){
-        return i
+      if (!StringUtils.isSpaceChar(str.charAt(i))) {
+        return i;
       }
     }
-    return str.length
-  };
+    return str.length;
+  }
 
   //获取字符坐标所在行
   static getLineContain(str: string, index: number): string {
@@ -43,25 +43,24 @@ export class StringUtils {
     let end = str.length;
     let flag = false;
     for (let i = 0; i < str.length; i++) {
-      if(i==index){
+      if (i == index) {
         flag = true;
       }
-      if(str.charAt(i)=='\n'){
-        if(!flag){
+      if (str.charAt(i) == '\n') {
+        if (!flag) {
           start = i;
-        }else {
+        } else {
           end = i;
           break;
         }
-        lineNum++
+        lineNum++;
       }
     }
-    return str.substring(start+1,end)
-  };
+    return str.substring(start + 1, end);
+  }
 
   //检查是否为空白字符
-  static isSpaceChar = function(char: string){
-    return char===' '||char==='\n'||char==='\t'||char==='\r'
+  static isSpaceChar = function (char: string) {
+    return char === ' ' || char === '\n' || char === '\t' || char === '\r';
   };
-
 }

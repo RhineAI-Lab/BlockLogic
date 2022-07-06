@@ -6,11 +6,11 @@ import { SandboxOutput } from '../../common/sandbox.class';
 import { SpaceDevelopService } from '../services/space-develop.service';
 
 @Component({
-  selector: 'app-space-sidebar-console',
-  templateUrl: './space-sidebar-console.component.html',
-  styleUrls: ['./space-sidebar-console.component.less'],
+  selector: 'app-space-sidebar-console-old',
+  templateUrl: './space-sidebar-console-old.component.html',
+  styleUrls: ['./space-sidebar-console-old.component.less'],
 })
-export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
+export class SpaceSidebarConsoleOldComponent implements OnInit, OnDestroy {
   lines: string[] = [];
 
   private subscription?: Subscription;
@@ -18,18 +18,18 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
   constructor(private developService: SpaceDevelopService) {}
 
   ngOnInit(): void {
-    this.subscription = this.developService.output$.subscribe({
+    this.subscription = this.developService.outputOld$.subscribe({
       next: (output) => {
-        if (output.type && output.type!='error') {
+        if (output.type && output.type != 'error') {
           if (typeof output.data === 'string') {
             this.resolveString(output.data);
-          }else{
+          } else {
             this.resolveOutput(output);
           }
-        } else if (output.type && output.type=='error') {
+        } else if (output.type && output.type == 'error') {
           if (typeof output.data === 'string') {
             this.resolveValue(output.data);
-          }else {
+          } else {
             this.resolveError(output.data);
           }
         } else if (typeof output === 'string') {
@@ -41,9 +41,9 @@ export class SpaceSidebarConsoleComponent implements OnInit, OnDestroy {
       },
     });
     this.developService.stringOutput.subscribe((output) => {
-      if(output.startsWith('NO-TIME ')){
+      if (output.startsWith('NO-TIME ')) {
         this.resolveString(output.substring(8));
-      }else{
+      } else {
         this.resolveStringWithTime(output);
       }
     });

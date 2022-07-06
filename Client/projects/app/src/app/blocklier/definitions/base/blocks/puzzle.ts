@@ -1,7 +1,7 @@
 import * as Blockly from 'blockly';
 
 const style = 'puzzle_blocks';
-const style2 = 'notes_blocks'
+const style2 = 'notes_blocks';
 
 Blockly.defineBlocksWithJsonArray([
   {

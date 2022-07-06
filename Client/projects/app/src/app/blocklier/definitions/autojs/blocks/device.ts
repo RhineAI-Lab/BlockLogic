@@ -1,7 +1,7 @@
 import * as Blockly from 'blockly';
 
-const style = 'device_blocks'
-const style2 = 'device_msg_blocks'
+const style = 'device_blocks';
+const style2 = 'device_msg_blocks';
 const baseHelpUrl = 'https://pro.autojs.org/docs/#/zh-cn/device?id=';
 
 Blockly.defineBlocksWithJsonArray([

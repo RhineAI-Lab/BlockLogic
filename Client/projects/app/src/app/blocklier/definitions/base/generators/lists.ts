@@ -41,13 +41,12 @@ Python['lists_dict_new_coll'] = function (block: any) {
 Python['lists_new_num'] = function (block: any) {
   let elements = [];
   for (let i = 0; i < block.itemCount_; i++) {
-    let value = block.getFieldValue('ADD'+i)
-    elements.push(value)
+    let value = block.getFieldValue('ADD' + i);
+    elements.push(value);
   }
   const code = '[' + elements.join(', ') + ']';
   return [code, Python.ORDER_ATOMIC];
 };
-
 
 Python['lists_indexOf_new'] = function (block: any) {
   // Find an item in the list.
@@ -76,7 +75,7 @@ Python['lists_indexOf_new'] = function (block: any) {
   const functionName = Python.provideFunction_('last_index', [
     'def ' + Python.FUNCTION_NAME_PLACEHOLDER_ + '(my_list, elem):',
     '  try: index = len(my_list) - my_list[::-1].index(elem)' +
-    lastIndexAdjustment,
+      lastIndexAdjustment,
     '  except: index =' + errorIndex,
     '  return index',
   ]);
@@ -152,11 +151,12 @@ Python['lists_setValue_new2'] = function (block: any) {
   return code + '\n';
 };
 
-
 JavaScript['lists_getIndex_new1'] = function (block: any) {
-  const list = JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
+  const list =
+    JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
   const mode = block.getFieldValue('MODE');
-  let index = JavaScript.valueToCode(block, 'INDEX', JavaScript.ORDER_ATOMIC) || '1';
+  let index =
+    JavaScript.valueToCode(block, 'INDEX', JavaScript.ORDER_ATOMIC) || '1';
   index = parseInt(index);
   index -= 1;
   let code;
@@ -169,7 +169,8 @@ JavaScript['lists_getIndex_new1'] = function (block: any) {
 };
 
 JavaScript['lists_getIndex_new2'] = function (block: any) {
-  const list = JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
+  const list =
+    JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
   const mode = block.getFieldValue('MODE');
   let index = block.getFieldValue('INDEX');
   let code;
@@ -194,17 +195,22 @@ JavaScript['lists_getIndex_new2'] = function (block: any) {
 };
 
 JavaScript['lists_setValue_new1'] = function (block: any) {
-  const list = JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
-  let index = JavaScript.valueToCode(block, 'INDEX', JavaScript.ORDER_ATOMIC) || '1';
-  const value = JavaScript.valueToCode(block, 'VALUE', JavaScript.ORDER_ATOMIC) || '0';
+  const list =
+    JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
+  let index =
+    JavaScript.valueToCode(block, 'INDEX', JavaScript.ORDER_ATOMIC) || '1';
+  const value =
+    JavaScript.valueToCode(block, 'VALUE', JavaScript.ORDER_ATOMIC) || '0';
   index = parseInt(index) - 1;
   return `${list}[${index}] = ${value}\n`;
 };
 
 JavaScript['lists_setValue_new2'] = function (block: any) {
-  const list = JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
+  const list =
+    JavaScript.valueToCode(block, 'LIST', JavaScript.ORDER_ATOMIC) || '[]';
   const index = block.getFieldValue('INDEX');
-  const value = JavaScript.valueToCode(block, 'VALUE', JavaScript.ORDER_ATOMIC) || '0';
+  const value =
+    JavaScript.valueToCode(block, 'VALUE', JavaScript.ORDER_ATOMIC) || '0';
   let code;
   if (index === 'ADD') {
     code = `${list}.push(${value})`;

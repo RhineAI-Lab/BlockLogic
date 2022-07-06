@@ -1,13 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {FileUtils} from '../../common/utils/file.utils';
-import {SpaceEditorMode, SpaceLayoutMode} from '../common/space-modes.enums';
-import {SpaceDevelopService} from '../services/space-develop.service';
-import {SpaceState} from '../services/space-state.service';
-import {NzContextMenuService, NzDropdownMenuComponent,} from 'ng-zorro-antd/dropdown';
-import {Clipboard} from '@angular/cdk/clipboard';
-import {NzNotificationService} from 'ng-zorro-antd/notification';
-import {ProjectFile} from '../../common/project-file.class';
+import { FileUtils } from '../../common/utils/file.utils';
+import { SpaceEditorMode, SpaceLayoutMode } from '../common/space-modes.enums';
+import { SpaceDevelopService } from '../services/space-develop.service';
+import { SpaceState } from '../services/space-state.service';
+import {
+  NzContextMenuService,
+  NzDropdownMenuComponent,
+} from 'ng-zorro-antd/dropdown';
+import { Clipboard } from '@angular/cdk/clipboard';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { ProjectFile } from '../../common/project-file.class';
 
 @Component({
   selector: 'app-space-tab-bar',
@@ -150,13 +153,20 @@ export class SpaceTabBarComponent implements OnInit {
   }
 
   showToBlockFileBtn(): boolean {
-    return ['js','py'].includes(this.developService.targetFile$.getValue().type) && !this.isBlockFile;
+    return (
+      ['js', 'py'].includes(this.developService.targetFile$.getValue().type) &&
+      !this.isBlockFile
+    );
   }
   showEditorModeChangeBtn(): boolean {
     return this.developService.targetFile$.getValue().type == 'js';
   }
   showSplitLine(): boolean {
-    return this.showToBlockFileBtn() || this.showEditorModeChangeBtn() || this.isBlockFile;
+    return (
+      this.showToBlockFileBtn() ||
+      this.showEditorModeChangeBtn() ||
+      this.isBlockFile
+    );
   }
 }
 

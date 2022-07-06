@@ -1,7 +1,7 @@
 import { defineBlocksWithDt } from '../../register';
 
 defineBlocksWithDt(
-    `
+  `
 prefix: time
 style: time_blocks
 
@@ -36,4 +36,5 @@ tip: 转换时间类型为结构化
 Python
 import: import time
 time.$A1time($A0)
-`);
+`,
+);

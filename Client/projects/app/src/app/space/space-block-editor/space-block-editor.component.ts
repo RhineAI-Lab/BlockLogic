@@ -1,15 +1,20 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter, Input,
+  EventEmitter,
+  Input,
   OnInit,
-  Output, ViewChild,
+  Output,
+  ViewChild,
 } from '@angular/core';
 import * as Blockly from 'blockly';
 
-import {BlocklierComponent, BlocklierToolboxCategory} from '../../blocklier/blocklier/blocklier.component';
+import {
+  BlocklierComponent,
+  BlocklierToolboxCategory,
+} from '../../blocklier/blocklier/blocklier.component';
 import { ColorUtils } from '../../common/utils/color.utils';
-import {SpaceState, ThemeMode} from '../services/space-state.service';
+import { SpaceState, ThemeMode } from '../services/space-state.service';
 
 @Component({
   selector: 'app-space-block-editor',
@@ -28,6 +33,7 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   get workspace(): Blockly.WorkspaceSvg {
     return this._workspace;
   }
+
   set workspace(value: Blockly.WorkspaceSvg) {
     this._workspace = value;
     if (!this.initialized) {
@@ -65,7 +71,7 @@ export class SpaceBlockEditorComponent implements OnInit, AfterViewInit {
   }
 
   onInit(): void {
-    this.workspace = this.blocklier.workspace
+    this.workspace = this.blocklier.workspace;
     this.state.theme$.subscribe((v) => {
       this.categorySelected = undefined;
       setTimeout(() => {

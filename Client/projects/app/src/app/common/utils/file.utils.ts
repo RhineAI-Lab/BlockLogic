@@ -1,5 +1,4 @@
 export class FileUtils {
-
   static getIconByFileName(name: string): string {
     const nameSp = name.split('.');
     const nameLast = nameSp[nameSp.length - 1];
@@ -13,7 +12,7 @@ export class FileUtils {
       return 'icon-file-config';
     } else if (hadList.includes(nameLast)) {
       return 'icon-file-' + nameLast;
-    } else if (nameLast=='py') {
+    } else if (nameLast == 'py') {
       return 'icon-file-python';
     } else if (zipList.includes(nameLast)) {
       return 'icon-file-archive';
@@ -47,7 +46,7 @@ export class FileUtils {
     for (const language of languages) {
       const lan = language.split(' ');
       for (const i in lan) {
-        if(i=='0')continue;
+        if (i == '0') continue;
         if (type == lan[i]) {
           return lan[0];
         }
@@ -55,5 +54,4 @@ export class FileUtils {
     }
     return 'plaintext';
   }
-
 }

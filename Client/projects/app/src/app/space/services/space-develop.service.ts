@@ -23,7 +23,8 @@ export class SpaceDevelopService {
   readonly unfoldXml$ = new BehaviorSubject<boolean>(false);
   readonly debugEvents = this.debugService.events$;
   readonly runnerEvents = this.runnerService.events$;
-  readonly output$ = new Subject<any>();
+  readonly outputOld$ = new Subject<any>();
+  readonly output$ = new Subject<Output>();
   readonly stringOutput = new Subject<string>();
   readonly showConsole$ = new Subject<void>();
   readonly closeEvent$ = new Subject<ProjectFile>();
@@ -109,8 +110,8 @@ export class SpaceDevelopService {
         this.sandboxOfLastRun?.destroy();
         const sandbox = new Sandbox();
         sandbox.output$.subscribe({
-          next: this.output$.next.bind(this.output$),
-          error: this.output$.error.bind(this.output$),
+          next: this.outputOld$.next.bind(this.outputOld$),
+          error: this.outputOld$.error.bind(this.outputOld$),
         });
         this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
         sandbox.run(this.targetFile$.getValue().code);
@@ -118,16 +119,16 @@ export class SpaceDevelopService {
       } else if (this.targetFile$.getValue().type == 'py') {
         const python = new Python();
         python.output$.subscribe({
-          next: this.output$.next.bind(this.output$),
-          error: this.output$.error.bind(this.output$),
+          next: this.outputOld$.next.bind(this.outputOld$),
+          error: this.outputOld$.error.bind(this.outputOld$),
         });
         this.stringOutput.next(this.targetFile$.getValue().path + ' 开始运行');
         await python.run(this.targetFile$.getValue().code);
         this.stringOutput.next(
           this.targetFile$.getValue().path +
-          ' 运行完成 用时' +
-          ((new Date().getTime() - python.startTime) / 1000).toFixed(2) +
-          's',
+            ' 运行完成 用时' +
+            ((new Date().getTime() - python.startTime) / 1000).toFixed(2) +
+            's',
         );
       }
     } else if (this.runMode$.getValue() == SpaceRunMode.Device) {
@@ -243,7 +244,7 @@ export class SpaceDevelopService {
       } else if (event.type == 'run_error') {
         this.stringOutput.next('[Origin]/Error:  ' + event.msg);
       } else if (event.type == 'output') {
-        this.stringOutput.next('NO-TIME '+event.msg);
+        this.stringOutput.next('NO-TIME ' + event.msg);
       }
     });
   }
@@ -259,4 +260,11 @@ export interface Notification {
   type: 'info' | 'success' | 'error' | 'warning' | 'remove';
   title?: string;
   content?: string;
+}
+
+export interface Output {
+  type: 'text' | 'img' | 'json';
+  time: Date;
+  content: string;
+  index?: number;
 }

@@ -76,7 +76,11 @@ export class SpaceRunnerService {
           this.events$.next({ type: 'run_error', msg: '任务不存在', time: -1 });
           break;
         } else {
-          this.events$.next({ type: 'run_error', msg: '网络连接错误', time: -1 });
+          this.events$.next({
+            type: 'run_error',
+            msg: '网络连接错误',
+            time: -1,
+          });
           break;
         }
       }

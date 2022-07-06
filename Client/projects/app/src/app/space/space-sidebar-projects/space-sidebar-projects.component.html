@@ -1,16 +1,28 @@
 <app-space-sidebar-layout class="layout hr-ant">
   <app-icon-button
     action
-    [nz-tooltip]="(showSearchBox?'隐藏':'显示')+'搜索框'"
+    [nz-tooltip]="(showSearchBox ? '隐藏' : '显示') + '搜索框'"
     nzTooltipPlacement="bottom"
     (click)="showSearchBox = !showSearchBox"
   >
     search
   </app-icon-button>
   <div class="main">
-    <div class="search-holder" [ngStyle]="{display: showSearchBox?'block':'none'}">
-      <nz-input-group class="search" [nzSuffix]="suffixIconSearch" nzSize="small">
-        <input type="text" nz-input placeholder="Search" [(ngModel)]="searchValue" />
+    <div
+      class="search-holder"
+      [ngStyle]="{ display: showSearchBox ? 'block' : 'none' }"
+    >
+      <nz-input-group
+        class="search"
+        [nzSuffix]="suffixIconSearch"
+        nzSize="small"
+      >
+        <input
+          type="text"
+          nz-input
+          placeholder="Search"
+          [(ngModel)]="searchValue"
+        />
       </nz-input-group>
       <ng-template #suffixIconSearch>
         <i nz-icon nzType="search"></i>
@@ -63,51 +75,94 @@
             <ul nz-menu *ngIf="!origin.isLeaf">
               <li nz-submenu nzTitle="新建">
                 <ul>
-                  <li nz-menu-item (click)="onNew(NewFileType.Folder,node)">文件夹</li>
-                  <li nz-menu-item (click)="onNew(NewFileType.File,node)">文件</li>
-                  <li nz-menu-item (click)="onNew(NewFileType.BlockLogic,node)">JavaScript图形文件</li>
-                  <li nz-menu-item (click)="onNew(NewFileType.JavaScript,node)">JavaScript文件</li>
-                  <li nz-menu-item (click)="onNew(NewFileType.PythonDl,node)">Python图形文件</li>
-                  <li nz-menu-item (click)="onNew(NewFileType.Python,node)">Python文件</li>
+                  <li nz-menu-item (click)="onNew(NewFileType.Folder, node)">
+                    文件夹
+                  </li>
+                  <li nz-menu-item (click)="onNew(NewFileType.File, node)">
+                    文件
+                  </li>
+                  <li
+                    nz-menu-item
+                    (click)="onNew(NewFileType.BlockLogic, node)"
+                  >
+                    JavaScript图形文件
+                  </li>
+                  <li
+                    nz-menu-item
+                    (click)="onNew(NewFileType.JavaScript, node)"
+                  >
+                    JavaScript文件
+                  </li>
+                  <li nz-menu-item (click)="onNew(NewFileType.PythonDl, node)">
+                    Python图形文件
+                  </li>
+                  <li nz-menu-item (click)="onNew(NewFileType.Python, node)">
+                    Python文件
+                  </li>
                 </ul>
               </li>
               <li nz-menu-item (click)="onRename(node)">重命名</li>
-              <li nz-menu-item (click)="onDelete(node)" *ngIf="!origin.isRoot">删除文件夹</li>
+              <li nz-menu-item (click)="onDelete(node)" *ngIf="!origin.isRoot">
+                删除文件夹
+              </li>
               <li nz-menu-divider></li>
               <li nz-menu-item (click)="onCopyName(origin)">复制文件夹名</li>
               <li nz-menu-item (click)="onCopyPath(origin)">复制路径</li>
             </ul>
-            </nz-dropdown-menu>
-            <nz-modal
-              [(nzVisible)]="renameModalVisible"
-              nzTitle="请输入新名称"
-              (nzOnOk)="onRenameOk()"
-              (nzOnCancel)="renameModalVisible=false"
-              [nzOkDisabled]="existsList.includes(renameValue.trim())||!checkName(renameValue)"
-            >
-              <ng-container *nzModalContent>
-                <input nz-input (keydown)="$event.keyCode==13?onRenameOk():null" placeholder="新名称" spellcheck="false" [(ngModel)]="renameValue" />
-                <p class="modal-tip" *ngIf="existsList.includes(renameValue.trim())">有重名文件，不可修改。</p>
-              </ng-container>
-            </nz-modal>
-            <nz-modal
-              [(nzVisible)]="deleteModalVisible"
-              [nzTitle]="deleteTitle"
-              (nzOnOk)="onDeleteOk()"
-              (nzOnCancel)="deleteModalVisible=false"
-            ></nz-modal>
-            <nz-modal
-               [(nzVisible)]="newModalVisible"
-               nzTitle="请输入名称"
-               (nzOnOk)="onNewOk()"
-               (nzOnCancel)="newModalVisible=false"
-               [nzOkDisabled]="existsList.includes(newValue.trim())||!checkName(newValue)"
-            >
-              <ng-container *nzModalContent>
-                <input nz-input (keydown)="$event.keyCode==13?onNewOk():null" placeholder="名称" spellcheck="false" [(ngModel)]="newValue" />
-                <p class="modal-tip" *ngIf="existsList.includes(newValue.trim())">该文件名已存在。</p>
-              </ng-container>
-            </nz-modal>
+          </nz-dropdown-menu>
+          <nz-modal
+            [(nzVisible)]="renameModalVisible"
+            nzTitle="请输入新名称"
+            (nzOnOk)="onRenameOk()"
+            (nzOnCancel)="renameModalVisible = false"
+            [nzOkDisabled]="
+              existsList.includes(renameValue.trim()) || !checkName(renameValue)
+            "
+          >
+            <ng-container *nzModalContent>
+              <input
+                nz-input
+                (keydown)="$event.keyCode == 13 ? onRenameOk() : null"
+                placeholder="新名称"
+                spellcheck="false"
+                [(ngModel)]="renameValue"
+              />
+              <p
+                class="modal-tip"
+                *ngIf="existsList.includes(renameValue.trim())"
+              >
+                有重名文件，不可修改。
+              </p>
+            </ng-container>
+          </nz-modal>
+          <nz-modal
+            [(nzVisible)]="deleteModalVisible"
+            [nzTitle]="deleteTitle"
+            (nzOnOk)="onDeleteOk()"
+            (nzOnCancel)="deleteModalVisible = false"
+          ></nz-modal>
+          <nz-modal
+            [(nzVisible)]="newModalVisible"
+            nzTitle="请输入名称"
+            (nzOnOk)="onNewOk()"
+            (nzOnCancel)="newModalVisible = false"
+            [nzOkDisabled]="
+              existsList.includes(newValue.trim()) || !checkName(newValue)
+            "
+          >
+            <ng-container *nzModalContent>
+              <input
+                nz-input
+                (keydown)="$event.keyCode == 13 ? onNewOk() : null"
+                placeholder="名称"
+                spellcheck="false"
+                [(ngModel)]="newValue"
+              />
+              <p class="modal-tip" *ngIf="existsList.includes(newValue.trim())">
+                该文件名已存在。
+              </p>
+            </ng-container>
+          </nz-modal>
         </span>
       </ng-template>
     </nz-tree>

@@ -10,9 +10,9 @@ JavaScript['widget_do_text'] = function (block: {
   const code =
     dropdown_attr +
     dropdown_way +
-    '(\'' +
+    "('" +
     text_value +
-    '\').findOne().' +
+    "').findOne()." +
     dropdown_meth +
     '();\n';
   return code;
@@ -33,9 +33,9 @@ JavaScript['widget_do_input'] = function (block: {
   const code =
     dropdown_attr +
     dropdown_way +
-    '(\'' +
+    "('" +
     text_value +
-    '\').findOne().setText(' +
+    "').findOne().setText(" +
     input +
     ');\n';
   return code;

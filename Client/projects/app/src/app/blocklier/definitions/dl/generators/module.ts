@@ -54,6 +54,6 @@ Python['modules_sequential'] = function (block: any) {
     elements[i] =
       Python.valueToCode(block, 'ADD' + i, Python.ORDER_NONE) || 'None';
   }
-  let code = elements.join(',\n')+'\n';
+  let code = elements.join(',\n') + '\n';
   return code;
 };

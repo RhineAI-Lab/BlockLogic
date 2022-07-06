@@ -31,7 +31,7 @@ Blockly.defineBlocksWithJsonArray([
           ['正则匹配', 'Matches'],
         ],
       },
-      { type: 'field_input', name: 'VALUE'},
+      { type: 'field_input', name: 'VALUE' },
       {
         type: 'field_dropdown',
         name: 'METH',
@@ -86,7 +86,7 @@ Blockly.defineBlocksWithJsonArray([
           ['正则匹配', 'Matches'],
         ],
       },
-      { type: 'field_input', name: 'VALUE'},
+      { type: 'field_input', name: 'VALUE' },
       { type: 'input_value', name: 'INPUT', check: 'String' },
     ],
     previousStatement: null,

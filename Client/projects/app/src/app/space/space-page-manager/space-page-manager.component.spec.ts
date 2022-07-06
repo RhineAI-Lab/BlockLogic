@@ -8,9 +8,8 @@ describe('SpacePageManagerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpacePageManagerComponent ]
-    })
-    .compileComponents();
+      declarations: [SpacePageManagerComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

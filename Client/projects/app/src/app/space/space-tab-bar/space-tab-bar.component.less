@@ -1,13 +1,13 @@
 @tab-height: 31px;
 
-@import "mixin";
+@import 'mixin';
 .themeMixin({
   :host {
     .layout {
       height: @tab-height;
       position: relative;
       background: @background-light;
-      transition: background-color .4s ease;
+      transition: background-color 0.4s ease;
       padding-right: 6px;
 
       .bottom-line {
@@ -17,7 +17,7 @@
         right: 0;
         height: 1px;
         background: @divider-base;
-        transition: background-color .4s ease;
+        transition: background-color 0.4s ease;
       }
 
       .main {
@@ -36,7 +36,7 @@
             white-space: nowrap;
             padding: 2px 7px;
             margin-bottom: 1px;
-            transition: background-color .15s ease, color .15s ease;
+            transition: background-color 0.15s ease, color 0.15s ease;
 
             i {
               display: inline-block;
@@ -81,7 +81,7 @@
           }
 
           .tab-selected:before {
-            content: "";
+            content: '';
             display: inline-block;
             background: @primary-color;
             width: 100%;

@@ -58,7 +58,7 @@ import { SpaceCenterComponent } from './space-center/space-center.component';
 import { SpaceCodeEditorComponent } from './space-code-editor/space-code-editor.component';
 import { SpaceHeaderComponent } from './space-header/space-header.component';
 import { SpaceRoutingModule } from './space-routing.module';
-import { SpaceSidebarConsoleComponent } from './space-sidebar-console/space-sidebar-console.component';
+import { SpaceSidebarConsoleOldComponent } from './space-sidebar-console-old/space-sidebar-console-old.component';
 import { SpaceSidebarManagerComponent } from './space-sidebar-manager/space-sidebar-manager.component';
 import { SpaceSidebarProjectsComponent } from './space-sidebar-projects/space-sidebar-projects.component';
 import { SpaceSidebarTerminalComponent } from './space-sidebar-terminal/space-sidebar-terminal.component';
@@ -126,7 +126,7 @@ const monacoConfig: NgxMonacoEditorConfig = {
     SpaceStatusBarComponent,
     SpaceToolBarComponent,
     SpaceTabBarComponent,
-    SpaceSidebarConsoleComponent,
+    SpaceSidebarConsoleOldComponent,
     SpaceSidebarLayoutComponent,
     SpaceSidebarTerminalComponent,
     SpaceSidebarUiNewComponent,

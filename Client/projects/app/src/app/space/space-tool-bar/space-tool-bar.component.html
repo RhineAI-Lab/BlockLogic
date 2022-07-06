@@ -1,15 +1,19 @@
 <div class="layout hr-ant" fxLayout>
-  <label nz-checkbox *ngIf="isBlockFile"
+  <label
+    nz-checkbox
+    *ngIf="isBlockFile"
     [(ngModel)]="holdBox"
     (ngModelChange)="onChangeHoldBox()"
-  >保持栏目</label>
+    >保持栏目</label
+  >
   <app-icon-button
     class="moreSetting"
     nz-dropdown
     [nzDropdownMenu]="moreSettingMenu"
     [nzClickHide]="false"
     nzPlacement="bottomCenter"
-  >icon-set</app-icon-button>
+    >icon-set</app-icon-button
+  >
   <nz-dropdown-menu #moreSettingMenu="nzDropdownMenu">
     <ul nz-menu>
       <li nz-menu-item>
@@ -17,14 +21,16 @@
           nz-checkbox
           [(ngModel)]="unfoldXml"
           (ngModelChange)="onChangeUnfoldXml()"
-        >展开XML</label>
+          >展开XML</label
+        >
       </li>
       <li nz-menu-item *ngIf="isBlockFile">
         <label
           nz-checkbox
           [(ngModel)]="syncCode"
           (ngModelChange)="onChangeSyncCode()"
-        >同步代码</label>
+          >同步代码</label
+        >
       </li>
     </ul>
   </nz-dropdown-menu>
@@ -52,10 +58,14 @@
     nzSize="small"
     [hidden]="isEditorLogicMode"
   >
-    <nz-option *ngFor="let xml of xmlList" [nzValue]="xml" [nzLabel]="xml.tip"></nz-option>
+    <nz-option
+      *ngFor="let xml of xmlList"
+      [nzValue]="xml"
+      [nzLabel]="xml.tip"
+    ></nz-option>
   </nz-select>
   <app-icon-button
-    [color]="this.state.isLight?'#666666':'#bbbbbb'"
+    [color]="this.state.isLight ? '#666666' : '#bbbbbb'"
     nz-tooltip="刷新XML列表"
     nzTooltipPlacement="bottom"
     (click)="freshXmlList()"
@@ -63,7 +73,9 @@
   >
     icon-refresh
   </app-icon-button>
-  <app-toolbar-divider [hidden]="!isBlockFile || !isEditorLogicMode"></app-toolbar-divider>
+  <app-toolbar-divider
+    [hidden]="!isBlockFile || !isEditorLogicMode"
+  ></app-toolbar-divider>
   <span class="tip" [hidden]="!isBlockFile || !isEditorLogicMode">生成: </span>
   <nz-button-group nzSize="small" [hidden]="!isBlockFile || !isEditorLogicMode">
     <button nz-button (click)="onToCode()">
@@ -83,7 +95,8 @@
     nzTooltipPlacement="bottom"
     (click)="changeTheme(false)"
     [hidden]="!brightTheme"
-  >icon-nightmode-fill</app-icon-button>
+    >icon-nightmode-fill</app-icon-button
+  >
   <app-icon-button
     color="#5A76D4"
     [size]="18"
@@ -91,13 +104,15 @@
     nzTooltipPlacement="bottom"
     (click)="changeTheme(true)"
     [hidden]="brightTheme"
-  >icon-Daytimemode-fill</app-icon-button>
+    >icon-Daytimemode-fill</app-icon-button
+  >
   <app-icon-button
     color="#5A76D4"
     nz-tooltip="分享"
     nzTooltipPlacement="bottom"
     (click)="onShare()"
-  >icon-share</app-icon-button>
+    >icon-share</app-icon-button
+  >
   <div class="middle-space" fxFlex="grow"></div>
   <nz-input-group
     class="deviceIpInput"
@@ -166,7 +181,7 @@
   <nz-button-group nzSize="small">
     <button
       nz-button
-      (click)="modalVisible=true"
+      (click)="modalVisible = true"
       nz-tooltip="打开项目"
       nzTooltipPlacement="bottom"
       #openProjectBtn

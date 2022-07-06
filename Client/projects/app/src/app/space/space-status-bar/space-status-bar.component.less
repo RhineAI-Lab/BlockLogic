@@ -1,12 +1,12 @@
 @layout-height: 22px;
 
-@import "mixin";
+@import 'mixin';
 .themeMixin({
   :host {
     .layout {
       height: @layout-height;
       background: @background-light;
-      transition: background-color .4s ease;
+      transition: background-color 0.4s ease;
       padding: 0 8px;
 
       span {
@@ -14,9 +14,8 @@
         line-height: @layout-height;
         font-size: 12px;
         color: @color-base;
-        transition: color .4s ease;
+        transition: color 0.4s ease;
       }
     }
   }
 });
-

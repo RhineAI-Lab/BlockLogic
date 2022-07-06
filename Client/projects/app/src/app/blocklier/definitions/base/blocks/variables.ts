@@ -188,7 +188,6 @@ Blockly.defineBlocksWithJsonArray([
   },
 ]);
 
-
 const VARIABLES_SPLIT_MUTATOR_MIXIN = {
   mutationToDom: function (this: any) {
     const container = Blockly.utils.xml.createElement('mutation');
@@ -261,10 +260,10 @@ const VARIABLES_SPLIT_MUTATOR_MIXIN = {
     for (i = 0; i < this.itemCount_; i++) {
       if (!this.getInput('ADD' + i)) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const input = this.appendValueInput('ADD' + i)
+        const input = this.appendValueInput('ADD' + i);
         if (i == 0) {
           input.appendField('拆分变量');
-          input.appendField(new Blockly.FieldVariable("a"), "VAR");
+          input.appendField(new Blockly.FieldVariable('a'), 'VAR');
           input.appendField('至');
         }
       }

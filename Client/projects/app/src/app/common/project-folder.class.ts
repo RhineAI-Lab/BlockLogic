@@ -1,6 +1,4 @@
-
 export class ProjectFolder {
-
   path: string;
   name: string;
   handle?: FileSystemDirectoryHandle;
@@ -21,6 +19,4 @@ export class ProjectFolder {
     const ps = this.path.split('/');
     this.name = ps[ps.length - 1];
   }
-
 }
-

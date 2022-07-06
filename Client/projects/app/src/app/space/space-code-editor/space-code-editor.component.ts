@@ -16,7 +16,7 @@ export class SpaceCodeEditorComponent implements OnInit {
 
   editor!: monaco.editor.IStandaloneCodeEditor;
 
-  editorOptions!: monaco.editor.IStandaloneEditorConstructionOptions
+  editorOptions!: monaco.editor.IStandaloneEditorConstructionOptions;
 
   oneDarkLoaded = true;
   monaco: any = null;
@@ -49,7 +49,6 @@ export class SpaceCodeEditorComponent implements OnInit {
         horizontalScrollbarSize: 10,
       },
     };
-
   }
 
   onInit(editor: monaco.editor.IStandaloneCodeEditor) {

@@ -8,3 +8,5 @@ Client/projects/app/src/assets/example/dl/csl/csl_title_predict.json
 Client/projects/app/src/assets/example/dl/csl/csl_title_dev.json
 .idea/BlockLogic.iml
 .idea/modules.xml
+Client/.eslintrc.js
+Client/package-lock.json

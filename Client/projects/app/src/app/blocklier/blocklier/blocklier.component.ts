@@ -148,7 +148,7 @@ export class BlocklierComponent implements OnInit, AfterViewInit {
       const children = this.resolveToolboxCategories($host, depth + 1);
       if (children.length) $row.click(); // expand the child categories.
       const name = $label.innerHTML;
-      let color = BlocklierTheme.colorsMap.get(name)
+      let color = BlocklierTheme.colorsMap.get(name);
       color = color ? themeColor(color) : '#aaaaaa';
       let open = i == 0;
       results.push({ name, depth, $host, $row, children, color, open });
