@@ -265,6 +265,9 @@ export interface Notification {
 export interface Output {
   type: 'text' | 'img' | 'json';
   time: Date;
+  from:string;
   content: string;
   index?: number;
+  tips?: string;
+  data?: any;
 }

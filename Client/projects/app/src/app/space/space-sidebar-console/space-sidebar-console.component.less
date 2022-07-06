@@ -1,0 +1,31 @@
+@import 'mixin';
+.themeMixin({
+  :host {
+    .layout {
+      .main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+
+        .line{
+          padding: 2px 20px;
+          word-break: break-all;
+          color: @color-base;
+          white-space: pre;
+          transition: color 0.15s ease, background-color 0.15s ease;
+        }
+        .line:hover{
+          background: @background-console-hover;
+        }
+
+        .line-divider{
+          height: 1px;
+          background: @divider-not-obvious;
+        }
+      }
+    }
+  }
+});

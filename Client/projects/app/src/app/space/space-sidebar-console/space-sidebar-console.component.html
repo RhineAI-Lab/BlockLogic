@@ -1,0 +1,32 @@
+<app-space-sidebar-layout class="layout">
+    <app-icon-button
+            action
+            nz-tooltip="清屏"
+            nzTooltipPlacement="bottom"
+            (click)="lines = []"
+    >
+        clear
+    </app-icon-button>
+    <div class="main">
+        <div class="inner">
+            <div *ngFor="let line of lines">
+                <div
+                        class="line"
+                        [nz-tooltip]="line.time.toDateString()"
+                        [nzTooltipMouseEnterDelay]="0.1"
+                        [nzTooltipMouseLeaveDelay]="0.1"
+                        nzTooltipPlacement="left"
+                >
+                    <div *ngIf="line.type=='text'" class="text">{{ line.content }}</div>
+                    <div *ngIf="line.type=='json'" class="json">
+
+                    </div>
+                    <div *ngIf="line.type=='img'" class="img">
+
+                    </div>
+                </div>
+                <div class="line-divider"></div>
+            </div>
+        </div>
+    </div>
+</app-space-sidebar-layout>

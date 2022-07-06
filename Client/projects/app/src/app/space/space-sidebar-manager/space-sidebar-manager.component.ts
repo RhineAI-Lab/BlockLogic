@@ -10,6 +10,7 @@ import { SpaceSidebarUiNewComponent } from '../space-sidebar-ui-new/space-sideba
 import { SpaceSidebarUiStructureComponent } from '../space-sidebar-ui-structure/space-sidebar-ui-structure.component';
 import { SpaceSidebarUiTreeComponent } from '../space-sidebar-ui-tree/space-sidebar-ui-tree.component';
 import { SpaceSidebarUiAttributeComponent } from '../space-sidebar-ui-attribute/space-sidebar-ui-attribute.component';
+import {SpaceSidebarConsoleComponent} from "../space-sidebar-console/space-sidebar-console.component";
 
 @Component({
   selector: 'app-space-sidebar-manager',
@@ -37,9 +38,20 @@ export class SpaceSidebarManagerComponent implements OnInit, AfterViewInit {
       showTab: true,
     }),
     this.use({
-      name: '控制台',
+      name: '控制台 旧',
       icon: 'code',
       component: SpaceSidebarConsoleOldComponent,
+      tooltip: '程序输出控制台',
+      position: 'right-top',
+      width: 380,
+      minWidth: 220,
+      isOpen: false,
+      showTab: true,
+    }),
+    this.use({
+      name: '控制台',
+      icon: 'code',
+      component: SpaceSidebarConsoleComponent,
       tooltip: '程序输出控制台',
       position: 'right-top',
       width: 380,
