@@ -93,7 +93,7 @@
   },
   "dependencies": {
     "js-lexer": "^0.1.2",
-    "jsdom": "15.2.1",
+    "jsdom": "16.5.0",
     "websocket": "^1.0.34",
     "ws": "^7.4.6"
   }
