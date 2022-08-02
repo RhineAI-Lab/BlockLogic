@@ -7,3 +7,4 @@ import './data.blocks';
 import './opencv.blocks';
 import './tensor.blocks';
 import './file.blocks';
+import './bdai.blocks';

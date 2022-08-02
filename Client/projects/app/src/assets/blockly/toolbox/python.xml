@@ -568,6 +568,7 @@
                     </block>
                 </value>
             </block>
+            <block type="cv2_cap_get"></block>
             <block type="cv2_imwrite">
                 <value name="A0">
                     <block type="variables_get">
@@ -603,6 +604,48 @@
             </block>
         </category>
         <category name="图表"></category>
+    </category>
+
+    <category name="云服务">
+        <category name="百度AI">
+            <label text="初始化" web-class="classLabel"></label>
+            <block type="bdai_set_aas">
+                <value name="A0">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="A1">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+                <value name="A2">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <label text="人脸信息检测" web-class="classLabel"></label>
+            <block type="bdai_face_detect"></block>
+            <block type="bdai_face_detect_num"></block>
+            <block type="bdai_face_detect_detail"></block>
+            <label text="人脸库识别" web-class="classLabel"></label>
+            <block type="bdai_face_search">
+                <value name="A1">
+                    <shadow type="text">
+                        <field name="TEXT"></field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="bdai_face_search_success"></block>
+            <block type="bdai_face_search_detail"></block>
+            <label text="人体关键点识别" web-class="classLabel"></label>
+            <label text="通用场景识别" web-class="classLabel"></label>
+        </category>
+        <category name="阿里云">
+
+        </category>
     </category>
 
     <category name="深度学习">

@@ -29,6 +29,9 @@ numpy 3abcd3 Numpy
 time 38b793 时间
 opencv 52c5e8 图像读写 图像处理
 
+bdai 0eaf9e 百度AI
+aliai 0eaf9e 阿里云
+
 console 0eaf9e 控制台
 device 3264e1 设备
 device_msg 698a8a 设备信息

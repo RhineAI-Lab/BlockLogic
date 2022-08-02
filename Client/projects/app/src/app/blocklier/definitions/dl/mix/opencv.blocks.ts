@@ -4,6 +4,13 @@ defineBlocksWithDt(`
 prefix: cv2
 style: opencv_blocks
 
+cap_get: Numpy
+获取摄像头图像
+Python
+import: import cv2
+import: cap = cv2.VideoCapture(0)
+cap.read()
+
 imread: Numpy
 读取图像{str}[忽略透明度: cv.IMREAD_COLOR/忽略色彩: cv.IMREAD_GRAYSCALE/原图无损: cv.IMREAD_UNCHANGED]
 inline: 1
