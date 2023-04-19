@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0911d377-9c6b-4c4a-8b49-4079261c1742" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Client/projects/app/src/logo-full.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Server/src/main/resources/static/media/logo-full.ico" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/Server/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/projects/app/src/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/projects/app/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Client/projects/app/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/space.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/space.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/docs/docs.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/docs/docs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/home/example.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/home/example.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +27,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2CmZdvSdNBY6M53UxmKkLI9Rw1y" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -29,16 +39,24 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/21257/Documents/GitHub/sit-yohe-web",
+    "last_opened_file_path": "C:/Projects/BlockLogic/Client/projects/app/src",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\BlockLogic\Client\projects\app\src" />
+      <recent name="C:\Projects\BlockLogic\Server\src\main\resources\static\media" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -50,6 +68,8 @@
       <workItem from="1659409816704" duration="24000" />
       <workItem from="1676599410910" duration="756000" />
       <workItem from="1676602094808" duration="22000" />
+      <workItem from="1681914586590" duration="830000" />
+      <workItem from="1681926275040" duration="372000" />
     </task>
     <servers />
   </component>
