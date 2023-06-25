@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0911d377-9c6b-4c4a-8b49-4079261c1742" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Client/projects/app/src/logo-full.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Server/src/main/resources/static/media/logo-full.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/projects/app/src/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/projects/app/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Client/projects/app/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/space.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/space.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/docs/docs.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/docs/docs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/home/example.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/home/example.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="0911d377-9c6b-4c4a-8b49-4079261c1742" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +29,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Projects/BlockLogic/Client/projects/app/src",
+    "last_opened_file_path": "C:/Projects/BlockLogic/Server",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -69,7 +59,7 @@
       <workItem from="1676599410910" duration="756000" />
       <workItem from="1676602094808" duration="22000" />
       <workItem from="1681914586590" duration="830000" />
-      <workItem from="1681926275040" duration="372000" />
+      <workItem from="1681926275040" duration="582000" />
     </task>
     <servers />
   </component>
