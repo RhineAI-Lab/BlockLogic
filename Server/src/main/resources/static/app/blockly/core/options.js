@@ -391,7 +391,7 @@ Blockly.Options.parseToolboxTree = function(toolboxDef) {
   Blockly.utils.deprecation.warn(
       'Blockly.Options.parseToolboxTree',
       'September 2020',
-      'September 2021',
+      'September 2024',
       'Blockly.utils.toolbox.parseToolboxTree');
   return Blockly.utils.toolbox.parseToolboxTree(toolboxDef);
 };

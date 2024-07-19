@@ -264,7 +264,7 @@ Blockly.BlockSvg.prototype.getColourShadow = function() {
   Blockly.utils.deprecation.warn(
       'BlockSvg.prototype.getColourShadow',
       'January 2020',
-      'January 2021',
+      'January 2024',
       'style.colourSecondary');
   return this.getColourSecondary();
 };
@@ -282,7 +282,7 @@ Blockly.BlockSvg.prototype.getColourBorder = function() {
   Blockly.utils.deprecation.warn(
       'BlockSvg.prototype.getColourBorder',
       'January 2020',
-      'January 2021',
+      'January 2024',
       'style.colourTertiary');
   var colourTertiary = this.getColourTertiary();
   return {

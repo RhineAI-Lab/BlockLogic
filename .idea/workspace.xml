@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0911d377-9c6b-4c4a-8b49-4079261c1742" name="Changes" comment="" />
+    <list default="true" id="0911d377-9c6b-4c4a-8b49-4079261c1742" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/block_svg.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/block_svg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/blockly.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/blockly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/browser_events.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/browser_events.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/connection_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/connection_types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/input_types.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/input_types.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_metrics_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_metrics_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_plugin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_positionable.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_positionable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_workspace_plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/interfaces/i_workspace_plugin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/metrics_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/metrics_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/options.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/options.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/plugin_manager.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/plugin_manager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/rendered_connection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/core/rendered_connection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/demos/mobile/ios/Blockly WebView.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/app/blockly/demos/mobile/ios/Blockly WebView.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/resources/static/home/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +33,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
   <component name="ProjectId" id="2CmZdvSdNBY6M53UxmKkLI9Rw1y" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -29,7 +49,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Projects/BlockLogic/Server",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Projects/BlockLogic",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -47,6 +68,13 @@
       <recent name="C:\Projects\BlockLogic\Server\src\main\resources\static\media" />
     </key>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-WS-241.15989.105" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -60,6 +88,7 @@
       <workItem from="1676602094808" duration="22000" />
       <workItem from="1681914586590" duration="830000" />
       <workItem from="1681926275040" duration="582000" />
+      <workItem from="1717321837083" duration="604000" />
     </task>
     <servers />
   </component>

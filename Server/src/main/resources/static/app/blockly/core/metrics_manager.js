@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2021 Google LLC
+ * Copyright 2024 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -511,7 +511,7 @@ Blockly.FlyoutMetricsManager.prototype.getBoundingBox_ = function() {
     var blockBoundingBox = this.workspace_.getCanvas().getBBox();
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
-    // 2021 Update: It looks like this was fixed around Firefox 77 released in
+    // 2024 Update: It looks like this was fixed around Firefox 77 released in
     // 2020.
     var blockBoundingBox = {height: 0, y: 0, width: 0, x: 0};
   }

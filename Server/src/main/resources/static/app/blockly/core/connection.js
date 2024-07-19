@@ -256,14 +256,14 @@ Blockly.Connection.prototype.isConnected = function() {
  * @param {Blockly.Connection} target Connection to check compatibility with.
  * @return {number} Blockly.Connection.CAN_CONNECT if the connection is legal,
  *    an error code otherwise.
- * @deprecated July 2020. Will be deleted July 2021. Use the workspace's
+ * @deprecated July 2020. Will be deleted July 2024. Use the workspace's
  *     connectionChecker instead.
  */
 Blockly.Connection.prototype.canConnectWithReason = function(target) {
   Blockly.utils.deprecation.warn(
       'Connection.prototype.canConnectWithReason',
       'July 2020',
-      'July 2021',
+      'July 2024',
       'the workspace\'s connection checker');
   return this.getConnectionChecker().canConnectWithReason(
       this, target, false);
@@ -275,14 +275,14 @@ Blockly.Connection.prototype.canConnectWithReason = function(target) {
  * @param {Blockly.Connection} target The connection to check compatibility
  *    with.
  * @package
- * @deprecated July 2020. Will be deleted July 2021. Use the workspace's
+ * @deprecated July 2020. Will be deleted July 2024. Use the workspace's
  *     connectionChecker instead.
  */
 Blockly.Connection.prototype.checkConnection = function(target) {
   Blockly.utils.deprecation.warn(
       'Connection.prototype.checkConnection',
       'July 2020',
-      'July 2021',
+      'July 2024',
       'the workspace\'s connection checker');
   var checker = this.getConnectionChecker();
   var reason = checker.canConnectWithReason(this, target, false);
@@ -305,14 +305,14 @@ Blockly.Connection.prototype.getConnectionChecker = function() {
  * Check if the two connections can be dragged to connect to each other.
  * @param {!Blockly.Connection} candidate A nearby connection to check.
  * @return {boolean} True if the connection is allowed, false otherwise.
- * @deprecated July 2020. Will be deleted July 2021. Use the workspace's
+ * @deprecated July 2020. Will be deleted July 2024. Use the workspace's
  *     connectionChecker instead.
  */
 Blockly.Connection.prototype.isConnectionAllowed = function(candidate) {
   Blockly.utils.deprecation.warn(
       'Connection.prototype.isConnectionAllowed',
       'July 2020',
-      'July 2021',
+      'July 2024',
       'the workspace\'s connection checker');
   return this.getConnectionChecker().canConnect(this, candidate, true);
 };
@@ -519,14 +519,14 @@ Blockly.Connection.prototype.targetBlock = function() {
  * value type system.  E.g. square_root("Hello") is not compatible.
  * @param {!Blockly.Connection} otherConnection Connection to compare against.
  * @return {boolean} True if the connections share a type.
- * @deprecated July 2020. Will be deleted July 2021. Use the workspace's
+ * @deprecated July 2020. Will be deleted July 2024. Use the workspace's
  *     connectionChecker instead.
  */
 Blockly.Connection.prototype.checkType = function(otherConnection) {
   Blockly.utils.deprecation.warn(
       'Connection.prototype.checkType',
       'October 2019',
-      'January 2021',
+      'January 2024',
       'the workspace\'s connection checker');
   return this.getConnectionChecker().canConnect(this, otherConnection,
       false);
@@ -538,7 +538,7 @@ Blockly.Connection.prototype.checkType = function(otherConnection) {
  * @param {!Blockly.Connection} otherConnection Connection to compare against.
  * @return {boolean} True if the connections share a type.
  * @private
- * @deprecated October 2019. Will be deleted January 2021. Use the workspace's
+ * @deprecated October 2019. Will be deleted January 2024. Use the workspace's
  *     connectionChecker instead.
  * @suppress {unusedPrivateMembers}
  */
@@ -546,7 +546,7 @@ Blockly.Connection.prototype.checkType_ = function(otherConnection) {
   Blockly.utils.deprecation.warn(
       'Connection.prototype.checkType_',
       'October 2019',
-      'January 2021',
+      'January 2024',
       'the workspace\'s connection checker');
   return this.checkType(otherConnection);
 };
